@@ -7,17 +7,29 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 public class MainLayoutController {
 
     // Riferimento all'area centrale del BorderPane
     @FXML
-    private StackPane contentArea;
+    private StackPane centerPane;
+
+    @FXML
+    private VBox sideBar;
 
     // Metodo che viene chiamato appena il layout è caricato
     @FXML
     public void initialize() {
+
+        if (centerPane == null) {
+            System.err.println("❌ ERRORE GRAVE: 'centerPane' è NULL!");
+            System.err.println("Verifica in MainLayout.fxml di aver scritto: <StackPane fx:id=\"centerPane\" ...>");
+            return; // Esco per evitare il crash
+        }
+
         // Appena apro l'app, carico subito la Home
         loadPage("/com/example/progettoispw/GUI/Home.fxml");
     }
@@ -88,10 +100,22 @@ public class MainLayoutController {
             Parent newView = loader.load();
 
             // 2. Pulisco l'area centrale
-            contentArea.getChildren().clear();
+            centerPane.getChildren().clear();
 
             // 3. Aggiungo la nuova vista
-            contentArea.getChildren().add(newView);
+            centerPane.getChildren().add(newView);
+
+            // --- TRUCCO PER NASCONDERE LA NAVBAR ---
+
+            if (fxmlPath.equals("/com/example/progettoispw/GUI/Home.fxml")) {
+                // SE È LA HOME: Nascondi la barra
+                sideBar.setVisible(false);
+                sideBar.setManaged(false); // Questo fa "collassare" lo spazio, così la Home si allarga
+            } else {
+                // SE È UN'ALTRA PAGINA: Mostra la barra
+                sideBar.setVisible(true);
+                sideBar.setManaged(true);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -17,20 +17,28 @@ public class HomeGraphicController {
         try {
             // 1. Carica la schermata Search.fxml
             // Assicurati che il percorso sia giusto!
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/MainLayout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/Search.fxml"));
             Parent searchView = loader.load();
 
-            // 2. Recupera il "Padre" di tutto (il MainLayout che contiene la NavBar)
-            // ((Node) event.getSource()) prende il bottone cliccato
-            // .getScene().getRoot() risale fino alla radice della finestra (che è il BorderPane)
-            BorderPane mainLayout = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
+            // 2. RECUPERA IL "PADRE" (Il MainLayout che è già aperto a video)
+            // Risaliamo dal bottone cliccato fino alla radice della finestra
+            Node source = (Node) event.getSource();
+            BorderPane mainLayout = (BorderPane) source.getScene().getRoot();
 
-            // 3. Recupera l'area centrale (che è uno StackPane, come abbiamo impostato nel MainLayout)
-            StackPane centerArea = (StackPane) mainLayout.getCenter();
+            // 3. SOSTITUISCI IL CENTRO
+            // Cerchiamo lo StackPane centrale che avevamo messo nel MainLayout
+            StackPane centerPane = (StackPane) mainLayout.getCenter();
 
-            // 4. Sostituisce il contenuto
-            centerArea.getChildren().clear();   // Toglie la Home
-            centerArea.getChildren().add(searchView); // Mette la Search
+            // Puliamo e mettiamo la nuova vista
+            centerPane.getChildren().clear();
+            centerPane.getChildren().add(searchView);
+
+            Node sideBar = mainLayout.getLeft();
+
+            if (sideBar != null) {
+                sideBar.setVisible(true);
+                sideBar.setManaged(true); // Gli restituisco lo spazio fisico
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

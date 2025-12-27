@@ -8,18 +8,6 @@
 
 <BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
-    <top>
-        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="15">
-            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
-            <Button styleClass="icon-button" text="←" />
-            <Button styleClass="icon-button" text="🏠" />
-            <Button styleClass="icon-button, active-nav" text="🔍" />
-            <Button styleClass="icon-button" text="✉" />
-            <Button styleClass="icon-button" text="🛒" />
-            <Region HBox.hgrow="ALWAYS" />
-            <Button styleClass="profile-button" text="👤" />
-        </HBox>
-    </top>
 
     <center>
         <VBox alignment="TOP_CENTER" spacing="30">
