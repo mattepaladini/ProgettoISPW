@@ -11,6 +11,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <sonar.organization>matteopaladini</sonar.organization>
 <junit.version>5.10.2</junit.version>  </properties>
 
   <dependencies>
