@@ -1,6 +1,7 @@
 module com.example.progettoispw {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens com.example.progettoispw to javafx.fxml;

@@ -22,10 +22,10 @@
                 <font><Font name="System Bold" size="18"/></font>
             </Label>
 
-            <Button text="Home / Dashboard" onAction="#showHome" maxWidth="Infinity" />
-            <Button text ="Cerca" onAction="#goToSearch" maxWidth="-Infinity" />
-            <Button text="Compra Carte" onAction="#showBuy" maxWidth="Infinity" />
-            <Button text="Vendi Carte" onAction="#showSell" maxWidth="Infinity" />
+            <Button fx:id="Homebtn" text="Home / Dashboard" onAction="#showHome" maxWidth="Infinity" />
+            <Button fx:id="Cercabtn" text ="Cerca" onAction="#goToSearch" maxWidth="-Infinity" />
+            <Button fx:id="Comprabtn" text="Compra Carte" onAction="#showBuy" maxWidth="Infinity" />
+            <Button fx:id ="Vendibtn" text="Vendi Carte" onAction="#showSell" maxWidth="Infinity" />
             <Button text="Il mio Profilo" onAction="#showProfile" maxWidth="Infinity" />
 
             <VBox VBox.vgrow="ALWAYS" />

@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class MainLayoutController {
@@ -19,6 +20,13 @@ public class MainLayoutController {
 
     @FXML
     private VBox sideBar;
+
+    // Mi servono per oscurare i bottoni relativi alla pagina in cui mi trovo
+    @FXML private Button btnHome;
+    @FXML private Button btnSearch;
+    @FXML private Button btnSell;
+    @FXML private Button btnProfile;
+
 
     // Metodo che viene chiamato appena il layout è caricato
     @FXML
@@ -115,6 +123,8 @@ public class MainLayoutController {
                 // SE È UN'ALTRA PAGINA: Mostra la barra
                 sideBar.setVisible(true);
                 sideBar.setManaged(true);
+
+                updateSidebarButtons(fxmlPath);
             }
 
         } catch (IOException e) {
@@ -122,5 +132,48 @@ public class MainLayoutController {
             System.err.println("Impossibile caricare la vista: " + fxmlPath);
         }
     }
+
+    /**
+     * Metodo che gestisce quale bottone nascondere
+     */
+    private void updateSidebarButtons(String currentPath) {
+        // 1. RESET: Prima rendiamo TUTTI i bottoni visibili
+        resetButton(btnHome);
+        resetButton(btnSearch);
+        resetButton(btnSell);
+        resetButton(btnProfile);
+
+        // 2. NASCONDI: Spegniamo solo quello della pagina corrente
+        switch (currentPath) {
+            case "/fxml/Search.fxml":
+                hideButton(btnSearch);
+                break;
+            case "/fxml/Sell.fxml":
+                hideButton(btnSell);
+                break;
+            case "/fxml/Profile.fxml":
+                hideButton(btnProfile);
+                break;
+            // Aggiungi altri casi se hai altre pagine
+        }
+    }
+
+    // Helper per mostrare un bottone
+    private void resetButton(Button btn) {
+        if (btn != null) {
+            btn.setVisible(true);
+            //btn.setManaged(true); // Occupa spazio
+        }
+    }
+
+    // Helper per nascondere un bottone
+    private void hideButton(Button btn) {
+        if (btn != null) {
+            btn.setVisible(false);
+            //btn.setManaged(false); // Collassa lo spazio (non lascia il buco vuoto)
+        }
+    }
+
+
 
 }

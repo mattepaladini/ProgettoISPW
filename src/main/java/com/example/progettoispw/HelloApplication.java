@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/MainLayout.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 800, 600);
 
         // 1. Carica il CSS Base (struttura)
         scene.getStylesheets().add(getClass().getResource("/com/example/progettoispw/GUI/style.css").toExternalForm());
