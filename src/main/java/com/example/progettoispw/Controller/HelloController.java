@@ -1,4 +1,4 @@
-package com.example.progettoispw;
+package com.example.progettoispw.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="30">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+            <HBox alignment="CENTER" spacing="10" maxWidth="600">
+                <TextField promptText="Cerca per nome..." styleClass="search-input" HBox.hgrow="ALWAYS"/>
+                <Button styleClass="search-button" text="🔍" />
+            </HBox>
+
+            <VBox styleClass="filter-container" maxWidth="500" spacing="20">
+                <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+
+                <GridPane hgap="20" vgap="25">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <CheckBox text="Prezzo" styleClass="filter-check" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
+                    <ComboBox promptText="Seleziona fascia" styleClass="modern-combo" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="&lt; 5 €" />
+                                <String fx:value="5 - 10 €" />
+                                <String fx:value="10 - 15 €" />
+                                <String fx:value="15 - 20 €" />
+                                <String fx:value="&gt; 20 €" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <CheckBox fx:id="checkLevel" text="Livello" styleClass="filter-check"
+                              GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+                    <Slider min="1" max="12" value="1"
+                            disable="checkLevel"
+                            majorTickUnit="1" minorTickCount="0"
+                            snapToTicks="true" showTickMarks="true" showTickLabels="true"
+                            styleClass="modern-slider"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <CheckBox text="Attributo" styleClass="filter-check" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField promptText="Es. Fuoco" styleClass="modern-input-small" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <CheckBox text="Tipo" styleClass="filter-check" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField promptText="Es. Drago" styleClass="modern-input-small" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
