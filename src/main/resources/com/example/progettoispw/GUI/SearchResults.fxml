@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.progettoispw.view.gui.controller.SearchResultsGraphicController"
+      spacing="20" style="-fx-padding: 30;">
+
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Risultati della Ricerca" textFill="#2c3e50">
+            <font><Font name="System Bold" size="24.0" /></font>
+        </Label>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+        <VBox fx:id="resultsContainer" spacing="15" style="-fx-background-color: #f4f6f6; -fx-padding: 10;" />
+    </ScrollPane>
+
+</VBox>
