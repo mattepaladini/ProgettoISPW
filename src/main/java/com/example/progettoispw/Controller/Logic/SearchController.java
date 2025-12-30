@@ -12,6 +12,8 @@ public class SearchController {
 
     public List<CollectableCardBean> searchCards(CollectableCardBean searchBean){
 
+        //DECORATOR *****************++
+
         String nome = "";
         if(searchBean.getNomeCarta().isBlank())
         {
@@ -41,6 +43,8 @@ public class SearchController {
         if(searchBean.getGradazione()!=null){
             searchStack = new GradationFilter(searchStack, searchBean.getGradazione());
         }
+
+        //DECORATOR *****************++
 
         return searchStack.executeSearch();
     }

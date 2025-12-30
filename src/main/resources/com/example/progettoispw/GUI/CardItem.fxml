@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.progettoispw.Controller.Graphic.CardItemController"
+      alignment="CENTER_LEFT"
+      spacing="20"
+      prefHeight="110.0"
+      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+
+    <padding>
+        <Insets top="10" right="20" bottom="10" left="20"/>
+    </padding>
+
+    <!--
+    <ImageView fx:id="imgCardImage" fitHeight="90.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../images/card_placeholder.png" />
+        </image>
+    </ImageView>
+-->
+
+    <VBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
+
+        <Label fx:id="lblCardName" text="Nome Carta" textFill="#2c3e50">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <HBox spacing="10">
+            <Label fx:id="lblSet" text="Set: Base Set" textFill="#7f8c8d" style="-fx-font-style: italic;"/>
+            <Label text="|" textFill="#bdc3c7"/>
+            <Label fx:id="lblCondition" text="Condizione: Near Mint" textFill="#27ae60" style="-fx-font-weight: bold;"/>
+        </HBox>
+
+        <Label fx:id="lblFoil" text="FOIL" textFill="#8e44ad" style="-fx-border-color: #8e44ad; -fx-border-radius: 3; -fx-padding: 0 5 0 5; -fx-font-size: 10;" visible="false"/>
+    </VBox>
+
+    <VBox alignment="CENTER_RIGHT" spacing="10" minWidth="100">
+
+        <Label fx:id="lblPrice" text="€ 0.00" textFill="#c0392b">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="btnBuy" text="Acquista"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-weight: bold;">
+            <padding>
+                <Insets top="8" right="20" bottom="8" left="20"/>
+            </padding>
+        </Button>
+
+    </VBox>
+
+</HBox>

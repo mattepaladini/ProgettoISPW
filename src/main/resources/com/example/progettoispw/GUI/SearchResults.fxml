@@ -3,18 +3,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.progettoispw.view.gui.controller.SearchResultsGraphicController"
-      spacing="20" style="-fx-padding: 30;">
+      fx:controller="com.example.progettoispw.Controller.Graphic.SearchResultsGraphicController"
+      spacing="10"
+      style="-fx-background-color: #f4f6f8;"
+      prefHeight="600.0" prefWidth="800.0">
 
-    <HBox alignment="CENTER_LEFT">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
         <Label text="Risultati della Ricerca" textFill="#2c3e50">
-            <font><Font name="System Bold" size="24.0" /></font>
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblMess" text="" textFill="#7f8c8d" visible="false">
+            <font><Font size="14.0"/></font>
         </Label>
     </HBox>
 
-    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
-        <VBox fx:id="resultsContainer" spacing="15" style="-fx-background-color: #f4f6f6; -fx-padding: 10;" />
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS" hbarPolicy="NEVER">
+
+        <VBox fx:id="resultsContainer" spacing="15" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="5"/>
+            </padding>
+        </VBox>
+
     </ScrollPane>
 
 </VBox>
