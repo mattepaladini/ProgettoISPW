@@ -5,9 +5,9 @@ import java.util.List;
 public class Ordine {
     private List<Carta> carteOrdinate;
     private String indirizzoSpedizione;
-    private Utente compratore;
+    private User compratore;
 
-    public Ordine(List<Carta> carteOrdinate, String indirizzoSpedizione, Utente compratore) {
+    public Ordine(List<Carta> carteOrdinate, String indirizzoSpedizione, User compratore) {
         this.carteOrdinate = carteOrdinate;
         this.indirizzoSpedizione = indirizzoSpedizione;
         this.compratore = compratore;
@@ -21,7 +21,7 @@ public class Ordine {
         return indirizzoSpedizione;
     }
 
-    public Utente getCompratore() {
+    public User getCompratore() {
         return compratore;
     }
 }

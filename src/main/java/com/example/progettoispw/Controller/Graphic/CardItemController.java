@@ -1,18 +1,16 @@
 package com.example.progettoispw.Controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.SearchController;
+import com.example.progettoispw.Controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 
 //SI OCCUPA DI GESTIRE LE SINGOLE RIGHE DI UNA RICERCA
 
 public class CardItemController {
 
     private CollectableCardBean myCard;
-    private SearchController logicController;
+    private BuyController logicController;
 
-    public void setCardData(CollectableCardBean card, SearchController logicController) {
+    public void setCardData(CollectableCardBean card, BuyController logicController) {
         this.myCard = card;
         this.logicController = logicController;
 

@@ -1,6 +1,6 @@
 package com.example.progettoispw.Controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.SearchController;
+import com.example.progettoispw.Controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,10 +19,10 @@ public class SearchResultsGraphicController {
     @FXML
     private Label lblMessage;
 
-    private SearchController buyCardController;
+    private BuyController buyCardController;
 
 
-    public void initData(List<CollectableCardBean> risultati, SearchController buyCardController) {
+    public void initData(List<CollectableCardBean> risultati, BuyController buyCardController) {
 
         this.buyCardController = buyCardController;
 

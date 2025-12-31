@@ -1,6 +1,6 @@
 package com.example.progettoispw.Controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.SearchController;
+import com.example.progettoispw.Controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 import javafx.event.ActionEvent;
@@ -26,6 +26,14 @@ public class SearchGraphicController {
 @FXML private CheckBox attributoCercato;
 @FXML private CheckBox tipoCercato;
 
+    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, CheckBox livelloCercato, CheckBox attributoCercato, CheckBox tipoCercato) {
+        this.nomeCartaCercata = nomeCartaCercata;
+        this.fasciaPrezzoCercata = fasciaPrezzoCercata;
+        this.livelloCercato = livelloCercato;
+        this.attributoCercato = attributoCercato;
+        this.tipoCercato = tipoCercato;
+    }
+
 
     //METODO PER VISUALIZZARE I DATI A SCHERMO ---> CHIAMA SEARCH RESULTS GRAPHIC CONTROLLER
     public void searchAction(ActionEvent event) {
@@ -50,8 +58,8 @@ public class SearchGraphicController {
         }
 
         //CREO IL CONTROLLORE PER LA RICERCA E GLI PASSO LA BEAN APPENA POPOLATA
-        SearchController searchController = new SearchController();
-        List<CollectableCardBean> risulati = searchController.searchCards(searchCardBean);
+        BuyController buyController = new BuyController();
+        List<CollectableCardBean> risulati = buyController.searchCards(searchCardBean);
 
         //
         try {
@@ -64,7 +72,7 @@ public class SearchGraphicController {
             SearchResultsGraphicController resultsController = loader.getController();
 
             // PASSO LA LISTA E IL CONTROLLER
-            resultsController.initData(risulati, searchController);
+            resultsController.initData(risulati, buyController);
 
             // 4. SOSTITUZIONE DELLA VISTA CENTRALE
             // Dobbiamo risalire al BorderPane principale (MainLayout) per cambiare il centro

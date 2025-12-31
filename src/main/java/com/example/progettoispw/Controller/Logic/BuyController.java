@@ -5,7 +5,7 @@ import com.example.progettoispw.pattern.Decorator.*;
 
 import java.util.List;
 
-public class SearchController {
+public class BuyController {
 
 
 
