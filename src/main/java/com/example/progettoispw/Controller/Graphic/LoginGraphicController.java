@@ -35,7 +35,7 @@ public class LoginGraphicController {
     public void goToRegistration(ActionEvent event) {
         try {
             // Attenzione al path, deve essere quello CORRETTO
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/Registration.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Registration.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

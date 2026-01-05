@@ -40,7 +40,7 @@ public class CartGraphicController {
         // 2. Popolamento Lista (Riutilizzo di CardItem.fxml!)
         try {
             for (CollectableCardBean card : cartItems) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/CardItem.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/CardItem.fxml"));
                 Parent cardNode = loader.load();
 
                 // Nota: stiamo usando lo stesso controller della ricerca.

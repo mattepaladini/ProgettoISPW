@@ -10,6 +10,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="borderPane"
             fx:controller="com.example.progettoispw.Controller.Graphic.MainLayoutController">
 
     <left>

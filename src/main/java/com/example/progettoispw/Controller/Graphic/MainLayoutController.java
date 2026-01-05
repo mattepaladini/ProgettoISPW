@@ -21,12 +21,25 @@ public class MainLayoutController {
     @FXML
     private VBox sideBar;
 
+    @FXML private BorderPane borderPane;
+
     // Mi servono per oscurare i bottoni relativi alla pagina in cui mi trovo
     @FXML private Button btnHome;
     @FXML private Button btnSearch;
     @FXML private Button btnSell;
     @FXML private Button btnProfile;
 
+    // Metodo riutilizzabile per cambiare il centro della pagina
+    public void setCenterContent(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent newView = loader.load();
+            borderPane.setCenter(newView);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Impossibile caricare la vista: " + fxmlPath);
+        }
+    }
 
     // Metodo che viene chiamato appena il layout è caricato
     @FXML
@@ -39,7 +52,7 @@ public class MainLayoutController {
         }
 
         // Appena apro l'app, carico subito la Home
-        loadPage("/com/example/progettoispw/GUI/Home.fxml");
+        loadPage("/GUI/Home.fxml");
     }
 
     private void navigateTo(ActionEvent event, String fxmlPath) {
@@ -69,12 +82,12 @@ public class MainLayoutController {
     @FXML
     public void goToSearch(ActionEvent event) {
         // Qui ci colleghiamo finalmente a Search.fxml (che avrà la barra di ricerca)
-        navigateTo(event, "/com/example/progettoispw/GUI/Search.fxml");
+        navigateTo(event, "/GUI/Search.fxml");
     }
 
     @FXML
     public void showHome(ActionEvent event) {
-        loadPage("/com/example/progettoispw/GUI/Home.fxml");
+        loadPage("/GUI/Home.fxml");
     }
 
     @FXML
@@ -115,7 +128,7 @@ public class MainLayoutController {
 
             // --- TRUCCO PER NASCONDERE LA NAVBAR ---
 
-            if (fxmlPath.equals("/com/example/progettoispw/GUI/Home.fxml")) {
+            if (fxmlPath.equals("/GUI/Home.fxml")) {
                 // SE È LA HOME: Nascondi la barra
                 sideBar.setVisible(false);
                 sideBar.setManaged(false); // Questo fa "collassare" lo spazio, così la Home si allarga

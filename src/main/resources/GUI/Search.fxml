@@ -7,12 +7,17 @@
 <?import java.lang.String?>
 
 <BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.progettoispw.Controller.Graphic.SearchGraphicController">
+            fx:controller="com.example.progettoispw.Controller.Graphic.SearchGraphicController"
+            stylesheets="@light-theme.css">
 
 
     <center>
         <VBox alignment="TOP_CENTER" spacing="30" >
             <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+
+            <Button text="← Torna alla Home" onAction="#onBackClick"
+                    styleClass="icon-button"/>
 
             <HBox alignment="CENTER" spacing="10" maxWidth="600">
                 <TextField promptText="Cerca per nome..." styleClass="search-input" HBox.hgrow="ALWAYS"/>

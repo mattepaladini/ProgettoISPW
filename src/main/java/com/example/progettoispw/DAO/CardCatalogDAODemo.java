@@ -1,0 +1,123 @@
+package com.example.progettoispw.DAO;
+
+import com.example.progettoispw.bean.CollectableCardBean;
+import model.CardCatalog;
+import model.CollectableCard;
+import model.Seller;
+
+import javax.xml.catalog.Catalog;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CardCatalogDAODemo implements CardCatalogDAO {
+
+    private static  List<CardCatalog> memoryCatalogs = null;    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
+
+    private static final String CATALOG_FILE = "catalogs.dat";
+
+    public CardCatalogDAODemo() {
+
+    }
+
+    @Override
+    public List<CardCatalog> getAllCatalogs() {
+        if(memoryCatalogs == null) {
+            memoryCatalogs = loadCatalogs();
+        }
+        return memoryCatalogs;
+    }
+
+    @Override
+    public void addCatalog(CardCatalog catalog) {
+
+        List<CardCatalog> currentCatalogs = getAllCatalogs();
+
+        currentCatalogs.add(catalog);
+        saveData();
+
+    }
+
+    @Override
+    public void removeCard(CollectableCardBean card, String sellerName) {
+
+        List<CardCatalog> currentCatalogs = getAllCatalogs();
+
+        boolean found = false;
+
+        for(CardCatalog catalog : currentCatalogs) {
+            String sellerSearched = catalog.getSeller().getSellerName();
+
+            if(sellerName.equals(sellerSearched)) {
+                catalog.getCards().remove(card);
+                found = true;
+            }
+        }
+
+        if(!found) {
+            //TODO logger
+        }
+        saveData();
+
+    }
+
+    @Override
+    public void addCard(CollectableCardBean card, Seller currentSeller) {
+
+        List<CardCatalog> currentCatalogs = getAllCatalogs();
+
+        boolean found = false;
+        for (CardCatalog catalog : currentCatalogs) {
+            Seller savedSeller = catalog.getSeller();
+
+            if(savedSeller.getSellerName().equals(currentSeller.getSellerName())) {
+                catalog.getCards().add(card);
+                found = true;
+            }
+        }
+
+        //SE NON ESISTE UN CATALOGO ASSOCIATO A QUESTO VENDITORE LO CREO
+        if(!found) {
+            CardCatalog emptyCatalog = new CardCatalog(currentSeller);
+            emptyCatalog.getCards().add(card);
+            currentCatalogs.add(emptyCatalog);
+        }
+
+        saveData();
+       // memoryCatalogs.add();
+
+    }
+
+    @Override
+    public CardCatalog getSeller(String username) {
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<CardCatalog> loadCatalogs() {
+        File file = new File(CATALOG_FILE);
+
+        if(!file.exists()){
+            return new ArrayList<>();
+        }
+
+        try(FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            return (List<CardCatalog>) ois.readObject();
+
+        } catch (ClassNotFoundException|FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e ) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void saveData() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CATALOG_FILE))) {
+            oos.writeObject(memoryCatalogs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

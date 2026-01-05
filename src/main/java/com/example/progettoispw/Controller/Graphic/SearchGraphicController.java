@@ -13,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -26,12 +27,35 @@ public class SearchGraphicController {
 @FXML private CheckBox attributoCercato;
 @FXML private CheckBox tipoCercato;
 
+    public SearchGraphicController(){}
+
+
     public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, CheckBox livelloCercato, CheckBox attributoCercato, CheckBox tipoCercato) {
         this.nomeCartaCercata = nomeCartaCercata;
         this.fasciaPrezzoCercata = fasciaPrezzoCercata;
         this.livelloCercato = livelloCercato;
         this.attributoCercato = attributoCercato;
         this.tipoCercato = tipoCercato;
+    }
+
+    @FXML
+    public void onBackClick(ActionEvent event) {
+        try {
+            // 1. Carica la Home
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
+            Parent homeRoot = loader.load();
+
+            // 2. Recupera lo Stage (la finestra) dal bottone cliccato
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // 3. Sostituisci la scena interamente
+            Scene scene = new Scene(homeRoot);
+            stage.setScene(scene);
+            // stage.show(); // Non serve richiamarlo, la finestra è già aperta
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -64,7 +88,7 @@ public class SearchGraphicController {
         //
         try {
             // 2. CARICAMENTO DEL FILE FXML DEI RISULTATI
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/progettoispw/GUI/SearchResults.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/SearchResults.fxml"));
             Parent resultsView = loader.load();
 
             // 3. PASSAGGIO DEI DATI AL NUOVO CONTROLLER

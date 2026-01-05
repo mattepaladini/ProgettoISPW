@@ -39,13 +39,13 @@ public class RegistrationGraphicController {
         // TODO: Qui chiamerai il tuo RegistrationController (Logic)
         // logicController.registraUtente(bean);
 
-        cambiaScena(event, "/com/example/progettoispw/GUI/Home.fxml");
+        cambiaScena(event, "/GUI/Home.fxml");
     }
 
     @FXML
     public void onBackClick(ActionEvent event) {
         // Questo metodo serve per tornare alla schermata di Login
-        cambiaScena(event, "/com/example/progettoispw/GUI/Login.fxml");
+        cambiaScena(event, "/GUI/Login.fxml");
     }
 
     // Metodo helper per cambiare pagina
