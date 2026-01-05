@@ -3,14 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Carta {
+public class Card {
     private String nome;
     private Float prezzoAttuale;
     private List<Float> storicoPrezzi;
     private Gradazione gradazione;
     private User venditore;
 
-    public Carta(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore) {
+    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore) {
         this.nome = nome;
         this.prezzoAttuale = prezzoAttuale;
         this.gradazione = gradazione;

@@ -44,12 +44,7 @@ public class HelloApplication extends Application {
         primaryStage.toFront();
         primaryStage.requestFocus();
     }
-
-    /**
-     * Metodo riscritto per gestire correttamente la pulizia dei temi
-     * e l'applicazione della modalità selezionata.
-     */
-
+    
 
     private void updateTheme(Scene scene) {
         // Rimuoviamo eventuali temi precedenti per evitare sovrapposizioni cromatiche

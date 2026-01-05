@@ -20,7 +20,7 @@ public class Seller extends User implements Serializable {
     }
     public String getSellerName(){
 
-        return super(username);
+        return this.getUsername();
     }
 
 }

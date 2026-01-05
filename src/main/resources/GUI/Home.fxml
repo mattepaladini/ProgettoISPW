@@ -51,7 +51,7 @@
                 style="-fx-font-size: 16px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-cursor: hand;"
                 GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Button text="👤 IL MIO PROFILO"
+        <Button text="👤 IL MIO PROFILO" onAction="#onProfileClick"
                 prefHeight="100.0" prefWidth="200.0"
                 style="-fx-font-size: 16px; -fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand;"
                 GridPane.columnIndex="0" GridPane.rowIndex="1" />

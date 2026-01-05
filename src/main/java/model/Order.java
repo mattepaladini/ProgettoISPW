@@ -3,17 +3,17 @@ package model;
 import java.util.List;
 
 public class Order {
-    private List<Carta> carteOrdinate;
+    private List<Card> carteOrdinate;
     private String indirizzoSpedizione;
     private User compratore;
 
-    public Order(List<Carta> carteOrdinate, String indirizzoSpedizione, User compratore) {
+    public Order(List<Card> carteOrdinate, String indirizzoSpedizione, User compratore) {
         this.carteOrdinate = carteOrdinate;
         this.indirizzoSpedizione = indirizzoSpedizione;
         this.compratore = compratore;
     }
 
-    public List<Carta> getCarteOrdinate() {
+    public List<Card> getCarteOrdinate() {
         return carteOrdinate;
     }
 

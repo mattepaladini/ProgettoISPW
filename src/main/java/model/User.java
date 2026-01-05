@@ -4,7 +4,7 @@ import java.util.List;
 
 public class User {
 
-    //private List<Carta> carrello;
+    //private List<Card> carrello;
     private String username;
     private String password;
     private String tipoUtente;
