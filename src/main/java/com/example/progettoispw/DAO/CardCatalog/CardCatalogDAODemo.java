@@ -1,16 +1,14 @@
-package com.example.progettoispw.DAO;
+package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import model.CardCatalog;
-import model.CollectableCard;
 import model.Seller;
 
 import java.util.List;
 
-public class CardCatalogDAODB implements CardCatalogDAO {
+public class CardCatalogDAODemo implements CardCatalogDAO {
 
-    //private Connection conn;
-
+    private static List<CardCatalog> cardCatalogs = null;
 
     @Override
     public List<CardCatalog> getAllCatalogs() {

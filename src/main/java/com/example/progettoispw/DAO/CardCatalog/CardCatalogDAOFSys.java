@@ -1,22 +1,21 @@
-package com.example.progettoispw.DAO;
+package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import model.CardCatalog;
-import model.CollectableCard;
+
 import model.Seller;
 
-import javax.xml.catalog.Catalog;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardCatalogDAODemo implements CardCatalogDAO {
+public class CardCatalogDAOFSys implements CardCatalogDAO {
 
     private static  List<CardCatalog> memoryCatalogs = null;    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
 
     private static final String CATALOG_FILE = "catalogs.dat";
 
-    public CardCatalogDAODemo() {
+    public CardCatalogDAOFSys() {
 
     }
 

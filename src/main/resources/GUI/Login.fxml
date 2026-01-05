@@ -44,7 +44,7 @@
                                    GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                 </GridPane>
 
-                <Button text="Login" onAction="#handleLogin" styleClass="primary-button" prefWidth="150"/>
+                <Button text="Login" onAction="#StartLogin" styleClass="primary-button" prefWidth="150"/>
 
                 <HBox alignment="CENTER" spacing="5">
                     <Label text="Non hai un'account?" styleClass="text-muted"/>

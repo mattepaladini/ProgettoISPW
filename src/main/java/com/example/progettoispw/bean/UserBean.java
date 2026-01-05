@@ -10,10 +10,10 @@ public class UserBean {
 
     public UserBean() {}
 
-    public UserBean(String username, String password, UserType usertype) {
+    public UserBean(String username, String password) {
         this.username = username;
         this.password = password;
-        this.usertype = usertype;
+
     }
 
     public void setUsername(String username) {

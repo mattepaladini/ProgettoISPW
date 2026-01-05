@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class User {
 
     //private List<Carta> carrello;
@@ -10,7 +12,9 @@ public class User {
     public User(String username) {
         this.username = username;
     }
-    //private List<Ordine> ordini;
+    private List<Order> ordini;
 
-
+    public String getUsername() {
+        return username;
+    }
 }

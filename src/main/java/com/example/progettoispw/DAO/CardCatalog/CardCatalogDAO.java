@@ -1,8 +1,7 @@
-package com.example.progettoispw.DAO;
+package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import model.CardCatalog;
-import model.CollectableCard;
 import model.Seller;
 
 import java.util.List;

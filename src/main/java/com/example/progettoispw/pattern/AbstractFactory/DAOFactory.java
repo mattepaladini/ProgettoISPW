@@ -1,29 +1,37 @@
 package com.example.progettoispw.pattern.AbstractFactory;
 
-import com.example.progettoispw.DAO.CardCatalogDAO;
-import com.example.progettoispw.DAO.CardCatalogDAODB;
-import com.example.progettoispw.DAO.CardCatalogDAODemo;
-import com.example.progettoispw.DAO.PersistenceType;
+import com.example.progettoispw.DAO.*;
+import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
+import com.example.progettoispw.DAO.Order.OrderDAO;
+import com.example.progettoispw.DAO.User.UserDAO;
 
-public class DAOFactory {
+public abstract class DAOFactory  {
 
-    //compito di variabile globale
-    private static PersistenceType persistenceType;
+    //VARIABILE GLOBALE
+    protected static PersistenceType persistenceType;
+
+    //VARIABILE PER SINGLETON
+    private static DAOFactory instance = null;
+
+    public static synchronized DAOFactory getInstance() {
+        if (instance == null) {
+            switch (persistenceType){
+                case FSYS -> instance = new DAOFactoryFSys();
+                case JDBC -> instance = new DAOFactoryDB();
+                case DEMO -> instance = new DAOFactoryDemo();
+                default -> throw new IllegalStateException("Unexpected value: " + persistenceType);
+            }
+        }
+        return instance;
+    }
 
     public static void setPersistenceType(PersistenceType type) {
         persistenceType = type;
     }
 
-    public static CardCatalogDAO getCardCatalogDAO() {
-        switch (persistenceType) {
-            case JDBC -> {
-                return new CardCatalogDAODB();
-            }
-            case FSYS -> {
-                return new CardCatalogDAODemo();
-            }
-            default -> {throw new IllegalArgumentException("Tipo non supportato o inesistente");}
-        }
-    }
+    public abstract CardCatalogDAO getCardCatalogDAO();
 
+    public abstract UserDAO getUserDAO();
+
+    public abstract OrderDAO getOrderDAO();
 }

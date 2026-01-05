@@ -2,12 +2,12 @@ package model;
 
 import java.util.List;
 
-public class Ordine {
+public class Order {
     private List<Carta> carteOrdinate;
     private String indirizzoSpedizione;
     private User compratore;
 
-    public Ordine(List<Carta> carteOrdinate, String indirizzoSpedizione, User compratore) {
+    public Order(List<Carta> carteOrdinate, String indirizzoSpedizione, User compratore) {
         this.carteOrdinate = carteOrdinate;
         this.indirizzoSpedizione = indirizzoSpedizione;
         this.compratore = compratore;

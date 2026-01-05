@@ -1,5 +1,7 @@
 package com.example.progettoispw.Controller.Graphic;
 
+import com.example.progettoispw.Controller.Logic.AuthController;
+import com.example.progettoispw.bean.UserBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,17 +20,24 @@ public class LoginGraphicController {
     @FXML private PasswordField passwordField;
 
     @FXML
-    public void handleLogin(ActionEvent event) {
+    public void StartLogin(ActionEvent event) {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
-        // QUI ANDRA' LA LOGICA DI VERIFICA (Dummy per ora)
         if (!user.isEmpty() && !pass.isEmpty()) {
-            System.out.println("Login tentato per: " + user);
-            //SceneManager.changeScene("Home.fxml");
+            UserBean userBean = new UserBean(user, pass);
+
+            AuthController authController = new AuthController();
+            authController.checkUserExist(userBean);
         } else {
             System.out.println("Inserisci credenziali!");
         }
+
+
+
+
+        // QUI ANDRA' LA LOGICA DI VERIFICA (Dummy per ora)
+
     }
 
     @FXML
