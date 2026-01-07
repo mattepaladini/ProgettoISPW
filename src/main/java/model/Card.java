@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
+
+    private int id;
     private String nome;
     private Float prezzoAttuale;
     private List<Float> storicoPrezzi;
     private Gradazione gradazione;
     private User venditore;
 
-    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore) {
+    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore, int id) {
+        this.id = id;
         this.nome = nome;
         this.prezzoAttuale = prezzoAttuale;
         this.gradazione = gradazione;
@@ -33,5 +36,9 @@ public class Card {
 
     public User getVenditore(){
         return this.venditore;
+    }
+
+    public int getId(){
+        return this.id;
     }
 }

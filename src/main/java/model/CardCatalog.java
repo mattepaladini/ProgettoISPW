@@ -8,8 +8,7 @@ import java.util.List;
 
 public class CardCatalog implements Serializable {
 
-
-    private List<CollectableCardBean> cards;
+    private List<Card> cards;
     private Seller seller;
 
     public CardCatalog( Seller seller) {
@@ -17,20 +16,23 @@ public class CardCatalog implements Serializable {
         this.seller = seller;
     }
 
-
-    public void addCollectableCard(CollectableCardBean card) {
-        //.......
+    public void addCollectableCard(Card card) {
+        this.cards.add(card);
     }
 
-    public void removeCollectableCard(CollectableCardBean card) {
-        //.......
+    public void removeCollectableCard(Card card) {
+        for(Card c : this.cards) {
+            if(card.getId() == c.getId()) {
+                this.cards.remove(c);
+            }
+        }
     }
 
     public Seller getSeller(){
         return seller;
     }
 
-    public List<CollectableCardBean> getCards(){
+    public List<Card> getCards(){
         return cards;
     }
 }
