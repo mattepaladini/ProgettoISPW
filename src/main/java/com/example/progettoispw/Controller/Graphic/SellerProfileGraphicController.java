@@ -1,9 +1,8 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Session.SessionManager;
-import com.example.progettoispw.bean.UserBean;
 import javafx.fxml.FXML;
-import model.User;
+import com.example.progettoispw.model.User;
 
 import java.awt.*;
 

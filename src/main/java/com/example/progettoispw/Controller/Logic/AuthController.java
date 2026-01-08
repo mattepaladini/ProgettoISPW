@@ -1,8 +1,8 @@
 package com.example.progettoispw.Controller.Logic;
 
 import com.example.progettoispw.bean.UserBean;
-import model.User;
-import model.UserType;
+import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.UserType;
 
 public class AuthController {
 

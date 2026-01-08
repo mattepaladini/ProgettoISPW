@@ -1,8 +1,10 @@
-package model;
+package com.example.progettoispw.model;
 
 import java.util.List;
 
 public class Order {
+
+    private int id;
     private List<Card> carteOrdinate;
     private String indirizzoSpedizione;
     private User compratore;
@@ -23,5 +25,11 @@ public class Order {
 
     public User getCompratore() {
         return compratore;
+    }
+
+    public boolean checkAviability(){
+
+        // cerca se le carte che sono presenti nell'ordine sono disponibili prima di effettuare l'ordine
+        return false;
     }
 }

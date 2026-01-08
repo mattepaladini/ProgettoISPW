@@ -1,7 +1,6 @@
 package com.example.progettoispw.Session;
 
-import com.example.progettoispw.bean.UserBean;
-import model.User;
+import com.example.progettoispw.model.User;
 
 public class SessionManager {
 

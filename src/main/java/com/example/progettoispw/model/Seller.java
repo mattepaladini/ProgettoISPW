@@ -1,4 +1,4 @@
-package model;
+package com.example.progettoispw.model;
 
 import java.io.Serializable;
 

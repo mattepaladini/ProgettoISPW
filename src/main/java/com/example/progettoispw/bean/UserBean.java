@@ -1,6 +1,6 @@
 package com.example.progettoispw.bean;
 
-import model.UserType;
+import com.example.progettoispw.model.UserType;
 
 public class UserBean {
 

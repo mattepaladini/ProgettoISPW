@@ -4,7 +4,7 @@ import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
-import model.User;
+import com.example.progettoispw.model.User;
 
 public class ManageCatalogController {
 

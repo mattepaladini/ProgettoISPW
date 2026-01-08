@@ -1,6 +1,6 @@
 package com.example.progettoispw.DAO.User;
 
-import model.User;
+import com.example.progettoispw.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

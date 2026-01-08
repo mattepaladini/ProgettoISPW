@@ -1,7 +1,7 @@
 package com.example.progettoispw.DAO.Order;
 
-import model.Order;
-import model.User;
+import com.example.progettoispw.model.Order;
+import com.example.progettoispw.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

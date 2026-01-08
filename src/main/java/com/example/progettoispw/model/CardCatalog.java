@@ -1,6 +1,4 @@
-package model;
-
-import com.example.progettoispw.bean.CollectableCardBean;
+package com.example.progettoispw.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

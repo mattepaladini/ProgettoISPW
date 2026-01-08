@@ -1,9 +1,9 @@
 package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import model.CardCatalog;
+import com.example.progettoispw.model.CardCatalog;
 
-import model.Seller;
+import com.example.progettoispw.model.Seller;
 
 import java.io.*;
 import java.util.ArrayList;
