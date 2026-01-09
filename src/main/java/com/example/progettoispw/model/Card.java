@@ -12,6 +12,7 @@ public class Card {
     private Gradazione gradazione;
     private User venditore;
 
+    // Da definire come determinare gli id delle carte.
     public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore, int id) {
         this.id = id;
         this.nome = nome;

@@ -9,12 +9,22 @@ public class User {
     private String password;
     private String tipoUtente;
 
+    protected User(){}
+
     public User(String username) {
         this.username = username;
     }
-    private List<Order> ordini;
+
 
     public String getUsername() {
         return username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

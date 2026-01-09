@@ -10,17 +10,16 @@ public class Seller extends User implements Serializable {
         super(username);
     }
 
-
-    public void addCatalog(CollectableCard card){
-        //.......
-    }
-
-    public void removeCard(CollectableCard card){
-        //.......
-    }
     public String getSellerName(){
-
         return this.getUsername();
     }
 
+    // Stessa cosa del carrello: prendiamo il catalogo per poi inserire all'interno carte.
+    public CardCatalog getCardCatalog(){
+        return this.catalog;
+    }
+
+    public void setCardCatalog(CardCatalog catalog){
+        this.catalog = catalog;
+    }
 }

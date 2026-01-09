@@ -1,0 +1,32 @@
+package com.example.progettoispw.model;
+
+import java.util.List;
+
+public class Buyer extends User{
+
+    private ShoppingCart cart;
+    private List<Order> orders;
+
+    public Buyer(String username){
+        super(username);
+        this.cart = new ShoppingCart();
+    }
+
+    // Utilizziamo questo metodo per prendere il carrello e successivamente inserire carte all'interno.
+    public ShoppingCart getCart(){
+        return this.cart;
+    }
+
+    // metodo inserito per l'eventuale eliminazione del carrello precedente.
+    public void setCart(ShoppingCart cart){
+        this.cart = cart;
+    }
+
+    public List<Order> getOrders(){
+        return this.orders;
+    }
+
+    public void addOrder(Order order){
+        this.orders.add(order);
+    }
+}
