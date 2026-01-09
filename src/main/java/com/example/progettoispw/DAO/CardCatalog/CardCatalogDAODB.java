@@ -1,6 +1,7 @@
 package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 import com.example.progettoispw.model.Seller;
 
@@ -22,12 +23,12 @@ public class CardCatalogDAODB implements CardCatalogDAO {
     }
 
     @Override
-    public void removeCard(CollectableCardBean card, String sellerName) {
+    public void removeCard(Card card, String sellerName) {
 
     }
 
     @Override
-    public void addCard(CollectableCardBean card, Seller sellerName) {
+    public void addCard(Card card, Seller sellerName) {
 
     }
 

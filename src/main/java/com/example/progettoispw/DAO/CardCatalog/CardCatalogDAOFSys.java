@@ -1,6 +1,7 @@
 package com.example.progettoispw.DAO.CardCatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 
 import com.example.progettoispw.model.Seller;
@@ -38,7 +39,7 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
     @Override
-    public void removeCard(CollectableCardBean card, String sellerName) {
+    public void removeCard(Card card, String sellerName) {
 
         List<CardCatalog> currentCatalogs = getAllCatalogs();
 
@@ -61,7 +62,7 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
     @Override
-    public void addCard(CollectableCardBean card, Seller currentSeller) {
+    public void addCard(Card card, Seller currentSeller) {
 
         List<CardCatalog> currentCatalogs = getAllCatalogs();
 

@@ -9,6 +9,7 @@ public class CollectableCardBean {
     private int livello;
     private String attributo;
     private String tipo;
+    private String venditore;
 
     //la validazione dei dati inseriti la deleghiamo al controller logico
 
@@ -17,8 +18,13 @@ public class CollectableCardBean {
         this.id=0;
     }
 
-    //valuta se serve veramente
-    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, String gradazione){}
+    //valuta se serve veramente, CERTO CHE SERVE
+    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, String gradazione){
+        this.id=id;
+        this.nomeCarta=nomeCarta;
+        this.prezzoCorrente=prezzoCorrente;
+        this.gradazione=gradazione;
+    }
 
     public String getNomeCarta() {return nomeCarta;}
     public void setNomeCarta(String nomeCarta) {this.nomeCarta = nomeCarta;}
@@ -35,11 +41,24 @@ public class CollectableCardBean {
     public String getAttributo() {return attributo;}
     public void setAttributo(String attributo) {this.attributo = attributo;}
 
-    public String getTipo() {return tipo;}
-    public void setTipo(String tipo) {this.tipo = tipo;}
+    public String getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
+    public String getVenditore() {
+        return venditore;
+    }
 
+    public void setVenditore(String venditore) {
+        this.venditore = venditore;
+    }
 
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
 }
