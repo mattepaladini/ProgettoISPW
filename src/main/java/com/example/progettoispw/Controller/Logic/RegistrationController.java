@@ -3,11 +3,13 @@ package com.example.progettoispw.Controller.Logic;
 import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import model.Customer;
-import model.Seller;
-import model.User;
-import model.UserType;
+import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.Seller;
+import com.example.progettoispw.model.UserType;
+
 
 public class RegistrationController {
 
@@ -29,7 +31,7 @@ public class RegistrationController {
                 break;
 
                 case CUSTOMER:
-                    Customer newCustomer = new Customer(userbean.getUsername(), userbean.getPassword());
+                    Buyer newCustomer = new Buyer(userbean.getUsername(), userbean.getPassword());
                     session.setLoggedUser(newCustomer);
                     break;
         }

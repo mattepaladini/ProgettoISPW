@@ -1,4 +1,5 @@
-package model;
+package com.example.progettoispw.model;
+
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class User {
     private String username;
     private String password;
     private UserType tipoUtente;
+    private List<Order> ordini;
 
     public User(String username, String password, UserType tipoUtente) {
 
@@ -15,7 +17,10 @@ public class User {
         this.password = password;
         this.tipoUtente = tipoUtente;
     }
-    private List<Order> ordini;
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public String getUsername() {
         return username;
