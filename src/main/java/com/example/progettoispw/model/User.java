@@ -1,4 +1,4 @@
-package com.example.progettoispw.model;
+package model;
 
 import java.util.List;
 
@@ -7,24 +7,19 @@ public class User {
     //private List<Card> carrello;
     private String username;
     private String password;
-    private String tipoUtente;
+    private UserType tipoUtente;
 
-    protected User(){}
+    public User(String username, String password, UserType tipoUtente) {
 
-    public User(String username) {
         this.username = username;
+        this.password = password;
+        this.tipoUtente = tipoUtente;
     }
-
+    private List<Order> ordini;
 
     public String getUsername() {
         return username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() {return password;}
 }

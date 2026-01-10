@@ -39,7 +39,7 @@ public class SearchResultsGraphicController {
         try {
             for (CollectableCardBean card : risultati) {
                 // Carichiamo il file FXML della singola riga ("CardItem")
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/items/CardItem.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/CardItem.fxml"));
                 Parent cardNode = loader.load();
 
                 // Recuperiamo il controller grafico della singola riga

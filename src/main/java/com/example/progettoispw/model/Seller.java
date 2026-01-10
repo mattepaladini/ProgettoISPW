@@ -6,8 +6,8 @@ public class Seller extends User implements Serializable {
 
     private CardCatalog catalog;
 
-    public Seller(String username) {
-        super(username);
+    public Seller(String username, String password) {
+        super(username, password, UserType.SELLER);
     }
 
     public String getSellerName(){

@@ -34,6 +34,11 @@ public class UserDAOFSys implements UserDAO {
         return null;
     }
 
+    @Override
+    public boolean logWithPSW(String password) {
+        return false;
+    }
+
 
     //HELPER PER CARICARE I DATI DALLA MEMORIA
     public List<User> loadUsers() {

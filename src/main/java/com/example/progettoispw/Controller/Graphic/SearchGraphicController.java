@@ -49,7 +49,7 @@ public class SearchGraphicController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             // 3. Sostituisci la scena interamente
-            Scene scene = new Scene(homeRoot);
+            Scene scene = new Scene(homeRoot, 800, 600);
             stage.setScene(scene);
             // stage.show(); // Non serve richiamarlo, la finestra è già aperta
 

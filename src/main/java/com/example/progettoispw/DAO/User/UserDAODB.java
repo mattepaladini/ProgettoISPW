@@ -19,4 +19,9 @@ public class UserDAODB implements UserDAO {
     public User getUserByUsername(String username) {
         return null;
     }
+
+    @Override
+    public boolean logWithPSW(String password) {
+        return false;
+    }
 }
