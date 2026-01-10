@@ -29,4 +29,16 @@ public class UserDAODemo implements UserDAO {
         }
         return null;
     }
+
+    @Override
+    public boolean logWithPSW(String password) {
+
+        for (User user : users) {
+            if(user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

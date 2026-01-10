@@ -7,14 +7,19 @@ public class User {
     //private List<Card> carrello;
     private String username;
     private String password;
-    private String tipoUtente;
+    private UserType tipoUtente;
 
-    public User(String username) {
+    public User(String username, String password, UserType tipoUtente) {
+
         this.username = username;
+        this.password = password;
+        this.tipoUtente = tipoUtente;
     }
     private List<Order> ordini;
 
     public String getUsername() {
         return username;
     }
+
+    public String getPassword() {return password;}
 }

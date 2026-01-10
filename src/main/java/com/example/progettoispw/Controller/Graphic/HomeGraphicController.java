@@ -5,17 +5,26 @@ import com.example.progettoispw.bean.UserBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Customer;
 import model.Seller;
 import model.User;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomeGraphicController {
+public class HomeGraphicController implements Initializable {
+
+    @FXML private Button btnCompra;
+    @FXML private Button btnVendi;
 
     @FXML
     public void onSearchClick(ActionEvent event) {
@@ -47,7 +56,7 @@ public class HomeGraphicController {
         User currentUser = SessionManager.getInstance().getLoggedUser();
 
         String fxmlFile = "";
-    try {
+    /*try {
 
         // Recupero lo Stage (la finestra corrente)
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -74,25 +83,47 @@ public class HomeGraphicController {
             stage.setScene(scene);
 
         }
-            else {
-                fxmlFile = (currentUser instanceof Seller) ? "/GUI/SellerProfile.fxml" : "/GUI/BuyerProfile.fxml";
 
-                FXMLLoader layoutLoader = new FXMLLoader(getClass().getResource("/fxml/MainLayout.fxml"));
-                BorderPane rootLayout = layoutLoader.load();
-
-                FXMLLoader profileLoader = new FXMLLoader(getClass().getResource(fxmlFile));
-                Parent profileView = profileLoader.load();
-
-                rootLayout.setCenter(profileView);
-                stage.setScene(new Scene(rootLayout));
-            }
 
 
         // 3. CAMBIO SCENA
         stage.show();
     } catch (IOException e) {
         throw new RuntimeException(e);
-    }
+    } */
+        if (currentUser == null) {
+            fxmlFile = "/GUI/Login.fxml";
+        }
+
+        // 2. Eseguo il caricamento "Cornice + Contenuto"
+        try {
+            // A. Carico la CORNICE (MainLayout)
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = mainLoader.load();
+
+            // B. Carico il CONTENUTO (Login o Profilo)
+            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+            // Uso 'Node' perché il contenuto potrebbe essere VBox, AnchorPane o altro
+            Node contentNode = contentLoader.load();
+
+            // C. INIEZIONE: Metto il contenuto al centro della cornice
+            rootLayout.setCenter(contentNode);
+
+            // D. Preparo la scena
+            // Manteniamo le dimensioni fisse come ci siamo detti
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootLayout, 800, 600);
+
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            System.err.println("Errore nel caricamento della vista: " + fxmlFile);
+            e.printStackTrace();
+        }
+
+
+
     }
 
     // --- Metodo Helper per evitare di riscrivere il codice di caricamento 100 volte ---
@@ -118,4 +149,38 @@ public class HomeGraphicController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        User user = SessionManager.getInstance().getLoggedUser();
+
+        if(user==null){
+            btnVendi.setVisible(false);
+            btnCompra.setVisible(false);
+        } else {
+
+
+            if (user instanceof Seller) {
+                // --- È UN VENDITORE ---
+                // Può Vendere, NON può Comprare
+
+                btnVendi.setVisible(true);
+                btnCompra.setVisible(false);
+
+            } else if (user instanceof Customer) {
+
+                // --- È UN COMPRATORE ---
+                // Può Comprare, NON può Vendere
+
+                btnVendi.setVisible(false);
+                btnCompra.setVisible(true);
+            }
+            else{
+                System.out.println("Errore");
+            }
+
+
+        }
+
+
+    }
 }

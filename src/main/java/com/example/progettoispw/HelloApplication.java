@@ -73,7 +73,7 @@ public class HelloApplication extends Application {
         System.out.println("------------------------------------------------");
         System.out.println("Scegli la modalità di persistenza dei dati:");
         System.out.println("1. Database (MySQL/JDBC)");
-        System.out.println("2. File System (Salvataggio su file locale)");
+        System.out.println("2. DEMO (Salvataggio temporaneo)");
         System.out.println("------------------------------------------------");
 
         // Ciclo finché l'utente non inserisce un valore valido
@@ -87,8 +87,8 @@ public class HelloApplication extends Application {
                     System.out.println(">> Modalità selezionata: DATABASE (JDBC)");
                     DAOFactory.setPersistenceType(PersistenceType.JDBC);
                 } else if (choice == 2) {
-                    System.out.println(">> Modalità selezionata: FILE SYSTEM");
-                    DAOFactory.setPersistenceType(PersistenceType.FSYS);
+                    System.out.println(">> Modalità selezionata: DEMO");
+                    DAOFactory.setPersistenceType(PersistenceType.DEMO);
                 } else {
                     System.out.println("!! Errore: Inserisci solo 1 o 2.");
                 }

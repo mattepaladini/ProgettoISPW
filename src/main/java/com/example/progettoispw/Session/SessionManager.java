@@ -23,6 +23,10 @@ public class SessionManager {
         loggedUser = user;
     }
 
+    public void setLoggedUser(User user) {
+        loggedUser = user;
+    }
+
     public User getLoggedUser() {
         return this.loggedUser;
     }
