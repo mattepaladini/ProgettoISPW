@@ -88,11 +88,6 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
     @Override
-    public CardCatalog getSeller(String username) {
-        return null;
-    }
-
-    @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
         return null;
     }

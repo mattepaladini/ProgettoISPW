@@ -19,12 +19,15 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     @Override
     public void addCatalog(CardCatalog catalog) {
         cardCatalogs.add(catalog);
-
     }
 
     @Override
     public void removeCard(Card card, String sellerName) {
-            cardCatalogs.remove(card);
+        for(CardCatalog c : cardCatalogs) {
+            if(c.getSeller().getSellerName().equals(sellerName)){
+                c.removeCollectableCard(card);
+            }
+        }
     }
 
     @Override
@@ -37,19 +40,12 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
     @Override
-    public CardCatalog getSeller(String username) {
-        return null;
-    }
-
-    @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
-
         for(CardCatalog catalogs : cardCatalogs) {
             if(catalogs.getSeller().equals(seller)) {
                 return catalogs;
             }
         }
-
         return null;
     }
 }

@@ -16,8 +16,6 @@ public interface CardCatalogDAO {
 
     void addCard(Card card, Seller sellerName);
 
-    CardCatalog getSeller(String username);
-
      CardCatalog getCatalogBySeller(Seller seller);
 }
 
