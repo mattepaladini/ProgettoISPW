@@ -1,7 +1,6 @@
 package com.example.progettoispw.DAO.User;
 
 import com.example.progettoispw.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class UserDAODemo implements UserDAO {
 
     @Override
     public User getUserByUsername(String username) {
-
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user;
