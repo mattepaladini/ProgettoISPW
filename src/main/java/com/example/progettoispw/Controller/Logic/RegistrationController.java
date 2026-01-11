@@ -30,7 +30,7 @@ public class RegistrationController {
                 session.setLoggedUser(newSeller);
                 break;
 
-                case CUSTOMER:
+            case BUYER:
                     Buyer newCustomer = new Buyer(userbean.getUsername(), userbean.getPassword());
                     session.setLoggedUser(newCustomer);
                     break;

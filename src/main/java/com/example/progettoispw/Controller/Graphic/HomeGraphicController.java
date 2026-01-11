@@ -166,7 +166,7 @@ public class HomeGraphicController implements Initializable {
                 btnVendi.setVisible(true);
                 btnCompra.setVisible(false);
 
-            } else if (user instanceof Customer) {
+            } else if (user instanceof Buyer) {
 
                 // --- È UN COMPRATORE ---
                 // Può Comprare, NON può Vendere
