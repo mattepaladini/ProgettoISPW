@@ -15,8 +15,9 @@ public class AuthController {
     public void checkUserExist(UserBean user) {
             //CHIAMA DAO
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-        User usertemp = new User(user.getUsername(), user.getPassword(),null);
-        if(userDAO.getUserByUsername(user.getUsername())!=null){
+
+        User usertemp = userDAO.getUserByUsername(user.getUsername());
+        if(usertemp!=null){
             authUser(usertemp);
         } else {
            //TODO throw(TODO);

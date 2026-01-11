@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.progettoispw.Controller.Graphic.SellerCatalogGraphicController"
+      spacing="20" style="-fx-padding: 20;">
+
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Gestione Catalogo" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS" /> <Label fx:id="lblShopName" text="Nome Negozio" style="-fx-text-fill: #7f8c8d;"/>
+    </HBox>
+
+    <TableView fx:id="tableCatalog" VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="Il tuo catalogo è vuoto. Aggiungi la prima carta!"/>
+        </placeholder>
+        <columns>
+            <TableColumn fx:id="colName" text="Nome" prefWidth="150"/>
+
+            <TableColumn fx:id="colPrice" text="Prezzo (€)" prefWidth="80"/>
+
+            <TableColumn fx:id="colGrade" text="Gradazione" prefWidth="100"/>
+
+            <TableColumn fx:id="colType" text="Tipo" prefWidth="100"/>
+
+            <TableColumn fx:id="colAttribute" text="Attributo" prefWidth="100"/>
+
+            <TableColumn fx:id="colLevel" text="Livello" prefWidth="60" style="-fx-alignment: CENTER;"/>
+        </columns>
+
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="Modifica Prezzo"  styleClass="secondary-button"/>
+        <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="primary-button"/>
+    </HBox>
+
+</VBox>

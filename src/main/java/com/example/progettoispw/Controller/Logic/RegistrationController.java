@@ -5,10 +5,8 @@ import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
-import model.Customer;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.Seller;
-import com.example.progettoispw.model.UserType;
 
 
 public class RegistrationController {
@@ -30,7 +28,7 @@ public class RegistrationController {
                 session.setLoggedUser(newSeller);
                 break;
 
-                case CUSTOMER:
+                case BUYER:
                     Buyer newCustomer = new Buyer(userbean.getUsername(), userbean.getPassword());
                     session.setLoggedUser(newCustomer);
                     break;

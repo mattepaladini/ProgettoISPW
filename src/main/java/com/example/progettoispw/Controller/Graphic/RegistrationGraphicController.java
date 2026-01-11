@@ -14,8 +14,8 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
-import static model.UserType.CUSTOMER;
-import static model.UserType.SELLER;
+import static com.example.progettoispw.model.UserType.BUYER;
+import static com.example.progettoispw.model.UserType.SELLER;
 
 public class RegistrationGraphicController {
 
@@ -47,7 +47,7 @@ public class RegistrationGraphicController {
         if(isVenditore){
             userbean.setUsertype(SELLER);
         }else{
-            userbean.setUsertype(CUSTOMER);
+            userbean.setUsertype(BUYER);
         }
 
         RegistrationController regiController = new RegistrationController();

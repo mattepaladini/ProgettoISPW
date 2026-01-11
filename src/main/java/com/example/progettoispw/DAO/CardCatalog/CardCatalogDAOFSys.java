@@ -1,6 +1,5 @@
 package com.example.progettoispw.DAO.CardCatalog;
 
-import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 
@@ -90,6 +89,11 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
 
     @Override
     public CardCatalog getSeller(String username) {
+        return null;
+    }
+
+    @Override
+    public CardCatalog getCatalogBySeller(Seller seller) {
         return null;
     }
 

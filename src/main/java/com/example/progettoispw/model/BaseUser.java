@@ -4,8 +4,8 @@ public class BaseUser extends User {
 
     private ShoppingCart cart;
 
-    public BaseUser(){
-        super();
+    public BaseUser(String username, String password) {
+        super(username, password, UserType.BASE);
         this.cart = new ShoppingCart();
     }
 

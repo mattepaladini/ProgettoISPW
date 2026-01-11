@@ -1,11 +1,13 @@
 package com.example.progettoispw.bean;
 
+import com.example.progettoispw.model.Gradazione;
+
 public class CollectableCardBean {
 
     private int id;
     private String nomeCarta;
     private float prezzoCorrente;
-    private String gradazione;
+    private Gradazione gradazione;
     private int livello;
     private String attributo;
     private String tipo;
@@ -19,7 +21,7 @@ public class CollectableCardBean {
     }
 
     //valuta se serve veramente, CERTO CHE SERVE
-    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, String gradazione){
+    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, Gradazione gradazione){
         this.id=id;
         this.nomeCarta=nomeCarta;
         this.prezzoCorrente=prezzoCorrente;
@@ -32,8 +34,8 @@ public class CollectableCardBean {
     public float getPrezzoCorrente() {return prezzoCorrente;}
     public void setPrezzoCorrente(float prezzoSX) {this.prezzoCorrente = prezzoSX;}
 
-    public String getGradazione() {return gradazione;}
-    public void setGradazione(String gradazione) {this.gradazione = gradazione;}
+    public Gradazione getGradazione() {return gradazione;}
+    public void setGradazione(Gradazione gradazione) {this.gradazione = gradazione;}
 
     public int getLivello() {return livello;}
     public void setLivello(int livello) {this.livello = livello;}

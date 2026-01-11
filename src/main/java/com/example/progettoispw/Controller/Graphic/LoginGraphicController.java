@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class LoginGraphicController {
     @FXML private PasswordField passwordField;
 
     @FXML
-    public void StartLogin(ActionEvent event) {
+    public void StartLogin(ActionEvent event) throws IOException {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
@@ -33,10 +34,24 @@ public class LoginGraphicController {
             System.out.println("Inserisci credenziali!");
         }
 
+        //carico schermata Home
 
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+        BorderPane rootLayout = mainLoader.load();
 
+        // B. Carico il contenuto centrale (Home)
+        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
+        Node homeNode = homeLoader.load();
 
-        // QUI ANDRA' LA LOGICA DI VERIFICA (Dummy per ora)
+        // C. Metto la Home al centro
+        rootLayout.setCenter(homeNode);
+
+        // D. Mostro la scena
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        // Usa le dimensioni che preferisci o quelle correnti
+        Scene scene = new Scene(rootLayout, 800, 600);
+        stage.setScene(scene);
+        stage.show();
 
     }
 

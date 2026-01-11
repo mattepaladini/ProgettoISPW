@@ -4,14 +4,17 @@ import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.model.Card;
-import com.example.progettoispw.model.Gradazione;
+import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
-import com.example.progettoispw.model.User;
+
+import javax.xml.catalog.Catalog;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManageCatalogController {
 
-
+    /*
     public void removeCardtoCatalog(CollectableCardBean cardBean) throws Exception{
 
         User currentSeller = SessionManager.getInstance().getLoggedUser();
@@ -21,7 +24,7 @@ public class ManageCatalogController {
         }
 
         User seller = new User(cardBean.getVenditore());
-        Gradazione gr = Gradazione.fromString(cardBean.getGradazione());
+        Gradazione gr = cardBean.getGradazione();
 
         Card card = new Card(
                 cardBean.getNomeCarta(),
@@ -37,5 +40,45 @@ public class ManageCatalogController {
 
         catalogDAO.removeCard(card, sellerName);
 
+    }*/
+
+    public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
+        // 1. Ottengo il DAO
+        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
+
+        Seller sellertemp = new Seller(sellerBean.getUsername(), sellerBean.getPassword());
+
+        // 2. Chiedo al DAO il catalogo di questo specifico venditore
+        // Nota: Qui dipende da come hai fatto il DAO.
+        // Se il DAO restituisce TUTTI i cataloghi, filtriamo qui.
+        // Se il DAO ha un metodo 'getCatalogBySeller', usiamo quello.
+
+        // Esempio assumendo che il DAO restituisca l'oggetto Catalog del seller
+        //Catalog catalog = dao.loadCatalogBySeller(seller);
+
+        CardCatalog cat = dao.getCatalogBySeller(sellertemp);
+
+        List<CollectableCardBean> beanList = new ArrayList<>();
+
+        if (cat == null) {
+            return new ArrayList<>(); // Ritorna lista vuota se non ha catalogo
+        }
+
+        //popola la lista di bean da ritornare al controller grafico
+
+        for(Card card : cat.getCards()){
+            CollectableCardBean bean = new CollectableCardBean();
+
+            bean.setNomeCarta(card.getNome());
+            bean.setPrezzoCorrente(card.getPrezzoAttuale());
+            bean.setGradazione(card.getGradazione());
+            bean.setLivello(card.getLivello());
+            bean.setAttributo(card.getAttributo());
+            bean.setTipo(card.getTipo());
+
+            beanList.add(bean);
+        }
+
+        return beanList; // Restituisce la List<CardBean>
     }
 }

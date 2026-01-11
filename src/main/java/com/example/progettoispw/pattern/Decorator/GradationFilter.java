@@ -1,14 +1,15 @@
 package com.example.progettoispw.pattern.Decorator;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Gradazione;
 
 import java.util.List;
 
 public class GradationFilter extends SearchDecorator{
 
-    private String gradation;
+    private Gradazione gradation;
 
-    public GradationFilter(SearchComponent searchComponent, String gradation) {
+    public GradationFilter(SearchComponent searchComponent, Gradazione gradation) {
         super(searchComponent);
         this.gradation = gradation;
     }
@@ -18,6 +19,6 @@ public class GradationFilter extends SearchDecorator{
 
         List<CollectableCardBean> list = super.executeSearch();
 
-        return list.stream().filter(c -> c.getGradazione().equalsIgnoreCase(gradation)).toList();
+        return list.stream().filter(c -> c.getGradazione().equals(gradation)).toList();
     }
 }

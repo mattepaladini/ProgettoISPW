@@ -27,7 +27,7 @@ public class SessionManager {
     }
 
     public User getLoggedUser() {
-        return this.loggedUser;
+        return loggedUser;
     }
 
     public void logout() {
