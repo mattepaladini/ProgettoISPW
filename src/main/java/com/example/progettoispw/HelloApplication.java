@@ -1,9 +1,6 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.DAO.PersistenceType;
-import com.example.progettoispw.DAO.User.UserDAO;
-import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -106,27 +103,12 @@ public class HelloApplication extends Application {
         // Non chiudiamo scanner qui perché System.in non va mai chiuso manualmente
     }
 
-    public static void populate(){
-        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-
-        User usertemp = new User("matteo", "ciao", UserType.SELLER);
-
-        userDAO.addUser(usertemp);
-
-        Seller seller = new Seller(usertemp.getUsername(), usertemp.getPassword());
-        CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
-        catalogDAO.addCatalog(new CardCatalog(seller));
-
-        Card tempcard = new Card("Charizard", 10f, Gradazione.PERFETTO, usertemp, 001, 0, "Fuoco", null);
-        catalogDAO.addCard(tempcard, seller);
-
-    }
-
+    
 
     public static void main(String[] args) {
 
         chooseConf();
-        populate();
+
         launch();
     }
     //

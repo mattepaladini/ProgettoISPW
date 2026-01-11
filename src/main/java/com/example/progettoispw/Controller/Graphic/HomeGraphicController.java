@@ -2,7 +2,6 @@ package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
-import com.example.progettoispw.model.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +56,41 @@ public class HomeGraphicController implements Initializable {
         User currentUser = SessionManager.getInstance().getLoggedUser();
 
         String fxmlFile = "";
+    /*try {
+
+        // Recupero lo Stage (la finestra corrente)
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // 2. CONTROLLO SE È LOGGATO
+        if (currentUser == null) {
+            // --- CASO UTENTE NON LOGGATO ---
+            System.out.println("Utente non loggato. Carico il Login dentro il MainLayout.");
+
+            // 1. Carico la CORNICE (MainLayout)
+            FXMLLoader layoutLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = layoutLoader.load();
+
+            // 2. Carico il CONTENUTO (Login)
+            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/GUI/Login.fxml")); // Controlla il path!
+            Parent loginView = loginLoader.load();
+
+            // 3. INSERISCO IL LOGIN AL CENTRO
+            rootLayout.setCenter(loginView);
+
+            // 4. Mostro la scena composta
+            Scene scene = new Scene(rootLayout);
+            // scene.getStylesheets().add(...) // Se hai un CSS globale
+            stage.setScene(scene);
+
+        }
+
+
+
+        // 3. CAMBIO SCENA
+        stage.show();
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    } */
         if (currentUser == null) {
             fxmlFile = "/GUI/Login.fxml";
         }
@@ -92,41 +126,6 @@ public class HomeGraphicController implements Initializable {
 
     }
 
-    @FXML
-    public void onSellPageClicked(ActionEvent event) {
-        try {
-            // 1. Carico la CORNICE (MainLayout)
-            // Assicurati che il path sia corretto
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-            BorderPane rootLayout = mainLoader.load();
-
-            // 2. Carico il CONTENUTO (SellerCatalog)
-            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource("/GUI/SellerCatalog.fxml"));
-            // Uso 'Node' perché il contenuto è la root del file FXML (es. VBox o AnchorPane)
-            Node catalogNode = contentLoader.load();
-
-            // 3. INIEZIONE: Metto il catalogo al CENTRO del MainLayout
-            rootLayout.setCenter(catalogNode);
-
-            // 4. Mostro la scena combinata
-            // Mantengo le dimensioni fisse per evitare il restringimento della finestra
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(rootLayout, 800, 600);
-
-            // Opzionale: carico il CSS se serve
-            // scene.getStylesheets().add(getClass().getResource("/css/light-theme.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            System.err.println("Errore nel caricamento della pagina SellerCatalog.");
-            e.printStackTrace();
-        }
-    }
-
-
-
     // --- Metodo Helper per evitare di riscrivere il codice di caricamento 100 volte ---
     private void changeScene(ActionEvent event, String fxmlPath) {
         try {
@@ -159,40 +158,25 @@ public class HomeGraphicController implements Initializable {
             btnCompra.setVisible(false);
         } else {
 
-            System.out.println(user.getTipoUtente());
 
-            if(user.getTipoUtente()== UserType.SELLER){
-                btnVendi.setVisible(true);
-                btnCompra.setVisible(false);
-                System.out.println("venditore");
-            } else if(user.getTipoUtente()==UserType.BUYER){
-                btnVendi.setVisible(false);
-                btnCompra.setVisible(true);
-                System.out.println("compra");
-            }
-
-            /*
             if (user instanceof Seller) {
                 // --- È UN VENDITORE ---
                 // Può Vendere, NON può Comprare
 
                 btnVendi.setVisible(true);
                 btnCompra.setVisible(false);
-                System.out.println("venditore");
 
-            } else if (user instanceof Buyer) {
+            } else if (user instanceof Customer) {
 
                 // --- È UN COMPRATORE ---
                 // Può Comprare, NON può Vendere
 
                 btnVendi.setVisible(false);
                 btnCompra.setVisible(true);
-                System.out.println("compratore");
-            }*/
+            }
             else{
                 System.out.println("Errore");
             }
-
 
 
         }

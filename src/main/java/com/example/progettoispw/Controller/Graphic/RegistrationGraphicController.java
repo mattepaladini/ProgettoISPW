@@ -47,7 +47,7 @@ public class RegistrationGraphicController {
         if(isVenditore){
             userbean.setUsertype(SELLER);
         }else{
-            userbean.setUsertype(BUYER);
+            userbean.setUsertype(CUSTOMER);
         }
 
         RegistrationController regiController = new RegistrationController();
