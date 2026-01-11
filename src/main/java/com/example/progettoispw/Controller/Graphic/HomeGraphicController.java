@@ -12,8 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Seller;
-import model.User;
+import com.example.progettoispw.model.Seller;
+import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.Customer;
 
 import java.awt.*;
 import java.io.IOException;

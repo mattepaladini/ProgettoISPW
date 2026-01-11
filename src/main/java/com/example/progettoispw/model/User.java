@@ -11,6 +11,8 @@ public class User {
     private UserType tipoUtente;
     private List<Order> ordini;
 
+    protected User() {}
+
     public User(String username, String password, UserType tipoUtente) {
 
         this.username = username;
