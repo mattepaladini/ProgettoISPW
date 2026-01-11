@@ -24,10 +24,10 @@ public class MainLayoutController {
     @FXML private BorderPane borderPane;
 
     // Mi servono per oscurare i bottoni relativi alla pagina in cui mi trovo
-    @FXML private Button btnHome;
-    @FXML private Button btnSearch;
-    @FXML private Button btnSell;
-    @FXML private Button btnProfile;
+    @FXML private javafx.scene.control.Button btnHome;
+    @FXML private javafx.scene.control.Button btnSearch;
+    @FXML private javafx.scene.control.Button btnSell;
+    @FXML private javafx.scene.control.Button btnProfile;
 
     // Metodo riutilizzabile per cambiare il centro della pagina
     public void setCenterContent(String fxmlPath) {
@@ -82,7 +82,8 @@ public class MainLayoutController {
     @FXML
     public void goToSearch(ActionEvent event) {
         // Qui ci colleghiamo finalmente a Search.fxml (che avrà la barra di ricerca)
-        navigateTo(event, "/GUI/Search.fxml");
+        //navigateTo(event, "/GUI/Search.fxml");
+        loadPage("/GUI/Search.fxml");
     }
 
     @FXML
@@ -151,42 +152,22 @@ public class MainLayoutController {
      */
     private void updateSidebarButtons(String currentPath) {
         // 1. RESET: Prima rendiamo TUTTI i bottoni visibili
-        resetButton(btnHome);
-        resetButton(btnSearch);
-        resetButton(btnSell);
-        resetButton(btnProfile);
+
 
         // 2. NASCONDI: Spegniamo solo quello della pagina corrente
         switch (currentPath) {
-            case "/fxml/Search.fxml":
-                hideButton(btnSearch);
+            case "/GUI/Search.fxml":
+                btnSearch.setVisible(false);
                 break;
-            case "/fxml/Sell.fxml":
-                hideButton(btnSell);
+            case "/GUI/Sell.fxml":
+                btnSell.setVisible(false);
                 break;
-            case "/fxml/Profile.fxml":
-                hideButton(btnProfile);
+            case "/GUI/Profile.fxml":
+                btnProfile.setVisible(false);
                 break;
             // Aggiungi altri casi se hai altre pagine
         }
     }
-
-    // Helper per mostrare un bottone
-    private void resetButton(Button btn) {
-        if (btn != null) {
-            btn.setVisible(true);
-            //btn.setManaged(true); // Occupa spazio
-        }
-    }
-
-    // Helper per nascondere un bottone
-    private void hideButton(Button btn) {
-        if (btn != null) {
-            btn.setVisible(false);
-            //btn.setManaged(false); // Collassa lo spazio (non lascia il buco vuoto)
-        }
-    }
-
 
 
 }

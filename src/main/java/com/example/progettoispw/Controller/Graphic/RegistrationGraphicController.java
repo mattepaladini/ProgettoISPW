@@ -1,5 +1,7 @@
 package com.example.progettoispw.Controller.Graphic;
 
+import com.example.progettoispw.Controller.Logic.RegistrationController;
+import com.example.progettoispw.bean.UserBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,9 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import static com.example.progettoispw.model.UserType.CUSTOMER;
+import static com.example.progettoispw.model.UserType.SELLER;
+
 public class RegistrationGraphicController {
 
     @FXML private TextField txtUsername;
@@ -19,7 +24,7 @@ public class RegistrationGraphicController {
     @FXML private CheckBox chkIsVenditore;
 
     @FXML
-    public void onRegisterClick(ActionEvent event) {
+    public void onRegisterClick(ActionEvent event) throws IOException {
         // 1. Recupero i dati
 
         String username = txtUsername.getText();
@@ -36,10 +41,28 @@ public class RegistrationGraphicController {
         System.out.println("Utente: " + username);
         System.out.println("Ruolo Venditore: " + isVenditore);
 
-        // TODO: Qui chiamerai il tuo RegistrationController (Logic)
-        // logicController.registraUtente(bean);
+        UserBean userbean = new UserBean(username, password);
 
-        cambiaScena(event, "/GUI/Home.fxml");
+        //Utenza di default --> CUSTOMER
+        if(isVenditore){
+            userbean.setUsertype(SELLER);
+        }else{
+            userbean.setUsertype(CUSTOMER);
+        }
+
+        RegistrationController regiController = new RegistrationController();
+        regiController.completeRegistration(userbean);
+
+        // 3. CAMBIO SCENA -> VADO ALLA HOME (MainLayout)
+        // Poiché la sessione è piena, HomeGraphicController mostrerà i tasti giusti.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+        Parent root = loader.load();
+
+        // ... (codice per caricare la Home al centro del MainLayout) ...
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
     }
 
     @FXML

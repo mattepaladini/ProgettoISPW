@@ -1,5 +1,6 @@
 package com.example.progettoispw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Buyer extends User{
@@ -7,10 +8,11 @@ public class Buyer extends User{
     private ShoppingCart cart;
     private List<Order> orders;
 
-    public Buyer(String username){
-        super(username);
+    public Buyer(String username, String password) {
+        super(username, password, UserType.CUSTOMER);
         this.cart = new ShoppingCart();
     }
+
 
     // Utilizziamo questo metodo per prendere il carrello e successivamente inserire carte all'interno.
     public ShoppingCart getCart(){
