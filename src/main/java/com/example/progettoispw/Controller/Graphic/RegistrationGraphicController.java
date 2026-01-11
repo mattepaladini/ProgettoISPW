@@ -14,8 +14,8 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
-import static model.UserType.CUSTOMER;
-import static model.UserType.SELLER;
+import static com.example.progettoispw.model.UserType.CUSTOMER;
+import static com.example.progettoispw.model.UserType.SELLER;
 
 public class RegistrationGraphicController {
 
