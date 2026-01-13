@@ -48,14 +48,6 @@ public class ManageCatalogController {
 
         Seller sellertemp = new Seller(sellerBean.getUsername(), sellerBean.getPassword());
 
-        // 2. Chiedo al DAO il catalogo di questo specifico venditore
-        // Nota: Qui dipende da come hai fatto il DAO.
-        // Se il DAO restituisce TUTTI i cataloghi, filtriamo qui.
-        // Se il DAO ha un metodo 'getCatalogBySeller', usiamo quello.
-
-        // Esempio assumendo che il DAO restituisca l'oggetto Catalog del seller
-        //Catalog catalog = dao.loadCatalogBySeller(seller);
-
         CardCatalog cat = dao.getCatalogBySeller(sellertemp);
 
         List<CollectableCardBean> beanList = new ArrayList<>();

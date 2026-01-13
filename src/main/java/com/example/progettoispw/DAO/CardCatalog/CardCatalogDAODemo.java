@@ -29,11 +29,15 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
     @Override
     public void addCard(Card card, Seller sellerName) {
+        cardCatalogs = getAllCatalogs();
+
             for(CardCatalog catalog : cardCatalogs) {
-                if(catalog.getSeller().equals(sellerName)) {
+                if(catalog.getSeller().getSellerName().equals(sellerName.getSellerName())) {
                     catalog.addCollectableCard(card);
                 }
             }
+
+
     }
 
     @Override
@@ -45,7 +49,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     public CardCatalog getCatalogBySeller(Seller seller) {
 
         for(CardCatalog catalogs : cardCatalogs) {
-            if(catalogs.getSeller().equals(seller)) {
+            if(catalogs.getSeller().getSellerName().equals(seller.getSellerName())) {
                 return catalogs;
             }
         }
