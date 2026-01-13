@@ -4,6 +4,9 @@ module com.example.progettoispw {
     requires java.desktop;
 
 
+    // Permette alla TableView (che sta in javafx.base) di leggere i tuoi Bean
+    opens com.example.progettoispw.bean to javafx.base;
+
     opens com.example.progettoispw to javafx.fxml;
     exports com.example.progettoispw;
     exports com.example.progettoispw.Controller;

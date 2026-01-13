@@ -7,6 +7,7 @@ import com.example.progettoispw.bean.CollectableCardBean;
 
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
 import javafx.collections.FXCollections;
@@ -33,11 +34,11 @@ public class SellerCatalogGraphicController implements Initializable {
     @FXML private Label lblShopName;
     @FXML private TableView<CollectableCardBean> tableCatalog;
     @FXML private TableColumn<CollectableCardBean, String> colName;
-    @FXML private TableColumn<CollectableCardBean, Double> colPrice;
-    @FXML private TableColumn<CollectableCardBean, Double> colGrade;
+    @FXML private TableColumn<CollectableCardBean, Float> colPrice;
+    @FXML private TableColumn<CollectableCardBean, Gradazione> colGrade;
     @FXML private TableColumn<CollectableCardBean, String> colType;
     @FXML private TableColumn<CollectableCardBean, String> colAttribute;
-    @FXML private TableColumn<CollectableCardBean, Double> colLevel;
+    @FXML private TableColumn<CollectableCardBean, Integer> colLevel;
 
     private ManageCatalogController logicController;
     private ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
@@ -56,14 +57,14 @@ public class SellerCatalogGraphicController implements Initializable {
         // 2. Configuro le colonne della tabella
         // Le stringhe devono coincidere ESATTAMENTE con i nomi degli attributi nel CardBean
         // Es: se in CardBean hai "cardName", qui scrivi "cardName"
-        colName.setCellValueFactory(new PropertyValueFactory<>("cardName"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("cardPrice"));
-        colGrade.setCellValueFactory(new PropertyValueFactory<>("cardCondition")); // o "cardGrade"
+        colName.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
+        colGrade.setCellValueFactory(new PropertyValueFactory<>("gradazione")); // o "cardGrade"
 
         // NUOVI COLLEGAMENTI
-        colType.setCellValueFactory(new PropertyValueFactory<>("cardType"));
-        colAttribute.setCellValueFactory(new PropertyValueFactory<>("cardAttribute"));
-        colLevel.setCellValueFactory(new PropertyValueFactory<>("cardLevel"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        colAttribute.setCellValueFactory(new PropertyValueFactory<>("attributo"));
+        colLevel.setCellValueFactory(new PropertyValueFactory<>("livello"));
 
         // 3. Carico i dati
         refreshTable(userBean);
