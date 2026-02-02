@@ -2,6 +2,7 @@ module com.example.progettoispw {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires java.sql;
 
     requires java.sql;
     requires mysql.connector.j;
