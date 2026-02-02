@@ -1,32 +1,45 @@
 package com.example.progettoispw.model;
 
+import com.example.progettoispw.pattern.Observer.PriceObserver;
+import com.example.progettoispw.pattern.Observer.PriceSubject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
-public class Card {
+public class Card implements Serializable {
 
-    private int id;
+
+    //private int id;
     private String nome;
     private Float prezzoAttuale;
-    private List<Float> storicoPrezzi;
+    //private List<Float> storicoPrezzi;
     private Gradazione gradazione;
     private User venditore;
     private int livello;
-    private String attributo;
-    private String tipo;
+    private Attribute attributo;
+    private Type tipo;
+
+    private List<PriceObserver> observers;
+
 
     // Da definire come determinare gli id delle carte.
-    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore, int id, int livello, String attributo, String tipo) {
-        this.id = id;
+    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore, int livello, Attribute attributo, Type tipo) {
         this.nome = nome;
         this.prezzoAttuale = prezzoAttuale;
         this.gradazione = gradazione;
         this.venditore = venditore;
-        this.storicoPrezzi = new ArrayList<Float>();
-        this.storicoPrezzi.add(prezzoAttuale);
         this.livello = livello;
         this.attributo = attributo;
         this.tipo = tipo;
+    }
+
+
+
+    public Card(String nome, Float prezzo){
+        this.nome = nome;
+        this.prezzoAttuale = prezzo;
     }
 
     /*
@@ -42,10 +55,6 @@ public class Card {
         return this.prezzoAttuale;
     }
 
-    public List<Float> getStoricoPrezzi(){
-        return this.storicoPrezzi;
-    }
-
     public Gradazione getGradazione(){
         return this.gradazione;
     }
@@ -54,13 +63,10 @@ public class Card {
         return this.venditore;
     }
 
-    public int getId(){
-        return this.id;
-    }
 
     public int getLivello(){return this.livello;}
 
-    public String getAttributo(){return this.attributo;}
+    public Attribute getAttributo(){return this.attributo;}
 
-    public String getTipo(){return this.tipo;}
+    public Type getTipo(){return this.tipo;}
 }

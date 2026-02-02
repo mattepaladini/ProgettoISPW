@@ -2,6 +2,7 @@ package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.exception.invalidInputException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.example.progettoispw.model.UserType.BUYER;
 import static com.example.progettoispw.model.UserType.SELLER;
@@ -22,6 +25,8 @@ public class RegistrationGraphicController {
     @FXML private TextField txtUsername;
     @FXML private PasswordField txtPassword;
     @FXML private CheckBox chkIsVenditore;
+
+    private static final Logger logger = Logger.getLogger(RegistrationController.class.getName());
 
     @FXML
     public void onRegisterClick(ActionEvent event) throws IOException {
@@ -33,13 +38,15 @@ public class RegistrationGraphicController {
 
         // 2. Controllo banale (giusto per non mandare null)
         if(username.isEmpty() || password.isEmpty()) {
-            System.out.println("Errore: Compila tutti i campi!");
-            return;
+            throw new invalidInputException("Username e/o password mancanti");
         }
 
+        /*
         System.out.println("REGISTRAZIONE IN CORSO...");
         System.out.println("Utente: " + username);
         System.out.println("Ruolo Venditore: " + isVenditore);
+        */
+
 
         UserBean userbean = new UserBean(username, password);
 
@@ -84,7 +91,7 @@ public class RegistrationGraphicController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.getMessage());
         }
     }
 }

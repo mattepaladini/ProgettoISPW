@@ -1,14 +1,15 @@
 package com.example.progettoispw.pattern.Decorator;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Type;
 
 import java.util.List;
 
 public class TypeFilter extends SearchDecorator{
 
-    private String type;
+    private Type type;
 
-    public TypeFilter(SearchComponent searchComponent, String type) {
+    public TypeFilter(SearchComponent searchComponent, Type type) {
         super(searchComponent);
         this.type = type;
     }
@@ -17,6 +18,6 @@ public class TypeFilter extends SearchDecorator{
     public List<CollectableCardBean> executeSearch() {
 
         List<CollectableCardBean> list = super.executeSearch();
-        return list.stream().filter(c-> c.getTipo().equalsIgnoreCase(type)).toList();
+        return list.stream().filter(c-> c.getTipo().equals(type)).toList();
     }
 }

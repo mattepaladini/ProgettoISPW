@@ -3,6 +3,7 @@ package com.example.progettoispw;
 import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.DAO.PersistenceType;
 import com.example.progettoispw.DAO.User.UserDAO;
+import com.example.progettoispw.DataBase.DBConnection;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import javafx.application.Application;
@@ -77,10 +78,11 @@ public class HelloApplication extends Application {
         System.out.println("Scegli la modalità di persistenza dei dati:");
         System.out.println("1. Database (MySQL/JDBC)");
         System.out.println("2. DEMO (Salvataggio temporaneo)");
+        System.out.println("3. FSYS (Salvataggio su file, solo per Venditori)");
         System.out.println("------------------------------------------------");
 
         // Ciclo finché l'utente non inserisce un valore valido
-        while (choice != 1 && choice != 2) {
+        while (choice != 1 && choice != 2 && choice != 3) {
             System.out.print("Inserisci la tua scelta (1 o 2): ");
 
             if (scanner.hasNextInt()) {
@@ -92,7 +94,12 @@ public class HelloApplication extends Application {
                 } else if (choice == 2) {
                     System.out.println(">> Modalità selezionata: DEMO");
                     DAOFactory.setPersistenceType(PersistenceType.DEMO);
-                } else {
+                } else if(choice == 3){
+                    System.out.println(">> Modalità selezionata: FSYS");
+                    DAOFactory.setPersistenceType(PersistenceType.FSYS);
+                }
+
+                else {
                     System.out.println("!! Errore: Inserisci solo 1 o 2.");
                 }
             } else {
@@ -109,6 +116,11 @@ public class HelloApplication extends Application {
     public static void populate(){
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
+        /*
+        if(userDAO.getUserByUsername("matteo")!=null){
+            System.out.println("Utenza già creata");
+            return;
+        }*/
         User usertemp = new User("matteo", "ciao", UserType.SELLER);
 
         userDAO.addUser(usertemp);
@@ -117,7 +129,7 @@ public class HelloApplication extends Application {
         CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
         catalogDAO.addCatalog(new CardCatalog(seller));
 
-        Card tempcard = new Card("Charizard", 10f, Gradazione.PERFETTO, usertemp, 001, 0, "Fuoco", null);
+        Card tempcard = new Card("Charizard", 10f, Gradazione.PERFETTO, usertemp,  0, Attribute.FUOCO, Type.MAGIA);
         catalogDAO.addCard(tempcard, seller);
 
     }
@@ -125,8 +137,17 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
+        System.out.println("Test connessione...");
+        java.sql.Connection testConn = DBConnection.getConnection();
+
+        if (testConn != null) {
+            System.out.println("CONNESSO! Il database risponde.");
+        } else {
+            System.out.println("CONNESSIONE FALLITA.");
+        }
+
         chooseConf();
-        populate();
+        //populate();
         launch();
     }
     //

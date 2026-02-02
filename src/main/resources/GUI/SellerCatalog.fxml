@@ -9,6 +9,8 @@
       spacing="20" style="-fx-padding: 20;">
 
     <HBox alignment="CENTER_LEFT">
+        <Button text="← Torna alla Home" onAction="#onBackClick"
+                style="-fx-background-color: transparent; -fx-text-fill: #3498db; -fx-cursor: hand; -fx-font-weight: bold;"/>
         <Label text="Gestione Catalogo" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
         <Region HBox.hgrow="ALWAYS" /> <Label fx:id="lblShopName" text="Nome Negozio" style="-fx-text-fill: #7f8c8d;"/>
     </HBox>
@@ -37,8 +39,8 @@
     </TableView>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Modifica Prezzo"  styleClass="secondary-button"/>
-        <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="primary-button"/>
+        <Button text="Modifica Prezzo"  styleClass="icon-button"/>
+        <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="icon-button"/>
     </HBox>
 
 </VBox>

@@ -2,6 +2,7 @@ package com.example.progettoispw.Controller.Graphic;
 
 
 import com.example.progettoispw.Controller.Logic.ManageCatalogController;
+import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 
@@ -28,6 +29,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SellerCatalogGraphicController implements Initializable {
 
@@ -42,6 +45,8 @@ public class SellerCatalogGraphicController implements Initializable {
 
     private ManageCatalogController logicController;
     private ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
+
+    private static final Logger logger = Logger.getLogger(SellerCatalogGraphicController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,13 +84,53 @@ public class SellerCatalogGraphicController implements Initializable {
 
 
     @FXML
-    public void onAddCardClick(ActionEvent event) {
+    public void onAddCardClick(ActionEvent event) throws IOException {
         // Qui dovrai aprire una nuova finestra (Dialog o cambio scena)
         // per inserire i dati della nuova carta.
-        System.out.println("Apertura form aggiunta carta...");
-        // TODO: Implementare apertura AddCard.fxml
+
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+        BorderPane root = mainLoader.load();
+
+        FXMLLoader catalogLoader = new FXMLLoader(getClass().getResource("/GUI/AddCard.fxml"));
+        Node catalogNode = catalogLoader.load();
+
+        root.setCenter(catalogNode);
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
+
+
     }
-/*
+
+    @FXML
+    public void onBackClick(ActionEvent event) {
+        try {
+            // 1. Carico la Cornice (MainLayout)
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = mainLoader.load();
+
+            // 2. Carico la Home
+            FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
+            Node homeNode = homeLoader.load();
+
+            // 3. Metto la Home al CENTRO
+            rootLayout.setCenter(homeNode);
+
+            // 4. Mostro la scena
+            // Nota: HomeGraphicController.initialize() verrà chiamato automaticamente
+            // e rileggerà la Sessione per mostrare i bottoni corretti.
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootLayout, 800, 600);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "Errore nel caricamento della Home");
+        }
+    }
+
+
+
     @FXML
     public void onEditPriceClick(ActionEvent event) {
         // 1. Prendo la carta selezionata
@@ -100,9 +145,9 @@ public class SellerCatalogGraphicController implements Initializable {
         }
 
         // 2. Apro un Dialog rapido per il nuovo prezzo
-        TextInputDialog dialog = new TextInputDialog(String.valueOf(selected.getCardPrice()));
+        TextInputDialog dialog = new TextInputDialog(String.valueOf(selected.getPrezzoCorrente()));
         dialog.setTitle("Modifica Prezzo");
-        dialog.setHeaderText("Modifica prezzo per: " + selected.getCardName());
+        dialog.setHeaderText("Modifica prezzo per: " + selected.getNomeCarta());
         dialog.setContentText("Nuovo Prezzo (€):");
 
         Optional<String> result = dialog.showAndWait();
@@ -124,5 +169,4 @@ public class SellerCatalogGraphicController implements Initializable {
         });
     }
 
- */
 }

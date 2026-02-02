@@ -1,5 +1,6 @@
 package com.example.progettoispw.Controller.Graphic;
 
+import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class CartGraphicController {
@@ -18,6 +20,8 @@ public class CartGraphicController {
     @FXML private Label lblItemCount;
     @FXML private Label lblEmptyCart;
     @FXML private Button btnCheckout;
+
+    private static final Logger logger = Logger.getLogger(CartGraphicController.class.getName());
 
     // Metodo chiamato quando si carica la schermata
     // Ipotizziamo che riceva la lista di carte nel carrello
@@ -56,7 +60,7 @@ public class CartGraphicController {
                 total += card.getPrezzoCorrente();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.getMessage());
         }
 
         // 3. Aggiornamento Footer
@@ -70,7 +74,7 @@ public class CartGraphicController {
 
     @FXML
     public void onCheckoutClick() {
-        System.out.println("Navigazione verso la schermata di pagamento...");
+        //System.out.println("Navigazione verso la schermata di pagamento...");
         // Qui chiameresti il MainLayoutController per cambiare scena
     }
 }

@@ -3,6 +3,7 @@ package com.example.progettoispw.DAO.CardCatalog;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 import com.example.progettoispw.model.Seller;
+import com.example.progettoispw.model.User;
 
 import java.util.List;
 
@@ -22,12 +23,17 @@ public class CardCatalogDAODB implements CardCatalogDAO {
     }
 
     @Override
-    public void removeCard(Card card, String sellerName) {
+    public void removeCard(Card card, User sellerName) {
 
     }
 
     @Override
-    public void addCard(Card card, Seller sellerName) {
+    public void addCard(Card card, User sellerName) {
+
+    }
+
+    @Override
+    public void updatePrice(Card card) {
 
     }
 

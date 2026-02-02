@@ -73,4 +73,27 @@ public class ManageCatalogController {
 
         return beanList; // Restituisce la List<CardBean>
     }
+
+    public void addCard(CollectableCardBean cardBean, User seller){
+
+        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
+        int id= 0; //TODO gestisci logica per gli id
+
+        Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller,cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+
+        if(newCard!= null){
+            dao.addCard(newCard, seller);
+        }
+
+    }
+
+    public void updateCardPrice(CollectableCardBean selected, double newPrice) {
+
+        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
+        Card card = new Card(selected.getNomeCarta(), selected.getPrezzoCorrente());
+
+        if(card!=null){
+            dao.updatePrice(card);
+        }
+    }
 }

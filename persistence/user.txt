@@ -1,0 +1,2 @@
+matteo;ciao;SELLER
+mattia;bella;SELLER
