@@ -9,6 +9,8 @@ public class CardCatalog implements Serializable {
     private List<Card> cards;
     private Seller seller;
 
+    private static final long serialVersionUID = 1L;
+
     public CardCatalog( Seller seller) {
         this.cards = new ArrayList<>();
         this.seller = seller;
@@ -18,13 +20,14 @@ public class CardCatalog implements Serializable {
         this.cards.add(card);
     }
 
+    /*
     public void removeCollectableCard(Card card) {
         for(Card c : this.cards) {
             if(card.getId() == c.getId()) {
                 this.cards.remove(c);
             }
         }
-    }
+    }*/
 
     public Seller getSeller(){
         return seller;

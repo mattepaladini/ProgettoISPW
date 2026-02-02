@@ -6,6 +6,8 @@ public class Seller extends User implements Serializable {
 
     private CardCatalog catalog;
 
+    private static final long serialVersionUID = 1L;
+
     public Seller(String username, String password) {
         super(username, password, UserType.SELLER);
     }

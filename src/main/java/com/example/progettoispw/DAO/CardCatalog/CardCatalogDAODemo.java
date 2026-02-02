@@ -3,6 +3,7 @@ package com.example.progettoispw.DAO.CardCatalog;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 import com.example.progettoispw.model.Seller;
+import com.example.progettoispw.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +24,35 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
     @Override
-    public void removeCard(Card card, String sellerName) {
-            cardCatalogs.remove(card);
+    public void removeCard(Card card, User sellerName) {
+
+            cardCatalogs = getAllCatalogs();
+            for(CardCatalog catalog : cardCatalogs) {
+                if(catalog.getSeller().equals(sellerName)) {
+                    cardCatalogs.remove(card);
+                }
+            }
+
+
     }
 
     @Override
-    public void addCard(Card card, Seller sellerName) {
+    public void addCard(Card card, User sellerName) {
         cardCatalogs = getAllCatalogs();
 
             for(CardCatalog catalog : cardCatalogs) {
-                if(catalog.getSeller().getSellerName().equals(sellerName.getSellerName())) {
+                if(catalog.getSeller().getSellerName().equals(sellerName.getUsername())) {
                     catalog.addCollectableCard(card);
                 }
             }
 
 
+    }
+
+    @Override
+    public void updatePrice(Card card) {
+        cardCatalogs = getAllCatalogs();
+        for(CardCatalog catalog : cardCatalogs) {}
     }
 
     @Override

@@ -20,6 +20,7 @@ public class ShoppingCart {
         this.row.add(cartRow);
     }
 
+    /*
     public void removeCard(int id) {
         for(CartRow cartRow : this.row) {
             Card c = cartRow.getCard();
@@ -27,7 +28,7 @@ public class ShoppingCart {
                 row.remove(cartRow);
             }
         }
-    }
+    }*/
 
     public Float getTotal() {
         Float total = 0.0f;

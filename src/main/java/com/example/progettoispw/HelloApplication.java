@@ -1,6 +1,10 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.DAO.PersistenceType;
+import com.example.progettoispw.DAO.User.UserDAO;
+import com.example.progettoispw.DataBase.DBConnection;
+import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -103,12 +107,41 @@ public class HelloApplication extends Application {
         // Non chiudiamo scanner qui perché System.in non va mai chiuso manualmente
     }
 
-    
+    public static void populate(){
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+
+        /*
+        if(userDAO.getUserByUsername("matteo")!=null){
+            System.out.println("Utenza già creata");
+            return;
+        }*/
+        User usertemp = new User("matteo", "ciao", UserType.SELLER);
+
+        userDAO.addUser(usertemp);
+
+        Seller seller = new Seller(usertemp.getUsername(), usertemp.getPassword());
+        CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
+        catalogDAO.addCatalog(new CardCatalog(seller));
+
+        Card tempcard = new Card("Charizard", 10f, Gradazione.PERFETTO, usertemp,  0, Attribute.FUOCO, Type.MAGIA);
+        catalogDAO.addCard(tempcard, seller);
+
+    }
+
 
     public static void main(String[] args) {
 
-        chooseConf();
+        System.out.println("Test connessione...");
+        java.sql.Connection testConn = DBConnection.getConnection();
 
+        if (testConn != null) {
+            System.out.println("CONNESSO! Il database risponde.");
+        } else {
+            System.out.println("CONNESSIONE FALLITA.");
+        }
+
+        chooseConf();
+        populate();
         launch();
     }
     //

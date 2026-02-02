@@ -27,7 +27,7 @@ public class AuthController {
 
     public void authUser(User user) {
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-        if(userDAO.logWithPSW(user.getPassword())){
+        if(userDAO.logWithPSW(user.getUsername(), user.getPassword())){
             SessionManager.getInstance().setLoggedUser(user);
         }
 

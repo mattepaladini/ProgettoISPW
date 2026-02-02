@@ -1,6 +1,7 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.BuyController;
+import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +11,12 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SearchResultsGraphicController {
+
+    private static final Logger logger = Logger.getLogger(SearchResultsGraphicController.class.getName());
 
     @FXML
     private VBox resultsContainer; // Il contenitore dentro lo ScrollPane
@@ -54,9 +59,7 @@ public class SearchResultsGraphicController {
                 resultsContainer.getChildren().add(cardNode);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Qui potresti mostrare un alert di errore generico
-            System.err.println("Errore nel caricamento della lista risultati: " + e.getMessage());
+            logger.log(Level.INFO, "errore nel caricamento dei risultati", e.getMessage());
         }
 
 

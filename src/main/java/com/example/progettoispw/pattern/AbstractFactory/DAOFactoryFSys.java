@@ -15,7 +15,7 @@ public class DAOFactoryFSys extends DAOFactory {
 
     @Override
     public UserDAO getUserDAO() {
-        return null;
+        return new UserDAOFSys();
     }
 
     @Override

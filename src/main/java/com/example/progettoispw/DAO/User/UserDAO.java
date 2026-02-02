@@ -9,5 +9,5 @@ public interface UserDAO {
     List<User> getAllUsers();
     void addUser(User user);
     User getUserByUsername(String username);
-    boolean logWithPSW(String password);
+    boolean logWithPSW(String Username, String password);
 }

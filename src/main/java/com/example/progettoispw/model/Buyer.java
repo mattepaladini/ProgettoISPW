@@ -1,12 +1,15 @@
 package com.example.progettoispw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buyer extends User{
+public class Buyer extends User implements Serializable {
 
     private ShoppingCart cart;
     private List<Order> orders;
+
+    private static final long serialVersionUID = 1L;
 
     public Buyer(String username, String password) {
         super(username, password, UserType.BUYER);

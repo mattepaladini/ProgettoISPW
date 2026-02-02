@@ -10,6 +10,8 @@ public class CartRow {
         this.price = price;
     }
 
+    //TODO valuta se lasciare questa entità
+
     public Card getCard() {
         return card;
     }

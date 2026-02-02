@@ -1,18 +1,26 @@
 package com.example.progettoispw.Controller.Graphic;
 
+import com.example.progettoispw.Controller.Logic.RegistrationController;
+import com.example.progettoispw.Session.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainLayoutController {
+
+    private static final Logger logger = Logger.getLogger(MainLayoutController.class.getName());
 
     // Riferimento all'area centrale del BorderPane
     @FXML
@@ -36,8 +44,7 @@ public class MainLayoutController {
             Parent newView = loader.load();
             borderPane.setCenter(newView);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Impossibile caricare la vista: " + fxmlPath);
+            logger.log(Level.SEVERE, "Impossibile caricare la vista: "+fxmlPath, e);
         }
     }
 
@@ -46,34 +53,49 @@ public class MainLayoutController {
     public void initialize() {
 
         if (centerPane == null) {
-            System.err.println("❌ ERRORE GRAVE: 'centerPane' è NULL!");
-            System.err.println("Verifica in MainLayout.fxml di aver scritto: <StackPane fx:id=\"centerPane\" ...>");
-            return; // Esco per evitare il crash
+            logger.log(Level.SEVERE, "Errore nella caricatura");
+            return;
+        }
+
+        if(SessionManager.getInstance().getLoggedUser()==null){
+            btnProfile.setText("Login");
+            btnProfile.setOnAction(this::doLogin);
+        } else {
+            btnProfile.setText("Logout");
+            btnProfile.setOnAction(this::Logout);
         }
 
         // Appena apro l'app, carico subito la Home
         loadPage("/GUI/Home.fxml");
     }
 
+    private void doLogin(ActionEvent event) {
+        navigateTo(event, "/GUI/Login.fxml");
+    }
+
+    private void Logout(ActionEvent event) {
+        SessionManager.getInstance().logout();
+
+        navigateTo(event, "/GUI/Home.fxml");
+    }
+
     private void navigateTo(ActionEvent event, String fxmlPath) {
         try {
-            // 1. Carico la nuova vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent newView = loader.load();
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane root = mainLoader.load();
 
-            // 2. Risalgo al BorderPane del MainLayout
-            Node source = (Node) event.getSource();
-            // Risalgo fino alla root della scena (che è il BorderPane del MainLayout)
-            BorderPane mainLayout = (BorderPane) source.getScene().getRoot();
+            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Node contentNode = contentLoader.load();
 
-            // 3. Prendo il centro (StackPane) e sostituisco il contenuto
-            StackPane centerPane = (StackPane) mainLayout.getCenter();
-            centerPane.getChildren().clear();
-            centerPane.getChildren().add(newView);
+            root.setCenter(contentNode);
+
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Errore: Impossibile caricare " + fxmlPath);
+            logger.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -110,7 +132,7 @@ public class MainLayoutController {
     public void doLogout(ActionEvent event) {
         // Qui dovresti cambiare l'intera Scena per tornare al Login
         // Perché il Login non ha la navbar!
-        System.out.println("Logout effettuato");
+        logger.log(Level.INFO, "Logout");
     }
 
     // --- METODO UTILITY PER CARICARE LE PAGINE ---
@@ -142,8 +164,7 @@ public class MainLayoutController {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Impossibile caricare la vista: " + fxmlPath);
+            logger.log(Level.SEVERE, "impossibile caricare la vista: "+fxmlPath, e);
         }
     }
 
@@ -151,10 +172,7 @@ public class MainLayoutController {
      * Metodo che gestisce quale bottone nascondere
      */
     private void updateSidebarButtons(String currentPath) {
-        // 1. RESET: Prima rendiamo TUTTI i bottoni visibili
 
-
-        // 2. NASCONDI: Spegniamo solo quello della pagina corrente
         switch (currentPath) {
             case "/GUI/Search.fxml":
                 btnSearch.setVisible(false);

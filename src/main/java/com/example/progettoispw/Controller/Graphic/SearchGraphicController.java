@@ -1,8 +1,11 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.BuyController;
+import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
+import com.example.progettoispw.model.Attribute;
+import com.example.progettoispw.model.Type;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,19 +21,23 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SearchGraphicController {
 
 @FXML private TextField nomeCartaCercata;
 @FXML private ComboBox fasciaPrezzoCercata;
 @FXML private CheckBox livelloCercato;
-@FXML private CheckBox attributoCercato;
-@FXML private CheckBox tipoCercato;
+@FXML private ComboBox<Attribute> attributoCercato;
+@FXML private ComboBox<Type> tipoCercato;
+
+    private static final Logger logger = Logger.getLogger(SearchGraphicController.class.getName());
 
     public SearchGraphicController(){}
 
 
-    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, CheckBox livelloCercato, CheckBox attributoCercato, CheckBox tipoCercato) {
+    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, CheckBox livelloCercato, ComboBox<Attribute> attributoCercato, ComboBox<Type> tipoCercato) {
         this.nomeCartaCercata = nomeCartaCercata;
         this.fasciaPrezzoCercata = fasciaPrezzoCercata;
         this.livelloCercato = livelloCercato;
@@ -54,7 +61,7 @@ public class SearchGraphicController {
             // stage.show(); // Non serve richiamarlo, la finestra è già aperta
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -75,10 +82,10 @@ public class SearchGraphicController {
         }
 
         if(attributoCercato.isPressed()) {
-            searchCardBean.setAttributo(attributoCercato.getText());
+            searchCardBean.setAttributo(attributoCercato.getValue());
         }
         if(tipoCercato.isPressed()) {
-            searchCardBean.setTipo(tipoCercato.getText());
+            searchCardBean.setTipo(tipoCercato.getValue());
         }
 
         //CREO IL CONTROLLORE PER LA RICERCA E GLI PASSO LA BEAN APPENA POPOLATA
