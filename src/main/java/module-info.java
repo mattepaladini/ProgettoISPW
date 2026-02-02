@@ -4,7 +4,6 @@ module com.example.progettoispw {
     requires java.desktop;
     requires java.sql;
 
-    requires java.sql;
     requires mysql.connector.j;
 
     // Permette alla TableView (che sta in javafx.base) di leggere i tuoi Bean
