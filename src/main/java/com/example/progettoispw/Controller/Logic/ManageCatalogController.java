@@ -1,18 +1,20 @@
 package com.example.progettoispw.Controller.Logic;
 
 import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
-import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 
-import javax.xml.catalog.Catalog;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ManageCatalogController {
+
+    Logger logger = Logger.getLogger(ManageCatalogController.class.getName());
 
     /*
     public void removeCardtoCatalog(CollectableCardBean cardBean) throws Exception{
@@ -77,23 +79,44 @@ public class ManageCatalogController {
     public void addCard(CollectableCardBean cardBean, User seller){
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
-        int id= 0; //TODO gestisci logica per gli id
 
-        Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller,cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+        //primo filtro sulle informazioni essenziali
+        if(!cardBean.getNomeCarta().isBlank() &&
+            cardBean.getPrezzoCorrente()>0.0f){
 
-        if(newCard!= null){
-            dao.addCard(newCard, seller);
+            if(!dao.findCardBySeller(cardBean.getNomeCarta(), cardBean.getVenditore())){
+                logger.log(Level.WARNING, "Attenzione carta già presente in questo catalogo!");
+                return;     //forzo l'uscita
+            }
+
+            Gradazione gradazionetemp = Gradazione.fromString(cardBean.getGradazione().toString());
+            Type tipotemp = Type.fromString(cardBean.getTipo().toString());
+            Attribute attributotemp = Attribute.fromString(cardBean.getAttributo().toString());
+
+            //ora controllo se i valori inseriti corrispondono con i valori delle ENUM
+
+            if(gradazionetemp!=null && tipotemp!=null && attributotemp!=null){
+
+                //i valori inseriti sono corretti quindi istanzio il nuovo oggetto
+                Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller.getUsername(),cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+                dao.addCard(newCard, seller.getUsername());
+            }
+        } else {
+            logger.log(Level.SEVERE, "Dati inseriti sbagliati");
         }
 
     }
 
-    public void updateCardPrice(CollectableCardBean selected, double newPrice) {
+    public void updateCardPrice(CollectableCardBean selected, Float newPrice) {
+
+        User currentUser = SessionManager.getInstance().getLoggedUser();
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
-        Card card = new Card(selected.getNomeCarta(), selected.getPrezzoCorrente());
 
-        if(card!=null){
-            dao.updatePrice(card);
+        if(!selected.getNomeCarta().isBlank() && newPrice>0.0f){
+            dao.updatePrice(selected.getNomeCarta(), currentUser.getUsername(), newPrice );
         }
     }
+
+
 }

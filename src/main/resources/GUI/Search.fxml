@@ -20,7 +20,7 @@
                     styleClass="icon-button"/>
 
             <HBox alignment="CENTER" spacing="10" maxWidth="600">
-                <TextField promptText="Cerca per nome..." styleClass="search-input" HBox.hgrow="ALWAYS"/>
+                <TextField  fx:id="nomeCartaCercata" promptText="Cerca per nome..." styleClass="search-input" HBox.hgrow="ALWAYS"/>
                 <Button styleClass="search-button" text="🔍" onAction="#searchAction"/>
             </HBox>
 
@@ -35,33 +35,46 @@
 
                     <CheckBox text="Prezzo" styleClass="filter-check" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 
-                    <ComboBox promptText="Seleziona fascia" styleClass="modern-combo" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity">
+                    <ComboBox fx:id="prezzoCercato" promptText="Seleziona fascia" styleClass="modern-combo" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="&lt; 5 €" />
-                                <String fx:value="5 - 10 €" />
-                                <String fx:value="10 - 15 €" />
-                                <String fx:value="15 - 20 €" />
-                                <String fx:value="&gt; 20 €" />
+                                <String fx:value="Fino a 10 €" />
+                                <String fx:value="Fino a 15 €" />
+                                <String fx:value="Fino a 20 €" />
+                                <String fx:value="Fino a 50 €" />
+                                <String fx:value="Fino a 100 €" />
                             </FXCollections>
                         </items>
                     </ComboBox>
 
-                    <CheckBox fx:id="checkLevel" text="Livello" styleClass="filter-check"
-                              GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <CheckBox text="Livello" styleClass="filter-check" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
-                    <Slider min="1" max="12" value="1"
-                            disable="checkLevel"
-                            majorTickUnit="1" minorTickCount="0"
-                            snapToTicks="true" showTickMarks="true" showTickLabels="true"
-                            styleClass="modern-slider"
-                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <ComboBox fx:id="livelloCercato" promptText="Seleziona livello" styleClass="modern-combo" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="1" />
+                                <String fx:value="2" />
+                                <String fx:value="3" />
+                                <String fx:value="4" />
+                                <String fx:value="5" />
+                                <String fx:value="6" />
+                                <String fx:value="7" />
+                                <String fx:value="8" />
+                                <String fx:value="9" />
+                                <String fx:value="10" />
+                                <String fx:value="11" />
+                                <String fx:value="12" />
+
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
 
                     <CheckBox text="Attributo" styleClass="filter-check" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <TextField promptText="Es. Fuoco" styleClass="modern-input-small" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <ComboBox fx:id="attributoCercato" promptText="Es. Luce" styleClass="filter-check" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
                     <CheckBox text="Tipo" styleClass="filter-check" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                    <TextField promptText="Es. Drago" styleClass="modern-input-small" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <ComboBox fx:id="tipoCercato" promptText="Es. Mostro" styleClass="filter-check" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                 </GridPane>
             </VBox>
         </VBox>

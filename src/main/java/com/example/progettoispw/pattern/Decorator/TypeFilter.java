@@ -1,9 +1,11 @@
 package com.example.progettoispw.pattern.Decorator;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Type;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TypeFilter extends SearchDecorator{
 
@@ -15,9 +17,9 @@ public class TypeFilter extends SearchDecorator{
     }
 
     @Override
-    public List<CollectableCardBean> executeSearch() {
+    public List<Card> executeSearch() {
 
-        List<CollectableCardBean> list = super.executeSearch();
-        return list.stream().filter(c-> c.getTipo().equals(type)).toList();
+        List<Card> list = super.executeSearch();
+        return list.stream().filter(c-> c.getTipo().equals(type)).collect(Collectors.toList());
     }
 }

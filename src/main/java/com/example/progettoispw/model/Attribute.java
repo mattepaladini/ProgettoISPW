@@ -5,5 +5,14 @@ public enum Attribute {
     OSCURITÀ,
     TERRA,
     ACQUA,
-    FUOCO
+    FUOCO;
+
+    public static Attribute fromString(String value){
+        for (Attribute a : Attribute.values()) {
+            if (a.name().equalsIgnoreCase(value)) {
+                return a;
+            }
+        }
+        throw new IllegalArgumentException("Gradazione non valida: "+value);
+    }
 }

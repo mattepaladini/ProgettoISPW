@@ -8,9 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOFSys implements UserDAO {
-
-    private List<User> memoryUser = new ArrayList<>();
+public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
     private static final String FOLDER_NAME = "persistence";
 
@@ -18,15 +16,15 @@ public class UserDAOFSys implements UserDAO {
 
     private static final String SEPARATOR = ";";
 
+    private boolean isLoaded = false;
+
     public UserDAOFSys() {}
 
     @Override
     public List<User> getAllUsers() {
 
-        if(memoryUser == null) {
-            memoryUser = loadAllUsers();
-        }
-        return memoryUser;
+        loadAllUsers();
+        return super.getAllUsers();
     }
 
     @Override
@@ -34,90 +32,68 @@ public class UserDAOFSys implements UserDAO {
 
         //aggiorno subito la lista temporanea
         loadAllUsers();
-        memoryUser.add(user);
 
-        File file = getStorageFile();
+        saveData(user);
 
-        // true nel costruttore = APPEND MODE (Aggiunge in fondo senza cancellare)
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-
-            StringBuilder sb = new StringBuilder();
-            sb.append(user.getUsername()).append(SEPARATOR);
-            sb.append(user.getPassword()).append(SEPARATOR);
-
-            // Gestione Ruolo
-            if (user instanceof Seller) sb.append("SELLER");
-            else sb.append("BUYER");
-
-            bw.write(sb.toString());
-            bw.newLine(); // A capo per il prossimo utente
-
-            System.out.println("DEBUG: Scritta riga TXT per " + user.getUsername());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        super.addUser(user);
 
     }
 
     @Override
     public User getUserByUsername(String username) {
-        for (User u : loadAllUsers()) {
-            if (u.getUsername().equals(username)) return u;
-        }
-        return null;
+        loadAllUsers();
+
+        return super.getUserByUsername(username);
     }
 
     @Override
     public boolean logWithPSW(String Username, String password) {
 
-        List<User> users = loadAllUsers();
-        for(User u : users) {
-            if(u.getUsername().equals(Username) && u.getPassword().equals(password)) {
-                return true;
-            }
-        }
+        loadAllUsers();
 
-        return false;
+        return super.logWithPSW(Username, password);
     }
 
 
-    private List<User> loadAllUsers()  {
+    private void loadAllUsers()  {
 
-        if(!memoryUser.isEmpty()){
-            System.out.println(memoryUser.size());
-            return memoryUser;
-        }
+        if(!isLoaded) {
 
-        File file = getStorageFile();
+            File file = getStorageFile();
 
-        if(!file.exists()) {return null;}
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length < 3) continue; // Salta righe vuote o corrotte
+            if (file.exists()) {
 
-                String username = parts[0];
-                String password = parts[1];
-                String role = parts[2];
 
-                // Ricostruisco l'oggetto
-                User u;
-                if (role.equals("SELLER")) {
-                    u = new User(username, password, UserType.SELLER);
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        String[] parts = line.split(";");
+                        if (parts.length < 3) continue; // Salta righe vuote o corrotte
 
-                } else {
-                    u = new User(username, password, UserType.BUYER);
+                        String username = parts[0];
+                        String password = parts[1];
+                        String role = parts[2];
 
+                        // Ricostruisco l'oggetto
+                        User u;
+                        if (role.equals("SELLER")) {
+                            u = new User(username, password, UserType.SELLER);
+
+                        } else {
+                            u = new User(username, password, UserType.BUYER);
+
+                        }
+
+                        super.addUser(u);
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                memoryUser.add(u);
-
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return memoryUser;
+
+        isLoaded = true;
     }
 
     // ------------------------------------------------------------
@@ -139,22 +115,26 @@ public class UserDAOFSys implements UserDAO {
 
 
     //HELPER PER SALVARE LE MODIFICHE APPORTATE
-    public void saveData(List<User> users)  {
+    public void saveData(User user) {
         File file = getStorageFile();
 
-        System.out.println("--------------------------------------------------");
-        System.out.println("[DEBUG USER DAO] Inizio salvataggio utenti.");
-        System.out.println("[DEBUG USER DAO] Percorso file target: " + file.getAbsolutePath());
-        System.out.println("[DEBUG USER DAO] Numero utenti da salvare: " + users.size());
+        // true nel costruttore = APPEND MODE (Aggiunge in fondo senza cancellare)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-            oos.writeObject(users);
-            System.out.println("[DEBUG USER DAO] SCRITTURA RIUSCITA! Il file dovrebbe esistere ora.");
+            StringBuilder sb = new StringBuilder();
+            sb.append(user.getUsername()).append(SEPARATOR);
+            sb.append(user.getPassword()).append(SEPARATOR);
+
+            // Gestione Ruolo
+            if (user instanceof Seller) sb.append("SELLER");
+            else sb.append("BUYER");
+
+            bw.write(sb.toString());
+            bw.newLine(); // A capo per il prossimo utente
+
+            System.out.println("DEBUG: Scritta riga TXT per " + user.getUsername());
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Impossibile salvare su file: " + file.getAbsolutePath());
-            System.err.println("Messaggio errore: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
-
 }

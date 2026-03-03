@@ -1,5 +1,6 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.Controller.CLI.HomeCLI;
 import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
 import com.example.progettoispw.DAO.PersistenceType;
 import com.example.progettoispw.DAO.User.UserDAO;
@@ -14,11 +15,15 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class HelloApplication extends Application {
     // Impostiamo la variabile a false per far partire il sistema in modalità Light
     private boolean isDark = false;
+
+    public static Logger logger = Logger.getLogger(HelloApplication.class.getName());
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,7 +38,6 @@ public class HelloApplication extends Application {
         // 2. Forza l'avvio con il tema Light
         updateTheme(scene);
 
-        // Listener per il tasto 'T' (opzionale, per continuare a testare lo switch)
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.T) {
                 isDark = !isDark;
@@ -61,7 +65,7 @@ public class HelloApplication extends Application {
             String cssPath = getClass().getResource(themeFile).toExternalForm();
             scene.getStylesheets().add(cssPath);
         } catch (NullPointerException e) {
-            System.err.println("Errore: Impossibile trovare il file " + themeFile);
+            logger.log(Level.SEVERE, "Impossibile trovare il file");
         }
     }
 
@@ -70,85 +74,90 @@ public class HelloApplication extends Application {
     public static void chooseConf(){
 
         Scanner scanner = new Scanner(System.in);
-        int choice = -1;
+        int choicePersistence = -1;
+        int choiceView = -1;
 
-        System.out.println("------------------------------------------------");
+
+        System.out.println("-".repeat(105));
         System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
-        System.out.println("------------------------------------------------");
+        System.out.println("-".repeat(105));
         System.out.println("Scegli la modalità di persistenza dei dati:");
         System.out.println("1. Database (MySQL/JDBC)");
         System.out.println("2. DEMO (Salvataggio temporaneo)");
         System.out.println("3. FSYS (Salvataggio su file, solo per Venditori)");
-        System.out.println("------------------------------------------------");
+        System.out.println("-".repeat(105));
 
         // Ciclo finché l'utente non inserisce un valore valido
-        while (choice != 1 && choice != 2 && choice != 3) {
-            System.out.print("Inserisci la tua scelta (1 o 2): ");
+        while (choicePersistence != 1 && choicePersistence != 2 && choicePersistence != 3) {
+            System.out.print("Inserisci la tua scelta (1 o 2 o 3): ");
 
             if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
+                choicePersistence = scanner.nextInt();
 
-                if (choice == 1) {
-                    System.out.println(">> Modalità selezionata: DATABASE (JDBC)");
-                    DAOFactory.setPersistenceType(PersistenceType.JDBC);
-                } else if (choice == 2) {
-                    System.out.println(">> Modalità selezionata: DEMO");
-                    DAOFactory.setPersistenceType(PersistenceType.DEMO);
-                } else if(choice == 3){
-                    System.out.println(">> Modalità selezionata: FSYS");
-                    DAOFactory.setPersistenceType(PersistenceType.FSYS);
+                switch (choicePersistence) {
+                    case 1:
+                        System.out.println(">> Modalità selezionata: DATABASE (JDBC)");
+
+                        java.sql.Connection testConn = DBConnection.getConnection();
+
+                        if (testConn == null) {
+                            logger.log(Level.SEVERE, "Impossibile trovare il database");
+                        }
+                        DAOFactory.setPersistenceType(PersistenceType.JDBC);
+                        break;
+
+                        case 2:
+                            System.out.println(">> Modalità selezionata: DEMO");
+                            DAOFactory.setPersistenceType(PersistenceType.DEMO);
+                            break;
+
+                            case 3:
+                                System.out.println(">> Modalità selezionata: FSYS");
+                                DAOFactory.setPersistenceType(PersistenceType.FSYS);
+
+                    default:
+                        logger.log(Level.SEVERE, "Inserire una scelta valida");
                 }
 
-                else {
-                    System.out.println("!! Errore: Inserisci solo 1 o 2.");
-                }
             } else {
-                System.out.println("!! Errore: Input non valido. Inserisci un numero.");
+                logger.log(Level.SEVERE, "Inserire una scelta valida");
                 scanner.next(); // Consuma l'input errato per evitare loop infiniti
             }
         }
 
-        System.out.println("------------------------------------------------");
-        System.out.println("Avvio interfaccia grafica in corso...");
-        // Non chiudiamo scanner qui perché System.in non va mai chiuso manualmente
-    }
+        System.out.println("-".repeat(105));
+        System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
+        System.out.println("-".repeat(105));
+        System.out.println("Scegli come usare il sistema:");
+        System.out.println("1. Grafica UI");
+        System.out.println("2. Command User Interface (CLI)");
+        System.out.println("-".repeat(105));
 
-    public static void populate(){
-        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+        while(choiceView != 1 && choiceView != 2) {
+            System.out.print("Inserisci la tua scelta (1 o 2): ");
 
-        /*
-        if(userDAO.getUserByUsername("matteo")!=null){
-            System.out.println("Utenza già creata");
-            return;
-        }*/
-        User usertemp = new User("matteo", "ciao", UserType.SELLER);
+            if (scanner.hasNextInt()) {
+                choiceView = scanner.nextInt();
 
-        userDAO.addUser(usertemp);
+                switch (choiceView) {
+                    case 1:
+                        System.out.println(">> Grafica UI");
+                        launch();
+                        break;
 
-        Seller seller = new Seller(usertemp.getUsername(), usertemp.getPassword());
-        CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
-        catalogDAO.addCatalog(new CardCatalog(seller));
+                        case 2:
+                            System.out.println(">> Command User Interface (CLI)");
+                            HomeCLI homeCLI = new HomeCLI();
+                            homeCLI.startHomePage();
+                }
 
-        Card tempcard = new Card("Charizard", 10f, Gradazione.PERFETTO, usertemp,  0, Attribute.FUOCO, Type.MAGIA);
-        catalogDAO.addCard(tempcard, seller);
-
-    }
-
-
-    public static void main(String[] args) {
-
-        System.out.println("Test connessione...");
-        java.sql.Connection testConn = DBConnection.getConnection();
-
-        if (testConn != null) {
-            System.out.println("CONNESSO! Il database risponde.");
-        } else {
-            System.out.println("CONNESSIONE FALLITA.");
+            }
         }
 
+    }
+
+    public static void main(String[] args) {
         chooseConf();
-        //populate();
-        launch();
     }
     //
     //

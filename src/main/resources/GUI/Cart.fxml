@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.Controller.Graphic.CartGraphicController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Il Mio Carrello" />
+
+    <TableView fx:id="cartTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colNome" prefWidth="250.0" text="Nome Carta" />
+            <TableColumn fx:id="colVenditore" prefWidth="150.0" text="Venditore" />
+            <TableColumn fx:id="colPrezzo" prefWidth="100.0" text="Prezzo (€)" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Label style="-fx-font-size: 18px;" text="Totale:" />
+        <Label fx:id="lblTotale" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #d32f2f;" text="0.00 €" />
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="20.0">
+        <Button text="Torna alla Home"  onAction="#onBackClick"/>
+
+        <Button fx:id="btnRimuovi" text="Rimuovi Selezionata" onAction="#onDeleteClick" style="-fx-background-color: #f44336; -fx-text-fill: white;" />
+
+        <Button fx:id="btnCheckout" text="Procedi all'Acquisto" onAction="#onCheckoutClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" />
+    </HBox>
+</VBox>

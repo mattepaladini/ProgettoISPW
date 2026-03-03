@@ -1,11 +1,17 @@
 package com.example.progettoispw.Session;
 
+import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionManager {
 
     private static SessionManager instance = null;
     private User loggedUser;
+
+    private List<Card> cart = new ArrayList<>();
 
     // Costruttore privato per impedire 'new SessionManager()'
     private SessionManager() {}
@@ -30,13 +36,28 @@ public class SessionManager {
         return loggedUser;
     }
 
+    //logout viene eseguito a prescindere che l'utente chiuda direttamente l'eseguibile o che lo faccia manualmente
     public void logout() {
+        this.cart.clear();      //pulisco il carrello se l'utente fa logout
         this.loggedUser = null;
     }
 
-    //TODO ---> cambia il tipo che restituisce in getShoppingCart
-    public void getShoppingCart(){
 
+    /*************/
+    //gestione carrello
+    public void addCard(Card card) {
+        this.cart.add(card);
     }
+
+    public void removeCard(Card card) {
+        this.cart.removeIf(c -> c.getNome().equals(card.getNome()) &&
+                c.getVenditore().equals(card.getVenditore()));
+    }
+
+    public List<Card> getShoppingCart(){
+        return this.cart;
+    }
+
+    /*************/
 
 }

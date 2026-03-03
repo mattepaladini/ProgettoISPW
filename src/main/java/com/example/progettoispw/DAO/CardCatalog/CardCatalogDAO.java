@@ -15,13 +15,17 @@ public interface CardCatalogDAO {
 
     void removeCard(Card card, User sellerName);
 
-    void addCard(Card card, User sellerName);
+    void addCard(Card card, String sellerName);
 
-    void updatePrice(Card card);
+    void updatePrice(String nomeCarta, String username, Float newPrice);
 
     CardCatalog getSeller(String username);
 
      CardCatalog getCatalogBySeller(Seller seller);
+
+     List<Card> findCard(String nomeCarta );
+
+     boolean findCardBySeller(String nomeCarta, String seller);
 }
 
 //PER INSERIRE E AGGIORNARE PASSA BEAN

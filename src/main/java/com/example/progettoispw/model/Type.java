@@ -4,5 +4,14 @@ public enum Type {
     MOSTRO,
     MAGIA,
     TERRENO,
-    TRAPPOLA
+    TRAPPOLA;
+
+    public static Type fromString(String value){
+        for (Type t : Type.values()) {
+            if (t.name().equalsIgnoreCase(value)) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("Gradazione non valida: "+value);
+    }
 }

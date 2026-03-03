@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDAODemo implements UserDAO {
 
-    private static List<User> users = new ArrayList<>();
+    protected static List<User> users = new ArrayList<>();
 
     @Override
     public List<User> getAllUsers() {

@@ -16,7 +16,7 @@ public class Card implements Serializable {
     private Float prezzoAttuale;
     //private List<Float> storicoPrezzi;
     private Gradazione gradazione;
-    private User venditore;
+    private String venditore;
     private int livello;
     private Attribute attributo;
     private Type tipo;
@@ -25,7 +25,7 @@ public class Card implements Serializable {
 
 
     // Da definire come determinare gli id delle carte.
-    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, User venditore, int livello, Attribute attributo, Type tipo) {
+    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, String venditore, int livello, Attribute attributo, Type tipo) {
         this.nome = nome;
         this.prezzoAttuale = prezzoAttuale;
         this.gradazione = gradazione;
@@ -34,7 +34,6 @@ public class Card implements Serializable {
         this.attributo = attributo;
         this.tipo = tipo;
     }
-
 
 
     public Card(String nome, Float prezzo){
@@ -55,11 +54,15 @@ public class Card implements Serializable {
         return this.prezzoAttuale;
     }
 
+    public void setPrezzoAttuale(Float prezzoAttuale){
+        this.prezzoAttuale = prezzoAttuale;
+    }
+
     public Gradazione getGradazione(){
         return this.gradazione;
     }
 
-    public User getVenditore(){
+    public String getVenditore(){
         return this.venditore;
     }
 
