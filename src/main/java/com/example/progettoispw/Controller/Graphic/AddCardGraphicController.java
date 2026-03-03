@@ -91,7 +91,7 @@ public class AddCardGraphicController implements Initializable {
             stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Impossibile caricare la pagina");
         }
     }
 

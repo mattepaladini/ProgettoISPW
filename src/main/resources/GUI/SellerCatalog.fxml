@@ -39,7 +39,7 @@
     </TableView>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Modifica Prezzo"  styleClass="icon-button"/>
+        <Button text="Modifica Prezzo"  onAction="#onEditPriceClick" styleClass="icon-button"/>
         <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="icon-button"/>
     </HBox>
 

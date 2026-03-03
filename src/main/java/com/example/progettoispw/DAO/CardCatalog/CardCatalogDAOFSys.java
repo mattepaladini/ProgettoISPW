@@ -1,20 +1,25 @@
 package com.example.progettoispw.DAO.CardCatalog;
 
-import com.example.progettoispw.DAO.User.UserDAO;
+import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.*;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class CardCatalogDAOFSys implements CardCatalogDAO {
+public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalogDAO {
 
     private static  List<CardCatalog> memoryCatalogs = new ArrayList<>();    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
 
     private static final String FOLDER_NAME = "persistence";
     private static final String CATALOG_FILE = "catalogs.txt";
     private static final String SEPARATOR = ",";
+
+    private boolean isLoaded = false;
+
+    private final Logger logger = Logger.getLogger(CardCatalogDAOFSys.class.getName());
 
     public CardCatalogDAOFSys() {
 
@@ -23,17 +28,16 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     //
     @Override
     public List<CardCatalog> getAllCatalogs() {
-        if(memoryCatalogs == null) {
-            memoryCatalogs = loadCatalogs();
-        }
-        return memoryCatalogs;
+        loadCatalogs();
+        return super.getAllCatalogs();
     }
 
     //
     @Override
     public void addCatalog(CardCatalog catalog) {
 
-
+        loadCatalogs();
+        super.addCatalog(catalog);
 
     }
 
@@ -43,39 +47,17 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
 
         loadCatalogs();
 
-        boolean removed = false;
-        for (CardCatalog c : memoryCatalogs) {
-            if (c.getSeller().getUsername().equals(sellerName)) {
-                // Rimuovo usando l'ID che è univoco
-
-                removed = c.getCards().removeIf(item ->
-                        item.getNome().equals(card.getNome()));
-                break;
-            }
-        }
-
-        if (removed) {
-            saveMemoryCatalogsToFile(card, sellerName); // Riscrivo tutto il file
-        }
+        super.removeCard(card, sellerName);
+        saveMemoryCatalogsToFile(card, sellerName.getUsername());
 
     }
 
     @Override
-    public void addCard(Card card, User currentSeller) {
+    public void addCard(Card card, String currentSeller) {
 
         loadCatalogs();
 
-        System.out.println("Debug, pronto per aggiungere");
-        // 2. Aggiorno la LISTA IN MEMORIA
-        boolean catalogFound = false;
-        for (CardCatalog c : memoryCatalogs) {
-            if (c.getSeller().getUsername().equals(currentSeller
-                    .getUsername())) {
-                c.addCollectableCard(card);
-                catalogFound = true;
-                break;
-            }
-        }
+        super.addCard(card, currentSeller);
 
         saveMemoryCatalogsToFile(card, currentSeller);
 
@@ -84,7 +66,7 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
     @Override
-    public void updatePrice(Card card) {
+    public void updatePrice(String nomeCarta, String username, Float newPrice) {
 
     }
 
@@ -97,16 +79,58 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
 
-        List<CardCatalog> allCatalogs = loadCatalogs();
+        loadCatalogs();
 
-        for (CardCatalog catalog : allCatalogs) {
-            if (catalog.getSeller().getUsername().equals(seller.getUsername())) {
-                return catalog;
+        return super.getCatalogBySeller(seller);
+    }
+
+    @Override
+    public List<Card> findCard(String nomeCarta){
+
+        //non carico tutte le informazioni direttamente
+
+        List<Card> resultCards = new ArrayList<>();
+
+        File file = getStorageFile();
+        if(file.exists()){
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.trim().isEmpty()) continue;
+
+                    String[] parts = line.split(SEPARATOR);
+                    if (parts.length < 7) continue;
+
+                    String nome = parts[0];
+                    if(nome.equalsIgnoreCase(nomeCarta)){       //controllo subito se il nome coincide
+                        CollectableCardBean cardBean = new CollectableCardBean();
+
+                        cardBean.setNomeCarta(nome);
+                        cardBean.setPrezzoCorrente(Float.parseFloat(parts[1]));
+                        cardBean.setGradazione(Gradazione.valueOf(parts[2]));
+                        cardBean.setVenditore(parts[3]);
+                        cardBean.setLivello(Integer.parseInt(parts[4]));
+                        cardBean.setAttributo(Attribute.valueOf(parts[5]));
+                        cardBean.setTipo(Type.valueOf(parts[6]));
+
+                        Card card = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), cardBean.getVenditore(), cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+
+                        resultCards.add(card);
+                    }
+                }
+            }catch (IOException e){
+                e.printStackTrace();
             }
         }
+        return resultCards;
+    }
 
-        // Se non esiste, ritorno un catalogo vuoto per evitare NullPointerException
-        return new CardCatalog(seller);
+    @Override
+    public boolean findCardBySeller(String nomeCarta, String seller){
+        loadCatalogs();
+        return super.findCardBySeller(nomeCarta, seller);
     }
 
     private File getStorageFile()  {
@@ -116,89 +140,82 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
     //METODO PER CARICARE I CATALOGHI LETTI DA FILE
-    private List<CardCatalog> loadCatalogs() {
+    private void loadCatalogs() {
 
-        if (!memoryCatalogs.isEmpty()) {
-            System.out.println("DEBUG: Uso memoryCatalogs (RAM). Nessuna lettura file.");
-            return memoryCatalogs;
-        }
+        if(!isLoaded){
 
-        System.out.println("DEBUG, memcata vuoto");
-        List<CardCatalog> catalogs = new ArrayList<>();
-        File file = null;
+            File file = getStorageFile();
+            if(file.exists()){
 
-        try {
-            file = getStorageFile();
-            if (file.length()==0) return memoryCatalogs; // Ritorna lista vuota se file non c'è
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        if (line.trim().isEmpty()) continue;
 
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.trim().isEmpty()) continue;
+                        // Parsing della riga
+                        // Formato: Nome;Prezzo;Gradazione;OWNER;Livello;Attributo;Tipo
+                        String[] parts = line.split(SEPARATOR);
+                        if (parts.length < 7) continue;
 
-                    // Parsing della riga
-                    // Formato: Nome;Prezzo;Gradazione;OWNER;Livello;Attributo;Tipo
-                    String[] parts = line.split(SEPARATOR);
-                    if (parts.length < 7) continue;
+                        String nome = parts[0];
+                        float prezzo = Float.parseFloat(parts[1]);
+                        String gradStr = parts[2];
+                        String ownerUsername = parts[3];
+                        int livello = Integer.parseInt(parts[4]);
+                        String attrStr = parts[5];
+                        String typeStr = parts[6];
 
-                    String nome = parts[0];
-                    float prezzo = Float.parseFloat(parts[1]);
-                    String gradStr = parts[2];
-                    String ownerUsername = parts[3];
-                    int livello = Integer.parseInt(parts[4]);
-                    String attrStr = parts[5];
-                    String typeStr = parts[6];
+                        // Creo un Seller "placeholder" solo con lo username per l'associazione
+                        Seller owner = new Seller(ownerUsername, null);
 
-                    // Creo un Seller "placeholder" solo con lo username per l'associazione
-                    Seller owner = new Seller(ownerUsername, null);
-
-                    // Creo la carta
-                    Card card = new Card(
-                            nome, prezzo, Gradazione.valueOf(gradStr), owner,
-                             livello, Attribute.valueOf(attrStr), Type.valueOf(typeStr)
-                    );
+                        // Creo la carta
+                        Card card = new Card(
+                                nome, prezzo, Gradazione.valueOf(gradStr), owner.getUsername(),
+                                livello, Attribute.valueOf(attrStr), Type.valueOf(typeStr)
+                        );
 
 
-                    // LOGICA DI RAGGRUPPAMENTO
-                    // Cerco se ho già creato un catalogo per questo utente nella lista 'catalogs'
-                    CardCatalog existingCatalog = null;
-                    for (CardCatalog c : memoryCatalogs) {
-                        if (c.getSeller().getUsername().equals(ownerUsername)) {
-                            System.out.println("DEBUG, catalogo esistente per "+ownerUsername);
-                            existingCatalog = c;
-                            break;
+                        // LOGICA DI RAGGRUPPAMENTO
+                        // Cerco se ho già creato un catalogo per questo utente nella lista 'catalogs'
+                        CardCatalog existingCatalog = null;
+                        for (CardCatalog c : memoryCatalogs) {
+                            if (c.getSeller().getUsername().equals(ownerUsername)) {
+                                existingCatalog = c;
+                                break;
+                            }
                         }
-                    }
 
-                    // Se non esiste, lo creo e lo aggiungo alla lista
-                    if (existingCatalog == null) {
-                        System.out.println("DEBUG, catalogo non esistente per "+ownerUsername);
-                        existingCatalog = new CardCatalog(owner);
+                        // Se non esiste, lo creo e lo aggiungo alla lista
+                        if (existingCatalog == null) {
+                            logger.log(Level.INFO, "DEBUG, catalogo non esistente per "+ownerUsername);
+                            existingCatalog = new CardCatalog(owner);
+                            memoryCatalogs.add(existingCatalog);
+                        }
+
+                        // Aggiungo la carta al catalogo trovato/creato
+                        existingCatalog.addCollectableCard(card);
+
                         memoryCatalogs.add(existingCatalog);
+
                     }
-
-                    // Aggiungo la carta al catalogo trovato/creato
-                    existingCatalog.addCollectableCard(card);
-
-                    memoryCatalogs.add(existingCatalog);
-
+                }catch (Exception e) {
+                    logger.log(Level.SEVERE, "Errore nel caricamento dei cataloghi");
+                    throw new RuntimeException(e.getMessage());
                 }
+
             }
-        } catch (Exception e) {
-            System.err.println("Errore durante il caricamento dei cataloghi: " + e.getMessage());
-            e.printStackTrace();
         }
 
-        return memoryCatalogs;
+        isLoaded=true;
     }
 
     // Metodo helper per convertire l'oggetto Card in stringa CSV
-    private String convertCardToString(Card card, User owner) {
+    private String convertCardToString(Card card, String owner) {
         StringBuilder sb = new StringBuilder();
         sb.append(card.getNome()).append(SEPARATOR);
         sb.append(card.getPrezzoAttuale()).append(SEPARATOR);
         sb.append(card.getGradazione()).append(SEPARATOR);
-        sb.append(owner.getUsername()).append(SEPARATOR);
+        sb.append(owner).append(SEPARATOR);
         sb.append(card.getLivello()).append(SEPARATOR);
         sb.append(card.getAttributo()).append(SEPARATOR);
         sb.append(card.getTipo()).append(SEPARATOR);
@@ -207,7 +224,7 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
     }
 
 
-    private void saveMemoryCatalogsToFile(Card card, User user) {
+    private void saveMemoryCatalogsToFile(Card card, String user) {
         if (memoryCatalogs == null) return;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(getStorageFile(), true))) {
 
@@ -218,10 +235,3 @@ public class CardCatalogDAOFSys implements CardCatalogDAO {
         }
     }
 }
-//mdofica qui perchè forse riscrive tutto
-            /*for (CardCatalog catalog : memoryCatalogs) {
-                for (Card card : catalog.getCards()) { // Assumo getCardList() ritorni List<Card>
-                    bw.write(convertCardToString(card, catalog.getSeller()));
-                    bw.newLine();
-                }
-            }*/

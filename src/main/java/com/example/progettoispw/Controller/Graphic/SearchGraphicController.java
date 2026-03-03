@@ -1,11 +1,11 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.BuyController;
-import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +16,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,8 +27,8 @@ import java.util.logging.Logger;
 public class SearchGraphicController {
 
 @FXML private TextField nomeCartaCercata;
-@FXML private ComboBox fasciaPrezzoCercata;
-@FXML private CheckBox livelloCercato;
+@FXML private ComboBox prezzoCercato;
+@FXML private ComboBox livelloCercato;
 @FXML private ComboBox<Attribute> attributoCercato;
 @FXML private ComboBox<Type> tipoCercato;
 
@@ -37,9 +37,10 @@ public class SearchGraphicController {
     public SearchGraphicController(){}
 
 
-    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, CheckBox livelloCercato, ComboBox<Attribute> attributoCercato, ComboBox<Type> tipoCercato) {
+
+    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, ComboBox livelloCercato, ComboBox<Attribute> attributoCercato, ComboBox<Type> tipoCercato) {
         this.nomeCartaCercata = nomeCartaCercata;
-        this.fasciaPrezzoCercata = fasciaPrezzoCercata;
+        this.prezzoCercato = fasciaPrezzoCercata;
         this.livelloCercato = livelloCercato;
         this.attributoCercato = attributoCercato;
         this.tipoCercato = tipoCercato;
@@ -73,53 +74,53 @@ public class SearchGraphicController {
         //inserire i dati dentro la bean
         searchCardBean.setNomeCarta(nomeCartaCercata.getText());
 
-        if(fasciaPrezzoCercata.isPressed()) {
-            searchCardBean.setPrezzoCorrente((Float) fasciaPrezzoCercata.getValue());
+        //cattura del prezzo desiderato
+        Float prezzo = 0.0f;        //valore di default per disattivare il limite del prezzo
+        String selezionePrezzo = (String) prezzoCercato.getValue();
+        if(selezionePrezzo!=null && !selezionePrezzo.isEmpty()) {
+
+            prezzo = Float.parseFloat(selezionePrezzo.replaceAll("[^0-9]", ""));
+            System.out.println(prezzo);
+
+        }
+        searchCardBean.setPrezzoCorrente(prezzo);
+
+        //-----------------------//
+        if(livelloCercato.getValue()!=null) {
+            searchCardBean.setLivello(Integer.parseInt(livelloCercato.getValue().toString()));
         }
 
-        if(livelloCercato.isPressed()) {
-            searchCardBean.setLivello(Integer.parseInt(livelloCercato.getText()));
-        }
-
-        if(attributoCercato.isPressed()) {
+        if(attributoCercato.getValue()!=null) {
             searchCardBean.setAttributo(attributoCercato.getValue());
         }
-        if(tipoCercato.isPressed()) {
+        if(tipoCercato.getValue()!=null) {
             searchCardBean.setTipo(tipoCercato.getValue());
         }
 
         //CREO IL CONTROLLORE PER LA RICERCA E GLI PASSO LA BEAN APPENA POPOLATA
         BuyController buyController = new BuyController();
-        List<CollectableCardBean> risulati = buyController.searchCards(searchCardBean);
+        List<CollectableCardBean> risultati = buyController.searchCards(searchCardBean);
 
         //
         try {
-            // 2. CARICAMENTO DEL FILE FXML DEI RISULTATI
+            // 1. CARICAMENTO DEL FILE FXML DEI RISULTATI
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/SearchResults.fxml"));
             Parent resultsView = loader.load();
 
-            // 3. PASSAGGIO DEI DATI AL NUOVO CONTROLLER
-            // RIPRENDO IL CONTROLLER CHE HO GIà ISTANZIATO
+            // 2. PASSAGGIO DEI DATI AL NUOVO CONTROLLER
             SearchResultsGraphicController resultsController = loader.getController();
 
-            // PASSO LA LISTA E IL CONTROLLER
-            resultsController.initData(risulati, buyController);
+            // Passo la lista dei risultati e il controller precedente (per poter tornare indietro)
+            resultsController.initData(risultati, buyController);
 
-            // 4. SOSTITUZIONE DELLA VISTA CENTRALE
-            // Dobbiamo risalire al BorderPane principale (MainLayout) per cambiare il centro
-            // (Trucco per trovare la scena padre partendo dal bottone cliccato)
-            Node source = (Node) event.getSource();
-            Scene scene = source.getScene();
-            BorderPane mainLayout = (BorderPane) scene.getRoot();
+            // 3. SOSTITUZIONE DELL'INTERA SCENA (Cambio pagina)
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(resultsView, 800, 600));
+            stage.show(); // Assicuriamoci che la finestra si aggiorni
 
-            // Prendiamo lo StackPane centrale
-            StackPane centerPane = (StackPane) mainLayout.getCenter();
-
-            // Sostituiamo il contenuto
-            centerPane.getChildren().clear();
-            centerPane.getChildren().add(resultsView);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Errore nel caricamento della pagina dei risultati!");
+            e.printStackTrace();
         }
 
 
@@ -129,6 +130,14 @@ public class SearchGraphicController {
     public void showResults(ActionEvent event, List<CollectableCardBean> risultati) throws IOException {
 
 
+    }
+
+    @FXML
+    public void initialize(){
+
+        attributoCercato.setItems(FXCollections.observableArrayList(Attribute.values()));
+
+        tipoCercato.setItems(FXCollections.observableArrayList(Type.values()));
     }
 
 

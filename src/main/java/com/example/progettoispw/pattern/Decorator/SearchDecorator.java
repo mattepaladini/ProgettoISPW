@@ -1,6 +1,7 @@
 package com.example.progettoispw.pattern.Decorator;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.model.Card;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class SearchDecorator implements SearchComponent{
     }
 
     @Override
-    public List<CollectableCardBean> executeSearch() {
+    public List<Card> executeSearch() {
         return searchComponent.executeSearch();
     }
 }

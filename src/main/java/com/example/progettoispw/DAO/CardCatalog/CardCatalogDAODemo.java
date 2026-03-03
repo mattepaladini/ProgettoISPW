@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CardCatalogDAODemo implements CardCatalogDAO {
 
-    private static List<CardCatalog> cardCatalogs = new ArrayList<>();
+    protected static List<CardCatalog> cardCatalogs = new ArrayList<>();
 
     @Override
     public List<CardCatalog> getAllCatalogs() {
@@ -37,11 +37,12 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
     @Override
-    public void addCard(Card card, User sellerName) {
+    public void addCard(Card card, String sellerName) {
         cardCatalogs = getAllCatalogs();
 
             for(CardCatalog catalog : cardCatalogs) {
-                if(catalog.getSeller().getSellerName().equals(sellerName.getUsername())) {
+                if(catalog.getSeller().getSellerName().equals(sellerName)) {
+                    System.out.println("Carta aggiunta al catalogo di: "+catalog.getSeller().getSellerName());
                     catalog.addCollectableCard(card);
                 }
             }
@@ -50,9 +51,18 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
     @Override
-    public void updatePrice(Card card) {
+    public void updatePrice(String nomeCarta, String username, Float newPrice) {
         cardCatalogs = getAllCatalogs();
-        for(CardCatalog catalog : cardCatalogs) {}
+        for(CardCatalog catalog : cardCatalogs) {
+            if(catalog.getSeller().getSellerName().equals(username)) {
+                for(Card c : catalog.getCards()){
+                    if(c.getNome().equals(nomeCarta)){
+                        c.setPrezzoAttuale(newPrice);
+                    }
+                }
+            }
+
+        }
     }
 
     @Override
@@ -70,5 +80,39 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Card> findCard(String nomeCarta) {
+
+        List<Card> results = new ArrayList<>();
+
+        for (CardCatalog catalog : cardCatalogs) {
+            for(Card c : catalog.getCards()) {
+                if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
+                    results.add(c);
+
+                    break;  //ogni venditore possiede SOLO 1 copia di questa carta
+                }
+            }
+        }
+        return results;
+    }
+
+
+    //helper per verificare se un selle possiede già una copia di una carta specifica
+    @Override
+    public boolean findCardBySeller(String nomeCarta, String seller){
+
+        for(CardCatalog catalog : cardCatalogs) {
+            if(catalog.getSeller().getSellerName().equals(seller)) {
+                for(Card c : catalog.getCards()) {
+                    if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
+                        return true;        //ho trovato che il seller possiede già questa carta
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

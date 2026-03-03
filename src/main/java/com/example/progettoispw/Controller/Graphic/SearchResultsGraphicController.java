@@ -1,12 +1,25 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.BuyController;
+import com.example.progettoispw.Controller.Logic.ManageCartController;
 import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.exception.invalidInputException;
+import com.example.progettoispw.model.Card;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,8 +37,86 @@ public class SearchResultsGraphicController {
     @FXML
     private Label lblMessage;
 
+    @FXML
+    private Button btnAddToCart;
+
+    @FXML
+    private TableView<CollectableCardBean> resultsTable;
+
+    @FXML
+    private TableColumn<CollectableCardBean, String> colNome;
+
+    @FXML
+    private TableColumn<CollectableCardBean, Float> colPrezzo;
+
+    @FXML
+    private TableColumn<CollectableCardBean, String> colGradazione;
+
+    @FXML
+    private TableColumn<CollectableCardBean, String> colVenditore;
+
+
     private BuyController buyCardController;
 
+    public SearchResultsGraphicController(){}
+
+
+    @FXML
+    public void initialize() {
+
+        btnAddToCart.disableProperty().bind(
+                resultsTable.getSelectionModel().selectedItemProperty().isNull());
+//disabilito il bottone per aggiungere al carrello finchè non viene selezionata la riga della tabella
+
+
+
+        //la stringa finale dipende da getter che si trova in CollecatableCardBean
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
+        colPrezzo.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
+        colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradazione"));
+        colVenditore.setCellValueFactory(new PropertyValueFactory<>("venditore"));
+
+    }
+
+    @FXML
+    public void onBackClick(ActionEvent event) {
+        try {
+            // 1. Carica la Home
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Search.fxml"));
+            Parent homeRoot = loader.load();
+
+            // 2. Recupera lo Stage (la finestra) dal bottone cliccato
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // 3. Sostituisci la scena interamente
+            Scene scene = new Scene(homeRoot, 800, 600);
+            stage.setScene(scene);
+            // stage.show(); // Non serve richiamarlo, la finestra è già aperta
+
+        } catch (IOException e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+    }
+
+    @FXML
+    public void onAddToCartClick(ActionEvent event) {
+        CollectableCardBean selectedCard = resultsTable.getSelectionModel().getSelectedItem();
+
+        if(selectedCard == null){
+            logger.log(Level.WARNING, "Seleziona prima una carta");
+        } else {
+
+            ManageCartController cartController = new ManageCartController();
+            if(!cartController.addToCart(selectedCard)){
+                logger.log(Level.WARNING, "Impossibile aggiungere la carta");
+                throw new invalidInputException("");
+            }
+            logger.log(Level.INFO, "Carta aggiunta con successo!");
+        }
+
+
+
+    }
 
     public void initData(List<CollectableCardBean> risultati, BuyController buyCardController) {
 
@@ -41,27 +132,9 @@ public class SearchResultsGraphicController {
             if (lblMessage != null) lblMessage.setVisible(false);
         }
 
-        try {
-            for (CollectableCardBean card : risultati) {
-                // Carichiamo il file FXML della singola riga ("CardItem")
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/CardItem.fxml"));
-                Parent cardNode = loader.load();
+        ObservableList<CollectableCardBean> datiTabella = FXCollections.observableArrayList(risultati);
 
-                // Recuperiamo il controller grafico della singola riga
-                CardItemController itemController = loader.getController();
-
-                // PASSAGGIO FONDAMENTALE:
-                // Passiamo alla riga i dati della carta E il controller logico.
-                // Così se l'utente clicca "Acquista" su QUESTA riga, itemController saprà chi chiamare.
-                itemController.setCardData(card, this.buyCardController);
-
-                // Aggiungiamo la riga grafica al contenitore verticale
-                resultsContainer.getChildren().add(cardNode);
-            }
-        } catch (IOException e) {
-            logger.log(Level.INFO, "errore nel caricamento dei risultati", e.getMessage());
-        }
-
+        resultsTable.setItems(datiTabella);
 
     }
 }

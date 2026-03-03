@@ -2,6 +2,7 @@ package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.exception.loadPageException;
 import com.example.progettoispw.model.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +32,8 @@ public class HomeGraphicController implements Initializable {
     private Button btnVendi;
     @FXML
     private Button btnCompra;
+    @FXML
+    private Button btnCarrello;
 
     @FXML
     public void doLogout() {
@@ -42,22 +45,29 @@ public class HomeGraphicController implements Initializable {
     public void onSearchClick(ActionEvent event) {
 
         try {
-            // 1. Carica la Search
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Search.fxml"));
-            Parent searchRoot = loader.load();
+            // 1. Carico la CORNICE (MainLayout)
+            // Assicurati che il path sia corretto
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = mainLoader.load();
 
-            // (Opzionale) Passaggio dati/controller se serve
-            // SearchGraphicController ctrl = loader.getController();
-            // ctrl.setLogicController(...);
+            // 2. Carico il CONTENUTO (SellerCatalog)
+            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource("/GUI/Search.fxml"));
+            // Uso 'Node' perché il contenuto è la root del file FXML (es. VBox o AnchorPane)
+            Node catalogNode = contentLoader.load();
 
-            // 2. Recupera lo Stage
+            // 3. INIEZIONE: Metto il catalogo al CENTRO del MainLayout
+            rootLayout.setCenter(catalogNode);
+
+            // 4. Mostro la scena combinata
+            // Mantengo le dimensioni fisse per evitare il restringimento della finestra
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootLayout, 800, 600);
 
-            // 3. SOSTITUISCI TUTTO (Niente più setCenter)
-            stage.setScene(new Scene(searchRoot));
+            stage.setScene(scene);
+            stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new loadPageException("Impossibile caricare la pagina Sell.fxml");
         }
     }
 
@@ -101,8 +111,7 @@ public class HomeGraphicController implements Initializable {
             stage.show();
 
         } catch (IOException e) {
-            System.err.println("Errore nel caricamento della vista: " + fxmlFile);
-            e.printStackTrace();
+            throw new loadPageException("Impossibile caricare la pagina Login.fxml");
         }
 
 
@@ -130,26 +139,88 @@ public class HomeGraphicController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(rootLayout, 800, 600);
 
-            // Opzionale: carico il CSS se serve
-            // scene.getStylesheets().add(getClass().getResource("/css/light-theme.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            throw new loadPageException("Impossibile caricare la pagina Sell.fxml");
+        }
+    }
+
+    @FXML
+    public void onBuyCards(ActionEvent event){
+        try {
+            // 1. Carico la CORNICE (MainLayout)
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = mainLoader.load();
+
+            //Carico il CONTENUTO (SellerCatalog)
+            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource("/GUI/SellerCatalog.fxml"));
+
+            Node catalogNode = contentLoader.load();
+
+            rootLayout.setCenter(catalogNode);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootLayout, 800, 600);
 
             stage.setScene(scene);
             stage.show();
 
         } catch (IOException e) {
-            System.err.println("Errore nel caricamento della pagina SellerCatalog.");
-            e.printStackTrace();
+            throw new loadPageException("Impossibile caricare la pagina Buy.fxml");
         }
     }
+
+     @FXML
+     public void onCartClick(ActionEvent event) {
+
+
+        String fxmlFile = "";
+        if(SessionManager.getInstance().getLoggedUser() == null){
+
+            //mando l'utente alla schermata Login
+            fxmlFile = "/GUI/Login.fxml";
+        } else{
+            fxmlFile = "/GUI/Cart.fxml";
+        }
+
+         // 2. Eseguo il caricamento "Cornice + Contenuto"
+         try {
+             // A. Carico la CORNICE (MainLayout)
+             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+             BorderPane rootLayout = mainLoader.load();
+
+             // B. Carico il CONTENUTO (Login o Profilo)
+             FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+             // Uso 'Node' perché il contenuto potrebbe essere VBox, AnchorPane o altro
+             Node contentNode = contentLoader.load();
+
+             // C. INIEZIONE: Metto il contenuto al centro della cornice
+             rootLayout.setCenter(contentNode);
+
+             // D. Preparo la scena
+             // Manteniamo le dimensioni fisse come ci siamo detti
+             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+             Scene scene = new Scene(rootLayout, 800, 600);
+
+             stage.setScene(scene);
+             stage.show();
+
+         } catch (IOException e) {
+             throw new loadPageException("Impossibile caricare la pagina Login.fxml");
+         }
+
+     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User user = SessionManager.getInstance().getLoggedUser();
 
-
         btnVendi.setVisible(false);
         btnCompra.setVisible(false);
+        btnCarrello.setVisible(false);
 
         User currentUser = SessionManager.getInstance().getLoggedUser();
         if(currentUser != null) {
@@ -157,6 +228,7 @@ public class HomeGraphicController implements Initializable {
                 btnVendi.setVisible(true);
             } else if(currentUser.getTipoUtente().equals(UserType.BUYER)) {
                 btnCompra.setVisible(true);
+                btnCarrello.setVisible(true);
             }
 
         }

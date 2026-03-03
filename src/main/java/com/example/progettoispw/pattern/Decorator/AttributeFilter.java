@@ -2,6 +2,7 @@ package com.example.progettoispw.pattern.Decorator;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.Attribute;
+import com.example.progettoispw.model.Card;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class AttributeFilter extends SearchDecorator{
     }
 
     @Override
-    public List<CollectableCardBean> executeSearch() {
-        List<CollectableCardBean> list = super.executeSearch();
+    public List<Card> executeSearch() {
+        List<Card> list = super.executeSearch();
 
         return list.stream().filter(c-> c.getAttributo().equals(attribute)).toList();
     }

@@ -154,7 +154,7 @@ public class SellerCatalogGraphicController implements Initializable {
 
         result.ifPresent(newPriceStr -> {
             try {
-                double newPrice = Double.parseDouble(newPriceStr);
+                Float newPrice = Float.parseFloat(newPriceStr);
 
                 // 3. Chiamo la logica per aggiornare
                 logicController.updateCardPrice(selected, newPrice);

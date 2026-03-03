@@ -3,6 +3,7 @@ package com.example.progettoispw.Controller.Logic;
 import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.exception.invalidInputException;
 import com.example.progettoispw.model.UserType;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import com.example.progettoispw.model.User;
@@ -20,7 +21,7 @@ public class AuthController {
         if(usertemp!=null){
             authUser(usertemp);
         } else {
-           //TODO throw(TODO);
+           throw new invalidInputException("Utente non esistente");
         }
 
     }

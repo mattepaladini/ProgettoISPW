@@ -56,10 +56,15 @@
                 style="-fx-font-size: 16px; -fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand;"
                 GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-        <Button fx:id="btnCompra" text="🤝 COMPRA CARTE"
+        <Button fx:id="btnCompra" text="🤝 COMPRA CARTE" onAction="#onBuyCards"
                 prefHeight="100.0" prefWidth="200.0"
                 style="-fx-font-size: 16px; -fx-background-color: #8e44ad; -fx-text-fill: white; -fx-cursor: hand;"
                 GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Button fx:id="btnCarrello" text="🛒 CARRELLO" onAction="#onCartClick"
+                prefHeight="100.0" prefWidth="200.0"
+                style="-fx-font-size: 16px; -fx-background-color: #8e44ad; -fx-text-fill: white; -fx-cursor: hand;"
+                GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
     </GridPane>
 

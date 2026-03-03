@@ -22,8 +22,7 @@ public class CollectableCardBean {
         this.id=0;
     }
 
-    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente) {
-        this.id = id;
+    public CollectableCardBean(String nomeCarta, float prezzoCorrente) {
         this.nomeCarta = nomeCarta;
         this.prezzoCorrente = prezzoCorrente;
     }
