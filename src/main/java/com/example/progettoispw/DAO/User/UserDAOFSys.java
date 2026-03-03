@@ -88,7 +88,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e.getMessage());
                 }
             }
         }

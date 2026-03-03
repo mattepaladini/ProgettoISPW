@@ -3,6 +3,7 @@ package com.example.progettoispw.Controller.Graphic;
 import com.example.progettoispw.Controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
+import com.example.progettoispw.exception.loadPageException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
 import javafx.collections.FXCollections;
@@ -59,10 +60,9 @@ public class SearchGraphicController {
             // 3. Sostituisci la scena interamente
             Scene scene = new Scene(homeRoot, 800, 600);
             stage.setScene(scene);
-            // stage.show(); // Non serve richiamarlo, la finestra è già aperta
 
         } catch (IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
+            throw new loadPageException("Impossibile caricare la pagina Home.fxml");
         }
     }
 
@@ -119,8 +119,7 @@ public class SearchGraphicController {
             stage.show(); // Assicuriamoci che la finestra si aggiorni
 
         } catch (IOException e) {
-            System.err.println("Errore nel caricamento della pagina dei risultati!");
-            e.printStackTrace();
+            throw new loadPageException("Impossibile caricare la pagina Search.fxml");
         }
 
 

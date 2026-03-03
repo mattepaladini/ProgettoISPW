@@ -24,12 +24,8 @@ public class DBConnection {
             // Tenta la connessione
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-        } catch (ClassNotFoundException e) {
-            System.err.println("Driver JDBC non trovato!");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Errore di connessione al Database!");
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return conn;
     }

@@ -1,8 +1,6 @@
 package com.example.progettoispw.Controller.Graphic;
 
 import com.example.progettoispw.Controller.Logic.ManageCartController;
-import com.example.progettoispw.Controller.Logic.ManageCatalogController;
-import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -67,7 +64,7 @@ public class CartGraphicController {
 
         if (selezionata != null) {
             // Chiamiamo la logica per rimuovere
-            boolean successo = appController.rimuoviDalCarrello(selezionata);
+            boolean successo = appController.removeFromCart(selezionata);
 
             if (successo) {
                 // Ricarica la tabella e il totale!
@@ -80,7 +77,7 @@ public class CartGraphicController {
 
     private void aggiornaVistaCarrello() {
         // Chiediamo le carte al Controller Logico
-        List<CollectableCardBean> carteNelCarrello = appController.getCarteNelCarrello();
+        List<CollectableCardBean> carteNelCarrello = appController.getCardsFromCart();
 
         // Aggiorniamo la tabella
         carteObservable = FXCollections.observableArrayList(carteNelCarrello);
