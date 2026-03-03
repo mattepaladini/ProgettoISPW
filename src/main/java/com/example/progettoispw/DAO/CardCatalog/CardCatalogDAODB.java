@@ -104,7 +104,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         } catch (SQLException e){
             log.log(Level.SEVERE, "Errore creazione carta");
-            e.printStackTrace();
             throw new RuntimeException("Inserimento fallito su DB", e);
         }
 
@@ -179,7 +178,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
                     risultati.add(card);
                 }
-
 
             }
 

@@ -121,7 +121,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     }
                 }
             }catch (IOException e){
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
             }
         }
         return resultCards;
@@ -231,7 +231,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             bw.write(convertCardToString(card, user));
             bw.newLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

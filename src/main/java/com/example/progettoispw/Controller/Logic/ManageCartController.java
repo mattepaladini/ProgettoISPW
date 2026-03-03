@@ -27,7 +27,7 @@ public class ManageCartController {
     }
 
     // Metodo chiamato dalla UI quando l'utente apre la pagina "Il Mio Carrello"
-    public List<CollectableCardBean> getCarteNelCarrello() {
+    public List<CollectableCardBean> getCardsFromCart() {
         // 1. Recuperiamo le Entità dalla RAM
         List<Card> entitaNelCarrello = SessionManager.getInstance().getShoppingCart();
 
@@ -51,7 +51,7 @@ public class ManageCartController {
     }
 
 
-    public boolean rimuoviDalCarrello(CollectableCardBean cartaBean) {
+    public boolean removeFromCart(CollectableCardBean cartaBean) {
         try {
             // Creiamo un'entità "fantoccio" solo con i dati necessari per riconoscerla
             Card cartaDaRimuovere = new Card(cartaBean.getNomeCarta(), cartaBean.getPrezzoCorrente(),cartaBean.getGradazione(), cartaBean.getVenditore(), cartaBean.getLivello(), cartaBean.getAttributo(),cartaBean.getTipo());
