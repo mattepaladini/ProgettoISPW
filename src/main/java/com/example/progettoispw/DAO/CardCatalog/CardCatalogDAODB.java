@@ -31,9 +31,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         //salvo sul db
 
         String query = "INSERT INTO CardCatalog (sellerName) VALUES (?)";
+        Connection conn = DBConnection.getInstance().getConnection();
 
-        try (Connection conn = DBConnection.getConnection();
-             CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
             // Sostituiamo il '?' con il nome del venditore preso dall'oggetto Java
             stmt.setString(1, catalog.getSeller().getSellerName());
@@ -58,9 +58,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         loadCatalogs();
 
         String query = "DELETE FROM Card WHERE nome = ? AND sellerName = ?";
+        Connection conn = DBConnection.getInstance().getConnection();
 
-        try (Connection conn = DBConnection.getConnection();
-             CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
             // Sostituiamo il '?' con il nome del venditore preso dall'oggetto Java
             stmt.setString(1, card.getNome());
@@ -87,9 +87,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         String query = "INSERT INTO Carta (nome, venditore_username, prezzo,livello, gradazione, attributo, tipo  ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Connection conn = DBConnection.getInstance().getConnection();
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt =  conn.prepareStatement(query)) {
+        try (PreparedStatement stmt =  conn.prepareStatement(query)) {
 
             stmt.setString(1, card.getNome());
             stmt.setString(2, sellerName);
@@ -117,8 +117,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         loadCatalogs();
 
         String query = "{CALL UpdatePrice(?,?,?)}";
-        try (Connection conn = DBConnection.getConnection();
-             CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
             stmt.setString(1, nomeCarta);
             stmt.setFloat(2, newPrice);
@@ -153,9 +154,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         List<Card> risultati = new ArrayList<>();
 
         String query = "SELECT * FROM Carta WHERE nome LIKE ?";
+        Connection conn = DBConnection.getInstance().getConnection();
 
-        try(Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(query)
+        try(PreparedStatement stmt = conn.prepareStatement(query)
         ) {
 
             stmt.setString(1, nomeCarta);
@@ -203,9 +204,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             // Mappa temporanea per "raggruppare" le carte sotto lo stesso venditore
             // Chiave: nome del venditore | Valore: l'oggetto CardCatalog corrispondente
             HashMap<String, CardCatalog> catalogMap = new HashMap<>();
+            Connection conn = DBConnection.getInstance().getConnection();
 
-            try (Connection conn = DBConnection.getConnection();
-                 CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+            try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
                 if (stmt.execute()) {
                     try {

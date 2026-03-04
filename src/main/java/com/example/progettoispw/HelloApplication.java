@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,7 +100,7 @@ public class HelloApplication extends Application {
                     case 1:
                         System.out.println(">> Modalità selezionata: DATABASE (JDBC)");
 
-                        java.sql.Connection testConn = DBConnection.getConnection();
+                        Connection testConn = DBConnection.getInstance().getConnection();
 
                         if (testConn == null) {
                             logger.log(Level.SEVERE, "Impossibile trovare il database");
