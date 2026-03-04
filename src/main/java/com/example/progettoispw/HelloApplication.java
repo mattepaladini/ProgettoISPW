@@ -1,8 +1,8 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.controller.CLI.HomeCLI;
-import com.example.progettoispw.DAO.PersistenceType;
-import com.example.progettoispw.DataBase.DBConnection;
+import com.example.progettoispw.controller.cli.HomeCLI;
+import com.example.progettoispw.dao.PersistenceType;
+import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

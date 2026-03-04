@@ -1,7 +1,6 @@
 package com.example.progettoispw.pattern.Decorator;
 
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
-import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 

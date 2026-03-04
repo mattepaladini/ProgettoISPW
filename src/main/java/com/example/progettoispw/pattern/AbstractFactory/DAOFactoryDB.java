@@ -1,11 +1,11 @@
 package com.example.progettoispw.pattern.AbstractFactory;
 
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAODB;
-import com.example.progettoispw.DAO.Order.OrderDAO;
-import com.example.progettoispw.DAO.Order.OrderDAODB;
-import com.example.progettoispw.DAO.User.UserDAO;
-import com.example.progettoispw.DAO.User.UserDAODB;
+import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
+import com.example.progettoispw.dao.cardcatalog.CardCatalogDAODB;
+import com.example.progettoispw.dao.order.OrderDAO;
+import com.example.progettoispw.dao.order.OrderDAODB;
+import com.example.progettoispw.dao.user.UserDAO;
+import com.example.progettoispw.dao.user.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactory {
     @Override

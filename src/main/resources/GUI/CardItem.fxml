@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.progettoispw.controller.Graphic.CardItemController"
+      fx:controller="com.example.progettoispw.controller.graphic.CardItemController"
       alignment="CENTER_LEFT"
       spacing="20"
       prefHeight="110.0"

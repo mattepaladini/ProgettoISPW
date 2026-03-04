@@ -1,9 +1,9 @@
 package com.example.progettoispw.pattern.AbstractFactory;
 
-import com.example.progettoispw.DAO.*;
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
-import com.example.progettoispw.DAO.Order.OrderDAO;
-import com.example.progettoispw.DAO.User.UserDAO;
+import com.example.progettoispw.dao.*;
+import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
+import com.example.progettoispw.dao.order.OrderDAO;
+import com.example.progettoispw.dao.user.UserDAO;
 
 public abstract class DAOFactory  {
 

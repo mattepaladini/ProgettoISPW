@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="com.example.progettoispw.controller.Graphic.LoginGraphicController"
+<VBox fx:controller="com.example.progettoispw.controller.graphic.LoginGraphicController"
       alignment="CENTER" spacing="20"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="@light-theme.css">
