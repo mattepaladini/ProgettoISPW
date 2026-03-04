@@ -47,9 +47,11 @@ public class RegistrationController {
                 break;
 
             case BUYER:
+            default:
                     Buyer newCustomer = new Buyer(userbean.getUsername(), userbean.getPassword());
                     session.setLoggedUser(newCustomer);
                     break;
+
         }
     }
 }

@@ -12,11 +12,15 @@ import java.util.logging.Logger;
 
 public class SearchCLI {
 
+    public static final String DISABILITA_FILTRO = "0. Disabilita Filtro";
     public static Logger logger = Logger.getLogger(SearchCLI.class.getName());
 
     private final Scanner scanner = new Scanner(System.in);
 
     CollectableCardBean cardBean = new CollectableCardBean();
+
+    private static final String CERCA_CARTE ="--> Cerca Carte <--";
+    private static final String SCELTA="Scelta-> ";
 
     public void startCLI(){
 
@@ -25,14 +29,14 @@ public class SearchCLI {
         while(!back){
 
             System.out.println("-".repeat(105));
-            System.out.println("--> Cerca Carte <--");
+            System.out.println(CERCA_CARTE);
             System.out.println("0. Torna Indietro");
             System.out.println("1. Cerca per Nome della carta");
             System.out.println("2. Aggiungi filtri (Gradazione, Prezzo, Tipo, Attributo, ...)");
             System.out.println("3. ESEGUI RICERCA");
             System.out.println("-".repeat(105));
 
-            System.out.print("Scelta-> ");
+            System.out.print(SCELTA);
             //Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
 
@@ -66,7 +70,7 @@ public class SearchCLI {
     public void configureSearchQuery(){
 
         System.out.println("-".repeat(105));
-        System.out.println("--> Cerca Carte <--");
+        System.out.println(CERCA_CARTE);
         System.out.print("Inserisci il nome della carta da ricercare --> ");
         //Scanner scanner = new Scanner(System.in);
         String nomeCarta = scanner.nextLine();
@@ -80,11 +84,11 @@ public class SearchCLI {
         //Scanner scanner = new Scanner(System.in);
 
         System.out.println("-".repeat(105));
-        System.out.println("--> Cerca Carte <--");
+        System.out.println(CERCA_CARTE);
         System.out.println("Compila i diversi filtri con il valore specificato, altrimenti 0 se non vuoi usare il filtro:");
 
         System.out.println("--> Filtro Prezzo");
-        System.out.println("0. Disabilita Filtro");
+        System.out.println(DISABILITA_FILTRO);
         System.out.println("5. Meno di 5 €");
         System.out.println("10. Fino a 10 €");
         System.out.println("15. Fino a 15 €");
@@ -92,7 +96,7 @@ public class SearchCLI {
         System.out.println("50. Fino a 50 €");
         System.out.println("100. Fino a 100 €");
 
-        System.out.print("Scelta-> ");
+        System.out.print(SCELTA);
         Float prezzo = scanner.nextFloat();
         cardBean.setPrezzoCorrente(prezzo);
 
@@ -100,10 +104,10 @@ public class SearchCLI {
 
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Livello:");
-        System.out.println("0. Disabilita Filtro");
+        System.out.println(DISABILITA_FILTRO);
         System.out.println("1-12. Inserisci il numero tra 1 e 12");
 
-        System.out.print("Scelta-> ");
+        System.out.print(SCELTA);
         scanner.nextLine();     //consumo \n
         int livello = scanner.nextInt();
         cardBean.setLivello(livello);
@@ -111,10 +115,10 @@ public class SearchCLI {
 
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Attributo");
-        System.out.println("0. Disabilita Filtro");
+        System.out.println(DISABILITA_FILTRO);
         System.out.println("LUCE,   OSCURITÀ,   TERRA,  ACQUA,  FUOCO");
 
-        System.out.print("Scelta-> ");
+        System.out.print(SCELTA);
         scanner.nextLine();     //consumo \n
         String attributo = scanner.nextLine().toUpperCase();
         switch (attributo){
@@ -152,10 +156,10 @@ public class SearchCLI {
 
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Tipo");
-        System.out.println("0. Disabilita Filtro");
+        System.out.println(DISABILITA_FILTRO);
         System.out.println("MOSTRO,   MAGIA,   TERRENO,   TRAPPOLA");
 
-        System.out.print("Scelta-> ");
+        System.out.print(SCELTA);
         scanner.nextLine();
         String tipo = scanner.nextLine().toUpperCase();
         switch (tipo){

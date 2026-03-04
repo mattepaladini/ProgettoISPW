@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class MainLayoutController {
 
     private static final Logger logger = Logger.getLogger(MainLayoutController.class.getName());
+    public static final String GUI_HOME_FXML = "/GUI/Home.fxml";
 
     // Riferimento all'area centrale del BorderPane
     @FXML
@@ -37,6 +38,7 @@ public class MainLayoutController {
     @FXML private javafx.scene.control.Button btnSell;
     @FXML private javafx.scene.control.Button btnProfile;
 
+    /*
     // Metodo riutilizzabile per cambiare il centro della pagina
     public void setCenterContent(String fxmlPath) {
         try {
@@ -46,7 +48,7 @@ public class MainLayoutController {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Impossibile caricare la vista: "+fxmlPath, e);
         }
-    }
+    }*/
 
     // Metodo che viene chiamato appena il layout è caricato
     @FXML
@@ -66,7 +68,7 @@ public class MainLayoutController {
         }
 
         // Appena apro l'app, carico subito la Home
-        loadPage("/GUI/Home.fxml");
+        loadPage(GUI_HOME_FXML);
     }
 
     private void doLogin(ActionEvent event) {
@@ -76,7 +78,7 @@ public class MainLayoutController {
     private void Logout(ActionEvent event) {
         SessionManager.getInstance().logout();
 
-        navigateTo(event, "/GUI/Home.fxml");
+        navigateTo(event, GUI_HOME_FXML);
     }
 
     private void navigateTo(ActionEvent event, String fxmlPath) {
@@ -110,7 +112,7 @@ public class MainLayoutController {
 
     @FXML
     public void showHome(ActionEvent event) {
-        loadPage("/GUI/Home.fxml");
+        loadPage(GUI_HOME_FXML);
     }
 
     @FXML
@@ -151,7 +153,7 @@ public class MainLayoutController {
 
             // --- TRUCCO PER NASCONDERE LA NAVBAR ---
 
-            if (fxmlPath.equals("/GUI/Home.fxml")) {
+            if (fxmlPath.equals(GUI_HOME_FXML)) {
                 // SE È LA HOME: Nascondi la barra
                 sideBar.setVisible(false);
                 sideBar.setManaged(false); // Questo fa "collassare" lo spazio, così la Home si allarga
@@ -183,6 +185,9 @@ public class MainLayoutController {
             case "/GUI/Profile.fxml":
                 btnProfile.setVisible(false);
                 break;
+
+            default:
+
             // Aggiungi altri casi se hai altre pagine
         }
     }

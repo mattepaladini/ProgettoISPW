@@ -37,16 +37,6 @@ public class SearchGraphicController {
 
     public SearchGraphicController(){}
 
-
-
-    public SearchGraphicController(TextField nomeCartaCercata, ComboBox fasciaPrezzoCercata, ComboBox livelloCercato, ComboBox<Attribute> attributoCercato, ComboBox<Type> tipoCercato) {
-        this.nomeCartaCercata = nomeCartaCercata;
-        this.prezzoCercato = fasciaPrezzoCercata;
-        this.livelloCercato = livelloCercato;
-        this.attributoCercato = attributoCercato;
-        this.tipoCercato = tipoCercato;
-    }
-
     @FXML
     public void onBackClick(ActionEvent event) {
         try {
@@ -65,7 +55,6 @@ public class SearchGraphicController {
             throw new loadPageException("Impossibile caricare la pagina Home.fxml");
         }
     }
-
 
     //METODO PER VISUALIZZARE I DATI A SCHERMO ---> CHIAMA SEARCH RESULTS GRAPHIC CONTROLLER
     public void searchAction(ActionEvent event) {
@@ -122,13 +111,6 @@ public class SearchGraphicController {
             throw new loadPageException("Impossibile caricare la pagina Search.fxml");
         }
 
-
-
-    }
-
-    public void showResults(ActionEvent event, List<CollectableCardBean> risultati) throws IOException {
-
-
     }
 
     @FXML
@@ -138,8 +120,6 @@ public class SearchGraphicController {
 
         tipoCercato.setItems(FXCollections.observableArrayList(Type.values()));
     }
-
-
 
 }
 

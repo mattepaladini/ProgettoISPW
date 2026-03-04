@@ -195,18 +195,46 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         return super.findCardBySeller(nomeCarta, seller);
     }
 
+
     public void loadCatalogs() {
+
+        if(isLoaded)
+            return;
 
         String query = "{CALL GetCatalogs()}";
 
+        // Mappa temporanea per "raggruppare" le carte sotto lo stesso venditore
+        // Chiave: nome del venditore | Valore: l'oggetto CardCatalog corrispondente
+        HashMap<String, CardCatalog> catalogMap = new HashMap<>();
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+
+            if(stmt.execute()){
+                processResultSet(stmt.getResultSet(), catalogMap);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 3. BUG RISOLTO: Questo ciclo deve stare FUORI dal while del ResultSet!
+        for (CardCatalog catalog : catalogMap.values()) {
+            super.addCatalog(catalog);
+        }
+
+        isLoaded = true;
+
+
+
+
+        /*
+
+
         if (!isLoaded) {
 
-            // Mappa temporanea per "raggruppare" le carte sotto lo stesso venditore
-            // Chiave: nome del venditore | Valore: l'oggetto CardCatalog corrispondente
-            HashMap<String, CardCatalog> catalogMap = new HashMap<>();
-            Connection conn = DBConnection.getInstance().getConnection();
 
-            try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+
+
 
                 if (stmt.execute()) {
                     try {
@@ -246,9 +274,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
                                 super.addCatalog(catalogs);
                             }
                         }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -256,6 +282,45 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         }
 
         isLoaded=true;
+
+         */
+    }
+
+    // Metodo helper 1: Gestisce scorrimento del ResultSet e raggruppamento
+    private void processResultSet(ResultSet rs, HashMap<String, CardCatalog> catalogMap) throws SQLException {
+        while (rs.next()) {
+            String sellerName = rs.getString("sellerName");
+
+            // 4. Usiamo computeIfAbsent (Java 8+) per eliminare l'if (catalog == null)
+            CardCatalog catalog = catalogMap.computeIfAbsent(sellerName, k -> {
+                Seller seller = new Seller(k, null);
+                return new CardCatalog(seller);
+            });
+
+            String nomeCarta = rs.getString("nome");
+
+            if (!rs.wasNull()) {
+                // Estraiamo la creazione della carta in un altro metodo
+                Card carta = buildCardFromResultSet(rs, nomeCarta, sellerName);
+                catalog.getCards().add(carta);
+            }
+        }
+    }
+
+    // Metodo helper 2: Si occupa solo di istanziare l'oggetto Card
+    private Card buildCardFromResultSet(ResultSet rs, String nomeCarta, String sellerName) throws SQLException {
+        Float prezzo = Float.parseFloat(rs.getString("prezzo"));
+        int livello = Integer.parseInt(rs.getString("livello"));
+        String tipo = rs.getString("tipo");
+        String gradazione = rs.getString("gradazione");
+        String attributo = rs.getString("attributo");
+
+        Gradazione gradazioneEnum = Gradazione.valueOf(gradazione);
+        Type tipoEnum = Type.valueOf(tipo);
+        Attribute attributoEnum = Attribute.valueOf(attributo);
+
+        // Nota: Ho usato sellerName direttamente al posto di istanziare un oggetto User fittizio
+        return new Card(nomeCarta, prezzo, gradazioneEnum, sellerName, livello, attributoEnum, tipoEnum);
     }
 
 
