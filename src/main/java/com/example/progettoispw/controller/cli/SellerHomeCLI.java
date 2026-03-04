@@ -1,6 +1,7 @@
 package com.example.progettoispw.controller.cli;
 
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
@@ -122,7 +123,6 @@ public class SellerHomeCLI {
         newCardBean.setNomeCarta(nome);
 
 
-
         System.out.print("Prezzo della Carta --> ");
         Float prezzo = Float.parseFloat(scanner.nextLine());
         newCardBean.setPrezzoCorrente(prezzo);
@@ -152,7 +152,7 @@ public class SellerHomeCLI {
 
             logicController.addCard(newCardBean,currentSeller );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new operationfailedException(e.getMessage());
         }
 
 
@@ -175,7 +175,7 @@ public class SellerHomeCLI {
         try{
             logicController.updateCardPrice(cardBean, prezzo);
         }catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new operationfailedException(e.getMessage());
         }
 
     }

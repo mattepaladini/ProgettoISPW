@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class SearchCLI {
 
     public static final String DISABILITA_FILTRO = "0. Disabilita Filtro";
-    public static Logger logger = Logger.getLogger(SearchCLI.class.getName());
+    private static final Logger logger = Logger.getLogger(SearchCLI.class.getName());
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -37,7 +37,6 @@ public class SearchCLI {
             System.out.println("-".repeat(105));
 
             System.out.print(SCELTA);
-            //Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
 
             switch (choice){
@@ -80,8 +79,6 @@ public class SearchCLI {
     }
 
     public void configureFilters(){
-
-        //Scanner scanner = new Scanner(System.in);
 
         System.out.println("-".repeat(105));
         System.out.println(CERCA_CARTE);

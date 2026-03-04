@@ -93,7 +93,7 @@ public class CartGraphicController {
 
     @FXML
     public void onCheckoutClick() {
-        //System.out.println("Navigazione verso la schermata di pagamento...");
+
         // Qui chiameresti il MainLayoutController per cambiare scena
     }
     @FXML

@@ -14,7 +14,7 @@ public class LoginCLI {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public static Logger logger = Logger.getLogger(SearchCLI.class.getName());
+    private static final Logger logger = Logger.getLogger(LoginCLI.class.getName());
 
     public void startCLI(){
 
@@ -85,7 +85,7 @@ public class LoginCLI {
             AuthController authController = new AuthController();
             authController.checkUserExist(userBean);
 
-            logger.log(Level.INFO, "User " + username + " logged in");
+            logger.log(Level.INFO, "User {0} loggato " ,username);
 
             User user = SessionManager.getInstance().getLoggedUser();
 
