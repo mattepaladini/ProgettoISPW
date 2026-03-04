@@ -26,7 +26,8 @@ public class RegistrationGraphicController {
     @FXML private PasswordField txtPassword;
     @FXML private CheckBox chkIsVenditore;
 
-    private static final Logger logger = Logger.getLogger(RegistrationController.class.getName());
+    private static final Logger logger = Logger.getLogger(RegistrationGraphicController.class.getName());
+    private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
     public void onRegisterClick(ActionEvent event) throws IOException {
@@ -40,13 +41,6 @@ public class RegistrationGraphicController {
         if(username.isEmpty() || password.isEmpty()) {
             throw new invalidInputException("Username e/o password mancanti");
         }
-
-        /*
-        System.out.println("REGISTRAZIONE IN CORSO...");
-        System.out.println("Utente: " + username);
-        System.out.println("Ruolo Venditore: " + isVenditore);
-        */
-
 
         UserBean userbean = new UserBean(username, password);
 
@@ -75,23 +69,7 @@ public class RegistrationGraphicController {
     @FXML
     public void onBackClick(ActionEvent event) {
         // Questo metodo serve per tornare alla schermata di Login
-        cambiaScena(event, "/GUI/Login.fxml");
+        sceneManager.startScene(event, "/GUI/Login.fxml");
     }
 
-    // Metodo helper per cambiare pagina
-    private void cambiaScena(ActionEvent event, String fxmlPath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-
-            // Recupero lo Stage (la finestra) dal bottone che è stato cliccato
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            logger.log(Level.WARNING,e.getMessage());
-        }
-    }
 }

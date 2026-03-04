@@ -44,7 +44,9 @@ public class SellerCatalogGraphicController implements Initializable {
     private ManageCatalogController logicController;
     private ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
 
-    private static final Logger logger = Logger.getLogger(SellerCatalogGraphicController.class.getName());
+    private static final SceneManager sceneManager = new SceneManager();
+
+    //private static final Logger logger = Logger.getLogger(SellerCatalogGraphicController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,6 +88,9 @@ public class SellerCatalogGraphicController implements Initializable {
         // Qui dovrai aprire una nuova finestra (Dialog o cambio scena)
         // per inserire i dati della nuova carta.
 
+        sceneManager.startScene(event, "/GUI/AddCard.fxml");
+
+        /*
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
         BorderPane root = mainLoader.load();
 
@@ -96,12 +101,16 @@ public class SellerCatalogGraphicController implements Initializable {
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
-
+*/
 
     }
 
     @FXML
     public void onBackClick(ActionEvent event) {
+
+        sceneManager.startScene(event, "/GUI/Home.fxml");
+
+        /*
         try {
             // 1. Carico la Cornice (MainLayout)
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
@@ -124,7 +133,7 @@ public class SellerCatalogGraphicController implements Initializable {
 
         } catch (IOException e) {
             logger.log(Level.WARNING, "Errore nel caricamento della Home");
-        }
+        }*/
     }
 
 

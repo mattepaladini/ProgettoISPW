@@ -24,9 +24,10 @@ public class LoginGraphicController {
     @FXML private PasswordField passwordField;
 
     private static final Logger logger = Logger.getLogger(LoginGraphicController.class.getName());
+    private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
-    public void StartLogin(ActionEvent event) throws IOException {
+    public void startLogin(ActionEvent event) throws IOException {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
@@ -36,7 +37,7 @@ public class LoginGraphicController {
             AuthController authController = new AuthController();
             authController.checkUserExist(userBean);
 
-            logger.log(Level.INFO, "User " + user + " logged in");
+            logger.log(Level.INFO, "User {0} loggato" ,user);
 
         } else {
             throw new invalidInputException("Username e/o password mancanti");
@@ -44,6 +45,9 @@ public class LoginGraphicController {
 
         //carico schermata Home
 
+        sceneManager.startScene(event,"/GUI/Home.fxml");
+
+        /*
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
         BorderPane rootLayout = mainLoader.load();
 
@@ -61,10 +65,16 @@ public class LoginGraphicController {
         stage.setScene(scene);
         stage.show();
 
+         */
+
     }
 
     @FXML
     public void goToRegistration(ActionEvent event) {
+
+        sceneManager.startScene(event,"/GUI/Registration.fxml");
+
+        /*
         try {
             // Attenzione al path, deve essere quello CORRETTO
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Registration.fxml"));
@@ -76,5 +86,7 @@ public class LoginGraphicController {
         } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
+
+         */
     }
 }

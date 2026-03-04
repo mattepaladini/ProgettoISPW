@@ -20,6 +20,7 @@ public class MainLayoutController {
 
     private static final Logger logger = Logger.getLogger(MainLayoutController.class.getName());
     public static final String GUI_HOME_FXML = "/GUI/Home.fxml";
+    private static final SceneManager sceneManager = new SceneManager();
 
     // Riferimento all'area centrale del BorderPane
     @FXML
@@ -28,25 +29,12 @@ public class MainLayoutController {
     @FXML
     private VBox sideBar;
 
-    @FXML private BorderPane borderPane;
 
     // Mi servono per oscurare i bottoni relativi alla pagina in cui mi trovo
     @FXML private javafx.scene.control.Button btnHome;
     @FXML private javafx.scene.control.Button btnSearch;
     @FXML private javafx.scene.control.Button btnSell;
     @FXML private javafx.scene.control.Button btnProfile;
-
-    /*
-    // Metodo riutilizzabile per cambiare il centro della pagina
-    public void setCenterContent(String fxmlPath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent newView = loader.load();
-            borderPane.setCenter(newView);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Impossibile caricare la vista: "+fxmlPath, e);
-        }
-    }*/
 
     // Metodo che viene chiamato appena il layout è caricato
     @FXML
@@ -62,7 +50,7 @@ public class MainLayoutController {
             btnProfile.setOnAction(this::doLogin);
         } else {
             btnProfile.setText("Logout");
-            btnProfile.setOnAction(this::Logout);
+            btnProfile.setOnAction(this::logout);
         }
 
         // Appena apro l'app, carico subito la Home
@@ -70,15 +58,18 @@ public class MainLayoutController {
     }
 
     private void doLogin(ActionEvent event) {
-        navigateTo(event, "/GUI/Login.fxml");
+        sceneManager.startScene(event , "/GUI/Login.fxml");
+
     }
 
-    private void Logout(ActionEvent event) {
+    private void logout(ActionEvent event) {
         SessionManager.getInstance().logout();
 
-        navigateTo(event, GUI_HOME_FXML);
+        sceneManager.startScene(event, GUI_HOME_FXML);
+
     }
 
+    /*
     private void navigateTo(ActionEvent event, String fxmlPath) {
         try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
@@ -97,7 +88,7 @@ public class MainLayoutController {
         } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
-    }
+    }*/
 
     // --- AZIONI DELLA NAVBAR ---
 
@@ -113,10 +104,6 @@ public class MainLayoutController {
         loadPage(GUI_HOME_FXML);
     }
 
-    @FXML
-    public void showBuy(ActionEvent event) {
-        //loadPage("/fxml/BuyCards.fxml");
-    }
 
     @FXML
     public void showSell(ActionEvent event) {

@@ -38,7 +38,7 @@ public class HomeGraphicController implements Initializable {
     }
 
     @FXML
-    public void onProfileClick(ActionEvent event) throws IOException {
+    public void onProfileClick(ActionEvent event) {
 
         // 1. RECUPERO L'UTENTE DALLA SESSIONE
         User currentUser = SessionManager.getInstance().getLoggedUser();
