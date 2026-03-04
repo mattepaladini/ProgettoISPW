@@ -72,6 +72,10 @@ public class HelloApplication extends Application {
     public static void chooseConf(){
 
         Scanner scanner = new Scanner(System.in);
+
+        setupPersistenceMode(scanner);
+        setupViewMode(scanner);
+        /*
         int choicePersistence = -1;
         int choiceView = -1;
 
@@ -153,6 +157,94 @@ public class HelloApplication extends Application {
             }
         }
 
+         */
+
+    }
+
+    private static void setupPersistenceMode(Scanner scanner) {
+        System.out.println("-".repeat(105));
+        System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
+        System.out.println("-".repeat(105));
+        System.out.println("Scegli la modalità di persistenza dei dati:");
+        System.out.println("1. Database (MySQL/JDBC)");
+        System.out.println("2. DEMO (Salvataggio temporaneo)");
+        System.out.println("3. FSYS (Salvataggio su file, solo per Venditori)");
+        System.out.println("-".repeat(105));
+
+        while (true) {
+            System.out.print("Inserisci la tua scelta (1 o 2 o 3): ");
+
+            // EARLY CONTINUE: Gestiamo subito l'errore ed evitiamo l'else!
+            if (!scanner.hasNextInt()) {
+                logger.log(Level.SEVERE, "Inserire una scelta valida (numero intero)");
+                scanner.next(); // Consuma l'input errato
+                continue;
+            }
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println(">> Modalità selezionata: DATABASE (JDBC)");
+                    Connection testConn = DBConnection.getInstance().getConnection();
+                    if (testConn == null) {
+                        logger.log(Level.SEVERE, "Impossibile trovare il database");
+                    }
+                    DAOFactory.setPersistenceType(PersistenceType.JDBC);
+                    return; // Esce dal metodo e interrompe il loop (EARLY RETURN)
+
+                case 2:
+                    System.out.println(">> Modalità selezionata: DEMO");
+                    DAOFactory.setPersistenceType(PersistenceType.DEMO);
+                    return;
+
+                case 3:
+                    System.out.println(">> Modalità selezionata: FSYS");
+                    DAOFactory.setPersistenceType(PersistenceType.FSYS);
+                    return;
+
+                default:
+                    logger.log(Level.SEVERE, "Inserire una scelta valida (1, 2 o 3)");
+            }
+        }
+    }
+
+    private static void setupViewMode(Scanner scanner) {
+        System.out.println("-".repeat(105));
+        System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
+        System.out.println("-".repeat(105));
+        System.out.println("Scegli come usare il sistema:");
+        System.out.println("1. Grafica UI");
+        System.out.println("2. Command User Interface (CLI)");
+        System.out.println("-".repeat(105));
+
+        while (true) {
+            System.out.print("Inserisci la tua scelta (1 o 2): ");
+
+            if (!scanner.hasNextInt()) {
+                logger.log(Level.SEVERE, "Inserire una scelta valida (numero intero)");
+                scanner.next();
+                continue;
+            }
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println(">> Grafica UI");
+                    launch();
+                    return;
+
+                case 2:
+                    System.out.println(">> Command User Interface (CLI)");
+                    HomeCLI homeCLI = new HomeCLI();
+                    homeCLI.startHomePage();
+                    return;
+
+                default:
+                    logger.log(Level.SEVERE, "Inserire una scelta valida (1 o 2)");
+            }
+        }
     }
 
 
