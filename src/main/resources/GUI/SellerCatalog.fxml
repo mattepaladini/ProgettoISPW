@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.progettoispw.Controller.Graphic.SellerCatalogGraphicController"
+      fx:controller="com.example.progettoispw.controller.Graphic.SellerCatalogGraphicController"
       spacing="20" style="-fx-padding: 20;">
 
     <HBox alignment="CENTER_LEFT">

@@ -1,6 +1,5 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.RegistrationController;
 import com.example.progettoispw.Session.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

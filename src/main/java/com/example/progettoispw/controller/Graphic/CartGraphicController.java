@@ -1,6 +1,6 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.ManageCartController;
+import com.example.progettoispw.controller.Logic.ManageCartController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

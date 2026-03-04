@@ -1,6 +1,6 @@
-package com.example.progettoispw.Controller.CLI;
+package com.example.progettoispw.controller.CLI;
 
-import com.example.progettoispw.Controller.Logic.BuyController;
+import com.example.progettoispw.controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;

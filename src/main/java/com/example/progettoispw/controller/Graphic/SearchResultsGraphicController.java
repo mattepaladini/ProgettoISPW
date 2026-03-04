@@ -1,11 +1,9 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.BuyController;
-import com.example.progettoispw.Controller.Logic.ManageCartController;
-import com.example.progettoispw.Controller.Logic.RegistrationController;
+import com.example.progettoispw.controller.Logic.BuyController;
+import com.example.progettoispw.controller.Logic.ManageCartController;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.exception.invalidInputException;
-import com.example.progettoispw.model.Card;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

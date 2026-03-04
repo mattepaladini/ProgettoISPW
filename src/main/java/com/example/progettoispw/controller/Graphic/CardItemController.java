@@ -1,6 +1,6 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.BuyController;
+import com.example.progettoispw.controller.Logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 //SI OCCUPA DI GESTIRE LE SINGOLE RIGHE DI UNA RICERCA

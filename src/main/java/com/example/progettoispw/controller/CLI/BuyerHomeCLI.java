@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.CLI;
+package com.example.progettoispw.controller.CLI;
 
 public class BuyerHomeCLI {
 

@@ -1,26 +1,13 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
 import com.example.progettoispw.Session.SessionManager;
-import com.example.progettoispw.bean.UserBean;
-import com.example.progettoispw.exception.loadPageException;
 import com.example.progettoispw.model.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.model.Buyer;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

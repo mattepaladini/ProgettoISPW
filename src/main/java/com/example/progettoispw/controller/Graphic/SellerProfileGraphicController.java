@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
 import com.example.progettoispw.Session.SessionManager;
 import javafx.fxml.FXML;

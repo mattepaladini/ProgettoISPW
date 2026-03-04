@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.Logic;
+package com.example.progettoispw.controller.Logic;
 
 import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.Session.SessionManager;
@@ -7,10 +7,8 @@ import com.example.progettoispw.exception.invalidInputException;
 import com.example.progettoispw.exception.registrationException;
 import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
-import com.example.progettoispw.model.Customer;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.Seller;
-import com.example.progettoispw.model.UserType;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

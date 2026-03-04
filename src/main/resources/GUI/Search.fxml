@@ -7,7 +7,7 @@
 <?import java.lang.String?>
 
 <BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.progettoispw.Controller.Graphic.SearchGraphicController"
+            fx:controller="com.example.progettoispw.controller.Graphic.SearchGraphicController"
             stylesheets="@light-theme.css">
 
 

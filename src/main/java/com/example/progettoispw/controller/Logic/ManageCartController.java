@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.Logic;
+package com.example.progettoispw.controller.Logic;
 
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;

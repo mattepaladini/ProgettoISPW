@@ -1,6 +1,6 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
-import com.example.progettoispw.Controller.Logic.RegistrationController;
+import com.example.progettoispw.controller.Logic.RegistrationController;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.exception.invalidInputException;
 import javafx.fxml.FXML;

@@ -1,6 +1,6 @@
-package com.example.progettoispw.Controller.CLI;
+package com.example.progettoispw.controller.CLI;
 
-import com.example.progettoispw.Controller.Logic.AuthController;
+import com.example.progettoispw.controller.Logic.AuthController;
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.model.User;

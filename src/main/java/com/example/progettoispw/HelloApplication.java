@@ -1,11 +1,8 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.Controller.CLI.HomeCLI;
-import com.example.progettoispw.DAO.CardCatalog.CardCatalogDAO;
+import com.example.progettoispw.controller.CLI.HomeCLI;
 import com.example.progettoispw.DAO.PersistenceType;
-import com.example.progettoispw.DAO.User.UserDAO;
 import com.example.progettoispw.DataBase.DBConnection;
-import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;

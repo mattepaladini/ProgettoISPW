@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.Logic;
+package com.example.progettoispw.controller.Logic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.exception.invalidInputException;

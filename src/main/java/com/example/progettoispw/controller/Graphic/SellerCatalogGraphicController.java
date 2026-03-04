@@ -1,15 +1,13 @@
-package com.example.progettoispw.Controller.Graphic;
+package com.example.progettoispw.controller.Graphic;
 
 
-import com.example.progettoispw.Controller.Logic.ManageCatalogController;
-import com.example.progettoispw.Controller.Logic.RegistrationController;
+import com.example.progettoispw.controller.Logic.ManageCatalogController;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 
 import com.example.progettoispw.Session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.model.Gradazione;
-import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

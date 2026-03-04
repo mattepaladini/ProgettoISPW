@@ -1,4 +1,4 @@
-package com.example.progettoispw.Controller.CLI;
+package com.example.progettoispw.controller.CLI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
