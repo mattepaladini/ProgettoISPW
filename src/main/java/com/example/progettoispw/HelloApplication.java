@@ -116,6 +116,7 @@ public class HelloApplication extends Application {
                             case 3:
                                 System.out.println(">> Modalità selezionata: FSYS");
                                 DAOFactory.setPersistenceType(PersistenceType.FSYS);
+                                break;
 
                     default:
                         logger.log(Level.SEVERE, "Inserire una scelta valida");
@@ -160,7 +161,7 @@ public class HelloApplication extends Application {
 
 
     //TODO SISTEMA CHE NON VIENE AGGIORNATA LA SCHERMATA DEL CATALOGO
-    //TODO IMPLEMENTA IL METODO RIMUOVI CARTA NEL CARDCATALOG
+
 
     public static void main(String[] args) {
         chooseConf();
