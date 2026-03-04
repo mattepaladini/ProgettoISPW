@@ -3,7 +3,7 @@ package com.example.progettoispw.bean;
 import com.example.progettoispw.bean.CollectableCardBean;
 
 public class CartRowBean {
-
+/*
     private CollectableCardBean card;
     private float prezzoTotale;
 
@@ -17,4 +17,6 @@ public class CartRowBean {
     public float getPrezzoTotale() {return prezzoTotale;}
     public void setPrezzoTotale() {this.prezzoTotale = prezzoTotale;}
 
+
+ */
 }

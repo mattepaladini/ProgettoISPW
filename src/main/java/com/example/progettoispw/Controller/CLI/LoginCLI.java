@@ -36,6 +36,7 @@ public class LoginCLI {
                         break;
 
                         case 2:
+                            //TODO
                             //startRegistrazione();
                             break;
 
@@ -46,6 +47,7 @@ public class LoginCLI {
 
                                 default:
                                     logger.log(Level.SEVERE, "Scelta non valida");
+                                    back = true;
                                     break;
                 }
             }

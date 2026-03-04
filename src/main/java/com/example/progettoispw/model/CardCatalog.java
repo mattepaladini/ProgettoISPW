@@ -20,14 +20,10 @@ public class CardCatalog implements Serializable {
         this.cards.add(card);
     }
 
-    /*
+    //TODO
     public void removeCollectableCard(Card card) {
-        for(Card c : this.cards) {
-            if(card.getId() == c.getId()) {
-                this.cards.remove(c);
-            }
-        }
-    }*/
+            this.cards.remove(card);
+    }
 
     public Seller getSeller(){
         return seller;

@@ -29,7 +29,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
             cardCatalogs = getAllCatalogs();
             for(CardCatalog catalog : cardCatalogs) {
                 if(catalog.getSeller().equals(sellerName)) {
-                    cardCatalogs.remove(card);
+                    catalog.removeCollectableCard(card);
                 }
             }
 
