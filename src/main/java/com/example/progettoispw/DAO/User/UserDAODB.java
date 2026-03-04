@@ -53,8 +53,8 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
 
         if(!isLoaded) {
             String query = "{CALL GetAllUsers()}";
-            try (Connection conn = DBConnection.getConnection();
-                 CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+            Connection conn = DBConnection.getInstance().getConnection();
+            try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
                 if (stmt.execute()) {
                     try {
@@ -69,13 +69,11 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
 
                             users.add(user);
                         }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    } catch (IllegalArgumentException e) {
+
+                    } catch (RuntimeException e) {
                         throw new RuntimeException(e);
                     }
                 }
-
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -90,9 +88,9 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
         String new_tipo = String.valueOf(user.getTipoUtente());
 
         String query ="{CALL AddUser (?, ?,?)}";
+        Connection conn = DBConnection.getInstance().getConnection();
 
-        try (Connection conn = DBConnection.getConnection();
-             CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
             stmt.setString(1, new_username);
             stmt.setString(2, new_password);
