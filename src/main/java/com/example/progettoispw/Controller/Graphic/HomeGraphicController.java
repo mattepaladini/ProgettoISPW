@@ -35,6 +35,8 @@ public class HomeGraphicController implements Initializable {
     @FXML
     private Button btnCarrello;
 
+    private final SceneManager sceneManager = new SceneManager();
+
     @FXML
     public void doLogout() {
         SessionManager.getInstance().logout();
@@ -44,6 +46,9 @@ public class HomeGraphicController implements Initializable {
     @FXML
     public void onSearchClick(ActionEvent event) {
 
+        sceneManager.startScene(event, "/GUI/Search.fxml");
+
+        /*
         try {
             // 1. Carico la CORNICE (MainLayout)
             // Assicurati che il path sia corretto
@@ -68,7 +73,7 @@ public class HomeGraphicController implements Initializable {
 
         } catch (IOException e) {
             throw new loadPageException("Impossibile caricare la pagina Sell.fxml");
-        }
+        }*/
     }
 
     @FXML
@@ -88,6 +93,9 @@ public class HomeGraphicController implements Initializable {
             fxmlFile = "/GUI/Home.fxml";
         }
 
+        sceneManager.startScene(event, fxmlFile);
+
+        /*
         // 2. Eseguo il caricamento "Cornice + Contenuto"
         try {
             // A. Carico la CORNICE (MainLayout)
@@ -112,14 +120,17 @@ public class HomeGraphicController implements Initializable {
 
         } catch (IOException e) {
             throw new loadPageException("Impossibile caricare la pagina Login.fxml");
-        }
-
+        }*/
 
 
     }
 
     @FXML
     public void onSellPageClicked(ActionEvent event) {
+
+        sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
+
+        /*
         try {
             // 1. Carico la CORNICE (MainLayout)
             // Assicurati che il path sia corretto
@@ -144,11 +155,15 @@ public class HomeGraphicController implements Initializable {
 
         } catch (IOException e) {
             throw new loadPageException("Impossibile caricare la pagina Sell.fxml");
-        }
+        }*/
     }
 
     @FXML
-    public void onBuyCards(ActionEvent event){
+    public void onBuyCards(ActionEvent event) {
+
+        sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
+
+        /*
         try {
             // 1. Carico la CORNICE (MainLayout)
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
@@ -169,49 +184,52 @@ public class HomeGraphicController implements Initializable {
 
         } catch (IOException e) {
             throw new loadPageException("Impossibile caricare la pagina Buy.fxml");
-        }
+        }*/
     }
 
-     @FXML
-     public void onCartClick(ActionEvent event) {
+    @FXML
+    public void onCartClick(ActionEvent event) {
 
 
         String fxmlFile = "";
-        if(SessionManager.getInstance().getLoggedUser() == null){
+        if (SessionManager.getInstance().getLoggedUser() == null) {
 
             //mando l'utente alla schermata Login
             fxmlFile = "/GUI/Login.fxml";
-        } else{
+        } else {
             fxmlFile = "/GUI/Cart.fxml";
         }
 
-         // 2. Eseguo il caricamento "Cornice + Contenuto"
-         try {
-             // A. Carico la CORNICE (MainLayout)
-             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-             BorderPane rootLayout = mainLoader.load();
+        sceneManager.startScene(event, fxmlFile);
 
-             // B. Carico il CONTENUTO (Login o Profilo)
-             FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlFile));
-             // Uso 'Node' perché il contenuto potrebbe essere VBox, AnchorPane o altro
-             Node contentNode = contentLoader.load();
+        /*
+        // 2. Eseguo il caricamento "Cornice + Contenuto"
+        try {
+            // A. Carico la CORNICE (MainLayout)
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            BorderPane rootLayout = mainLoader.load();
 
-             // C. INIEZIONE: Metto il contenuto al centro della cornice
-             rootLayout.setCenter(contentNode);
+            // B. Carico il CONTENUTO (Login o Profilo)
+            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+            // Uso 'Node' perché il contenuto potrebbe essere VBox, AnchorPane o altro
+            Node contentNode = contentLoader.load();
 
-             // D. Preparo la scena
-             // Manteniamo le dimensioni fisse come ci siamo detti
-             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-             Scene scene = new Scene(rootLayout, 800, 600);
+            // C. INIEZIONE: Metto il contenuto al centro della cornice
+            rootLayout.setCenter(contentNode);
 
-             stage.setScene(scene);
-             stage.show();
+            // D. Preparo la scena
+            // Manteniamo le dimensioni fisse come ci siamo detti
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootLayout, 800, 600);
 
-         } catch (IOException e) {
-             throw new loadPageException("Impossibile caricare la pagina Login.fxml");
-         }
+            stage.setScene(scene);
+            stage.show();
 
-     }
+        } catch (IOException e) {
+            throw new loadPageException("Impossibile caricare la pagina Login.fxml");
+        }*/
+
+    }
 
 
     @Override
@@ -223,10 +241,10 @@ public class HomeGraphicController implements Initializable {
         btnCarrello.setVisible(false);
 
         User currentUser = SessionManager.getInstance().getLoggedUser();
-        if(currentUser != null) {
-            if(currentUser.getTipoUtente().equals(UserType.SELLER)) {
+        if (currentUser != null) {
+            if (currentUser.getTipoUtente().equals(UserType.SELLER)) {
                 btnVendi.setVisible(true);
-            } else if(currentUser.getTipoUtente().equals(UserType.BUYER)) {
+            } else if (currentUser.getTipoUtente().equals(UserType.BUYER)) {
                 btnCompra.setVisible(true);
                 btnCarrello.setVisible(true);
             }
@@ -235,6 +253,5 @@ public class HomeGraphicController implements Initializable {
 
     }
 
-
-    }
+}
 
