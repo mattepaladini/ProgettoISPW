@@ -61,14 +61,15 @@ public class HomeGraphicController implements Initializable {
     @FXML
     public void onSellPageClicked(ActionEvent event) {
 
-        sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
+        String fxmlFile = "/GUI/SellerCatalog.fxml";
+        sceneManager.startScene(event, fxmlFile);
 
     }
 
     @FXML
     public void onBuyCards(ActionEvent event) {
 
-        sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
+        sceneManager.startScene(event, "/GUI/Cart.fxml");
 
     }
 

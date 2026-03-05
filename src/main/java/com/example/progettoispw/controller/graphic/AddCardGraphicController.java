@@ -79,6 +79,8 @@ public class AddCardGraphicController implements Initializable {
     }
 
     private void goBackToCatalog(ActionEvent event) {
+
+        //TODO usa sceneManager
         try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
             BorderPane root = mainLoader.load();

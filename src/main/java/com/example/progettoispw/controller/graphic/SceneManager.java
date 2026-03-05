@@ -21,7 +21,6 @@ public class SceneManager {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource(fxmlMainPage));
             BorderPane rootLayout = mainLoader.load();
 
-            //Carico il CONTENUTO (SellerCatalog)
             FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(specificPage));
 
             Node catalogNode = contentLoader.load();
@@ -35,6 +34,7 @@ public class SceneManager {
             stage.show();
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new loadPageException("Impossibile caricare la pagina" +  specificPage);
         }
 
