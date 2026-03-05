@@ -31,7 +31,6 @@ public class SearchGraphicController {
 
     private static final Logger logger = Logger.getLogger(SearchGraphicController.class.getName());
 
-    public SearchGraphicController(){}
 
     @FXML
     public void onBackClick(ActionEvent event) {

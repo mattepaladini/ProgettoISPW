@@ -56,9 +56,6 @@ public class SearchResultsGraphicController {
 
     private BuyController buyCardController;
 
-    public SearchResultsGraphicController(){}
-
-
     @FXML
     public void initialize() {
 

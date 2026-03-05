@@ -2,7 +2,7 @@ package com.example.progettoispw.model;
 
 public enum Attribute {
     LUCE,
-    OSCURITÀ,
+    OSCURITA,
     TERRA,
     ACQUA,
     FUOCO;

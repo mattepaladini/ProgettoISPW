@@ -20,7 +20,7 @@ public class CardCatalog implements Serializable {
         this.cards.add(card);
     }
 
-    //TODO
+
     public void removeCollectableCard(Card card) {
             this.cards.remove(card);
     }

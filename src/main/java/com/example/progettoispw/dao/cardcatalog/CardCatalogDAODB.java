@@ -235,10 +235,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         if (!isLoaded) {
 
-
-
-
-
                 if (stmt.execute()) {
                     try {
                         ResultSet rs = stmt.getResultSet();
@@ -304,7 +300,8 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             if (!rs.wasNull()) {
                 // Estraiamo la creazione della carta in un altro metodo
                 Card carta = buildCardFromResultSet(rs, nomeCarta, sellerName);
-                catalog.getCards().add(carta);
+                catalog.addCollectableCard(carta);
+                //catalog.getCards().add(carta);
             }
         }
     }

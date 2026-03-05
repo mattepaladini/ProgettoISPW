@@ -21,10 +21,6 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
     private final Logger logger = Logger.getLogger(CardCatalogDAOFSys.class.getName());
 
-    public CardCatalogDAOFSys() {
-
-    }
-
     //
     @Override
     public List<CardCatalog> getAllCatalogs() {
@@ -67,7 +63,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
     @Override
     public void updatePrice(String nomeCarta, String username, Float newPrice) {
-
+            //TODO
     }
 
     //TODO da togliere perchè tanto c'è il SessionManager
@@ -142,6 +138,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
     //METODO PER CARICARE I CATALOGHI LETTI DA FILE
     private void loadCatalogs() {
 
+        /*
         if(!isLoaded){
 
             File file = getStorageFile();
@@ -207,6 +204,81 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
         }
 
         isLoaded=true;
+         */
+
+        //se è già caricato esco
+        if (isLoaded) {
+            return;
+        }
+
+        File file = getStorageFile();
+
+        // 2. EARLY RETURN: Se il file non esiste, segniamo come caricato (vuoto) e usciamo
+        if (!file.exists()) {
+            isLoaded = true;
+            return;
+        }
+
+        // 3. Lettura pulita senza annidamenti mostruosi
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                processLine(line); // Deleghiamo la logica complessa!
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Errore nel caricamento dei cataloghi", e);
+            throw new RuntimeException("Errore di lettura file: " + e.getMessage());
+        }
+
+        isLoaded = true;
+
+    }
+
+    private void processLine(String line) {
+        if (line.trim().isEmpty()) return;
+
+        String[] parts = line.split(SEPARATOR);
+        if (parts.length < 7) return;
+
+        String nome = parts[0];
+        float prezzo = Float.parseFloat(parts[1]);
+        String gradStr = parts[2];
+        String ownerUsername = parts[3];
+        int livello = Integer.parseInt(parts[4]);
+        String attrStr = parts[5];
+        String typeStr = parts[6];
+
+        Seller owner = new Seller(ownerUsername, null);
+        Card card = new Card(
+                nome, prezzo, Gradazione.valueOf(gradStr), ownerUsername,
+                livello, Attribute.valueOf(attrStr), Type.valueOf(typeStr)
+        );
+
+        // Deleghiamo la ricerca e l'inserimento
+        addCardToCatalogHelper(ownerUsername, owner, card);
+    }
+
+    //HELPER
+    private void addCardToCatalogHelper(String ownerUsername, Seller owner, Card card) {
+        CardCatalog targetCatalog = null;
+
+        // Cerchiamo se esiste già
+        for (CardCatalog c : memoryCatalogs) {
+            if (c.getSeller().getUsername().equals(ownerUsername)) {
+                targetCatalog = c;
+                break;
+            }
+        }
+
+        // Se non esiste, lo creiamo e lo aggiungiamo ALLA LISTA UNA SOLA VOLTA
+        if (targetCatalog == null) {
+            logger.log(Level.INFO, "DEBUG: catalogo non esistente per {0}", ownerUsername);
+            targetCatalog = new CardCatalog(owner);
+            memoryCatalogs.add(targetCatalog);
+        }
+
+        // Aggiungiamo la carta al catalogo (che sia nuovo o vecchio)
+        targetCatalog.addCollectableCard(card);
     }
 
     // Metodo helper per convertire l'oggetto Card in stringa CSV

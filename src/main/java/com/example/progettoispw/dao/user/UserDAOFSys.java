@@ -17,8 +17,6 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
     private boolean isLoaded = false;
 
-    public UserDAOFSys() {}
-
     @Override
     public List<User> getAllUsers() {
 
@@ -56,6 +54,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
     private void loadAllUsers()  {
 
+        /*
         if(!isLoaded) {
 
             File file = getStorageFile();
@@ -93,6 +92,54 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
         }
 
         isLoaded = true;
+
+         */
+
+        // 1. EARLY RETURN: Se i dati sono già in memoria, usciamo subito
+        if (isLoaded) {
+            return;
+        }
+
+        File file = getStorageFile();
+
+        // 2. EARLY RETURN: Se il file non esiste, segniamo come caricato (vuoto) e usciamo
+        if (!file.exists()) {
+            isLoaded = true;
+            return;
+        }
+
+        // 3. Lettura pulita: nessun annidamento mostruoso
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                processUserLine(line); // Deleghiamo la creazione!
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Errore durante la lettura del file utenti: " + e.getMessage());
+        }
+
+        isLoaded = true;
+    }
+
+    private void processUserLine(String line) {
+        String[] parts = line.split(";");
+
+        // EARLY RETURN: Salta la riga se è corrotta o vuota
+        if (parts.length < 3) {
+            return;
+        }
+
+        String username = parts[0];
+        String password = parts[1];
+        String role = parts[2];
+
+        // IL TOCCO DA MAESTRO: L'operatore ternario (?)
+        // Sostituisce l'intero blocco if/else in una sola riga leggibile
+        UserType type = role.equals("SELLER") ? UserType.SELLER : UserType.BUYER;
+
+        // Creiamo e aggiungiamo l'utente
+        User u = new User(username, password, type);
+        super.addUser(u);
     }
 
     // ------------------------------------------------------------

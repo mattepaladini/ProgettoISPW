@@ -10,24 +10,24 @@ import java.util.List;
 
 public class CardCatalogDAODemo implements CardCatalogDAO {
 
-    protected static List<CardCatalog> cardCatalogs = new ArrayList<>();
+    protected List<CardCatalog> cardCatalogs = new ArrayList<>();
 
     @Override
     public List<CardCatalog> getAllCatalogs() {
-        return cardCatalogs;
+        return this.cardCatalogs;
     }
 
     @Override
     public void addCatalog(CardCatalog catalog) {
-        cardCatalogs.add(catalog);
+        this.cardCatalogs.add(catalog);
 
     }
 
     @Override
     public void removeCard(Card card, User sellerName) {
 
-            cardCatalogs = getAllCatalogs();
-            for(CardCatalog catalog : cardCatalogs) {
+            //cardCatalogs = getAllCatalogs();
+            for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().equals(sellerName)) {
                     catalog.removeCollectableCard(card);
                 }
@@ -38,22 +38,21 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
     @Override
     public void addCard(Card card, String sellerName) {
-        cardCatalogs = getAllCatalogs();
+        //cardCatalogs = getAllCatalogs();
 
-            for(CardCatalog catalog : cardCatalogs) {
+            for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().getSellerName().equals(sellerName)) {
                     System.out.println("Carta aggiunta al catalogo di: "+catalog.getSeller().getSellerName());
                     catalog.addCollectableCard(card);
                 }
             }
 
-
     }
 
     @Override
     public void updatePrice(String nomeCarta, String username, Float newPrice) {
-        cardCatalogs = getAllCatalogs();
-        for(CardCatalog catalog : cardCatalogs) {
+        //cardCatalogs = getAllCatalogs();
+        for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(username)) {
                 for(Card c : catalog.getCards()){
                     if(c.getNome().equals(nomeCarta)){
@@ -73,7 +72,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
 
-        for(CardCatalog catalogs : cardCatalogs) {
+        for(CardCatalog catalogs : getAllCatalogs()) {
             if(catalogs.getSeller().getSellerName().equals(seller.getSellerName())) {
                 return catalogs;
             }
@@ -87,7 +86,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
         List<Card> results = new ArrayList<>();
 
-        for (CardCatalog catalog : cardCatalogs) {
+        for (CardCatalog catalog : getAllCatalogs()) {
             for(Card c : catalog.getCards()) {
                 if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
                     results.add(c);
@@ -104,7 +103,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     @Override
     public boolean findCardBySeller(String nomeCarta, String seller){
 
-        for(CardCatalog catalog : cardCatalogs) {
+        for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(seller)) {
                 for(Card c : catalog.getCards()) {
                     if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
