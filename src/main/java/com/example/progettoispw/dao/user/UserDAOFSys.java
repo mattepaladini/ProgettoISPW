@@ -1,5 +1,7 @@
 package com.example.progettoispw.dao.user;
 
+import com.example.progettoispw.exception.fsysoperationException;
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
@@ -54,47 +56,6 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
     private void loadAllUsers()  {
 
-        /*
-        if(!isLoaded) {
-
-            File file = getStorageFile();
-
-            if (file.exists()) {
-
-
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String[] parts = line.split(";");
-                        if (parts.length < 3) continue; // Salta righe vuote o corrotte
-
-                        String username = parts[0];
-                        String password = parts[1];
-                        String role = parts[2];
-
-                        // Ricostruisco l'oggetto
-                        User u;
-                        if (role.equals("SELLER")) {
-                            u = new User(username, password, UserType.SELLER);
-
-                        } else {
-                            u = new User(username, password, UserType.BUYER);
-
-                        }
-
-                        super.addUser(u);
-
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e.getMessage());
-                }
-            }
-        }
-
-        isLoaded = true;
-
-         */
-
         // 1. EARLY RETURN: Se i dati sono già in memoria, usciamo subito
         if (isLoaded) {
             return;
@@ -115,7 +76,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 processUserLine(line); // Deleghiamo la creazione!
             }
         } catch (IOException e) {
-            throw new RuntimeException("Errore durante la lettura del file utenti: " + e.getMessage());
+            throw new fsysoperationException(e.getMessage());
         }
 
         isLoaded = true;
@@ -180,7 +141,8 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
             System.out.println("DEBUG: Scritta riga TXT per " + user.getUsername());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new fsysoperationException(e.getMessage());
+
         }
     }
 }

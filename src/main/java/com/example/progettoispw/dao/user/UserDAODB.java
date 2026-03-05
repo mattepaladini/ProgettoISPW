@@ -2,6 +2,8 @@ package com.example.progettoispw.dao.user;
 
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.exception.databaseoperationException;
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
 import com.mysql.cj.jdbc.CallableStatement;
@@ -69,12 +71,12 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
                         }
 
                     } catch (RuntimeException e) {
-                        throw new RuntimeException(e);
+                        throw new operationfailedException(e.getMessage());
                     }
                 }
 
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new databaseoperationException(e.getMessage());
             }
         }
     }
@@ -96,7 +98,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             stmt.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new databaseoperationException(e.getMessage());
         }
 
 
