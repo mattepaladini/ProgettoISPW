@@ -21,20 +21,19 @@ public class RegistrationController {
     public void completeRegistration(UserBean userbean) {
         UserDAO userdao = DAOFactory.getInstance().getUserDAO();
 
-        User newUser = new User(userbean.getUsername(), userbean.getPassword(), userbean.getUsertype());
-
-        //controllo semantica della bean ricevuta
-        if(newUser.getUsername().isEmpty() || newUser.getPassword().isEmpty()) {
+        if(userbean.getUsername().isBlank() || userbean.getPassword().isBlank()) {
             throw new invalidInputException("Username e/o password assente");
         }
+
+        User newUser = new User(userbean.getUsername(), userbean.getPassword(), userbean.getUsertype());
 
         try {
 
             userdao.addUser(newUser);
-            logger.log(Level.INFO, "User " + newUser.getUsername() + " aggiunto");
+            logger.log(Level.INFO, "User {0} aggiunto", newUser.getUsername());
 
         } catch (registrationException e) {
-            logger.log(Level.WARNING,"Errore nella creazione", e);
+            throw new registrationException(e.getMessage());
         }
         SessionManager session = SessionManager.getInstance();
 

@@ -1,5 +1,6 @@
 package com.example.progettoispw.controller.logic;
 
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.Card;
@@ -21,7 +22,7 @@ public class ManageCartController {
             return true;
 
         } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+            throw new operationfailedException(e.getMessage());
         }
 
     }
@@ -59,7 +60,7 @@ public class ManageCartController {
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
             return true;
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new operationfailedException(e.getMessage());
         }
     }
 

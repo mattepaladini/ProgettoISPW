@@ -26,7 +26,6 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     @Override
     public void removeCard(Card card, User sellerName) {
 
-            //cardCatalogs = getAllCatalogs();
             for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().equals(sellerName)) {
                     catalog.removeCollectableCard(card);
@@ -38,7 +37,6 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
     @Override
     public void addCard(Card card, String sellerName) {
-        //cardCatalogs = getAllCatalogs();
 
             for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().getSellerName().equals(sellerName)) {
@@ -51,7 +49,6 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
     @Override
     public void updatePrice(String nomeCarta, String username, Float newPrice) {
-        //cardCatalogs = getAllCatalogs();
         for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(username)) {
                 for(Card c : catalog.getCards()){

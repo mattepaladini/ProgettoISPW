@@ -21,7 +21,7 @@ public class Card implements Serializable {
     private Attribute attributo;
     private Type tipo;
 
-    private List<PriceObserver> observers;
+    private transient List<PriceObserver> observers;    //transient serve per ignorare questa lista quando memorizzo su file o db
 
 
     // Da definire come determinare gli id delle carte.

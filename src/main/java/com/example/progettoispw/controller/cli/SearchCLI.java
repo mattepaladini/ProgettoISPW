@@ -71,7 +71,6 @@ public class SearchCLI {
         System.out.println("-".repeat(105));
         System.out.println(CERCA_CARTE);
         System.out.print("Inserisci il nome della carta da ricercare --> ");
-        //Scanner scanner = new Scanner(System.in);
         String nomeCarta = scanner.nextLine();
 
         cardBean.setNomeCarta(nomeCarta);
@@ -127,7 +126,7 @@ public class SearchCLI {
                 cardBean.setAttributo(Attribute.LUCE);
                 break;
 
-                case "OSCURITÀ":
+                case "OSCURITA":
                     cardBean.setAttributo(Attribute.OSCURITA);
                     break;
 

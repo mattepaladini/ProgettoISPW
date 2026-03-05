@@ -17,7 +17,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
     private boolean isLoaded = false;
 
-    private Logger log = Logger.getLogger(this.getClass().getName());
+    private static final Logger log = Logger.getLogger(CardCatalogDAODB.class.getName());
 
     @Override
     public List<CardCatalog> getAllCatalogs() {
@@ -107,7 +107,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         } catch (SQLException e){
             log.log(Level.SEVERE, "Errore creazione carta");
-            throw new RuntimeException("Inserimento fallito su DB", e);
+            throw new databaseoperationException(e.getMessage());
         }
 
         super.addCard(card, sellerName);
@@ -131,7 +131,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             log.log(Level.INFO, "Prezzo aggiornato");
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new databaseoperationException(e.getMessage());
         }
 
         super.updatePrice(nomeCarta, username, newPrice);
@@ -227,62 +227,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         isLoaded = true;
 
-
-
-
-        /*
-
-
-        if (!isLoaded) {
-
-                if (stmt.execute()) {
-                    try {
-                        ResultSet rs = stmt.getResultSet();
-                        while (rs.next()) {
-
-                            String sellerName = rs.getString("sellerName");
-                            User user = new User(sellerName);
-                            Seller seller = new Seller(sellerName, null);
-
-                            CardCatalog catalog  = catalogMap.get(sellerName);
-                            if (catalog == null) {
-
-                                catalog = new CardCatalog(seller);
-                                catalogMap.put(sellerName, catalog);
-                            }
-                                String nomeCarta = rs.getString("nome");
-
-                                if(!rs.wasNull()){
-                                    Float prezzo = Float.parseFloat(rs.getString("prezzo"));
-                                    int livello = Integer.parseInt(rs.getString("livello"));
-                                    String tipo = rs.getString("tipo");
-                                    String gradazione = rs.getString("gradazione");
-                                    String attributo = rs.getString("attributo");
-
-                                    Gradazione gradazioneEnum = Gradazione.valueOf(gradazione);
-                                    Type tipoEnum = Type.valueOf(tipo);
-                                    Attribute attributoEnum = Attribute.valueOf(attributo);
-
-                                    Card carta = new Card(nomeCarta, prezzo, gradazioneEnum, user.getUsername() ,livello, attributoEnum, tipoEnum);
-                                    catalog.getCards().add(carta);
-
-                                }
-
-
-                            for(CardCatalog catalogs : catalogMap.values()){
-                                super.addCatalog(catalogs);
-                            }
-                        }
-
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        isLoaded=true;
-
-         */
     }
 
     // Metodo helper 1: Gestisce scorrimento del ResultSet e raggruppamento
@@ -301,7 +245,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
                 // Estraiamo la creazione della carta in un altro metodo
                 Card carta = buildCardFromResultSet(rs, nomeCarta, sellerName);
                 catalog.addCollectableCard(carta);
-                //catalog.getCards().add(carta);
             }
         }
     }
@@ -318,7 +261,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         Type tipoEnum = Type.valueOf(tipo);
         Attribute attributoEnum = Attribute.valueOf(attributo);
 
-        // Nota: Ho usato sellerName direttamente al posto di istanziare un oggetto User fittizio
         return new Card(nomeCarta, prezzo, gradazioneEnum, sellerName, livello, attributoEnum, tipoEnum);
     }
 

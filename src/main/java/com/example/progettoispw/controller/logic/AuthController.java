@@ -17,12 +17,15 @@ public class AuthController {
             //CHIAMA DAO
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
-        User usertemp = userDAO.getUserByUsername(user.getUsername());
-        if(usertemp!=null){
-            authUser(usertemp);
-        } else {
-           throw new invalidInputException("Utente non esistente");
+        if(!user.getUsername().isBlank() && !user.getPassword().isBlank()) {
+            User usertemp = userDAO.getUserByUsername(user.getUsername());
+            if(usertemp!=null){
+                authUser(usertemp);
+            } else {
+                throw new invalidInputException("Utente non esistente");
+            }
         }
+
 
     }
 

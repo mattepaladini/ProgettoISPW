@@ -16,34 +16,6 @@ public class ManageCatalogController {
 
     Logger logger = Logger.getLogger(ManageCatalogController.class.getName());
 
-    /*
-    public void removeCardtoCatalog(CollectableCardBean cardBean) throws Exception{
-
-        User currentSeller = SessionManager.getInstance().getLoggedUser();
-
-        if(currentSeller==null){
-            throw new Exception("Eseguire Login!");
-        }
-
-        User seller = new User(cardBean.getVenditore());
-        Gradazione gr = cardBean.getGradazione();
-
-        Card card = new Card(
-                cardBean.getNomeCarta(),
-                cardBean.getPrezzoCorrente(),
-                gr,
-                seller,
-                cardBean.getId()
-        );
-
-        String sellerName = currentSeller.getUsername();
-
-        CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
-
-        catalogDAO.removeCard(card, sellerName);
-
-    }*/
-
     public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
         // 1. Ottengo il DAO
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();

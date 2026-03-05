@@ -27,7 +27,7 @@ public class LoginGraphicController {
     private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
-    public void startLogin(ActionEvent event) throws IOException {
+    public void startLogin(ActionEvent event){
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
@@ -47,26 +47,6 @@ public class LoginGraphicController {
 
         sceneManager.startScene(event,"/GUI/Home.fxml");
 
-        /*
-        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-        BorderPane rootLayout = mainLoader.load();
-
-        // B. Carico il contenuto centrale (Home)
-        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
-        Node homeNode = homeLoader.load();
-
-        // C. Metto la Home al centro
-        rootLayout.setCenter(homeNode);
-
-        // D. Mostro la scena
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        // Usa le dimensioni che preferisci o quelle correnti
-        Scene scene = new Scene(rootLayout, 800, 600);
-        stage.setScene(scene);
-        stage.show();
-
-         */
-
     }
 
     @FXML
@@ -74,19 +54,5 @@ public class LoginGraphicController {
 
         sceneManager.startScene(event,"/GUI/Registration.fxml");
 
-        /*
-        try {
-            // Attenzione al path, deve essere quello CORRETTO
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Registration.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 600));
-            stage.show();
-        } catch (IOException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
-
-         */
     }
 }

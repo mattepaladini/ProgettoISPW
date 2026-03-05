@@ -1,6 +1,7 @@
 package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.*;
 
 import java.io.*;
@@ -138,74 +139,6 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
     //METODO PER CARICARE I CATALOGHI LETTI DA FILE
     private void loadCatalogs() {
 
-        /*
-        if(!isLoaded){
-
-            File file = getStorageFile();
-            if(file.exists()){
-
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        if (line.trim().isEmpty()) continue;
-
-                        // Parsing della riga
-                        // Formato: Nome;Prezzo;Gradazione;OWNER;Livello;Attributo;Tipo
-                        String[] parts = line.split(SEPARATOR);
-                        if (parts.length < 7) continue;
-
-                        String nome = parts[0];
-                        float prezzo = Float.parseFloat(parts[1]);
-                        String gradStr = parts[2];
-                        String ownerUsername = parts[3];
-                        int livello = Integer.parseInt(parts[4]);
-                        String attrStr = parts[5];
-                        String typeStr = parts[6];
-
-                        // Creo un Seller "placeholder" solo con lo username per l'associazione
-                        Seller owner = new Seller(ownerUsername, null);
-
-                        // Creo la carta
-                        Card card = new Card(
-                                nome, prezzo, Gradazione.valueOf(gradStr), owner.getUsername(),
-                                livello, Attribute.valueOf(attrStr), Type.valueOf(typeStr)
-                        );
-
-
-                        // LOGICA DI RAGGRUPPAMENTO
-                        // Cerco se ho già creato un catalogo per questo utente nella lista 'catalogs'
-                        CardCatalog existingCatalog = null;
-                        for (CardCatalog c : memoryCatalogs) {
-                            if (c.getSeller().getUsername().equals(ownerUsername)) {
-                                existingCatalog = c;
-                                break;
-                            }
-                        }
-
-                        // Se non esiste, lo creo e lo aggiungo alla lista
-                        if (existingCatalog == null) {
-                            logger.log(Level.INFO, "DEBUG, catalogo non esistente per "+ownerUsername);
-                            existingCatalog = new CardCatalog(owner);
-                            memoryCatalogs.add(existingCatalog);
-                        }
-
-                        // Aggiungo la carta al catalogo trovato/creato
-                        existingCatalog.addCollectableCard(card);
-
-                        memoryCatalogs.add(existingCatalog);
-
-                    }
-                }catch (Exception e) {
-                    logger.log(Level.SEVERE, "Errore nel caricamento dei cataloghi");
-                    throw new RuntimeException(e.getMessage());
-                }
-
-            }
-        }
-
-        isLoaded=true;
-         */
-
         //se è già caricato esco
         if (isLoaded) {
             return;
@@ -226,8 +159,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 processLine(line); // Deleghiamo la logica complessa!
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Errore nel caricamento dei cataloghi", e);
-            throw new RuntimeException("Errore di lettura file: " + e.getMessage());
+            throw new operationfailedException(e.getMessage());
         }
 
         isLoaded = true;
@@ -303,7 +235,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             bw.write(convertCardToString(card, user));
             bw.newLine();
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new operationfailedException(e.getMessage());
         }
     }
 }

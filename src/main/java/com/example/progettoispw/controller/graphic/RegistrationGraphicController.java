@@ -26,7 +26,6 @@ public class RegistrationGraphicController {
     @FXML private PasswordField txtPassword;
     @FXML private CheckBox chkIsVenditore;
 
-    private static final Logger logger = Logger.getLogger(RegistrationGraphicController.class.getName());
     private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
@@ -37,14 +36,9 @@ public class RegistrationGraphicController {
         String password = txtPassword.getText();
         boolean isVenditore = chkIsVenditore.isSelected();
 
-        // 2. Controllo banale (giusto per non mandare null)
-        if(username.isEmpty() || password.isEmpty()) {
-            throw new invalidInputException("Username e/o password mancanti");
-        }
-
         UserBean userbean = new UserBean(username, password);
 
-        //Utenza di default --> CUSTOMER
+        //Utenza di default --> BUYER
         if(isVenditore){
             userbean.setUsertype(SELLER);
         }else{

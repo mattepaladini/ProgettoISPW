@@ -1,6 +1,7 @@
 package com.example.progettoispw.controller.cli;
 
 import com.example.progettoispw.controller.logic.AuthController;
+import com.example.progettoispw.controller.logic.RegistrationController;
 import com.example.progettoispw.session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.model.User;
@@ -36,8 +37,7 @@ public class LoginCLI {
                         break;
 
                         case 2:
-                            //TODO
-                            //startRegistrazione();
+                            startRegistration();
                             break;
 
                             case 3:
@@ -72,14 +72,44 @@ public class LoginCLI {
 
     }
 
+    public void startRegistration(){
+
+        System.out.println("-".repeat(105));
+        System.out.println("--> Registrazione ");
+
+        scanner.nextLine();
+        System.out.print("Username-> ");
+        String username = scanner.nextLine();
+
+        System.out.print("Password-> ");
+        String password = scanner.nextLine();
+
+        System.out.println("Sei un Venditore?   [SI/NO]");
+        String isVenditore = scanner.nextLine().toLowerCase();
+
+        UserBean userBean = new UserBean(username, password);
+        if(isVenditore.equals("si")){
+            userBean.setUsertype(UserType.SELLER);
+        } else{
+            userBean.setUsertype(UserType.BUYER);
+        }
+        executeRegistration(userBean);
+
+    }
+
+    private void executeRegistration(UserBean newUserBean){
+
+        RegistrationController regiController = new RegistrationController();
+        regiController.completeRegistration(newUserBean);
+
+    }
+
     private void executeLogin(String username, String password){
 
         System.out.println("-".repeat(105));
         System.out.print("[Autenticazione in Corso] ");
 
         System.out.println(username + password);
-
-        if(!username.isBlank() && !password.isBlank()){
             UserBean userBean = new UserBean(username, password);
 
             AuthController authController = new AuthController();
@@ -96,12 +126,6 @@ public class LoginCLI {
                 SellerHomeCLI sellerHomeCLI = new SellerHomeCLI();
                 sellerHomeCLI.startSellerHome();
             }
-
-        } else{
-            logger.log(Level.SEVERE, "Username o psw errate");
-        }
-
-
 
     }
 }

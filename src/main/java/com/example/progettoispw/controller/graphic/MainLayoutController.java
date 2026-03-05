@@ -69,33 +69,8 @@ public class MainLayoutController {
 
     }
 
-    /*
-    private void navigateTo(ActionEvent event, String fxmlPath) {
-        try {
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-            BorderPane root = mainLoader.load();
-
-            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Node contentNode = contentLoader.load();
-
-            root.setCenter(contentNode);
-
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 800, 600);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
-        }
-    }*/
-
-    // --- AZIONI DELLA NAVBAR ---
-
     @FXML
     public void goToSearch(ActionEvent event) {
-        // Qui ci colleghiamo finalmente a Search.fxml (che avrà la barra di ricerca)
-        //navigateTo(event, "/GUI/Search.fxml");
         loadPage("/GUI/Search.fxml");
     }
 
@@ -107,22 +82,20 @@ public class MainLayoutController {
 
     @FXML
     public void showSell(ActionEvent event) {
-        //loadPage("/fxml/SellCards.fxml");
+
     }
 
     @FXML
     public void showProfile(ActionEvent event) {
-        //loadPage("/fxml/Profile.fxml");
+
     }
 
     @FXML
     public void doLogout(ActionEvent event) {
-        // Qui dovresti cambiare l'intera Scena per tornare al Login
-        // Perché il Login non ha la navbar!
+
         logger.log(Level.INFO, "Logout");
     }
 
-    // --- METODO UTILITY PER CARICARE LE PAGINE ---
 
     private void loadPage(String fxmlPath) {
         try {

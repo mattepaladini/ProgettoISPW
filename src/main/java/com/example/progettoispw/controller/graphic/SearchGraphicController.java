@@ -24,13 +24,13 @@ import java.util.logging.Logger;
 public class SearchGraphicController {
 
 @FXML private TextField nomeCartaCercata;
-@FXML private ComboBox prezzoCercato;
-@FXML private ComboBox livelloCercato;
+@FXML private ComboBox<String> prezzoCercato;
+@FXML private ComboBox<Integer> livelloCercato;
 @FXML private ComboBox<Attribute> attributoCercato;
 @FXML private ComboBox<Type> tipoCercato;
 
     private static final Logger logger = Logger.getLogger(SearchGraphicController.class.getName());
-
+    private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
     public void onBackClick(ActionEvent event) {
@@ -85,7 +85,9 @@ public class SearchGraphicController {
         BuyController buyController = new BuyController();
         List<CollectableCardBean> risultati = buyController.searchCards(searchCardBean);
 
-        //
+        sceneManager.startScene(event, "/GUI/SearchResults.fxml");
+
+        /*
         try {
             // 1. CARICAMENTO DEL FILE FXML DEI RISULTATI
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/SearchResults.fxml"));
@@ -105,6 +107,8 @@ public class SearchGraphicController {
         } catch (IOException e) {
             throw new loadPageException("Impossibile caricare la pagina Search.fxml");
         }
+
+         */
 
     }
 

@@ -46,7 +46,6 @@ public class SellerCatalogGraphicController implements Initializable {
 
     private static final SceneManager sceneManager = new SceneManager();
 
-    //private static final Logger logger = Logger.getLogger(SellerCatalogGraphicController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,18 +89,6 @@ public class SellerCatalogGraphicController implements Initializable {
 
         sceneManager.startScene(event, "/GUI/AddCard.fxml");
 
-        /*
-        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-        BorderPane root = mainLoader.load();
-
-        FXMLLoader catalogLoader = new FXMLLoader(getClass().getResource("/GUI/AddCard.fxml"));
-        Node catalogNode = catalogLoader.load();
-
-        root.setCenter(catalogNode);
-
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
-*/
 
     }
 
@@ -110,30 +97,6 @@ public class SellerCatalogGraphicController implements Initializable {
 
         sceneManager.startScene(event, "/GUI/Home.fxml");
 
-        /*
-        try {
-            // 1. Carico la Cornice (MainLayout)
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-            BorderPane rootLayout = mainLoader.load();
-
-            // 2. Carico la Home
-            FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
-            Node homeNode = homeLoader.load();
-
-            // 3. Metto la Home al CENTRO
-            rootLayout.setCenter(homeNode);
-
-            // 4. Mostro la scena
-            // Nota: HomeGraphicController.initialize() verrà chiamato automaticamente
-            // e rileggerà la Sessione per mostrare i bottoni corretti.
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(rootLayout, 800, 600);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            logger.log(Level.WARNING, "Errore nel caricamento della Home");
-        }*/
     }
 
 
