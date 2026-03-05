@@ -128,7 +128,7 @@ public class SearchCLI {
                 break;
 
                 case "OSCURITÀ":
-                    cardBean.setAttributo(Attribute.OSCURITÀ);
+                    cardBean.setAttributo(Attribute.OSCURITA);
                     break;
 
                     case "TERRA":
