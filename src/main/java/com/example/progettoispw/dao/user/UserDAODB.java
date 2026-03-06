@@ -57,27 +57,31 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
                 if (stmt.execute()) {
-                    try {
-                        ResultSet rs = stmt.getResultSet();
-                        while (rs.next()) {
-                            UserBean u = new UserBean();
-                            u.setUsername(rs.getString("username"));
-                            u.setPassword(rs.getString("psw"));
-                            u.setUsertype(UserType.valueOf(rs.getString("tipo_utente").toUpperCase()));
-
-                            User user = new User(u.getUsername(), u.getPassword(), u.getUsertype());
-
-                            users.add(user);
-                        }
-
-                    } catch (RuntimeException e) {
-                        throw new operationfailedException(e.getMessage());
-                    }
+                    executeLoadAllUsers(stmt);
                 }
 
             } catch (SQLException e) {
                 throw new databaseoperationException(e.getMessage());
             }
+        }
+    }
+
+    private void executeLoadAllUsers(CallableStatement stmt){
+        try {
+            ResultSet rs = stmt.getResultSet();
+            while (rs.next()) {
+                UserBean u = new UserBean();
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("psw"));
+                u.setUsertype(UserType.valueOf(rs.getString("tipo_utente").toUpperCase()));
+
+                User user = new User(u.getUsername(), u.getPassword(), u.getUsertype());
+
+                users.add(user);
+            }
+
+        } catch (RuntimeException | SQLException e) {
+            throw new operationfailedException(e.getMessage());
         }
     }
 

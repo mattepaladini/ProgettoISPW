@@ -56,7 +56,7 @@ public class ManageCatalogController {
         if(!cardBean.getNomeCarta().isBlank() &&
             cardBean.getPrezzoCorrente()>0.0f){
 
-            if(!dao.findCardBySeller(cardBean.getNomeCarta(), cardBean.getVenditore())){
+            if(dao.findCardBySeller(cardBean.getNomeCarta(), cardBean.getVenditore())){
                 logger.log(Level.WARNING, "Attenzione carta già presente in questo catalogo!");
                 return;     //forzo l'uscita
             }

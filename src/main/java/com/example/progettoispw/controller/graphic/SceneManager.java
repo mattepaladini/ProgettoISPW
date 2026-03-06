@@ -34,7 +34,6 @@ public class SceneManager {
             stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
             throw new loadPageException("Impossibile caricare la pagina" +  specificPage);
         }
 

@@ -9,9 +9,9 @@ import com.example.progettoispw.dao.user.UserDAODemo;
 
 public class DAOFactoryDemo extends DAOFactory{
 
-    private static CardCatalogDAO catalogDAO;
-    private static UserDAO userDAO;
-    private static OrderDAO orderDAO;
+    private  CardCatalogDAO catalogDAO;
+    private  UserDAO userDAO;
+    private  OrderDAO orderDAO;
 
     @Override
     public CardCatalogDAO getCardCatalogDAO() {

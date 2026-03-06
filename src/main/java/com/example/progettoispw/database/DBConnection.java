@@ -28,15 +28,6 @@ public class DBConnection {
         return instance;
     }
 
-    // 1. INSERISCI QUI IL NOME DEL TUO DATABASE (quello che vedi su Workbench)
-    //private static final String DB_URL = "jdbc:mysql://localhost:3306/CardMarketISPW";
-
-    // 2. INSERISCI IL TUO UTENTE (di solito è "root")
-    //private static final String USER = "root";
-
-    // 3. INSERISCI LA TUA PASSWORD DI MYSQL
-    //private static final String PASS = "Matteo2004$";
-
     public  Connection getConnection() {
 
         if(conn==null){
@@ -54,18 +45,6 @@ public class DBConnection {
             }
         }
 
-        /*
-        Connection conn = null;
-        try {
-            // Verifica che il driver sia caricato (opzionale con le nuove versioni ma sicuro)
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Tenta la connessione
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }*/
         return conn;
     }
 }

@@ -124,7 +124,7 @@ public class MainLayoutController {
             }
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "impossibile caricare la vista: "+fxmlPath, e);
+            logger.log(Level.SEVERE, "impossibile caricare la vista: {0}",fxmlPath);
         }
     }
 

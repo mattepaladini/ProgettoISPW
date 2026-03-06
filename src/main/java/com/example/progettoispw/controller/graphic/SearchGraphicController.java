@@ -29,26 +29,13 @@ public class SearchGraphicController {
 @FXML private ComboBox<Attribute> attributoCercato;
 @FXML private ComboBox<Type> tipoCercato;
 
-    private static final Logger logger = Logger.getLogger(SearchGraphicController.class.getName());
     private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
     public void onBackClick(ActionEvent event) {
-        try {
-            // 1. Carica la Home
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Home.fxml"));
-            Parent homeRoot = loader.load();
 
-            // 2. Recupera lo Stage (la finestra) dal bottone cliccato
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        sceneManager.startScene(event,"/GUI/Home.fxml");
 
-            // 3. Sostituisci la scena interamente
-            Scene scene = new Scene(homeRoot, 800, 600);
-            stage.setScene(scene);
-
-        } catch (IOException e) {
-            throw new loadPageException("Impossibile caricare la pagina Home.fxml");
-        }
     }
 
     //METODO PER VISUALIZZARE I DATI A SCHERMO ---> CHIAMA SEARCH RESULTS GRAPHIC CONTROLLER
@@ -86,29 +73,6 @@ public class SearchGraphicController {
         List<CollectableCardBean> risultati = buyController.searchCards(searchCardBean);
 
         sceneManager.startScene(event, "/GUI/SearchResults.fxml");
-
-        /*
-        try {
-            // 1. CARICAMENTO DEL FILE FXML DEI RISULTATI
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/SearchResults.fxml"));
-            Parent resultsView = loader.load();
-
-            // 2. PASSAGGIO DEI DATI AL NUOVO CONTROLLER
-            SearchResultsGraphicController resultsController = loader.getController();
-
-            // Passo la lista dei risultati e il controller precedente (per poter tornare indietro)
-            resultsController.initData(risultati, buyController);
-
-            // 3. SOSTITUZIONE DELL'INTERA SCENA (Cambio pagina)
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(resultsView, 800, 600));
-            stage.show(); // Assicuriamoci che la finestra si aggiorni
-
-        } catch (IOException e) {
-            throw new loadPageException("Impossibile caricare la pagina Search.fxml");
-        }
-
-         */
 
     }
 

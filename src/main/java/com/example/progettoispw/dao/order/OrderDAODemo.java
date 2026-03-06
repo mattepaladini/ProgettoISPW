@@ -17,7 +17,7 @@ public class OrderDAODemo implements OrderDAO {
                 return orders;
             }
         }
-        return null;
+        return orders;
     }
 
     @Override
