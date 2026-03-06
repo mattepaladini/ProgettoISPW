@@ -1,7 +1,6 @@
 package com.example.progettoispw.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Buyer extends User implements Serializable {
 

@@ -1,8 +1,8 @@
 package com.example.progettoispw.controller.graphic;
 
+import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.exception.invalidInputException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,12 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.IOException;

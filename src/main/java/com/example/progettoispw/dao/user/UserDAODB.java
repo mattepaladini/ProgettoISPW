@@ -1,7 +1,7 @@
 package com.example.progettoispw.dao.user;
 
-import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.databaseoperationException;
 import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.User;

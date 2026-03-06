@@ -1,21 +1,19 @@
 package com.example.progettoispw.controller.graphic;
 
-import com.example.progettoispw.controller.logic.RegistrationController;
 import com.example.progettoispw.bean.UserBean;
-import com.example.progettoispw.exception.invalidInputException;
+import com.example.progettoispw.controller.logic.RegistrationController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.event.ActionEvent;
+
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.example.progettoispw.model.UserType.BUYER;
 import static com.example.progettoispw.model.UserType.SELLER;

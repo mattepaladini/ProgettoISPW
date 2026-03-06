@@ -1,14 +1,14 @@
 package com.example.progettoispw.controller.logic;
 
-import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.session.SessionManager;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.invalidInputException;
 import com.example.progettoispw.exception.registrationException;
 import com.example.progettoispw.model.Buyer;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
-import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.Seller;
+import com.example.progettoispw.model.User;
+import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
+import com.example.progettoispw.session.SessionManager;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

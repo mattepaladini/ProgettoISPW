@@ -1,14 +1,13 @@
 package com.example.progettoispw.controller.graphic;
 
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
+import com.example.progettoispw.session.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import com.example.progettoispw.model.User;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

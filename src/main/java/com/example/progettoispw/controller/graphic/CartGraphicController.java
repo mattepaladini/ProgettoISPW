@@ -1,7 +1,7 @@
 package com.example.progettoispw.controller.graphic;
 
-import com.example.progettoispw.controller.logic.ManageCartController;
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.controller.logic.ManageCartController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

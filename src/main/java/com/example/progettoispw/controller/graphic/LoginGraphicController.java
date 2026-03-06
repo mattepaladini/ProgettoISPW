@@ -1,20 +1,13 @@
 package com.example.progettoispw.controller.graphic;
 
-import com.example.progettoispw.controller.logic.AuthController;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.controller.logic.AuthController;
 import com.example.progettoispw.exception.invalidInputException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

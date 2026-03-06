@@ -1,12 +1,9 @@
 package com.example.progettoispw.model;
 
 import com.example.progettoispw.pattern.Observer.PriceObserver;
-import com.example.progettoispw.pattern.Observer.PriceSubject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class Card implements Serializable {
 

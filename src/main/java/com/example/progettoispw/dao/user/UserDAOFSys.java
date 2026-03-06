@@ -1,7 +1,6 @@
 package com.example.progettoispw.dao.user;
 
 import com.example.progettoispw.exception.fsysoperationException;
-import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;

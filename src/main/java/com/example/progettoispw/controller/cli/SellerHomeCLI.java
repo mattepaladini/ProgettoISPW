@@ -1,14 +1,14 @@
 package com.example.progettoispw.controller.cli;
 
-import com.example.progettoispw.controller.logic.ManageCatalogController;
-import com.example.progettoispw.exception.operationfailedException;
-import com.example.progettoispw.session.SessionManager;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Type;
 import com.example.progettoispw.model.User;
+import com.example.progettoispw.session.SessionManager;
 
 import java.util.List;
 import java.util.Scanner;

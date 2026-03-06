@@ -1,25 +1,16 @@
 package com.example.progettoispw.controller.graphic;
 
-import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
-
-import com.example.progettoispw.exception.loadPageException;
+import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SearchGraphicController {
 

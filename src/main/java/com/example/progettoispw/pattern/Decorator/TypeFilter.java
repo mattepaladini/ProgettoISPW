@@ -1,6 +1,5 @@
 package com.example.progettoispw.pattern.Decorator;
 
-import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Type;
 

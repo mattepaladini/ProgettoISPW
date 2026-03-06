@@ -1,6 +1,6 @@
 package com.example.progettoispw.pattern.AbstractFactory;
 
-import com.example.progettoispw.dao.*;
+import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.user.UserDAO;

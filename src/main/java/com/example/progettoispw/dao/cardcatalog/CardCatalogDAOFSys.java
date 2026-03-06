@@ -2,7 +2,6 @@ package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.exception.fsysoperationException;
-import com.example.progettoispw.exception.operationfailedException;
 import com.example.progettoispw.model.*;
 
 import java.io.*;

@@ -1,7 +1,7 @@
 package com.example.progettoispw.controller.cli;
 
-import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
 
