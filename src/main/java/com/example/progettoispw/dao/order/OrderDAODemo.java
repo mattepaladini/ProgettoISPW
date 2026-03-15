@@ -8,12 +8,12 @@ import java.util.List;
 
 public class OrderDAODemo implements OrderDAO {
 
-    private static List<Order> orders = new ArrayList<Order>();
+    protected List<Order> orders = new ArrayList<Order>();
 
     @Override
     public List<Order> getOrdersByUser(User user) {
         for (Order order : orders) {
-            if(order.getCompratore().equals(user)){
+            if(order.getCompratore().equals(user.getUsername())){
                 return orders;
             }
         }
@@ -21,7 +21,21 @@ public class OrderDAODemo implements OrderDAO {
     }
 
     @Override
-    public void executeOrder(Order order) {
-        //TODO
+    public List<Order> getOrdersByID(int orderID) {
+
+        List<Order> tempOrders = new ArrayList<>();
+
+        for(Order order : orders){
+            if(order.getId() == orderID){
+                tempOrders.add(order);
+            }
+        }
+
+        return tempOrders;
+    }
+
+    @Override
+    public void saveOrder(Order order) {
+        this.orders.add(order);
     }
 }

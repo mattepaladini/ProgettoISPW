@@ -3,7 +3,6 @@ package com.example.progettoispw.dao.cardcatalog;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.CardCatalog;
 import com.example.progettoispw.model.Seller;
-import com.example.progettoispw.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
     @Override
-    public void removeCard(Card card, User sellerName) {
+    public void removeCard(Card card, String sellerName) {
 
             for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().equals(sellerName)) {

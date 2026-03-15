@@ -2,6 +2,10 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
+import com.example.progettoispw.model.Card;
+import com.example.progettoispw.pattern.Observer.CartObserver;
+import com.example.progettoispw.session.SessionManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class CartGraphicController {
+public class CartGraphicController implements CartObserver {
     @FXML private TableView<CollectableCardBean> cartTable;
     @FXML private Label lblTotale;
     @FXML private Button btnRimuovi;
@@ -41,6 +45,8 @@ public class CartGraphicController {
     private ManageCartController appController = new ManageCartController();
     private ObservableList<CollectableCardBean> carteObservable;
 
+    private SceneManager sceneManager;
+
     private static final Logger logger = Logger.getLogger(CartGraphicController.class.getName());
 
     // Metodo chiamato quando si carica la schermata
@@ -54,6 +60,9 @@ public class CartGraphicController {
         //disabilitiamo il bottone "Rimuovi" se non c'è nulla di selezionato
         btnRimuovi.disableProperty().bind(cartTable.getSelectionModel().selectedItemProperty().isNull());
 
+        appController.setCartObserver(this);        //mi iscrivo al controller logico
+
+        this.sceneManager = new SceneManager();
         // 3. Carichiamo i dati iniziali
         aggiornaVistaCarrello();
     }
@@ -92,9 +101,16 @@ public class CartGraphicController {
     }
 
     @FXML
-    public void onCheckoutClick() {
+    public void onCheckoutClick(ActionEvent event) {
 
-        // Qui chiameresti il MainLayoutController per cambiare scena
+        List<Card> cart = SessionManager.getInstance().getShoppingCart();
+        float totale = 0;
+        for(Card card : cart) {
+            totale+= card.getPrezzoAttuale();
+        }
+
+        BuyCardsGraphicController checkoutController =  sceneManager.startSceneAndGetController(event, "/GUI/BuyCard.fxml");
+        checkoutController.initData(cart.size(), totale);
     }
     @FXML
     public void onBackClick(ActionEvent event) {
@@ -114,5 +130,18 @@ public class CartGraphicController {
         } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
+    }
+
+
+    @Override
+    public void onCartUpdated() {
+
+        // Usiamo Platform.runLater perché la notifica potrebbe arrivare in background
+        // e JavaFX vuole che la grafica sia toccata solo dal thread principale.
+        Platform.runLater(() -> {
+            System.out.println("Aggiornamento in tempo reale ricevuto!");
+            // Richiami il tuo metodo intatto!
+            aggiornaVistaCarrello();
+        });
     }
 }

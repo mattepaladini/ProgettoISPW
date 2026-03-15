@@ -7,12 +7,11 @@ import com.example.progettoispw.model.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalogDAO {
 
-    private static  List<CardCatalog> memoryCatalogs = new ArrayList<>();    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
+    //private static  List<CardCatalog> memoryCatalogs = new ArrayList<>();    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
 
     private static final String FOLDER_NAME = "persistence";
     private static final String CATALOG_FILE = "catalogs.txt";
@@ -40,12 +39,12 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
     //
     @Override
-    public void removeCard(Card card, User sellerName) {
+    public void removeCard(Card card, String sellerName) {
 
         loadCatalogs();
 
         super.removeCard(card, sellerName);
-        saveMemoryCatalogsToFile(card, sellerName.getUsername());
+        appendNewCardToFile(card, sellerName);
 
     }
 
@@ -56,7 +55,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         super.addCard(card, currentSeller);
 
-        saveMemoryCatalogsToFile(card, currentSeller);
+        appendNewCardToFile(card, currentSeller);
 
         //TODO controlla che la carta con quel nome non esista già
 
@@ -64,7 +63,11 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
     @Override
     public void updatePrice(String nomeCarta, String username, Float newPrice) {
-            //TODO
+            loadCatalogs();
+            super.updatePrice(nomeCarta, username, newPrice);
+
+            updateSingleLineCard();
+
     }
 
     //TODO da togliere perchè tanto c'è il SessionManager
@@ -156,7 +159,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                processLine(line); // Deleghiamo la logica complessa!
+                processLine(line); //
             }
         } catch (Exception e) {
             throw new fsysoperationException(e.getMessage());
@@ -174,11 +177,11 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         String nome = parts[0];
         float prezzo = Float.parseFloat(parts[1]);
-        String gradStr = parts[2];
+        String gradStr = parts[2].toUpperCase();
         String ownerUsername = parts[3];
         int livello = Integer.parseInt(parts[4]);
-        String attrStr = parts[5];
-        String typeStr = parts[6];
+        String attrStr = parts[5].toUpperCase();
+        String typeStr = parts[6].toUpperCase();
 
         Seller owner = new Seller(ownerUsername, null);
         Card card = new Card(
@@ -195,7 +198,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
         CardCatalog targetCatalog = null;
 
         // Cerchiamo se esiste già
-        for (CardCatalog c : memoryCatalogs) {
+        for (CardCatalog c : super.getAllCatalogs()) {
             if (c.getSeller().getUsername().equals(ownerUsername)) {
                 targetCatalog = c;
                 break;
@@ -204,9 +207,8 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         // Se non esiste, lo creiamo e lo aggiungiamo ALLA LISTA UNA SOLA VOLTA
         if (targetCatalog == null) {
-            logger.log(Level.INFO, "DEBUG: catalogo non esistente per {0}", ownerUsername);
             targetCatalog = new CardCatalog(owner);
-            memoryCatalogs.add(targetCatalog);
+            super.addCatalog(targetCatalog);
         }
 
         // Aggiungiamo la carta al catalogo (che sia nuovo o vecchio)
@@ -228,8 +230,9 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
     }
 
 
-    private void saveMemoryCatalogsToFile(Card card, String user) {
-        if (memoryCatalogs == null) return;
+    //Helper uasto solo per aggiungere una nuova riga sul file (ADD CARD)
+    private void appendNewCardToFile(Card card, String user) {
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(getStorageFile(), true))) {
 
             bw.write(convertCardToString(card, user));
@@ -238,4 +241,35 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             throw new fsysoperationException(e.getMessage());
         }
     }
+
+    //Helper usato solo per sovrascrivere una riga sul file (UPDATE PRICE o REMOVE CARD)
+    private void updateSingleLineCard() {
+        File file = getStorageFile();
+
+        // Usiamo un BufferedWriter che sovrascrive il file esistente (senza l'append=true)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+
+            // Scorriamo tutti i cataloghi e tutte le carte in memoria
+            for (CardCatalog catalog : super.getAllCatalogs()) {
+                String ownerUsername = catalog.getSeller().getUsername();
+
+                for (Card c : catalog.getCards()) {
+                    // Ricostruiamo la riga col formato esatto: Nome;Prezzo;Gradazione;OWNER;Livello;Attributo;Tipo
+                    String line = c.getNome() + SEPARATOR
+                            + c.getPrezzoAttuale() + SEPARATOR // Questo sarà il prezzo NUOVO aggiornato al passo 2!
+                            + c.getGradazione().name() + SEPARATOR
+                            + ownerUsername + SEPARATOR
+                            + c.getLivello() + SEPARATOR
+                            + c.getAttributo().name() + SEPARATOR
+                            + c.getTipo().name();
+
+                    bw.write(line);
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new fsysoperationException(e.getMessage());
+        }
+    }
 }
+

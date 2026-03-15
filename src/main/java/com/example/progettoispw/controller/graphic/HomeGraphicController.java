@@ -18,8 +18,9 @@ public class HomeGraphicController implements Initializable {
     private Button btnVendi;
     @FXML
     private Button btnCompra;
-    @FXML
-    private Button btnCarrello;
+
+    /*@FXML
+    private Button btnCarrello;*/
 
     private final SceneManager sceneManager = new SceneManager();
 
@@ -75,7 +76,7 @@ public class HomeGraphicController implements Initializable {
     @FXML
     public void onCartClick(ActionEvent event) {
 
-
+        /*
         String fxmlFile = "";
         if (SessionManager.getInstance().getLoggedUser() == null) {
 
@@ -83,8 +84,9 @@ public class HomeGraphicController implements Initializable {
             fxmlFile = "/GUI/Login.fxml";
         } else {
             fxmlFile = "/GUI/Cart.fxml";
-        }
+        }*/
 
+        String fxmlFile = "/GUI/Cart.fxml";
         sceneManager.startScene(event, fxmlFile);
 
 
@@ -96,7 +98,7 @@ public class HomeGraphicController implements Initializable {
 
         btnVendi.setVisible(false);
         btnCompra.setVisible(false);
-        btnCarrello.setVisible(false);
+        //btnCarrello.setVisible(false);
 
         User currentUser = SessionManager.getInstance().getLoggedUser();
         if (currentUser != null) {
@@ -104,7 +106,7 @@ public class HomeGraphicController implements Initializable {
                 btnVendi.setVisible(true);
             } else if (currentUser.getTipoUtente().equals(UserType.BUYER)) {
                 btnCompra.setVisible(true);
-                btnCarrello.setVisible(true);
+                //btnCarrello.setVisible(true);
             }
 
         }

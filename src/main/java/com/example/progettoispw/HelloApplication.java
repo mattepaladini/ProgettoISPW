@@ -164,10 +164,6 @@ public class HelloApplication extends Application {
         }
     }
 
-
-    //TODO SISTEMA CHE NON VIENE AGGIORNATA LA SCHERMATA DEL CATALOGO
-
-
     public static void main(String[] args) {
         chooseConf();
     }

@@ -1,2 +1,2 @@
-gengar,33.0,BUONO,matteo,4,ACQUA,MAGIA,
-pic,44.0,PERFETTO,matteo,7,LUCE,MOSTRO,
+gengar,35.0,BUONO,matteo,4,ACQUA,MAGIA
+pic,44.0,PERFETTO,matteo,7,LUCE,MOSTRO

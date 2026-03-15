@@ -3,6 +3,7 @@ package com.example.progettoispw.model;
 import com.example.progettoispw.pattern.Observer.PriceObserver;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Card implements Serializable {
@@ -53,6 +54,7 @@ public class Card implements Serializable {
 
     public void setPrezzoAttuale(Float prezzoAttuale){
         this.prezzoAttuale = prezzoAttuale;
+        notifyObservers(); // Notifica tutti gli iscritti!
     }
 
     public Gradazione getGradazione(){
@@ -69,4 +71,33 @@ public class Card implements Serializable {
     public Attribute getAttributo(){return this.attributo;}
 
     public Type getTipo(){return this.tipo;}
+
+    //Metodi usati per iscriversi al pattern Observer
+
+    // 1. Metodo per Iscriversi
+    public void attach(PriceObserver observer) {
+        if (this.observers == null) {
+            this.observers = new ArrayList<>();
+        }
+        if (!this.observers.contains(observer)) {
+            this.observers.add(observer);
+        }
+    }
+
+    //2. Metodo per Disiscriversi
+    public void detach(PriceObserver observer) {
+        if (this.observers != null) {
+            this.observers.remove(observer);
+        }
+    }
+
+    // 4. La Notifica
+    private void notifyObservers() {
+        if (this.observers == null) return;
+
+        for (PriceObserver obs : this.observers) {
+            obs.updatePrice(this);
+        }
+    }
+
 }

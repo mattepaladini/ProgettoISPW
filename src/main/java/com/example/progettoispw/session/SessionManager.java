@@ -58,6 +58,10 @@ public class SessionManager {
         return this.cart;
     }
 
+    public void clearShoppingCart() {
+        this.cart.clear();
+    }
+
     /*************/
 
 }

@@ -79,14 +79,15 @@ public class ManageCatalogController {
 
     }
 
-    public void updateCardPrice(CollectableCardBean selected, Float newPrice) {
+    public void updateCardPrice(CollectableCardBean selectedCard, Float newPrice) {
 
         User currentUser = SessionManager.getInstance().getLoggedUser();
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
-        if(!selected.getNomeCarta().isBlank() && newPrice>0.0f){
-            dao.updatePrice(selected.getNomeCarta(), currentUser.getUsername(), newPrice );
+        if(!selectedCard.getNomeCarta().isBlank() && newPrice>0.0f){
+
+            dao.updatePrice(selectedCard.getNomeCarta(), currentUser.getUsername(), newPrice );
         }
     }
 

@@ -63,7 +63,9 @@ public class SearchGraphicController {
         BuyController buyController = new BuyController();
         List<CollectableCardBean> risultati = buyController.searchCards(searchCardBean);
 
-        sceneManager.startScene(event, "/GUI/SearchResults.fxml");
+        SearchResultsGraphicController resultsGraphicController = sceneManager.startSceneAndGetController(event,"/GUI/SearchResults.fxml");
+        resultsGraphicController.initData(risultati, buyController);
+        //sceneManager.startScene(event, "/GUI/SearchResults.fxml");
 
     }
 

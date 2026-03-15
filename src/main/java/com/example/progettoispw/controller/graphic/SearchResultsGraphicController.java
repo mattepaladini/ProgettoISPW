@@ -63,8 +63,6 @@ public class SearchResultsGraphicController {
                 resultsTable.getSelectionModel().selectedItemProperty().isNull());
 //disabilito il bottone per aggiungere al carrello finchè non viene selezionata la riga della tabella
 
-
-
         //la stringa finale dipende da getter che si trova in CollecatableCardBean
         colNome.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
         colPrezzo.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
@@ -106,6 +104,14 @@ public class SearchResultsGraphicController {
                 logger.log(Level.WARNING, "Impossibile aggiungere la carta");
                 throw new invalidInputException("");
             }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // 3. LA MAGIA: Chiami il tuo ToastManager!
+            toastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
+
+            resultsTable.getSelectionModel().clearSelection();
+
             logger.log(Level.INFO, "Carta aggiunta con successo!");
         }
 

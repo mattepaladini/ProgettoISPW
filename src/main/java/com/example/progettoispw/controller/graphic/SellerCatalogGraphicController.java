@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +51,7 @@ public class SellerCatalogGraphicController implements Initializable {
         // 2. Configuro le colonne della tabella
         // Le stringhe devono coincidere ESATTAMENTE con i nomi degli attributi nel CardBean
         // Es: se in CardBean hai "cardName", qui scrivi "cardName"
-        colName.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));       //cerca il metodo getNomeCarta()
         colPrice.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
         colGrade.setCellValueFactory(new PropertyValueFactory<>("gradazione")); // o "cardGrade"
 
@@ -74,7 +73,7 @@ public class SellerCatalogGraphicController implements Initializable {
 
 
     @FXML
-    public void onAddCardClick(ActionEvent event) throws IOException {
+    public void onAddCardClick(ActionEvent event){
         // Qui dovrai aprire una nuova finestra (Dialog o cambio scena)
         // per inserire i dati della nuova carta.
 

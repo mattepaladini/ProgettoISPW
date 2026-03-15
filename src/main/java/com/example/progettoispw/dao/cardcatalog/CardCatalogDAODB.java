@@ -59,23 +59,22 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
     }
 
     @Override
-    public void removeCard(Card card, User sellerName) {
+    public void removeCard(Card card, String sellerName) {
         loadCatalogs();
 
-        String query = "DELETE FROM Card WHERE nome = ? AND sellerName = ?";
+        String query = "DELETE FROM Carta WHERE nome = ? AND venditore_username  = ?";
         Connection conn = DBConnection.getInstance().getConnection();
 
-        try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Sostituiamo il '?' con il nome del venditore preso dall'oggetto Java
             stmt.setString(1, card.getNome());
-            stmt.setString(2, sellerName.getUsername());
+            stmt.setString(2, sellerName);
 
             int deleted = stmt.executeUpdate();
             if(deleted <=0){
                 log.log(Level.SEVERE, "Errore cancellazione carta");
+                throw new databaseoperationException("Errore cancellazione carta");
             }
-
 
         } catch (SQLException e) {
             log.log(Level.SEVERE, "Errore cancellazione carta nel DB");
@@ -83,6 +82,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         }
 
 
+        log.log(Level.INFO, "Eliminazione carta del DB");
         super.removeCard(card, sellerName);
     }
 

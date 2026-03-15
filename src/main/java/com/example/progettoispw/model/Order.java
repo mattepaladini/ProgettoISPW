@@ -7,12 +7,17 @@ public class Order {
     private int id;
     private List<Card> carteOrdinate;
     private String indirizzoSpedizione;
-    private User compratore;
+    private String compratore;
+    private float totale;
+    private String dataOrdine;
 
-    public Order(List<Card> carteOrdinate, String indirizzoSpedizione, User compratore) {
+    public Order(int id, List<Card> carteOrdinate, String indirizzoSpedizione, String compratore, float totale, String dataOrdine) {
+        this.id = id;
         this.carteOrdinate = carteOrdinate;
         this.indirizzoSpedizione = indirizzoSpedizione;
         this.compratore = compratore;
+        this.totale = totale;
+        this.dataOrdine = dataOrdine;
     }
 
     public List<Card> getCarteOrdinate() {
@@ -23,13 +28,15 @@ public class Order {
         return indirizzoSpedizione;
     }
 
-    public User getCompratore() {
+    public String getDataOrdine(){return dataOrdine;}
+
+    public String getCompratore() {
         return compratore;
     }
 
-    public boolean checkAviability(){
+    public float getTotale() {return totale;}
 
-        // cerca se le carte che sono presenti nell'ordine sono disponibili prima di effettuare l'ordine
-        return false;
+    public int getId() {
+        return id;
     }
 }

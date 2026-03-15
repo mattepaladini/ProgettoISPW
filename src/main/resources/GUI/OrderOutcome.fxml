@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.controller.graphic.OrderOutcomeGraphicController" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+    </padding>
+
+    <Label text="✓" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 48px; -fx-font-weight: bold; -fx-min-width: 90px; -fx-min-height: 90px; -fx-alignment: center; -fx-background-radius: 50%; -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.4), 15, 0, 0, 5);"/>
+
+    <Label text="Ordine Completato!" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;">
+        <VBox.margin>
+            <Insets top="10.0"/>
+        </VBox.margin>
+    </Label>
+
+    <Label text="Grazie per il tuo acquisto. Il pagamento è andato a buon fine." style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+
+    <VBox spacing="15.0" maxWidth="450.0" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 25;">
+
+        <VBox.margin>
+            <Insets top="20.0" bottom="20.0"/>
+        </VBox.margin>
+
+        <Label text="Dettagli dell'Ordine" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #374151;"/>
+        <Separator style="-fx-background-color: #E5E7EB;"/>
+
+        <GridPane vgap="12.0" hgap="20.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120.0" halignment="LEFT"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="RIGHT"/>
+            </columnConstraints>
+
+            <Label text="Numero Ordine:" style="-fx-text-fill: #6B7280;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="lblOrderId" text="#00000" style="-fx-font-weight: bold; -fx-text-fill: #111827;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Data:" style="-fx-text-fill: #6B7280;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="lblData" text="DD/MM/YYYY" style="-fx-font-weight: bold; -fx-text-fill: #111827;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Spedito a:" style="-fx-text-fill: #6B7280;" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
+            <Label fx:id="lblIndirizzo" text="Via Roma 1, Roma" wrapText="true" maxWidth="200.0" textAlignment="RIGHT" style="-fx-font-weight: bold; -fx-text-fill: #111827;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Region prefHeight="10.0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+
+            <Label text="Totale Pagato:" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #374151;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <Label fx:id="lblTotale" text="0.00 €" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        </GridPane>
+    </VBox>
+
+    <Button text="Torna alla Home" onAction="#onBackToHomeClick" style="-fx-background-color: #1976D2; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;">
+        <VBox.margin>
+            <Insets top="10.0"/>
+        </VBox.margin>
+    </Button>
+
+</VBox>
