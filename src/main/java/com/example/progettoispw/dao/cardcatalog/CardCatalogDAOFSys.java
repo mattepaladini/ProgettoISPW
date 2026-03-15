@@ -11,8 +11,6 @@ import java.util.logging.Logger;
 
 public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalogDAO {
 
-    //private static  List<CardCatalog> memoryCatalogs = new ArrayList<>();    //variabile di classe usata per CACHING ---> prima controllo se ho già tirato su dalla memoria poi faccio operazioni
-
     private static final String FOLDER_NAME = "persistence";
     private static final String CATALOG_FILE = "catalogs.txt";
     private static final String SEPARATOR = ",";

@@ -22,7 +22,6 @@ public class Card implements Serializable {
     private transient List<PriceObserver> observers;    //transient serve per ignorare questa lista quando memorizzo su file o db
 
 
-    // Da definire come determinare gli id delle carte.
     public Card(String nome, Float prezzoAttuale, Gradazione gradazione, String venditore, int livello, Attribute attributo, Type tipo) {
         this.nome = nome;
         this.prezzoAttuale = prezzoAttuale;
@@ -37,6 +36,12 @@ public class Card implements Serializable {
     public Card(String nome, Float prezzo){
         this.nome = nome;
         this.prezzoAttuale = prezzo;
+    }
+
+    //costruttore usato per memorizzare nel file "orders.txt" le informazioni delle carte ordinate
+    public Card(String nome, String venditore){
+        this.nome = nome;
+        this.venditore = venditore;
     }
 
     /*

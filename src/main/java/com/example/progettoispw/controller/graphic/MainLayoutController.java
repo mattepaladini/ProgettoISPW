@@ -75,17 +75,6 @@ public class MainLayoutController {
         loadPage(GUI_HOME_FXML);
     }
 
-
-    @FXML
-    public void showSell(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void showProfile(ActionEvent event) {
-
-    }
-
     @FXML
     public void doLogout(ActionEvent event) {
 

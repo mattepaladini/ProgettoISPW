@@ -38,4 +38,9 @@ public class OrderDAODemo implements OrderDAO {
     public void saveOrder(Order order) {
         this.orders.add(order);
     }
+
+    public List<Order> getAllOrders() {
+        // Restituiamo una copia della lista per evitare modifiche accidentali da fuori
+        return new ArrayList<>(this.orders);
+    }
 }
