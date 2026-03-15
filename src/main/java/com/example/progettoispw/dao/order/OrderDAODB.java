@@ -40,13 +40,16 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
         try(
             CallableStatement cstmt = conn.prepareCall(querySaveOrder)) {
 
-            cstmt.setInt(1, order.getId());
+            cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
             cstmt.setString(2, order.getCompratore());
             cstmt.setString(3, order.getDataOrdine());
             cstmt.setString(4, order.getIndirizzoSpedizione());
             cstmt.setFloat(5, order.getTotale());
 
             cstmt.execute();
+
+            int orderID = cstmt.getInt(1);
+            order.setId(orderID);
 
             saveOrderCard(order);
 

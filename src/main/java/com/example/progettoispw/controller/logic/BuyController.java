@@ -95,11 +95,10 @@ public class BuyController {
             totale += card.getPrezzoAttuale();
         }
 
-        int orderID = (int) (Math.random()*9000)+1000;      //genero ID da 1000 a 9000
+        //int orderID = (int) (Math.random()*9000)+1000;      //genero ID da 1000 a 9000
         String orderData = LocalDate.now().toString();
 
         Order newOrder = new Order(
-                orderID,
                 cart,
                 orderBean.getShippingAddress(),
                 loggedUser.getUsername(),
@@ -120,10 +119,12 @@ public class BuyController {
             catalogDAO.removeCard(selledCard, sellerName);
         }
 
+        //TODO non devoa anche gestire gli observer?
+
         //svuoto carrello
         SessionManager.getInstance().clearShoppingCart();
 
-        orderBean.setOrderId(orderID);
+        orderBean.setOrderId(newOrder.getId());
         orderBean.setTotale(totale);
         orderBean.setPurchaseDate(orderData);
         //orderBean.setCards(cart);     //TODO AGGIUSTA

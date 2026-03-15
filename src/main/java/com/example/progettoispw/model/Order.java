@@ -11,6 +11,16 @@ public class Order {
     private float totale;
     private String dataOrdine;
 
+    public Order(List<Card> carteOrdinate, String indirizzoSpedizione, String compratore, float totale, String dataOrdine) {
+        this.carteOrdinate = carteOrdinate;
+        this.indirizzoSpedizione = indirizzoSpedizione;
+        this.compratore = compratore;
+        this.totale = totale;
+        this.dataOrdine = dataOrdine;
+    }
+
+
+    //costruttore usato per lo storico degli ordini(da sviluppare)
     public Order(int id, List<Card> carteOrdinate, String indirizzoSpedizione, String compratore, float totale, String dataOrdine) {
         this.id = id;
         this.carteOrdinate = carteOrdinate;
@@ -39,4 +49,6 @@ public class Order {
     public int getId() {
         return id;
     }
+    //SETTER utile in quanto l'id viene gestito in AUTO_INCREMENT dal DB
+    public void setId(int id) {this.id = id;}
 }
