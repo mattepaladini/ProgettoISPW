@@ -7,6 +7,7 @@ import com.example.progettoispw.model.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalogDAO {
@@ -32,6 +33,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         loadCatalogs();
         super.addCatalog(catalog);
+        logger.log(Level.INFO, "Catalogo aggiunto con successo.");
 
     }
 
@@ -43,7 +45,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         super.removeCard(card, sellerName);
         appendNewCardToFile(card, sellerName);
-
+        logger.log(Level.INFO, "Carta rimossa con successo.");
     }
 
     @Override
@@ -55,7 +57,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         appendNewCardToFile(card, currentSeller);
 
-        //TODO controlla che la carta con quel nome non esista già
+        logger.log(Level.INFO, "Carta aggiunta con successo.");
 
     }
 

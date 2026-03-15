@@ -126,8 +126,6 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
         String query = "{CALL GetOrders()}";
 
-        List<Order> listaOrdini = new ArrayList<>();
-
         // 1. Usiamo il try-with-resources per chiudere in automatico la connessione,
         // lo statement e il resultset. SonarCloud adora questa sintassi!
         try (Connection conn = DBConnection.getInstance().getConnection(); // Sostituisci con il tuo gestore connessioni
@@ -144,7 +142,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
                         rs.getDate("orderDate").toString()
                         );
 
-                listaOrdini.add(ordine);
+                orders.add(ordine);
                 isLoaded=true;
             }
 

@@ -223,7 +223,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             throw new databaseoperationException(e.getMessage());
         }
 
-        // 3. BUG RISOLTO: Questo ciclo deve stare FUORI dal while del ResultSet!
         for (CardCatalog catalog : catalogMap.values()) {
             super.addCatalog(catalog);
         }

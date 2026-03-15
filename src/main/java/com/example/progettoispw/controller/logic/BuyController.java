@@ -90,12 +90,17 @@ public class BuyController {
             throw new operationfailedException("Carrello vuoto, impossibile proseguire");
         }
 
+        if(orderBean.getNameSurname().isEmpty() || orderBean.getCityName().isEmpty() ||
+        orderBean.getShippingAddress().isBlank() || orderBean.getPaymentCard().isBlank()
+        || orderBean.getCvv().isBlank()){
+            throw new operationfailedException("Campi obbligatori mancanti");
+        }
+
         float totale = 0;
         for(Card card : cart){
             totale += card.getPrezzoAttuale();
         }
 
-        //int orderID = (int) (Math.random()*9000)+1000;      //genero ID da 1000 a 9000
         String orderData = LocalDate.now().toString();
 
         Order newOrder = new Order(

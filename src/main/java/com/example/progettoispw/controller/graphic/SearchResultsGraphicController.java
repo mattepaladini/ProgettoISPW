@@ -1,7 +1,6 @@
 package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.controller.logic.ManageCartController;
 import com.example.progettoispw.exception.invalidInputException;
 import javafx.collections.FXCollections;
@@ -53,9 +52,6 @@ public class SearchResultsGraphicController {
     @FXML
     private TableColumn<CollectableCardBean, String> colVenditore;
 
-
-    private BuyController buyCardController;
-
     @FXML
     public void initialize() {
 
@@ -69,22 +65,21 @@ public class SearchResultsGraphicController {
         colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradazione"));
         colVenditore.setCellValueFactory(new PropertyValueFactory<>("venditore"));
 
+
+
     }
 
     @FXML
     public void onBackClick(ActionEvent event) {
         try {
-            // 1. Carica la Home
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Search.fxml"));
             Parent homeRoot = loader.load();
 
-            // 2. Recupera lo Stage (la finestra) dal bottone cliccato
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // 3. Sostituisci la scena interamente
             Scene scene = new Scene(homeRoot, 800, 600);
             stage.setScene(scene);
-            // stage.show(); // Non serve richiamarlo, la finestra è già aperta
 
         } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage(), e);
@@ -115,13 +110,9 @@ public class SearchResultsGraphicController {
             logger.log(Level.INFO, "Carta aggiunta con successo!");
         }
 
-
-
     }
 
-    public void initData(List<CollectableCardBean> risultati, BuyController buyCardController) {
-
-        this.buyCardController = buyCardController;
+    public void initData(List<CollectableCardBean> risultati) {
 
         if (risultati == null || risultati.isEmpty()) {
             if (lblMessage != null) {

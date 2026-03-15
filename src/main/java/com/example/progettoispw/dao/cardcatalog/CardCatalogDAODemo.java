@@ -26,7 +26,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     public void removeCard(Card card, String sellerName) {
 
             for(CardCatalog catalog : getAllCatalogs()) {
-                if(catalog.getSeller().equals(sellerName)) {
+                if(catalog.getSeller().getSellerName().equals(sellerName)) {
                     catalog.removeCollectableCard(card);
                 }
             }
