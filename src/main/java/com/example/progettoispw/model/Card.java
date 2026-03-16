@@ -8,11 +8,8 @@ import java.util.List;
 
 public class Card implements Serializable {
 
-
-    //private int id;
     private String nome;
     private Float prezzoAttuale;
-    //private List<Float> storicoPrezzi;
     private Gradazione gradazione;
     private String venditore;
     private int livello;

@@ -5,15 +5,15 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    //private List<Card> carrello;
     private String username;
     private String password;
     private UserType tipoUtente;
-    //private List<Order> ordini;
 
     private static final long serialVersionUID = 1L;
 
-    protected User() {}
+    protected User() {
+        //COSTRUTTORE User
+    }
 
     public User(String username, String password, UserType tipoUtente) {
 

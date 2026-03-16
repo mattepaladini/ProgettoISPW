@@ -16,9 +16,9 @@ public class OrderBean {
     private String paymentCard;
     private String cvv;
 
-    //COSTRUTTORE OrderBean
-    public OrderBean() {
 
+    public OrderBean() {
+        //COSTRUTTORE OrderBean
     }
 
     public int getOrderId(){
