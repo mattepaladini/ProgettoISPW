@@ -2,8 +2,8 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
-import com.example.progettoispw.exception.loadPageException;
-import com.example.progettoispw.exception.operationfailedException;
+import com.example.progettoispw.exception.LoadPageException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Type;
@@ -75,7 +75,7 @@ public class AddCardGraphicController implements Initializable {
             goBackToCatalog(event);
 
         } catch (NumberFormatException e) {
-            throw new operationfailedException(e.getMessage());
+            throw new OperationFailedException(e.getMessage());
         }
 
 
@@ -97,7 +97,7 @@ public class AddCardGraphicController implements Initializable {
             stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
 
         } catch (IOException e) {
-            throw new loadPageException("Impossibile caricare Catalog.fxml");
+            throw new LoadPageException("Impossibile caricare Catalog.fxml");
         }
     }
 

@@ -32,13 +32,13 @@ public class SellerCatalogGraphicController implements Initializable {
     @FXML private TableColumn<CollectableCardBean, Integer> colLevel;
 
     private ManageCatalogController logicController;
-    private ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
 
-    private static final SceneManager sceneManager = new SceneManager();
+    private SceneManager sceneManager;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.sceneManager = new SceneManager();
         logicController = new ManageCatalogController();
 
         // 1. Recupero il Seller dalla sessione
@@ -65,6 +65,9 @@ public class SellerCatalogGraphicController implements Initializable {
     }
 
     private void refreshTable(UserBean userBean) {
+
+        ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
+
         List<CollectableCardBean> cards = logicController.getSellerCards(userBean);
         // Converto la lista normale in ObservableList per JavaFX
         cardList = FXCollections.observableArrayList(cards);

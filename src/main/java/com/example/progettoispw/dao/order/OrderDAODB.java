@@ -2,7 +2,7 @@ package com.example.progettoispw.dao.order;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
-import com.example.progettoispw.exception.databaseoperationException;
+import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.model.*;
 
 import java.sql.CallableStatement;
@@ -54,7 +54,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             saveOrderCard(order);
 
         } catch (SQLException e) {
-            throw new databaseoperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
     }
@@ -76,7 +76,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
             cstmt2.executeBatch();
         } catch (SQLException e) {
-            throw new databaseoperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
     }
@@ -110,7 +110,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
                     cardsOrder.add(card);
                 }
             }catch (SQLException e) {
-                throw new databaseoperationException(e.getMessage());
+                throw new DatabaseOperationException(e.getMessage());
             }
 
         }
@@ -147,7 +147,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             }
 
         } catch (SQLException e) {
-            throw new databaseoperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.exception.operationfailedException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.Observer.CartObserver;
 import com.example.progettoispw.pattern.Observer.PriceObserver;
@@ -26,7 +26,7 @@ public class ManageCartController implements PriceObserver {
             return true;
 
         } catch (RuntimeException e) {
-            throw new operationfailedException(e.getMessage());
+            throw new OperationFailedException(e.getMessage());
         }
 
     }
@@ -64,7 +64,7 @@ public class ManageCartController implements PriceObserver {
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
             return true;
         } catch (Exception e) {
-            throw new operationfailedException(e.getMessage());
+            throw new OperationFailedException(e.getMessage());
         }
     }
 

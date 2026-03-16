@@ -1,7 +1,7 @@
 package com.example.progettoispw.dao.order;
 
-import com.example.progettoispw.exception.databaseoperationException;
-import com.example.progettoispw.exception.fsysoperationException;
+import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
 import com.example.progettoispw.model.User;
@@ -53,7 +53,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
 
     }
 
-    private void flushToFile() throws databaseoperationException {
+    private void flushToFile() throws DatabaseOperationException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(getStorageFile()))) {
 
             // Scorriamo la lista 'orders' della superclasse
@@ -78,11 +78,11 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             }
 
         } catch (IOException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
     }
 
-    private void loadCacheFromFile() throws databaseoperationException {
+    private void loadCacheFromFile() throws DatabaseOperationException {
         // Se abbiamo già letto il file, non facciamo niente
         if (isLoaded) return;
 
@@ -124,7 +124,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             isLoaded = true; // Segniamo che il caricamento è completato
 
         } catch (IOException | NumberFormatException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
     }
 

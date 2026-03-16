@@ -1,6 +1,6 @@
 package com.example.progettoispw.dao.user;
 
-import com.example.progettoispw.exception.fsysoperationException;
+import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
@@ -45,11 +45,11 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
     }
 
     @Override
-    public boolean logWithPSW(String Username, String password) {
+    public boolean logWithPSW(String username, String password) {
 
         loadAllUsers();
 
-        return super.logWithPSW(Username, password);
+        return super.logWithPSW(username, password);
     }
 
 
@@ -75,7 +75,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 processUserLine(line); // Deleghiamo la creazione!
             }
         } catch (IOException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
 
         isLoaded = true;
@@ -140,7 +140,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
             System.out.println("DEBUG: Scritta riga TXT per " + user.getUsername());
         } catch (IOException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
 
         }
     }

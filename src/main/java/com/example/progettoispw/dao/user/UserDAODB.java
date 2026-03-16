@@ -2,8 +2,8 @@ package com.example.progettoispw.dao.user;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.database.DBConnection;
-import com.example.progettoispw.exception.databaseoperationException;
-import com.example.progettoispw.exception.operationfailedException;
+import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
 import com.mysql.cj.jdbc.CallableStatement;
@@ -42,10 +42,10 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
     }
 
     @Override
-    public boolean logWithPSW(String Username, String password) {
+    public boolean logWithPSW(String username, String password) {
 
         loadAllUsers();
-        return super.logWithPSW(Username, password);
+        return super.logWithPSW(username, password);
     }
 
 
@@ -61,7 +61,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
                 }
 
             } catch (SQLException e) {
-                throw new databaseoperationException(e.getMessage());
+                throw new DatabaseOperationException(e.getMessage());
             }
         }
     }
@@ -81,28 +81,28 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             }
 
         } catch (RuntimeException | SQLException e) {
-            throw new operationfailedException(e.getMessage());
+            throw new OperationFailedException(e.getMessage());
         }
     }
 
     public void saveOnDB(User user) {
 
-        String new_username = user.getUsername();
-        String new_password = user.getPassword();
-        String new_tipo = String.valueOf(user.getTipoUtente());
+        String newUsername = user.getUsername();
+        String newPassword = user.getPassword();
+        String newTipo = String.valueOf(user.getTipoUtente());
 
         String query ="{CALL AddUser (?, ?,?)}";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
-            stmt.setString(1, new_username);
-            stmt.setString(2, new_password);
-            stmt.setString(3, new_tipo);
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPassword);
+            stmt.setString(3, newTipo);
             stmt.execute();
 
         } catch (SQLException e) {
-            throw new databaseoperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
 

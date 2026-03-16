@@ -38,10 +38,10 @@ public class SearchGraphicController {
 
         //cattura del prezzo desiderato
         Float prezzo = 0.0f;        //valore di default per disattivare il limite del prezzo
-        String selezionePrezzo = (String) prezzoCercato.getValue();
+        String selezionePrezzo = prezzoCercato.getValue();
         if(selezionePrezzo!=null && !selezionePrezzo.isEmpty()) {
 
-            prezzo = Float.parseFloat(selezionePrezzo.replaceAll("[^0-9]", ""));
+            prezzo = Float.parseFloat(selezionePrezzo.replaceAll("\\D", ""));
             System.out.println(prezzo);
 
         }

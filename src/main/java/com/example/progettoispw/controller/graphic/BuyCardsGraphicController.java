@@ -2,7 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.controller.logic.BuyController;
-import com.example.progettoispw.exception.operationfailedException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.session.SessionManager;
 import javafx.event.ActionEvent;
@@ -64,7 +64,7 @@ public class BuyCardsGraphicController {
             outcomeController.initData(riepilogoOrdine);
 
         } catch (Exception e) {
-            throw new operationfailedException(e.getMessage());
+            throw new OperationFailedException(e.getMessage());
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderDAODemo implements OrderDAO {
 
-    protected List<Order> orders = new ArrayList<Order>();
+    protected List<Order> orders = new ArrayList<>();
 
     @Override
     public List<Order> getOrdersByUser(User user) {

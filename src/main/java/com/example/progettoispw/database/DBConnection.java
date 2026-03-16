@@ -34,11 +34,11 @@ public class DBConnection {
             try(InputStream input = new FileInputStream("src/main/resources/config/db.properties")){
                 Properties prop = new Properties();
                 prop.load(input);
-                String db_url = prop.getProperty("CONNECTION_URL");
+                String dbUrl = prop.getProperty("CONNECTION_URL");
                 String user = prop.getProperty("USER");
                 String pass = prop.getProperty("PASSWORD");
 
-                conn = DriverManager.getConnection(db_url, user, pass);
+                conn = DriverManager.getConnection(dbUrl, user, pass);
 
             }catch (IOException|SQLException e){
                 logger.severe(e.getMessage());

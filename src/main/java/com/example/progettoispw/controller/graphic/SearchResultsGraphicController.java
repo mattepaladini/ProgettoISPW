@@ -2,7 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.exception.invalidInputException;
+import com.example.progettoispw.exception.InvalidInputException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -97,13 +97,13 @@ public class SearchResultsGraphicController {
             ManageCartController cartController = new ManageCartController();
             if(!cartController.addToCart(selectedCard)){
                 logger.log(Level.WARNING, "Impossibile aggiungere la carta");
-                throw new invalidInputException("");
+                throw new InvalidInputException("");
             }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             // 3. LA MAGIA: Chiami il tuo ToastManager!
-            toastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
+            ToastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
 
             resultsTable.getSelectionModel().clearSelection();
 

@@ -2,16 +2,15 @@ package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.exception.invalidInputException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.model.UserType;
 import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
 import com.example.progettoispw.session.SessionManager;
 
 
 public class AuthController {
 
-    public UserType type;
+    //private UserType type;
 
     public void checkUserExist(UserBean user) {
             //CHIAMA DAO
@@ -22,11 +21,9 @@ public class AuthController {
             if(usertemp!=null){
                 authUser(usertemp);
             } else {
-                throw new invalidInputException("Utente non esistente");
+                throw new OperationFailedException("Utente non esistente");
             }
         }
-
-
     }
 
     public void authUser(User user) {

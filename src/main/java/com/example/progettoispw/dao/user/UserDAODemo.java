@@ -30,7 +30,7 @@ public class UserDAODemo implements UserDAO {
     }
 
     @Override
-    public boolean logWithPSW(String Username, String password) {
+    public boolean logWithPSW(String username, String password) {
         for (User user : users) {
             if(user.getPassword().equals(password)) {
                 return true;

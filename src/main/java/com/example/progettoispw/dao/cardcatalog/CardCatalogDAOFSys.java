@@ -1,7 +1,7 @@
 package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.exception.fsysoperationException;
+import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.*;
 
 import java.io.*;
@@ -101,10 +101,9 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     if (line.trim().isEmpty()) continue;
 
                     String[] parts = line.split(SEPARATOR);
-                    if (parts.length < 7) continue;
 
                     String nome = parts[0];
-                    if(nome.equalsIgnoreCase(nomeCarta)){       //controllo subito se il nome coincide
+                    if(parts.length >= 7 && nome.equalsIgnoreCase(nomeCarta)){       //controllo subito se il nome coincide
                         CollectableCardBean cardBean = new CollectableCardBean();
 
                         cardBean.setNomeCarta(nome);
@@ -121,7 +120,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     }
                 }
             }catch (IOException e){
-                throw new fsysoperationException(e.getMessage());
+                throw new FSysOperationException(e.getMessage());
             }
         }
         return resultCards;
@@ -162,7 +161,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 processLine(line); //
             }
         } catch (Exception e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
 
         isLoaded = true;
@@ -238,7 +237,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             bw.write(convertCardToString(card, user));
             bw.newLine();
         } catch (IOException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
     }
 
@@ -268,7 +267,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 }
             }
         } catch (IOException e) {
-            throw new fsysoperationException(e.getMessage());
+            throw new FSysOperationException(e.getMessage());
         }
     }
 }

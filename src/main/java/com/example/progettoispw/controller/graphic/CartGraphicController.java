@@ -42,8 +42,7 @@ public class CartGraphicController implements CartObserver {
     @FXML
     private TableColumn<CollectableCardBean, String> colVenditore;
 
-    private ManageCartController appController = new ManageCartController();
-    private ObservableList<CollectableCardBean> carteObservable;
+    private ManageCartController appController;
 
     private SceneManager sceneManager;
 
@@ -60,6 +59,7 @@ public class CartGraphicController implements CartObserver {
         //disabilitiamo il bottone "Rimuovi" se non c'è nulla di selezionato
         btnRimuovi.disableProperty().bind(cartTable.getSelectionModel().selectedItemProperty().isNull());
 
+        this.appController = new ManageCartController();
         appController.setCartObserver(this);        //mi iscrivo al controller logico
 
         this.sceneManager = new SceneManager();
@@ -85,6 +85,9 @@ public class CartGraphicController implements CartObserver {
     }
 
     private void aggiornaVistaCarrello() {
+
+        ObservableList<CollectableCardBean> carteObservable;
+
         // Chiediamo le carte al Controller Logico
         List<CollectableCardBean> carteNelCarrello = appController.getCardsFromCart();
 

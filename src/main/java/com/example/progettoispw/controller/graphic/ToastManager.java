@@ -6,9 +6,9 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class toastManager {
+public class ToastManager {
 
-    private toastManager(){}
+    private ToastManager(){}
 
     public static void showToast(Stage stage, String message) {
         // 1. Creiamo il popup nativo (è una finestra trasparente senza bordi)

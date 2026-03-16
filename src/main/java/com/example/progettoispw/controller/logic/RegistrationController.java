@@ -2,8 +2,8 @@ package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.exception.invalidInputException;
-import com.example.progettoispw.exception.registrationException;
+import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.RegistrationException;
 import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
@@ -22,7 +22,7 @@ public class RegistrationController {
         UserDAO userdao = DAOFactory.getInstance().getUserDAO();
 
         if(userbean.getUsername().isBlank() || userbean.getPassword().isBlank()) {
-            throw new invalidInputException("Username e/o password assente");
+            throw new InvalidInputException("Username e/o password assente");
         }
 
         User newUser = new User(userbean.getUsername(), userbean.getPassword(), userbean.getUsertype());
@@ -32,8 +32,8 @@ public class RegistrationController {
             userdao.addUser(newUser);
             logger.log(Level.INFO, "User {0} aggiunto", newUser.getUsername());
 
-        } catch (registrationException e) {
-            throw new registrationException(e.getMessage());
+        } catch (RegistrationException e) {
+            throw new RegistrationException(e.getMessage());
         }
         SessionManager session = SessionManager.getInstance();
 

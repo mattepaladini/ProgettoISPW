@@ -4,8 +4,8 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
-import com.example.progettoispw.exception.invalidInputException;
-import com.example.progettoispw.exception.operationfailedException;
+import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
 import com.example.progettoispw.model.User;
@@ -26,7 +26,7 @@ public class BuyController {
         String nome = "";
         if(searchBean.getNomeCarta().isBlank())
         {
-            throw new invalidInputException("Errore, inserire il nome della carta da cercare");
+            throw new InvalidInputException("Errore, inserire il nome della carta da cercare");
         } else{
             nome = searchBean.getNomeCarta();
         }
@@ -87,13 +87,13 @@ public class BuyController {
 
         List<Card> cart = SessionManager.getInstance().getShoppingCart();
         if(cart == null || cart.isEmpty()){
-            throw new operationfailedException("Carrello vuoto, impossibile proseguire");
+            throw new OperationFailedException("Carrello vuoto, impossibile proseguire");
         }
 
         if(orderBean.getNameSurname().isEmpty() || orderBean.getCityName().isEmpty() ||
         orderBean.getShippingAddress().isBlank() || orderBean.getPaymentCard().isBlank()
         || orderBean.getCvv().isBlank()){
-            throw new operationfailedException("Campi obbligatori mancanti");
+            throw new OperationFailedException("Campi obbligatori mancanti");
         }
 
         float totale = 0;
