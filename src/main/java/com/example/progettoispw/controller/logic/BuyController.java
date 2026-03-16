@@ -121,10 +121,15 @@ public class BuyController {
         CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
         for(Card selledCard : cart){
             String sellerName = selledCard.getVenditore();
+
+            //notifico che la carta è stata venduta
+            selledCard.notifyObservers();
+
+            //stacco gli observer
+            selledCard.detachAll();
+
             catalogDAO.removeCard(selledCard, sellerName);
         }
-
-        //TODO non devoa anche gestire gli observer?
 
         //svuoto carrello
         SessionManager.getInstance().clearShoppingCart();
@@ -132,7 +137,21 @@ public class BuyController {
         orderBean.setOrderId(newOrder.getId());
         orderBean.setTotale(totale);
         orderBean.setPurchaseDate(orderData);
-        //orderBean.setCards(cart);     //TODO AGGIUSTA
+
+        List<CollectableCardBean> cartBeans = cart.stream()
+                .map(card -> {
+                    CollectableCardBean bean = new CollectableCardBean();
+                    bean.setNomeCarta(card.getNome());
+                    bean.setVenditore(card.getVenditore());
+                    bean.setPrezzoCorrente(card.getPrezzoAttuale());
+                    bean.setGradazione(card.getGradazione());
+                    bean.setTipo(card.getTipo());
+                    bean.setAttributo(card.getAttributo());
+                    bean.setLivello(card.getLivello());
+                    return bean;
+                }).toList();
+
+        orderBean.setCards(cartBeans);
 
         String paymentCard =  orderBean.getPaymentCard();
         if (paymentCard != null && paymentCard.length() >= 4) {

@@ -2,7 +2,6 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
-import com.example.progettoispw.exception.LoadPageException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
@@ -12,15 +11,10 @@ import com.example.progettoispw.session.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -36,12 +30,15 @@ public class AddCardGraphicController implements Initializable {
     @FXML private TextField levelField;
 
     private static final Logger logger = Logger.getLogger(AddCardGraphicController.class.getName());
+    private SceneManager sceneManager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gradeComboBox.setItems(FXCollections.observableArrayList(Gradazione.values()));
         attributeComboBox.setItems(FXCollections.observableArrayList(Attribute.values()));
         typeComboBox.setItems(FXCollections.observableArrayList(Type.values()));
+
+        this.sceneManager = new SceneManager();
     }
 
     @FXML
@@ -83,7 +80,9 @@ public class AddCardGraphicController implements Initializable {
 
     private void goBackToCatalog(ActionEvent event) {
 
-        //TODO usa sceneManager
+        sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
+
+        /*
         try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
             BorderPane root = mainLoader.load();
@@ -99,6 +98,7 @@ public class AddCardGraphicController implements Initializable {
         } catch (IOException e) {
             throw new LoadPageException("Impossibile caricare Catalog.fxml");
         }
+         */
     }
 
 

@@ -87,14 +87,14 @@ public class Card implements Serializable {
     }
 
     //2. Metodo per Disiscriversi
-    public void detach(PriceObserver observer) {
+    public void detachAll() {
         if (this.observers != null) {
-            this.observers.remove(observer);
+            this.observers.clear();
         }
     }
 
     // 4. La Notifica
-    private void notifyObservers() {
+    public void notifyObservers() {
         if (this.observers == null) return;
 
         for (PriceObserver obs : this.observers) {
