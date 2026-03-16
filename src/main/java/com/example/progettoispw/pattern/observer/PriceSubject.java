@@ -1,4 +1,4 @@
-package com.example.progettoispw.pattern.Observer;
+package com.example.progettoispw.pattern.observer;
 
 import java.util.Observer;
 

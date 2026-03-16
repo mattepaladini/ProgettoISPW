@@ -3,8 +3,8 @@ package com.example.progettoispw.controller.logic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
-import com.example.progettoispw.pattern.Observer.CartObserver;
-import com.example.progettoispw.pattern.Observer.PriceObserver;
+import com.example.progettoispw.pattern.observer.CartObserver;
+import com.example.progettoispw.pattern.observer.PriceObserver;
 import com.example.progettoispw.session.SessionManager;
 
 import java.util.ArrayList;

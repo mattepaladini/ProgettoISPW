@@ -1,4 +1,4 @@
-package com.example.progettoispw.pattern.Observer;
+package com.example.progettoispw.pattern.observer;
 
 import com.example.progettoispw.model.Card;
 

@@ -1,4 +1,4 @@
-package com.example.progettoispw.pattern.Decorator;
+package com.example.progettoispw.pattern.decorator;
 
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Type;

@@ -3,7 +3,7 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
 import com.example.progettoispw.model.Card;
-import com.example.progettoispw.pattern.Observer.CartObserver;
+import com.example.progettoispw.pattern.observer.CartObserver;
 import com.example.progettoispw.session.SessionManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

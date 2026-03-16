@@ -1,6 +1,6 @@
 package com.example.progettoispw.model;
 
-import com.example.progettoispw.pattern.Observer.PriceObserver;
+import com.example.progettoispw.pattern.observer.PriceObserver;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
-package com.example.progettoispw.pattern.Decorator;
+package com.example.progettoispw.pattern.decorator;
 
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.model.Card;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
+import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 
 import java.util.List;
 

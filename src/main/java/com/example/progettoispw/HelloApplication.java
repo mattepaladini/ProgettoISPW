@@ -3,7 +3,7 @@ package com.example.progettoispw;
 import com.example.progettoispw.controller.cli.HomeCLI;
 import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.database.DBConnection;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
+import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

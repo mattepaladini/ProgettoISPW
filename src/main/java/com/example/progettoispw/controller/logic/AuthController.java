@@ -4,7 +4,7 @@ import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
+import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.session.SessionManager;
 
 

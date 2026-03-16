@@ -1,4 +1,4 @@
-package com.example.progettoispw.pattern.AbstractFactory;
+package com.example.progettoispw.pattern.abstractfactory;
 
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAODemo;

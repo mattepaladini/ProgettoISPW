@@ -7,7 +7,7 @@ import com.example.progettoispw.exception.RegistrationException;
 import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.pattern.AbstractFactory.DAOFactory;
+import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.session.SessionManager;
 
 import java.util.logging.Level;
