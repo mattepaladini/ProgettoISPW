@@ -2,7 +2,7 @@ package com.example.progettoispw.database;
 
 
 import com.example.progettoispw.exception.DatabaseOperationException;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 
 import java.io.FileInputStream;
 import java.io.IOException;

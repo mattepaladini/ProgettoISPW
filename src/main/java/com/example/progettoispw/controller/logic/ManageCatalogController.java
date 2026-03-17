@@ -3,7 +3,7 @@ package com.example.progettoispw.controller.logic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;

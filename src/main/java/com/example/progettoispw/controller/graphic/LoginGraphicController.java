@@ -2,7 +2,6 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.AuthController;
-import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

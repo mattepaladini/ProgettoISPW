@@ -2,7 +2,7 @@ package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;

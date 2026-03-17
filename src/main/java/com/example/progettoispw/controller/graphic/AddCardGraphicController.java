@@ -3,7 +3,6 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.exception.BaseException;
-import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Type;

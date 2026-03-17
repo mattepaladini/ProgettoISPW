@@ -1,7 +1,7 @@
 package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.*;
 

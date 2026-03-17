@@ -2,7 +2,6 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.LoadPageException;
 import javafx.collections.FXCollections;

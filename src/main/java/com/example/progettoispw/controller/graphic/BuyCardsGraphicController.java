@@ -3,7 +3,6 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.exception.BaseException;
-import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.session.SessionManager;
 import javafx.event.ActionEvent;

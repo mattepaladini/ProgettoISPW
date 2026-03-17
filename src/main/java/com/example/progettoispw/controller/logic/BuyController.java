@@ -4,7 +4,7 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;

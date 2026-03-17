@@ -1,6 +1,6 @@
 package com.example.progettoispw.dao.user;
 
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;

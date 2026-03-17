@@ -4,7 +4,7 @@ import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 
 public abstract class DAOFactory  {

@@ -3,7 +3,7 @@ package com.example.progettoispw.dao.user;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
 import com.mysql.cj.jdbc.CallableStatement;

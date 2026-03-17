@@ -3,7 +3,7 @@ package com.example.progettoispw.controller.logic;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.BaseException;
-import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.RegistrationException;
 import com.example.progettoispw.model.Buyer;

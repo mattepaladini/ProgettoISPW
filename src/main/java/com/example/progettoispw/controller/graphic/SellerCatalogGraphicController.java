@@ -5,7 +5,6 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.exception.BaseException;
-import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Gradazione;
