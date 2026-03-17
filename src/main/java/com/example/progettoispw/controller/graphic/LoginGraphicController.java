@@ -2,6 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.AuthController;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class LoginGraphicController {
             logger.log(Level.INFO, "User {0} loggato" ,user);
 
         } else {
-            throw new InvalidInputException("Username e/o password mancanti");
+            ErrorHandler.show(new InvalidInputException("Username e/o password mancanti"));
         }
 
         //carico schermata Home

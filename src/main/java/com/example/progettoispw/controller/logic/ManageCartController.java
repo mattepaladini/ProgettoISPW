@@ -1,6 +1,8 @@
 package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.exception.BaseException;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.observer.CartObserver;
@@ -25,8 +27,9 @@ public class ManageCartController implements PriceObserver {
             selectedCard.attach(this);      //Controller osserva entità
             return true;
 
-        } catch (RuntimeException e) {
-            throw new OperationFailedException(e.getMessage());
+        } catch (BaseException e) {
+            ErrorHandler.show(new OperationFailedException(e.getMessage()));
+            return false;
         }
 
     }
@@ -63,9 +66,11 @@ public class ManageCartController implements PriceObserver {
 
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
             return true;
-        } catch (Exception e) {
-            throw new OperationFailedException(e.getMessage());
+        } catch (BaseException e) {
+            ErrorHandler.show(new OperationFailedException(e.getMessage()));
+            return false;
         }
+
     }
 
     // Metodo bonus per calcolare il totale!

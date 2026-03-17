@@ -2,7 +2,8 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
-import com.example.progettoispw.exception.OperationFailedException;
+import com.example.progettoispw.exception.BaseException;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Type;
@@ -71,8 +72,9 @@ public class AddCardGraphicController implements Initializable {
 
             goBackToCatalog(event);
 
-        } catch (NumberFormatException e) {
-            throw new OperationFailedException(e.getMessage());
+        } catch (BaseException e) {
+            ErrorHandler.show(e);
+
         }
 
 
@@ -82,23 +84,6 @@ public class AddCardGraphicController implements Initializable {
 
         sceneManager.startScene(event, "/GUI/SellerCatalog.fxml");
 
-        /*
-        try {
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-            BorderPane root = mainLoader.load();
-
-            FXMLLoader catalogLoader = new FXMLLoader(getClass().getResource("/GUI/SellerCatalog.fxml"));
-            Node catalogNode = catalogLoader.load();
-
-            root.setCenter(catalogNode);
-
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root); // Sostituisco la root della scena esistente
-
-        } catch (IOException e) {
-            throw new LoadPageException("Impossibile caricare Catalog.fxml");
-        }
-         */
     }
 
 

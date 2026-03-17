@@ -3,6 +3,7 @@ package com.example.progettoispw.controller.logic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
@@ -75,7 +76,7 @@ public class ManageCatalogController {
                 dao.addCard(newCard, seller.getUsername());
             }
         } else {
-            throw new OperationFailedException("Dati inseriti sbagliati o mancanti");
+            ErrorHandler.show(new OperationFailedException("Dati inseriti sbagliati o mancanti"));
         }
 
     }

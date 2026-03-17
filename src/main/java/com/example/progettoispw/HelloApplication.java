@@ -21,6 +21,10 @@ public class HelloApplication extends Application {
     // Impostiamo la variabile a false per far partire il sistema in modalità Light
     private boolean isDark = false;
 
+    private static boolean isCLI=false;
+
+    private static Stage primaryStage;
+
     public static final Logger logger = Logger.getLogger(HelloApplication.class.getName());
 
     @Override
@@ -126,6 +130,11 @@ public class HelloApplication extends Application {
         }
     }
 
+    private static void startCLI(){
+        HomeCLI homeCLI = new HomeCLI();
+        homeCLI.startHomePage();
+    }
+
     private static void setupViewMode(Scanner scanner) {
         System.out.println("-".repeat(105));
         System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
@@ -154,14 +163,25 @@ public class HelloApplication extends Application {
 
                 case 2:
                     System.out.println(">> Command User Interface (CLI)");
-                    HomeCLI homeCLI = new HomeCLI();
-                    homeCLI.startHomePage();
+                    isCLI=true;
+                    startCLI();
                     return;
 
                 default:
-                    logger.log(Level.SEVERE, "Inserire una scelta valida (1 o 2)");
+                    logger.log(Level.SEVERE, "Attenzione! Scelta non valida, Avvio in CLI.");
+                    isCLI=true;
+                    startCLI();
+                    return;
             }
         }
+    }
+
+    public static boolean isCLI(){
+        return isCLI;
+    }
+
+    public static Stage getPrimaryStage(){
+        return primaryStage;
     }
 
     public static void main(String[] args) {

@@ -2,7 +2,9 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.LoadPageException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,9 +66,6 @@ public class SearchResultsGraphicController {
         colPrezzo.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
         colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradazione"));
         colVenditore.setCellValueFactory(new PropertyValueFactory<>("venditore"));
-
-
-
     }
 
     @FXML
@@ -82,7 +81,7 @@ public class SearchResultsGraphicController {
             stage.setScene(scene);
 
         } catch (IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
+            ErrorHandler.show(new LoadPageException(e.getMessage()));
         }
     }
 
@@ -96,8 +95,7 @@ public class SearchResultsGraphicController {
 
             ManageCartController cartController = new ManageCartController();
             if(!cartController.addToCart(selectedCard)){
-                logger.log(Level.WARNING, "Impossibile aggiungere la carta");
-                throw new InvalidInputException("");
+                ErrorHandler.show(new InvalidInputException("Impossibile aggiungere la carta"));
             }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

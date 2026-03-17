@@ -1,6 +1,7 @@
 package com.example.progettoispw.dao.order;
 
 import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
@@ -78,7 +79,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             }
 
         } catch (IOException e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 
@@ -124,7 +125,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             isLoaded = true; // Segniamo che il caricamento è completato
 
         } catch (IOException | NumberFormatException e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 

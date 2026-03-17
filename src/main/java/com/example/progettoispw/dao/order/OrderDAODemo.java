@@ -5,10 +5,13 @@ import com.example.progettoispw.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderDAODemo implements OrderDAO {
 
     protected List<Order> orders = new ArrayList<>();
+    private static final Logger log = Logger.getLogger(OrderDAODemo.class.getName());
 
     @Override
     public List<Order> getOrdersByUser(User user) {
@@ -37,6 +40,7 @@ public class OrderDAODemo implements OrderDAO {
     @Override
     public void saveOrder(Order order) {
         this.orders.add(order);
+        log.log(Level.INFO, "Ordine salvato.");
     }
 
     public List<Order> getAllOrders() {

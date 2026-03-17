@@ -18,7 +18,7 @@ public class LevelFilter extends SearchDecorator{
 
         List<Card> list = super.executeSearch();
         return list.stream().filter(c -> c.getLivello()==level).toList();
-        //INSERISCI LOGICA FILTRAGGIO PER LIVELLO
+
 
     }
 }

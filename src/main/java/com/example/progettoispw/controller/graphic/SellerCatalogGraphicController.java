@@ -4,6 +4,10 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.exception.BaseException;
+import com.example.progettoispw.exception.ErrorHandler;
+import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.session.SessionManager;
@@ -100,10 +104,7 @@ public class SellerCatalogGraphicController implements Initializable {
         CollectableCardBean selected = tableCatalog.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Nessuna selezione");
-            alert.setContentText("Seleziona una carta dalla tabella per modificarne il prezzo.");
-            alert.showAndWait();
+            ErrorHandler.show(new OperationFailedException("Seleziona una carta dalla tabella per modificarne il prezzo"));
             return;
         }
 
@@ -125,9 +126,8 @@ public class SellerCatalogGraphicController implements Initializable {
                 // 4. Aggiorno la vista (refresh tabella)
                 tableCatalog.refresh();
 
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Inserisci un numero valido!");
-                alert.show();
+            } catch (BaseException e) {
+                ErrorHandler.show(new InvalidInputException("Inserisci numero valido"));
             }
         });
     }

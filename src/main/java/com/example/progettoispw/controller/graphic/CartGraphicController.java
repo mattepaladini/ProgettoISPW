@@ -80,6 +80,7 @@ public class CartGraphicController implements CartObserver {
                 aggiornaVistaCarrello();
             } else {
                 logger.log(Level.SEVERE, "Impossibile rimuovere la carta dal carrello");
+
             }
         }
     }

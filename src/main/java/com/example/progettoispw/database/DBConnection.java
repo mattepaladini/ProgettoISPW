@@ -1,6 +1,9 @@
 package com.example.progettoispw.database;
 
 
+import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.ErrorHandler;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +44,7 @@ public class DBConnection {
                 conn = DriverManager.getConnection(dbUrl, user, pass);
 
             }catch (IOException|SQLException e){
-                logger.severe(e.getMessage());
+                ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
             }
         }
 

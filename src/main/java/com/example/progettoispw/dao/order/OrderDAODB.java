@@ -3,6 +3,7 @@ package com.example.progettoispw.dao.order;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.model.*;
 
 import java.sql.CallableStatement;
@@ -54,7 +55,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             saveOrderCard(order);
 
         } catch (SQLException e) {
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
     }
@@ -76,7 +77,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
             cstmt2.executeBatch();
         } catch (SQLException e) {
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
     }

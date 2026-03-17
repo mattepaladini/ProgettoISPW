@@ -1,9 +1,8 @@
 package com.example.progettoispw.exception;
 
-public class DatabaseOperationException extends RuntimeException {
+public class DatabaseOperationException extends BaseException {
     public DatabaseOperationException(String message) {
         super(message);
     }
 }
 
-//TODO GESTISCI CHE SE SEI IN CLI MANDA SULLA CONSOLE ALTRIMENTI MANDA POPUP

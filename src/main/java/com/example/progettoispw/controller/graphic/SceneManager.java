@@ -1,5 +1,6 @@
 package com.example.progettoispw.controller.graphic;
 
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.LoadPageException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ public class SceneManager {
             stage.show();
 
         } catch (IOException e) {
-            throw new LoadPageException("Impossibile caricare la pagina" +  specificPage);
+            ErrorHandler.show(new LoadPageException("Impossibile caricare la pagina"));
         }
     }
 

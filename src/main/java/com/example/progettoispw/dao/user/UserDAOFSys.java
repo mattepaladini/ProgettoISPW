@@ -1,5 +1,6 @@
 package com.example.progettoispw.dao.user;
 
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
@@ -7,6 +8,8 @@ import com.example.progettoispw.model.UserType;
 
 import java.io.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
@@ -17,6 +20,8 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
     private static final String SEPARATOR = ";";
 
     private boolean isLoaded = false;
+
+    private static final Logger log = Logger.getLogger(UserDAOFSys.class.getName());
 
     @Override
     public List<User> getAllUsers() {
@@ -75,7 +80,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 processUserLine(line); // Deleghiamo la creazione!
             }
         } catch (IOException e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
 
         isLoaded = true;
@@ -112,7 +117,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
         // 2. Crea la cartella se non esiste
         if (!folder.exists()) {
             boolean created = folder.mkdir();
-            if (created) System.out.println("DEBUG: Cartella 'persistence' creata.");
+            if (created) log.log(Level.INFO, "DEBUG: Cartella 'persistence' creata.");
         }
 
         // 3. Ritorna il file (verrà creato automaticamente dal writer se manca)
@@ -138,10 +143,9 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
             bw.write(sb.toString());
             bw.newLine(); // A capo per il prossimo utente
 
-            System.out.println("DEBUG: Scritta riga TXT per " + user.getUsername());
+            log.log(Level.INFO, "DEBUG: Scritta riga TXT per {0}" , user.getUsername());
         } catch (IOException e) {
-            throw new FSysOperationException(e.getMessage());
-
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 }

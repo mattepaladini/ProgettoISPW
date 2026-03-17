@@ -3,6 +3,7 @@ package com.example.progettoispw.dao.cardcatalog;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.model.*;
 import com.mysql.cj.jdbc.CallableStatement;
 
@@ -44,17 +45,16 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             // Eseguiamo l'inserimento fisico nel database
             stmt.execute();
-            System.out.println("DEBUG: Creato nuovo catalogo nel DB per: " + catalog.getSeller().getSellerName());
+            log.log(Level.INFO,"DEBUG: Creato nuovo catalogo nel DB per: {0}" , catalog.getSeller().getSellerName());
+            System.out.println();
 
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Errore creazione catalogo nel DB");
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
         }
 
         //
 
         super.addCatalog(catalog);
-
 
     }
 
@@ -72,17 +72,13 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             int deleted = stmt.executeUpdate();
             if(deleted <=0){
-                log.log(Level.SEVERE, "Errore cancellazione carta");
-                throw new DatabaseOperationException("Errore cancellazione carta");
+                ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
             }
 
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Errore cancellazione carta nel DB");
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
         }
 
-
-        log.log(Level.INFO, "Eliminazione carta del DB");
         super.removeCard(card, sellerName);
     }
 
@@ -106,11 +102,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             stmt.setString(7, card.getTipo().name());
 
             stmt.executeUpdate();
-            System.out.println("DEBUG: Sto scrivendo fisicamente nel database chiamato: " + conn.getCatalog());
 
         } catch (SQLException e){
-            log.log(Level.SEVERE, "Errore creazione carta");
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException("Errore creazione carta"));
         }
 
         super.addCard(card, sellerName);
@@ -131,10 +125,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             stmt.setFloat(2, newPrice);
             stmt.setString(3, username);
             stmt.execute();
-            log.log(Level.INFO, "Prezzo aggiornato");
 
         } catch (SQLException e) {
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
         super.updatePrice(nomeCarta, username, newPrice);
@@ -189,7 +182,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             }
 
         } catch (SQLException e) {
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
         return risultati;
@@ -220,7 +213,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
                 processResultSet(stmt.getResultSet(), catalogMap);
             }
         } catch (SQLException e) {
-            throw new DatabaseOperationException(e.getMessage());
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
         for (CardCatalog catalog : catalogMap.values()) {

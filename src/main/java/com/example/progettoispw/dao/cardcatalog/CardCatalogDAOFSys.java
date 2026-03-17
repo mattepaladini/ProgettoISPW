@@ -1,6 +1,7 @@
 package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.exception.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.*;
 
@@ -45,7 +46,6 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         super.removeCard(card, sellerName);
         appendNewCardToFile(card, sellerName);
-        logger.log(Level.INFO, "Carta rimossa con successo.");
     }
 
     @Override
@@ -120,7 +120,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     }
                 }
             }catch (IOException e){
-                throw new FSysOperationException(e.getMessage());
+                ErrorHandler.show(new FSysOperationException(e.getMessage()));
             }
         }
         return resultCards;
@@ -161,7 +161,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 processLine(line); //
             }
         } catch (Exception e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
 
         isLoaded = true;
@@ -237,7 +237,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             bw.write(convertCardToString(card, user));
             bw.newLine();
         } catch (IOException e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 
@@ -267,7 +267,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 }
             }
         } catch (IOException e) {
-            throw new FSysOperationException(e.getMessage());
+            ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 }
