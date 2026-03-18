@@ -1,8 +1,8 @@
 package com.example.progettoispw.database;
 
 
-import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.controller.graphic.ErrorHandler;
+import com.example.progettoispw.exception.DatabaseOperationException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,14 +11,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 public class DBConnection {
 
     private static DBConnection instance;
     private Connection conn;
-
-    private static final Logger logger = Logger.getLogger(DBConnection.class.getName());
 
     private DBConnection(){
         this.conn = null;

@@ -62,6 +62,9 @@ public class CartCLI {
                                 removeCardFromCart();
                                 break;
 
+                default:
+                    log.log(Level.WARNING, "Inserisci scelta valida");
+
             }
         }
 

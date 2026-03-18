@@ -69,6 +69,7 @@ public class SearchCLI {
 
                                     case 4:
                                         addToCart();
+                                        break;
 
                                 default:
                                     logger.log(Level.SEVERE, "Inserire una scelta valida!");

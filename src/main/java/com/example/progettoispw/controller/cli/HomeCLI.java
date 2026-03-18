@@ -18,8 +18,6 @@ public class HomeCLI {
                 System.out.println("0. ESCI");
                 System.out.println("1. Cerca Carte");
                 System.out.println("2. Il mio Profilo");
-                //System.out.println("3. Compra Carte (SOLO per compratori)");
-                //System.out.println("4. Vendi Carte (SOLO per venditori)");
                 System.out.println("-".repeat(105));
 
                 System.out.print("Scelta-> ");

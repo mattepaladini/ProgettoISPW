@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 
 public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogDAO {
 
+    public static final String ERRORE_CANCELLAZIONE_CARTA_NEL_DB = "Errore cancellazione carta nel DB";
     private boolean isLoaded = false;
 
     private static final Logger log = Logger.getLogger(CardCatalogDAODB.class.getName());
@@ -49,7 +50,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             System.out.println();
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
+            ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
         }
 
         //
@@ -72,11 +73,11 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             int deleted = stmt.executeUpdate();
             if(deleted <=0){
-                ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
+                ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
             }
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException("Errore cancellazione carta nel DB"));
+            ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
         }
 
         super.removeCard(card, sellerName);
