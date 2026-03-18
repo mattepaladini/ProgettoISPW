@@ -18,8 +18,8 @@ public class HomeCLI {
                 System.out.println("0. ESCI");
                 System.out.println("1. Cerca Carte");
                 System.out.println("2. Il mio Profilo");
-                System.out.println("3. Compra Carte (SOLO per compratori)");
-                System.out.println("4. Vendi Carte (SOLO per venditori)");
+                //System.out.println("3. Compra Carte (SOLO per compratori)");
+                //System.out.println("4. Vendi Carte (SOLO per venditori)");
                 System.out.println("-".repeat(105));
 
                 System.out.print("Scelta-> ");
@@ -44,13 +44,13 @@ public class HomeCLI {
                             break;
 
                             case 3:
-                                BuyCardsCLI buyCardsCLI = new BuyCardsCLI();
-                                buyCardsCLI.startCLI();
+                                CartCLI cartCLI = new CartCLI();
+                                cartCLI.startCLI();
                                 break;
 
                                 case 4:
-                                    SellCLI sellCLI = new SellCLI();
-                                    sellCLI.startCLI();
+                                    SellerHomeCLI sellCLI = new SellerHomeCLI();
+                                    sellCLI.startSellerHome();
                                     break;
 
                                     default:

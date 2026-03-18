@@ -1,11 +1,17 @@
 package com.example.progettoispw.controller.cli;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.controller.logic.BuyController;
+import com.example.progettoispw.controller.logic.ManageCartController;
+import com.example.progettoispw.exception.BaseException;
+import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +24,8 @@ public class SearchCLI {
     private final Scanner scanner = new Scanner(System.in);
 
     CollectableCardBean cardBean = new CollectableCardBean();
+
+    private Map<Integer, CollectableCardBean> mapResult = new HashMap<>();
 
     private static final String CERCA_CARTE ="--> Cerca Carte <--";
     private static final String SCELTA="Scelta-> ";
@@ -34,10 +42,12 @@ public class SearchCLI {
             System.out.println("1. Cerca per Nome della carta");
             System.out.println("2. Aggiungi filtri (Gradazione, Prezzo, Tipo, Attributo, ...)");
             System.out.println("3. ESEGUI RICERCA");
+            System.out.println("4. Aggiungi al carrello");
             System.out.println("-".repeat(105));
 
             System.out.print(SCELTA);
             int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice){
 
@@ -56,6 +66,9 @@ public class SearchCLI {
                             case 3:
                                 executeQuery();
                                 break;
+
+                                    case 4:
+                                        addToCart();
 
                                 default:
                                     logger.log(Level.SEVERE, "Inserire una scelta valida!");
@@ -199,12 +212,15 @@ public class SearchCLI {
         BuyController buyController = new BuyController();
         List<CollectableCardBean> risultati = buyController.searchCards(cardBean);
 
+
         // 1. Controllo base: la lista è vuota?
         if (risultati == null || risultati.isEmpty()) {
             System.out.println("\n[!] Nessuna carta trovata con i filtri selezionati.");
+            mapResult.clear();
             return;
         }
 
+        mapResult.clear();      //pulisco da eventuali sovrascrizioni
         System.out.printf("%-3s | %-25s | %-8s | %-12s | %-15s%n",
                 "N°", "NOME CARTA", "PREZZO", "GRADAZIONE", "VENDITORE");
 
@@ -212,6 +228,8 @@ public class SearchCLI {
 
         int indice = 1;
         for (CollectableCardBean bean : risultati) {
+
+            mapResult.put(indice, bean);
 
             String nome = troncaTesto(bean.getNomeCarta(), 25);
             String prezzo = String.format("%.2f €", bean.getPrezzoCorrente());
@@ -233,5 +251,25 @@ public class SearchCLI {
         if (testo == null) return "N/D";
         if (testo.length() <= lunghezzaMax) return testo;
         return testo.substring(0, lunghezzaMax - 3) + "...";
+    }
+
+    public void addToCart(){
+        System.out.println("-".repeat(105));
+        System.out.println("--> Aggiungi al Carrello <--");
+        System.out.print("Inserisci l'indice della carta che vuoi aggiungere: ");
+
+        int chossenIndex = scanner.nextInt();
+
+        CollectableCardBean cardToAdd = mapResult.get(chossenIndex);
+        ManageCartController manageCartController = new ManageCartController();
+
+        try{
+            manageCartController.addToCart(cardToAdd);
+            logger.log(Level.INFO, "Carta aggiunta al carrello");
+        } catch (BaseException e) {
+            ErrorHandler.show(new OperationFailedException(e.getMessage()));
+        }
+
+
     }
 }
