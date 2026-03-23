@@ -72,7 +72,7 @@ class LoginTest {
     void testLoginSuccess() {
 
         // 1. Registriamo un utente fittizio per avere i dati nel DB
-        UserBean signupBean = new UserBean("Mario Rossi", " TEST_PASSWORD");
+        UserBean signupBean = new UserBean(TESTUSERNAME, " TEST_PASSWORD");
         signupBean.setUsertype(UserType.BUYER);
         registrationController.completeRegistration(signupBean);
 
