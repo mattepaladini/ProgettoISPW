@@ -135,11 +135,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
     }
 
     @Override
-    public CardCatalog getSeller(String username) {
-        return null;
-    }
-
-    @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
         loadCatalogs();
 

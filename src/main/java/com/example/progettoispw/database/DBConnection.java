@@ -17,15 +17,18 @@ public class DBConnection {
     private static DBConnection instance;
     private Connection conn;
 
+    //Costruttore privato
     private DBConnection(){
         this.conn = null;
     }
 
+    //restituisce l'istanza unica in modo sicuro, garantisce thread-safe
+    private static class InstanceHolder{
+        private static final DBConnection instance = new DBConnection();
+    }
+
     public static DBConnection getInstance(){
-        if(instance == null){
-            instance = new DBConnection();
-        }
-        return instance;
+        return InstanceHolder.instance;
     }
 
     public  Connection getConnection() {

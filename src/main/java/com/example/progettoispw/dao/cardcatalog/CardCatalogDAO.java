@@ -18,8 +18,6 @@ public interface CardCatalogDAO {
 
     void updatePrice(String nomeCarta, String username, Float newPrice);
 
-    CardCatalog getSeller(String username);
-
      CardCatalog getCatalogBySeller(Seller seller);
 
      List<Card> findCard(String nomeCarta );

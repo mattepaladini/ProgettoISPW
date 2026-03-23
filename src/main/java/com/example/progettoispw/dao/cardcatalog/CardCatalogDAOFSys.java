@@ -70,12 +70,6 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
     }
 
-    //TODO da togliere perchè tanto c'è il SessionManager
-    @Override
-    public CardCatalog getSeller(String username) {
-        return null;
-    }
-
     @Override
     public CardCatalog getCatalogBySeller(Seller seller) {
 
