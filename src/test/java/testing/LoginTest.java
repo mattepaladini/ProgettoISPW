@@ -33,7 +33,7 @@ class LoginTest {
 
     //variabile di set
     //1 -> DB   2 -> DEMO   3 -> FSYS
-    private static final String PERSISTENCE = "DB";
+    private static final String PERSISTENCE = "FSYS";
 
     @BeforeEach
     void setUp() throws Exception {
