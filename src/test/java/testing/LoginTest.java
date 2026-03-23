@@ -7,6 +7,7 @@ import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.UserType;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDB;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDemo;
@@ -69,9 +70,10 @@ class LoginTest {
     @Test
     @DisplayName("T04 - Login Test: credenziali corrette devono far accedere l'utente")
     void testLoginSuccess() {
+
         // 1. Registriamo un utente fittizio per avere i dati nel DB
         UserBean signupBean = new UserBean("Mario Rossi", " TEST_PASSWORD");
-        //signupBean.setUsertype(UserType.BUYER);
+        signupBean.setUsertype(UserType.BUYER);
         registrationController.completeRegistration(signupBean);
 
         // Assicuriamoci che la sessione sia pulita prima di tentare il login
@@ -98,7 +100,7 @@ class LoginTest {
     void testLoginWrongPassword() {
         // 1. Registriamo l'utente corretto
         UserBean signupBean = new UserBean("Mario Rossi", "TEST_PASSWORD");
-        //signupBean.setUsertype(UserType.BUYER);
+        signupBean.setUsertype(UserType.BUYER);
         registrationController.completeRegistration(signupBean);
 
         User loginUser = new User(TESTUSERNAME,"PasswordSbagliata99", signupBean.getUsertype());
@@ -118,7 +120,7 @@ class LoginTest {
     @DisplayName("T06 - Login Test: utente non registrato deve fallire e lanciare eccezione")
     void testLoginUserNotFound() {
         // Tentiamo il login senza aver mai registrato l'utente
-        User loginUser = new User("fantasma@email.com", "PasswordSegreta1", null);
+        User loginUser = new User("fantasma@email.com", "PasswordSegreta1", UserType.BUYER);
 
         // Verifichiamo che venga lanciata l'eccezione
         assertThrows(OperationFailedException.class, () -> {
