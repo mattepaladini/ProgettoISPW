@@ -97,6 +97,8 @@ public class SearchResultsGraphicController {
                 ErrorHandler.show(new InvalidInputException("Impossibile aggiungere la carta"));
             }
 
+
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             // 3. LA MAGIA: Chiami il tuo ToastManager!

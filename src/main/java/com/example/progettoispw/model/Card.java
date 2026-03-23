@@ -1,12 +1,13 @@
 package com.example.progettoispw.model;
 
 import com.example.progettoispw.pattern.observer.PriceObserver;
+import com.example.progettoispw.pattern.observer.Subject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Card implements Serializable {
+public class Card implements Subject, Serializable {
 
     private String nome;
     private Float prezzoAttuale;
@@ -74,9 +75,7 @@ public class Card implements Serializable {
 
     public Type getTipo(){return this.tipo;}
 
-    //Metodi usati per iscriversi al pattern Observer
-
-    // 1. Metodo per Iscriversi
+    @Override
     public void attach(PriceObserver observer) {
         if (this.observers == null) {
             this.observers = new ArrayList<>();
@@ -86,19 +85,21 @@ public class Card implements Serializable {
         }
     }
 
-    //2. Metodo per Disiscriversi
-    public void detachAll() {
-        if (this.observers != null) {
-            this.observers.clear();
-        }
-    }
-
-    // 4. La Notifica
+    @Override
     public void notifyObservers() {
         if (this.observers == null) return;
 
         for (PriceObserver obs : this.observers) {
             obs.updatePrice(this);
+        }
+
+    }
+
+    @Override
+    public void detachAll() {
+
+        if (this.observers != null) {
+            this.observers.clear();
         }
     }
 

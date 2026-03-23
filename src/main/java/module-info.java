@@ -11,8 +11,6 @@ module com.example.progettoispw {
 
     opens com.example.progettoispw to javafx.fxml;
     exports com.example.progettoispw;
-    //opens com.example.progettoispw.controller to javafx.fxml;
-    //exports com.example.progettoispw.controller;
 
     opens com.example.progettoispw.controller.logic to javafx.fxml;
     exports com.example.progettoispw.controller.logic;
