@@ -16,7 +16,7 @@ public class DBConnection {
     Properties prop= new Properties();
 
     private DBConnection() throws DatabaseOperationException {
-        try(FileInputStream dbInfoFile = new FileInputStream("/src/main/resources/config/db.properties")){
+        try(FileInputStream dbInfoFile = new FileInputStream("src/main/resources/config/db.properties")){
 
             prop.load(dbInfoFile);
             String connectionURL = prop.getProperty("CONNECTION_URL");
