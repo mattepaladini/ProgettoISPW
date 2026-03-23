@@ -5,49 +5,40 @@ import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.DatabaseOperationException;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConnection {
 
-    private static DBConnection instance;
+    private static DBConnection instance=null;
     private Connection conn;
 
-    //Costruttore privato
-    private DBConnection(){
-        this.conn = null;
-    }
+    Properties prop= new Properties();
 
-    //restituisce l'istanza unica in modo sicuro, garantisce thread-safe
-    private static class InstanceHolder{
-        private static final DBConnection instance = new DBConnection();
+    private DBConnection() throws DatabaseOperationException {
+        try(FileInputStream dbInfoFile = new FileInputStream("/src/main/resources/config/db.properties")){
+
+            prop.load(dbInfoFile);
+            String connectionURL = prop.getProperty("CONNECTION_URL");
+            String user = prop.getProperty("USER");
+            String password = prop.getProperty("PASSWORD");
+
+            conn = DriverManager.getConnection(connectionURL,user,password);
+
+        } catch (Exception e) {
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+        }
     }
 
     public static DBConnection getInstance(){
-        return InstanceHolder.instance;
+        if(instance == null){
+            instance = new DBConnection();
+        }
+        return instance;
     }
 
     public  Connection getConnection() {
-
-        if(conn==null){
-            try(InputStream input = new FileInputStream("src/main/resources/config/db.properties")){
-                Properties prop = new Properties();
-                prop.load(input);
-                String dbUrl = prop.getProperty("CONNECTION_URL");
-                String user = prop.getProperty("USER");
-                String pass = prop.getProperty("PASSWORD");
-
-                conn = DriverManager.getConnection(dbUrl, user, pass);
-
-            }catch (IOException|SQLException e){
-                ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
-            }
-        }
-
         return conn;
     }
 }
