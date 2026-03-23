@@ -76,6 +76,13 @@ class LoginTest {
         signupBean.setUsertype(UserType.BUYER);
         registrationController.completeRegistration(signupBean);
 
+        try {
+            resetSessionManager(); // Usa il metodo helper che svuota l'istanza
+            // Oppure se hai un metodo nel manager: SessionManager.getInstance().logout();
+        } catch (Exception e) {
+            System.err.println("Errore nel reset: " + e.getMessage());
+        }
+
         // Assicuriamoci che la sessione sia pulita prima di tentare il login
         assertNull(SessionManager.getInstance().getLoggedUser(), "La sessione deve essere vuota prima del login");
 
