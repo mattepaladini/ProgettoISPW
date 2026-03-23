@@ -24,6 +24,12 @@ public class UserDAODemo implements UserDAO {
     }
 
     @Override
+    public void deleteUser(User user) {
+        users.remove(user);
+        log.log(Level.INFO, "Utente rimosso con successo");
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {

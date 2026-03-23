@@ -43,6 +43,13 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
     }
 
     @Override
+    public void deleteUser(User user) {
+        loadAllUsers();
+        deleteUserData(user.getUsername());
+        super.deleteUser(user);
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         loadAllUsers();
 
@@ -146,6 +153,59 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
             log.log(Level.INFO, "DEBUG: Scritta riga TXT per {0}" , user.getUsername());
         } catch (IOException e) {
             ErrorHandler.show(new FSysOperationException(e.getMessage()));
+        }
+    }
+
+    public void deleteUserData(String username) {
+        File inputFile = getStorageFile();
+        // Creiamo un file temporaneo affianco a quello originale
+        File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
+
+        boolean isDeleted = false;
+
+        // Apriamo ENTRAMBI i file (uno legge, l'altro scrive da zero)
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile, false))) { // false = OVERWRITE MODE
+
+            String currentLine;
+
+            // Leggiamo riga per riga
+            while ((currentLine = br.readLine()) != null) {
+
+                // Controlliamo se la riga inizia con l'username cercato + il separatore
+                // (evita bug se cerchi "Mario" e cancella anche "MarioRossi")
+                if (currentLine.startsWith(username + SEPARATOR)) {
+                    isDeleted = true;
+                    continue; // SALTIAMO LA SCRITTURA! L'utente svanisce.
+                }
+
+                // Se non è l'utente da cancellare, ricopiamo la riga nel nuovo file
+                bw.write(currentLine);
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            ErrorHandler.show(new FSysOperationException("Errore in lettura/scrittura: " + e.getMessage()));
+            return; // Interrompiamo tutto in caso di errore
+        }
+
+        // FASE FINALE: Lo scambio dei file
+        if (isDeleted) {
+            // Eliminiamo il vecchio file con l'utente indesiderato
+            if (!inputFile.delete()) {
+                ErrorHandler.show(new FSysOperationException("Impossibile eliminare il file originale."));
+                return;
+            }
+            // Rinominiamo il temp file per farlo diventare il nuovo file ufficiale
+            if (!tempFile.renameTo(inputFile)) {
+                ErrorHandler.show(new FSysOperationException("Impossibile rinominare il file temporaneo."));
+            } else {
+                log.log(Level.INFO, "DEBUG: Utente {0} cancellato con successo dal TXT", username);
+            }
+        } else {
+            // Se non l'abbiamo trovato, non serve sostituire i file, eliminiamo solo il temp
+            tempFile.delete();
+            log.log(Level.WARNING, "DEBUG: Utente {0} non trovato nel file TXT", username);
         }
     }
 }

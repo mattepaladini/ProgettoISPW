@@ -87,7 +87,7 @@ public class HelloApplication extends Application {
         System.out.println(" SISTEMA DI CONFIGURAZIONE AVVIO");
         System.out.println("-".repeat(105));
         System.out.println("Scegli la modalità di persistenza dei dati:");
-        System.out.println("1. Database (MySQL/JDBC)");
+        System.out.println("1. DB (MySQL/JDBC)");
         System.out.println("2. DEMO (Salvataggio temporaneo)");
         System.out.println("3. FSYS (Salvataggio su file, solo per Venditori)");
         System.out.println("-".repeat(105));

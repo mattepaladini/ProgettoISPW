@@ -36,6 +36,14 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
     }
 
     @Override
+    public void deleteUser(User user) {
+        loadAllUsers();
+        deleteOnDB(user);
+        super.deleteUser(user);
+
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         loadAllUsers();
         return super.getUserByUsername(username);
@@ -105,6 +113,25 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
         }
 
+    }
 
+    public void deleteOnDB(User user) {
+        String oldUsername = user.getUsername();
+        String oldPassword = user.getPassword();
+        String oldTipo = String.valueOf(user.getTipoUtente());
+
+        String query ="{CALL DeleteUser (?, ?, ?)}";
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try(CallableStatement stmt = (CallableStatement) conn.prepareCall(query)){
+
+            stmt.setString(1, oldUsername);
+            stmt.setString(2, oldPassword);
+            stmt.setString(3, oldTipo);
+            stmt.execute();
+
+        }catch (SQLException e) {
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+        }
     }
 }

@@ -8,6 +8,8 @@ public interface UserDAO {
 
     List<User> getAllUsers();
     void addUser(User user);
+    void deleteUser(User user);
     User getUserByUsername(String username);
     boolean logWithPSW(String username, String password);
+
 }
