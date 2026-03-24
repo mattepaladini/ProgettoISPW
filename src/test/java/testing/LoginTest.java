@@ -106,9 +106,16 @@ class LoginTest {
     @DisplayName("T05 - Login Test: password errata deve fallire e lanciare eccezione")
     void testLoginWrongPassword() {
         // 1. Registriamo l'utente corretto
-        UserBean signupBean = new UserBean("Mario Rossi", "TEST_PASSWORD");
+        UserBean signupBean = new UserBean(TESTUSERNAME, "TEST_PASSWORD");
         signupBean.setUsertype(UserType.BUYER);
         registrationController.completeRegistration(signupBean);
+
+        try {
+            resetSessionManager(); // Usa il metodo helper che svuota l'istanza
+            // Oppure se hai un metodo nel manager: SessionManager.getInstance().logout();
+        } catch (Exception e) {
+            System.err.println("Errore nel reset: " + e.getMessage());
+        }
 
         User loginUser = new User(TESTUSERNAME,"PasswordSbagliata99", signupBean.getUsertype());
 
@@ -127,12 +134,13 @@ class LoginTest {
     @DisplayName("T06 - Login Test: utente non registrato deve fallire e lanciare eccezione")
     void testLoginUserNotFound() {
         // Tentiamo il login senza aver mai registrato l'utente
-        User loginUser = new User("fantasma@email.com", "PasswordSegreta1", UserType.BUYER);
+        UserBean loginUser = new UserBean("asdaSDasd", "PasswordSegreta1");
+        loginUser.setUsertype(UserType.BUYER);
 
         // Verifichiamo che venga lanciata l'eccezione
         assertThrows(OperationFailedException.class, () -> {
-            loginController.authUser(loginUser);
-        }, "Doveva essere lanciata un'eccezione perché l'email non esiste nel DB");
+            loginController.checkUserExist(loginUser);
+        }, "Doveva essere lanciata un'eccezione");
     }
 
     /*                  */

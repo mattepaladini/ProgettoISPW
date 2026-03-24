@@ -2,7 +2,6 @@ package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
@@ -20,7 +19,7 @@ public class AuthController {
             if(usertemp!=null){
                 authUser(usertemp);
             } else {
-                ErrorHandler.show(new OperationFailedException("Utente non esistente"));
+                throw new OperationFailedException("Username non trovato");
             }
         }
     }
@@ -29,6 +28,8 @@ public class AuthController {
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         if(userDAO.logWithPSW(user.getUsername(), user.getPassword())){
             SessionManager.getInstance().setLoggedUser(user);
+        }else {
+            throw new OperationFailedException("Psw errata");
         }
 
     }
