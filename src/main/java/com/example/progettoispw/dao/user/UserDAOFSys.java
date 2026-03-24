@@ -204,7 +204,10 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
             }
         } else {
             // Se non l'abbiamo trovato, non serve sostituire i file, eliminiamo solo il temp
-            tempFile.delete();
+
+            if(!tempFile.delete()){
+                log.log(Level.SEVERE, "Impossibile eliminare il file temporaneo.");
+            }
             log.log(Level.WARNING, "DEBUG: Utente {0} non trovato nel file TXT", username);
         }
     }
