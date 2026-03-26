@@ -36,7 +36,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
                 }
 
             }
-            log.log(Level.INFO, "Carta " +card.getNome() + " rimossa con successo");
+            log.log(Level.INFO, "Carta {0}",card.getNome() + " rimossa con successo");
     }
 
     @Override

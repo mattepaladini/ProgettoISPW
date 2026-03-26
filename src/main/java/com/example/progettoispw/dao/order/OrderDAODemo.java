@@ -48,7 +48,7 @@ public class OrderDAODemo implements OrderDAO {
         for(Order tempOrder : getAllOrders()){
             if(tempOrder.getId() == order.getId()){
                 orders.remove(tempOrder);
-                log.log(Level.INFO, "Ordine "+order.getId()+" rimosso.");
+                log.log(Level.INFO, "Ordine {0}",order.getId()+" rimosso.");
                 break;
             }
         }

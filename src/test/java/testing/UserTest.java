@@ -37,8 +37,7 @@ class LoginTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        // 1. Resetta l'utente loggato in memoria
-        resetSessionManager();
+        SessionManager.getInstance().logout();  //resetSessionManager
 
         // 2. Forza la Factory a usare la persistenza scelta
         forceFactoryMode();
@@ -77,8 +76,7 @@ class LoginTest {
         registrationController.completeRegistration(signupBean);
 
         try {
-            resetSessionManager(); // Usa il metodo helper che svuota l'istanza
-            // Oppure se hai un metodo nel manager: SessionManager.getInstance().logout();
+            SessionManager.getInstance().logout();
         } catch (Exception e) {
             System.err.println("Errore nel reset: " + e.getMessage());
         }
