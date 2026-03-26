@@ -3,9 +3,7 @@ package testing;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.controller.logic.BuyController;
-import com.example.progettoispw.model.Card;
-import com.example.progettoispw.model.Order;
-import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDB;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDemo;
@@ -25,7 +23,15 @@ public class OrderTest {
     private BuyController buyController;
     private SessionManager sessionManager;
 
-    private static final Card TEST_CARD_ORDER = new Card("Drago nero occhi rossi test", 45f);
+    private static final Card TEST_CARD_ORDER = new Card(
+            "Dragp Bianco Occhi Blu test",
+            100f,
+            Gradazione.PERFETTO,
+            "testseller",
+            1,
+            Attribute.LUCE,
+            Type.MOSTRO
+    );
     private static final CollectableCardBean TEST_CARD_ORDERBEAN = new CollectableCardBean();
     private static final Order TEST_ORDER = new Order(
             0001,
