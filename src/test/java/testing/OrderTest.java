@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class OrderTest {
 
     private static final String PERSISTENCE_MODE = "FSYS"; // Usa DB o FSYS
@@ -64,8 +66,10 @@ public class OrderTest {
 
         OrderBean orderBean = new OrderBean();
         orderBean.setOrderId(TEST_ORDER.getId());
+
         TEST_CARD_ORDERBEAN.setNomeCarta(TEST_CARD_ORDER.getNome());
         TEST_CARD_ORDERBEAN.setPrezzoCorrente(TEST_CARD_ORDER.getPrezzoAttuale());
+
         orderBean.setCards(List.of(TEST_CARD_ORDERBEAN));
         orderBean.setTotale(TEST_ORDER.getTotale());
         orderBean.setShippingAddress(TEST_ORDER.getIndirizzoSpedizione());
@@ -80,7 +84,26 @@ public class OrderTest {
 
             buyController.compileOrder(orderBean ,loggedUser);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            fail("L'operazione compileOrder non doveva lanciare eccezioni: " + e.getMessage());
+        }
+
+        try{
+            List<Order> ordiniUtente = DAOFactory.getInstance()
+                    .getOrderDAO()
+                    .getOrdersByUser(loggedUser);
+
+            assertNotNull(ordiniUtente, "La lista degli ordini non deve essere null");
+
+            // Asserzione 2: La lista non deve essere vuota
+            assertFalse(ordiniUtente.isEmpty(), "La lista degli ordini non può essere vuota dopo il salvataggio");
+
+            boolean ordineTrovato = ordiniUtente.stream()
+                    .anyMatch(o -> o.getId()==(TEST_ORDER.getId())); // Usa getOrderId() se si chiama così
+
+            assertTrue(ordineTrovato, "L'ordine appena salvato (" + TEST_ORDER.getId() + ") non è stato trovato nel sistema!");
+
+        } catch (Exception e) {
+            fail("L'operazione compileOrder non doveva lanciare eccezioni: " + e.getMessage());
         }
 
     }

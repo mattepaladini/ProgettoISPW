@@ -106,7 +106,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
                 String indirizzo = parts[3];
                 float totale = Float.parseFloat(parts[4]);
 
-                Order order = new Order(id, null,  indirizzo, compratore.getUsername(),totale,data);
+                Order order = new Order(id, new ArrayList<>(),  indirizzo, compratore.getUsername(),totale,data);
 
                 // Ricostruiamo le carte se l'ordine non è vuoto
                 if (parts.length > 5 && !parts[5].trim().isEmpty()) {
@@ -125,7 +125,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             isLoaded = true; // Segniamo che il caricamento è completato
 
         } catch (IOException | NumberFormatException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw new FSysOperationException(e.getMessage());
         }
     }
 
