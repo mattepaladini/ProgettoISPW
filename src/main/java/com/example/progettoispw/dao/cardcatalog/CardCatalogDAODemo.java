@@ -30,11 +30,13 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     public void removeCard(Card card, String sellerName) {
 
             for(CardCatalog catalog : getAllCatalogs()) {
-                if(catalog.getSeller().getSellerName().equals(sellerName)) {
-                    catalog.removeCollectableCard(card);
+                if(catalog.getSeller().getSellerName().equals(sellerName)){
+                    catalog.getCards().removeIf(c -> c.getNome().equals(card.getNome()));
+                    break;
                 }
+
             }
-            log.log(Level.INFO, "Carta rimossa con successo");
+            log.log(Level.INFO, "Carta " +card.getNome() + " rimossa con successo");
     }
 
     @Override

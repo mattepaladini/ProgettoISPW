@@ -3,7 +3,6 @@ package com.example.progettoispw.controller.logic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
@@ -11,12 +10,8 @@ import com.example.progettoispw.session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ManageCatalogController {
-
-    Logger logger = Logger.getLogger(ManageCatalogController.class.getName());
 
     public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
         // 1. Ottengo il DAO
@@ -59,8 +54,7 @@ public class ManageCatalogController {
             cardBean.getPrezzoCorrente()>0.0f){
 
             if(dao.findCardBySeller(cardBean.getNomeCarta(), cardBean.getVenditore())){
-                logger.log(Level.WARNING, "Attenzione carta già presente in questo catalogo!");
-                return;     //forzo l'uscita
+                throw new OperationFailedException("Attenzione carta presente in questo catalogo!");
             }
 
             Gradazione gradazionetemp = Gradazione.fromString(cardBean.getGradazione().toString());
@@ -76,7 +70,7 @@ public class ManageCatalogController {
                 dao.addCard(newCard, seller.getUsername());
             }
         } else {
-            ErrorHandler.show(new OperationFailedException("Dati inseriti sbagliati o mancanti"));
+            throw new OperationFailedException("Dati inseriti sbagliati o mancanti");
         }
 
     }
@@ -93,5 +87,21 @@ public class ManageCatalogController {
         }
     }
 
+    public void removeCardFromCatalog(CollectableCardBean selectedCardBean, User seller){
+        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
+
+        if(!selectedCardBean.getNomeCarta().isBlank()){
+
+            Card selectedCard = new Card(selectedCardBean.getNomeCarta(),
+                    selectedCardBean.getPrezzoCorrente(),
+                    selectedCardBean.getGradazione(),
+                    selectedCardBean.getVenditore(),
+                    selectedCardBean.getLivello(),
+                    selectedCardBean.getAttributo(),
+                    selectedCardBean.getTipo());
+
+            dao.removeCard(selectedCard, seller.getUsername());
+        }
+    }
 
 }

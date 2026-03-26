@@ -43,9 +43,8 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
     public void removeCard(Card card, String sellerName) {
 
         loadCatalogs();
-
         super.removeCard(card, sellerName);
-        appendNewCardToFile(card, sellerName);
+        updateSingleLineCard();
     }
 
     @Override

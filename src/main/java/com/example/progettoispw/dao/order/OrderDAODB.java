@@ -60,6 +60,25 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
     }
 
+    @Override
+    public void deleteOrder(Order order) {
+
+        loadOrders();
+
+        String queryDeleteOrder = "{CALL DeleteOrder(?)}";
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try(CallableStatement cstmt = conn.prepareCall(queryDeleteOrder)){
+            cstmt.setInt(1, order.getId());
+            cstmt.execute();
+
+        }catch (SQLException e){
+            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+        }
+
+        super.deleteOrder(order);
+    }
+
     public void saveOrderCard(Order order){
         String querySaveCards = "{CALL SaveOrderCard(?, ?, ?)}";
         List<Card> shoppedCards = order.getCarteOrdinate();

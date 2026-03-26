@@ -43,6 +43,18 @@ public class OrderDAODemo implements OrderDAO {
         log.log(Level.INFO, "Ordine salvato.");
     }
 
+    @Override
+    public void deleteOrder(Order order) {
+        for(Order tempOrder : getAllOrders()){
+            if(tempOrder.getId() == order.getId()){
+                orders.remove(tempOrder);
+                log.log(Level.INFO, "Ordine "+order.getId()+" rimosso.");
+                break;
+            }
+        }
+    }
+
+
     public List<Order> getAllOrders() {
         // Restituiamo una copia della lista per evitare modifiche accidentali da fuori
         return new ArrayList<>(this.orders);
