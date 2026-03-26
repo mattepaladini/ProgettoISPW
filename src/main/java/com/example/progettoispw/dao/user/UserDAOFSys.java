@@ -191,11 +191,21 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
         // FASE FINALE: Lo scambio dei file
         if (isDeleted) {
-            // Eliminiamo il vecchio file con l'utente indesiderato
+            /*// Eliminiamo il vecchio file con l'utente indesiderato
             if (!inputFile.delete()) {
                 ErrorHandler.show(new FSysOperationException("Impossibile eliminare il file originale."));
                 return;
             }
+             */
+
+            try{
+                java.nio.file.Files.delete(inputFile.toPath());
+            }catch (java.nio.file.NoSuchFileException e){
+                throw new FSysOperationException("Il file originale non esiste "+e.getMessage());
+            } catch (java.io.IOException e) {
+                throw new FSysOperationException("Impossibile eliminare il file originale: " + e.getMessage());
+            }
+
             // Rinominiamo il temp file per farlo diventare il nuovo file ufficiale
             if (!tempFile.renameTo(inputFile)) {
                 ErrorHandler.show(new FSysOperationException("Impossibile rinominare il file temporaneo."));
