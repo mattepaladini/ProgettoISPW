@@ -56,7 +56,7 @@ class LoginTest {
         deleteTestUser();
 
         try {
-            resetSessionManager();
+            SessionManager.getInstance().logout();
         } catch (Exception e) {
             System.err.println("Errore durante il reset del SessionManager: " + e.getMessage());
         }
@@ -109,8 +109,7 @@ class LoginTest {
         registrationController.completeRegistration(signupBean);
 
         try {
-            resetSessionManager(); // Usa il metodo helper che svuota l'istanza
-            // Oppure se hai un metodo nel manager: SessionManager.getInstance().logout();
+            SessionManager.getInstance().logout();
         } catch (Exception e) {
             System.err.println("Errore nel reset: " + e.getMessage());
         }

@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrderTest {
+class OrderTest {
 
     private static final String PERSISTENCE_MODE = "FSYS"; // Usa DB o FSYS
     private BuyController buyController;
@@ -60,7 +60,7 @@ public class OrderTest {
 
     @Test
     @DisplayName("T10 - Save Order")
-    public void testSaveOrder() {
+     void testSaveOrder() {
         
         sessionManager.getShoppingCart().add(TEST_CARD_ORDER);
 
