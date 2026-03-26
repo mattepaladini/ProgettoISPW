@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class CardCatalogTest {
+class CardCatalogTest {
 
     private ManageCatalogController catalogController;
     private static final Card TEST_CARD = new Card(
