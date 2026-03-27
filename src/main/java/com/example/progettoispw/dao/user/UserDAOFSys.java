@@ -132,80 +132,64 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
     }
 
 
-    //HELPER PER SALVARE LE MODIFICHE APPORTATE
     public void saveData(User user) {
         File file = getStorageFile();
-
-        // true nel costruttore = APPEND MODE (Aggiunge in fondo senza cancellare)
+        // true = APPEND MODE
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
 
             StringBuilder sb = new StringBuilder();
             sb.append(user.getUsername()).append(SEPARATOR);
             sb.append(user.getPassword()).append(SEPARATOR);
-
-            // Gestione Ruolo
             if (user instanceof Seller) sb.append("SELLER");
             else sb.append("BUYER");
 
             bw.write(sb.toString());
-            bw.newLine(); // A capo per il prossimo utente
+            bw.newLine();
 
-            log.log(Level.INFO, "DEBUG: Scritta riga TXT per {0}" , user.getUsername());
+        } catch (IOException e) {
+            throw new FSysOperationException("Impossibile registrare l'utente: " + e.getMessage());
+        }
+    }
+
+    //HELPER PER SALVARE LE MODIFICHE APPORTATE
+    public void saveData(List<User> users) {
+        File file = getStorageFile();
+
+        // true nel costruttore = APPEND MODE (Aggiunge in fondo senza cancellare)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+
+            for (User user : users) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(user.getUsername()).append(SEPARATOR);
+                sb.append(user.getPassword()).append(SEPARATOR);
+
+                // Gestione Ruolo
+                if (users instanceof Seller) sb.append("SELLER");
+                else sb.append("BUYER");
+
+                bw.write(sb.toString());
+                bw.newLine(); // A capo per il prossimo utente
+            }
+
+            log.log(Level.INFO, "DEBUG: Salvati con successo {0} utenti nel file TXT", users.size());
         } catch (IOException e) {
             ErrorHandler.show(new FSysOperationException(e.getMessage()));
         }
     }
 
     public void deleteUserData(String username) {
-        File inputFile = getStorageFile();
-        // Creiamo un file temporaneo affianco a quello originale
-        File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
+        List<User> users = getAllUsers();
 
-        boolean isDeleted = false;
+        // 2. removeIf cerca l'utente e lo elimina dalla lista.
+        // Restituisce 'true' se ha trovato ed eliminato almeno un elemento.
+        boolean isDeleted = users.removeIf(user -> user.getUsername().equals(username));
 
-        // Apriamo ENTRAMBI i file (uno legge, l'altro scrive da zero)
-        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile, false))) { // false = OVERWRITE MODE
-
-            String currentLine;
-
-            // Leggiamo riga per riga
-            while ((currentLine = br.readLine()) != null) {
-
-                // Controlliamo se la riga inizia con l'username cercato + il separatore
-                // (evita bug se cerchi "Mario" e cancella anche "MarioRossi")
-                if (currentLine.startsWith(username + SEPARATOR)) {
-                    isDeleted = true;
-                    continue; // SALTIAMO LA SCRITTURA! L'utente svanisce.
-                }
-
-                // Se non è l'utente da cancellare, ricopiamo la riga nel nuovo file
-                bw.write(currentLine);
-                bw.newLine();
-            }
-
-        } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException("Errore in lettura/scrittura: " + e.getMessage()));
-            return; // Interrompiamo tutto in caso di errore
-        }
-
-        try {
-            // FASE FINALE: Lo scambio dei file
-            if (isDeleted) {
-
-                java.nio.file.Files.deleteIfExists(inputFile.toPath());
-
-                java.nio.file.Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
-                log.log(Level.INFO, "DEBUG: Utente {0} cancellato con successo dal TXT", username);
-            } else {
-
-                java.nio.file.Files.deleteIfExists(tempFile.toPath());
-
-                log.log(Level.WARNING, "DEBUG: Utente {0} non trovato nel file TXT", username);
-            }
-        }catch (IOException e) {
-            throw new FSysOperationException("Impossibile eliminare il file: " + e.getMessage());
+        // 3. Se la lista è stata modificata (quindi l'utente c'era), sovrascriviamo il file
+        if (isDeleted) {
+            saveData(users);
+            log.log(Level.INFO, "DEBUG: Utente {0} cancellato con successo", username);
+        } else {
+            log.log(Level.WARNING, "DEBUG: Utente {0} non trovato", username);
         }
     }
 }
