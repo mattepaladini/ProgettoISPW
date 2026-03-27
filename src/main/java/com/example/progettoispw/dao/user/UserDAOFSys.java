@@ -18,6 +18,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
     private static final String USER_FILE = "user.txt";
 
     private static final String SEPARATOR = ";";
+    public static final String SELLER = "SELLER";
 
     private boolean isLoaded = false;
 
@@ -107,7 +108,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
         // IL TOCCO DA MAESTRO: L'operatore ternario (?)
         // Sostituisce l'intero blocco if/else in una sola riga leggibile
-        UserType type = role.equals("SELLER") ? UserType.SELLER : UserType.BUYER;
+        UserType type = role.equals(SELLER) ? UserType.SELLER : UserType.BUYER;
 
         // Creiamo e aggiungiamo l'utente
         User u = new User(username, password, type);
@@ -140,7 +141,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
             StringBuilder sb = new StringBuilder();
             sb.append(user.getUsername()).append(SEPARATOR);
             sb.append(user.getPassword()).append(SEPARATOR);
-            if (user instanceof Seller) sb.append("SELLER");
+            if (user instanceof Seller) sb.append(SELLER);
             else sb.append("BUYER");
 
             bw.write(sb.toString());
@@ -164,7 +165,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 sb.append(user.getPassword()).append(SEPARATOR);
 
                 // Gestione Ruolo
-                if (users instanceof Seller) sb.append("SELLER");
+                if (users instanceof Seller) sb.append(SELLER);
                 else sb.append("BUYER");
 
                 bw.write(sb.toString());

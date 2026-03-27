@@ -144,12 +144,6 @@ class LoginTest {
     //  HELPER //
     /*                  */
 
-    private void resetSessionManager() throws NoSuchFieldException, IllegalAccessException {
-        Field instance = SessionManager.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
     private void forceFactoryMode() throws Exception {
         // Svuota l'istanza Singleton della FactoryDAO
         Field instanceField = DAOFactory.class.getDeclaredField("instance");
