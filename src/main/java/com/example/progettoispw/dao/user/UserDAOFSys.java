@@ -189,35 +189,23 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
             return; // Interrompiamo tutto in caso di errore
         }
 
-        // FASE FINALE: Lo scambio dei file
-        if (isDeleted) {
+        try {
+            // FASE FINALE: Lo scambio dei file
+            if (isDeleted) {
 
-            try{
-                java.nio.file.Files.delete(inputFile.toPath());
-            }catch (java.nio.file.NoSuchFileException e){
-                throw new FSysOperationException("Il file originale non esiste "+e.getMessage());
-            } catch (java.io.IOException e) {
-                throw new FSysOperationException("Impossibile eliminare il file originale: " + e.getMessage());
-            }
+                java.nio.file.Files.deleteIfExists(inputFile.toPath());
 
-            // Rinominiamo il temp file per farlo diventare il nuovo file ufficiale
-            if (!tempFile.renameTo(inputFile)) {
-                ErrorHandler.show(new FSysOperationException("Impossibile rinominare il file temporaneo."));
-            } else {
+                java.nio.file.Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
                 log.log(Level.INFO, "DEBUG: Utente {0} cancellato con successo dal TXT", username);
-            }
-        } else {
-            // Se non l'abbiamo trovato, non serve sostituire i file, eliminiamo solo il temp
+            } else {
 
-            try{
-                java.nio.file.Files.delete(tempFile.toPath());
-            }catch (java.nio.file.NoSuchFileException e){
-                throw new FSysOperationException("Il file originale non esiste "+e.getMessage());
-            } catch (java.io.IOException e) {
-                throw new FSysOperationException("Impossibile eliminare il file originale: " + e.getMessage());
-            }
+                java.nio.file.Files.deleteIfExists(tempFile.toPath());
 
-            log.log(Level.WARNING, "DEBUG: Utente {0} non trovato nel file TXT", username);
+                log.log(Level.WARNING, "DEBUG: Utente {0} non trovato nel file TXT", username);
+            }
+        }catch (IOException e) {
+            throw new FSysOperationException("Impossibile eliminare il file: " + e.getMessage());
         }
     }
 }
