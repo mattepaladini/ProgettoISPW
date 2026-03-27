@@ -2,6 +2,7 @@ package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
+import com.example.progettoispw.database.QueryManager;
 import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.model.*;
@@ -35,8 +36,8 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         loadCatalogs();
 
         //salvo sul db
+        String query = QueryManager.getQuery("cardcatalog.addCatalog");
 
-        String query = "INSERT INTO CardCatalog (sellerName) VALUES (?)";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
