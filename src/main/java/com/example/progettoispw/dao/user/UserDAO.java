@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface UserDAO {
 
-    List<User> getAllUsers();
-    void addUser(User user);
-    void deleteUser(User user);
-    User getUserByUsername(String username);
-    boolean logWithPSW(String username, String password);
+    List<User> getAllUsers();       //restituisce tutti gli utenti salvati
+    void addUser(User user);        //aggiunge l'utente user
+    void deleteUser(User user);     //rimuove l'utente user
+    User getUserByUsername(String username);        //restituisce l'utente memorizzato come username
+    boolean logWithPSW(String username, String password);       //restituisce vero se la coppia (username, password) è stata già registrata
 
 }

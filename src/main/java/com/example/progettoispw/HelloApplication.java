@@ -95,7 +95,6 @@ public class HelloApplication extends Application {
         while (true) {
             System.out.print("Inserisci la tua scelta (1 o 2 o 3): ");
 
-            // EARLY CONTINUE: Gestiamo subito l'errore ed evitiamo l'else!
             if (!scanner.hasNextInt()) {
                 logger.log(Level.SEVERE, "Inserire una scelta valida (numero intero)");
                 scanner.next(); // Consuma l'input errato
@@ -112,7 +111,7 @@ public class HelloApplication extends Application {
                         logger.log(Level.SEVERE, "Impossibile trovare il database");
                     }
                     DAOFactory.setPersistenceType(PersistenceType.JDBC);
-                    return; // Esce dal metodo e interrompe il loop (EARLY RETURN)
+                    return; // Esce dal metodo e interrompe il loop
 
                 case 2:
                     System.out.println(">> Modalità selezionata: DEMO");

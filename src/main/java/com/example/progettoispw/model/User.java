@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    //scelta di progetto ---> ogni user viene identificato dalla coppia (username, password)
+
     private String username;
     private String password;
     private UserType tipoUtente;

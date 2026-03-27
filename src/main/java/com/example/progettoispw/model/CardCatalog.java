@@ -6,6 +6,8 @@ import java.util.List;
 
 public class CardCatalog implements Serializable {
 
+    //scelta di progetto ---> ogni catalogo viene identificato tramite il suo seller
+
     private List<Card> cards;
     private Seller seller;
 
@@ -18,11 +20,6 @@ public class CardCatalog implements Serializable {
 
     public void addCollectableCard(Card card) {
         this.cards.add(card);
-    }
-
-
-    public void removeCollectableCard(Card card) {
-            this.cards.remove(card);
     }
 
     public Seller getSeller(){

@@ -97,7 +97,7 @@ public class CartGraphicController implements CartObserver {
         cartTable.setItems(carteObservable);
 
         // Aggiorniamo il totale testuale
-        float totale = appController.calcolaTotaleCarrello();
+        float totale = appController.calculateCartTotal();
         lblTotale.setText(String.format("%.2f €", totale));
 
         // Se il carrello è vuoto, disabilitiamo il bottone Checkout

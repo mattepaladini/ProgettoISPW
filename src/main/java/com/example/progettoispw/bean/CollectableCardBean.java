@@ -15,8 +15,6 @@ public class CollectableCardBean {
     private Type tipo;
     private String venditore;
 
-    //la validazione dei dati inseriti la deleghiamo al controller logico
-
     //costruttore
     public CollectableCardBean() {
         this.id=0;
@@ -27,7 +25,6 @@ public class CollectableCardBean {
         this.prezzoCorrente = prezzoCorrente;
     }
 
-    //valuta se serve veramente, CERTO CHE SERVE
     public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, Gradazione gradazione){
         this.id=id;
         this.nomeCarta=nomeCarta;
@@ -71,28 +68,12 @@ public class CollectableCardBean {
         }
     }
 
-    public Type getTipo() {
-        return tipo;
-    }
+    public Type getTipo() {return tipo;}
+    public void setTipo(Type tipo) {this.tipo=tipo;}
 
-    public void setTipo(Type tipo) {
-
-        if(tipo != null) {
-            this.tipo = tipo;
-        }
-
-    }
-
-    public String getVenditore() {
-        return venditore;
-    }
-
-    public void setVenditore(String venditore) {
-        this.venditore = venditore;
-    }
+    public String getVenditore() {return venditore;}
+    public void setVenditore(String venditore) {this.venditore=venditore;}
 
     public int getId() {return id;}
-
     public void setId(int id) {this.id = id;}
-
 }

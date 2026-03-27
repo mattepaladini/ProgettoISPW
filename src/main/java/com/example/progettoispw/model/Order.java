@@ -4,6 +4,9 @@ import java.util.List;
 
 public class Order {
 
+    //scelta di progetto ---> ogni order viene identificato dal suo ID generato in maniera automatica per una facile
+    //                        gestione a livello DB
+
     private int id;
     private List<Card> carteOrdinate;
     private String indirizzoSpedizione;
@@ -49,6 +52,6 @@ public class Order {
     public int getId() {
         return id;
     }
-    //SETTER utile in quanto l'id viene gestito in AUTO_INCREMENT dal DB
+
     public void setId(int id) {this.id = id;}
 }

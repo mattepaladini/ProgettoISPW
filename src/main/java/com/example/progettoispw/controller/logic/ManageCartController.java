@@ -36,10 +36,9 @@ public class ManageCartController implements PriceObserver {
 
     // Metodo chiamato dalla UI quando l'utente apre la pagina "Il Mio Carrello"
     public List<CollectableCardBean> getCardsFromCart() {
-        // 1. Recuperiamo le Entità dalla RAM
+        //Recupero le entità dalla RAM
         List<Card> entitaNelCarrello = SessionManager.getInstance().getShoppingCart();
 
-        // 2. MAPPING INVERSO: Da Entità a Bean per la UI
         List<CollectableCardBean> beansDaRestituire = new ArrayList<>();
 
         for (Card entita : entitaNelCarrello) {
@@ -61,7 +60,7 @@ public class ManageCartController implements PriceObserver {
 
     public boolean removeFromCart(CollectableCardBean cartaBean) {
         try {
-            // Creiamo un'entità "fantoccio" solo con i dati necessari per riconoscerla
+
             Card cartaDaRimuovere = new Card(cartaBean.getNomeCarta(), cartaBean.getPrezzoCorrente(),cartaBean.getGradazione(), cartaBean.getVenditore(), cartaBean.getLivello(), cartaBean.getAttributo(),cartaBean.getTipo());
 
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
@@ -73,8 +72,7 @@ public class ManageCartController implements PriceObserver {
 
     }
 
-    // Metodo bonus per calcolare il totale!
-    public float calcolaTotaleCarrello() {
+    public float calculateCartTotal() {
         float totale = 0.0f;
         for (Card c : SessionManager.getInstance().getShoppingCart()) {
             totale += c.getPrezzoAttuale();

@@ -11,7 +11,7 @@ import com.example.progettoispw.session.SessionManager;
 public class AuthController {
 
     public void checkUserExist(UserBean user) {
-            //CHIAMA DAO
+
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
         if(!user.getUsername().isBlank() && !user.getPassword().isBlank()) {

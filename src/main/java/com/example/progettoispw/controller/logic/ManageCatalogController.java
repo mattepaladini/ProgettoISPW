@@ -14,7 +14,7 @@ import java.util.List;
 public class ManageCatalogController {
 
     public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
-        // 1. Ottengo il DAO
+
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
         Seller sellertemp = new Seller(sellerBean.getUsername(), sellerBean.getPassword());

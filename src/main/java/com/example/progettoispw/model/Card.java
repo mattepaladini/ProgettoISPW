@@ -9,6 +9,9 @@ import java.util.List;
 
 public class Card implements Subject, Serializable {
 
+    //scelta di progetto ---> ogni carta viene identificata in un catalogo con il suo nome in quanto si assume che
+    //                        un venditore non possa avere in vendita altre carte con quel nome
+
     private String nome;
     private Float prezzoAttuale;
     private Gradazione gradazione;
@@ -42,11 +45,7 @@ public class Card implements Subject, Serializable {
         this.venditore = venditore;
     }
 
-    /*
-    N.B: TUTTI I GETTER SOTTOSTANTI SONO FONDAMENTALI PER MAPPARE LE ENTITA' RITORNATE DAL DAO IN BEAN DA POTER
-         RITORNARE AL CONTROLLER GRAFICO "SellerCatalogGraphicController". L'INCAPSULAMENTO VIENE PRESERVATO PERCHE'
-         MI STO LIMITANDO A LEGGERE LO STATO MENTRE LA LOGICA RIMANE ALL'INTERNO DEL CONTROLLER LOGICO
-     */
+
     public String getNome() {
         return nome;
     }

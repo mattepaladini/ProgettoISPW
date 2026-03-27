@@ -8,6 +8,9 @@ import java.util.List;
 
 public class SessionManager {
 
+    //scelta di progetto ---> il carrello viene legato al ciclo di vita dell'utente all'interno del sistema
+    //                        quando eseguo il logout pulisco il carrello
+
     private static SessionManager instance = null;
     private User loggedUser;
 
@@ -43,8 +46,6 @@ public class SessionManager {
     }
 
 
-    /*************/
-    //gestione carrello
     public void addCard(Card card) {
         this.cart.add(card);
     }
@@ -62,6 +63,5 @@ public class SessionManager {
         this.cart.clear();
     }
 
-    /*************/
 
 }

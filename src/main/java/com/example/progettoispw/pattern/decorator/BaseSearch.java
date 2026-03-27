@@ -20,6 +20,8 @@ public class BaseSearch implements SearchComponent{
         //CHIAMA IL DAO E FACENDO LA RICERCA PER NOME
         //SOLO QUESTO COMPONENTE UTILIZZA IL DAO PERCHè FA UNA PRIMA RICERCA PORTANDO IN MEMORIA I DATI GREZZI
 
+        //la ricerca di base avviene per nome della carta a cui poi aggiungo i vari strati in base ai filtri di ricerca selezionati dall'utente
+
         CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
         return catalogDAO.findCard(nome);
 

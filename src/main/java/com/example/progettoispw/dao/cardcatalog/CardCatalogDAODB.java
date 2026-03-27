@@ -240,7 +240,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         }
     }
 
-    // Metodo helper 2: Si occupa solo di istanziare l'oggetto Card
+    // Metodo helper, si occupa solo di istanziare l'oggetto Card
     private Card buildCardFromResultSet(ResultSet rs, String nomeCarta, String sellerName) throws SQLException {
         Float prezzo = Float.parseFloat(rs.getString("prezzo"));
         int livello = Integer.parseInt(rs.getString("livello"));

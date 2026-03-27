@@ -65,7 +65,6 @@ public class BuyController {
             // Creiamo un nuovo Bean vuoto per ogni carta trovata
             CollectableCardBean bean = new CollectableCardBean();
 
-            // "Travasiamo" i dati dall'Entità al Bean
             bean.setNomeCarta(carta.getNome());
             bean.setPrezzoCorrente(carta.getPrezzoAttuale());
             bean.setLivello(carta.getLivello());
@@ -79,8 +78,7 @@ public class BuyController {
             risultatiBean.add(bean);
         }
 
-        // 5. RITORNO AL CONTROLLER GRAFICO
-        return risultatiBean;
+        return risultatiBean;   //ritorno al controller grafico
 
     }
 
