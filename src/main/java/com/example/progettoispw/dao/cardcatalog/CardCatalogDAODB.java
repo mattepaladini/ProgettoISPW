@@ -65,7 +65,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         loadCatalogs();
 
         String query = QueryManager.getQuery("cardcatalog.remove");
-        //String query = "DELETE FROM Carta WHERE nome = ? AND venditore_username  = ?";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -152,7 +151,6 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         String query = QueryManager.getQuery("cardcatalog.findCard");
 
-        //String query = "SELECT nome, prezzo, gradazione, venditore_username, livello, tipo, attributo FROM Carta WHERE nome LIKE ?";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(query)

@@ -77,7 +77,6 @@ public class AddCardGraphicController implements Initializable {
 
         } catch (BaseException e) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            //ErrorHandler.show(e);
             ToastManager.showErrorToast(stage, e.getMessage());
         }
 
