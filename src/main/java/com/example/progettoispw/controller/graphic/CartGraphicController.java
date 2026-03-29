@@ -2,9 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.observer.CartObserver;
-import com.example.progettoispw.session.SessionManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,10 +105,11 @@ public class CartGraphicController implements CartObserver {
     @FXML
     public void onCheckoutClick(ActionEvent event) {
 
-        List<Card> cart = SessionManager.getInstance().getShoppingCart();
+        List<CollectableCardBean> cart = appController.getCardsFromCart();
+
         float totale = 0;
-        for(Card card : cart) {
-            totale+= card.getPrezzoAttuale();
+        for(CollectableCardBean cardBean : cart) {
+            totale+= cardBean.getPrezzoCorrente();
         }
 
         BuyCardsGraphicController checkoutController =  sceneManager.startSceneAndGetController(event, "/GUI/BuyCard.fxml");

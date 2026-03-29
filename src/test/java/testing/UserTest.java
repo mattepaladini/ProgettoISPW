@@ -84,9 +84,9 @@ class LoginTest {
         // Assicuriamoci che la sessione sia pulita prima di tentare il login
         assertNull(SessionManager.getInstance().getLoggedUser(), "La sessione deve essere vuota prima del login");
 
-        User loggedUser = new User(signupBean.getUsername(), signupBean.getPassword(), signupBean.getUsertype());
+        UserBean loggedUser = new UserBean(signupBean.getUsername(), signupBean.getPassword());
         try {
-            loginController.authUser(loggedUser);
+            loginController.checkUserExist(loggedUser);
         } catch (Exception e) {
             fail("Il login non doveva fallire: " + e.getMessage());
         }
@@ -114,11 +114,11 @@ class LoginTest {
             System.err.println("Errore nel reset: " + e.getMessage());
         }
 
-        User loginUser = new User(TESTUSERNAME,"PasswordSbagliata99", signupBean.getUsertype());
+        UserBean loginUser = new UserBean(TESTUSERNAME,"PasswordSbagliata99");
 
         // 3. Verifichiamo che venga lanciata la tua eccezione custom (sostituisci UserNotFoundException)
         assertThrows(OperationFailedException.class, () -> {
-            loginController.authUser(loginUser);
+            loginController.checkUserExist(loginUser);
         }, "Doveva essere lanciata un'eccezione per password errata");
 
         assertNull(SessionManager.getInstance().getLoggedUser(), "Nessun utente deve risultare loggato in sessione");

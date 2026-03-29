@@ -4,7 +4,6 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
@@ -27,7 +26,7 @@ public class BuyController {
         String nome = "";
         if(searchBean.getNomeCarta().isBlank())
         {
-            ErrorHandler.show(new InvalidInputException("Errore, inserire il nome della carta da cercare"));
+            throw new InvalidInputException("Errore, inserire il nome della carta da cercare");
         } else{
             nome = searchBean.getNomeCarta();
         }
@@ -47,7 +46,7 @@ public class BuyController {
         }
 
         if(searchBean.getLivello()!=0 && searchBean.getLivello()>0){
-            searchStack = new MaxPriceFilter(searchStack, searchBean.getLivello());
+            searchStack = new LevelFilter(searchStack, searchBean.getLivello());
         }
 
         if(searchBean.getGradazione()!=null){

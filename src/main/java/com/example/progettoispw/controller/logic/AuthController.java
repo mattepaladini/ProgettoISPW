@@ -17,20 +17,20 @@ public class AuthController {
         if(!user.getUsername().isBlank() && !user.getPassword().isBlank()) {
             User usertemp = userDAO.getUserByUsername(user.getUsername());
             if(usertemp!=null){
-                authUser(usertemp);
+                authUser(user);
+                SessionManager.getInstance().setLoggedUser(usertemp);
             } else {
                 throw new OperationFailedException("Username non trovato");
             }
+        }else{
+            throw new OperationFailedException("Username o passwors non inseriti");
         }
     }
 
-    public void authUser(User user) {
+    public void authUser(UserBean user) {
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-        if(userDAO.logWithPSW(user.getUsername(), user.getPassword())){
-            SessionManager.getInstance().setLoggedUser(user);
-        }else {
+        if(!userDAO.logWithPSW(user.getUsername(), user.getPassword())){
             throw new OperationFailedException("Psw errata");
         }
-
     }
 }

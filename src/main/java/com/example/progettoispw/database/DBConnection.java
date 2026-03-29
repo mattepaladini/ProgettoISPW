@@ -32,7 +32,12 @@ public class DBConnection {
 
     public static DBConnection getInstance(){
         if(instance == null){
-            instance = new DBConnection();
+            synchronized (DBConnection.class){
+                if(instance == null){
+                    instance = new DBConnection();
+                }
+            }
+
         }
         return instance;
     }
