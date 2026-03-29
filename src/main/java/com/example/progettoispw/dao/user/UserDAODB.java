@@ -3,7 +3,6 @@ package com.example.progettoispw.dao.user;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
 import com.mysql.cj.jdbc.CallableStatement;
@@ -69,7 +68,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
                 }
 
             } catch (SQLException e) {
-                ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+                throw new DatabaseOperationException(e.getMessage());
             }
         }
     }
@@ -89,7 +88,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             }
 
         } catch (RuntimeException | SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            throw new DatabaseOperationException(e.getMessage());
         }
     }
 
@@ -110,7 +109,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             stmt.execute();
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            throw new DatabaseOperationException(e.getMessage());
         }
 
     }
@@ -131,7 +130,7 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
             stmt.execute();
 
         }catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            throw new DatabaseOperationException(e.getMessage());
         }
     }
 }

@@ -14,7 +14,7 @@ public class QueryManager {
     //questo blocco viene eseguito una volta sola
     static {
 
-        try (InputStream input = QueryManager.class.getClassLoader().getResourceAsStream("query/queries.properties")) {
+        try (InputStream input = QueryManager.class.getResourceAsStream("/query/queries.properties")) {
 
             if (input == null) {
                 log.log(Level.SEVERE, "File queries.properties non trovato!");

@@ -1,7 +1,6 @@
 package com.example.progettoispw.dao.cardcatalog;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.*;
 
@@ -113,7 +112,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     }
                 }
             }catch (IOException e){
-                ErrorHandler.show(new FSysOperationException(e.getMessage()));
+               throw new FSysOperationException(e.getMessage());
             }
         }
         return resultCards;
@@ -154,7 +153,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 processLine(line); //
             }
         } catch (Exception e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw  new FSysOperationException(e.getMessage());
         }
 
         isLoaded = true;
@@ -230,7 +229,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
             bw.write(convertCardToString(card, user));
             bw.newLine();
         } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw new FSysOperationException(e.getMessage());
         }
     }
 
@@ -260,7 +259,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 }
             }
         } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw  new FSysOperationException(e.getMessage());
         }
     }
 }

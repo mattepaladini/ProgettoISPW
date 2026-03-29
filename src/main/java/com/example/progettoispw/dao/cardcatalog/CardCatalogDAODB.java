@@ -64,7 +64,8 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
     public void removeCard(Card card, String sellerName) {
         loadCatalogs();
 
-        String query = "DELETE FROM Carta WHERE nome = ? AND venditore_username  = ?";
+        String query = QueryManager.getQuery("cardcatalog.remove");
+        //String query = "DELETE FROM Carta WHERE nome = ? AND venditore_username  = ?";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -89,8 +90,8 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         loadCatalogs();
 
-        String query = "INSERT INTO Carta (nome, venditore_username, prezzo,livello, gradazione, attributo, tipo  ) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = QueryManager.getQuery("cardcatalog.add");
+
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (PreparedStatement stmt =  conn.prepareStatement(query)) {
@@ -106,7 +107,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             stmt.executeUpdate();
 
         } catch (SQLException e){
-            ErrorHandler.show(new DatabaseOperationException("Errore creazione carta"));
+            throw new DatabaseOperationException("Errore creazione carta");
         }
 
         super.addCard(card, sellerName);
@@ -149,7 +150,9 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         List<Card> risultati = new ArrayList<>();
 
-        String query = "SELECT nome, prezzo, gradazione, venditore_username, livello, tipo, attributo FROM Carta WHERE nome LIKE ?";
+        String query = QueryManager.getQuery("cardcatalog.findCard");
+
+        //String query = "SELECT nome, prezzo, gradazione, venditore_username, livello, tipo, attributo FROM Carta WHERE nome LIKE ?";
         Connection conn = DBConnection.getInstance().getConnection();
 
         try(PreparedStatement stmt = conn.prepareStatement(query)

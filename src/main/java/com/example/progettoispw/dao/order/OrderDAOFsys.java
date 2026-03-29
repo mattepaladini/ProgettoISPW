@@ -1,7 +1,6 @@
 package com.example.progettoispw.dao.order;
 
 import com.example.progettoispw.exception.DatabaseOperationException;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
@@ -79,7 +78,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
             }
 
         } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw new FSysOperationException(e.getMessage());
         }
     }
 

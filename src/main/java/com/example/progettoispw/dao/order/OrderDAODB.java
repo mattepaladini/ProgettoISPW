@@ -73,7 +73,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             cstmt.execute();
 
         }catch (SQLException e){
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            throw  new DatabaseOperationException(e.getMessage());
         }
 
         super.deleteOrder(order);
@@ -96,7 +96,7 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
             cstmt2.executeBatch();
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            throw new DatabaseOperationException(e.getMessage());
         }
 
     }

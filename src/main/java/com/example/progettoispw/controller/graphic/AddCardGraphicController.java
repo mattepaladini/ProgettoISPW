@@ -12,8 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,13 +69,16 @@ public class AddCardGraphicController implements Initializable {
             ManageCatalogController logicController = new ManageCatalogController();
             logicController.addCard(newBeanCard,logeduser );
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ToastManager.showToast(stage,"Carta aggiunta con successo");
             logger.log(Level.INFO,"Carta aggiunta con successo");
 
             goBackToCatalog(event);
 
         } catch (BaseException e) {
-            ErrorHandler.show(e);
-
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            //ErrorHandler.show(e);
+            ToastManager.showErrorToast(stage, e.getMessage());
         }
 
 

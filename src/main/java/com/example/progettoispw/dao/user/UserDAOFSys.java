@@ -1,6 +1,5 @@
 package com.example.progettoispw.dao.user;
 
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.FSysOperationException;
 import com.example.progettoispw.model.Seller;
 import com.example.progettoispw.model.User;
@@ -88,7 +87,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 processUserLine(line); // Deleghiamo la creazione!
             }
         } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw new FSysOperationException(e.getMessage());
         }
 
         isLoaded = true;
@@ -174,7 +173,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
 
             log.log(Level.INFO, "DEBUG: Salvati con successo {0} utenti nel file TXT", users.size());
         } catch (IOException e) {
-            ErrorHandler.show(new FSysOperationException(e.getMessage()));
+            throw new FSysOperationException(e.getMessage());
         }
     }
 
