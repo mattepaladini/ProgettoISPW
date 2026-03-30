@@ -50,7 +50,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             System.out.println();
 
         } catch (SQLException e) {
-            new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
+           throw  new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
         }
 
         //
@@ -73,11 +73,11 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             int deleted = stmt.executeUpdate();
             if(deleted <=0){
-                new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
+                throw new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
             }
 
         } catch (SQLException e) {
-            new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
+            throw new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
         }
 
         super.removeCard(card, sellerName);
@@ -128,7 +128,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             stmt.execute();
 
         } catch (SQLException e) {
-            new DatabaseOperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
         super.updatePrice(nomeCarta, username, newPrice);
@@ -179,7 +179,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             }
 
         } catch (SQLException e) {
-            new DatabaseOperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
         return risultati;
@@ -210,7 +210,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
                 processResultSet(stmt.getResultSet(), catalogMap);
             }
         } catch (SQLException e) {
-            new DatabaseOperationException(e.getMessage());
+            throw new DatabaseOperationException(e.getMessage());
         }
 
         for (CardCatalog catalog : catalogMap.values()) {
