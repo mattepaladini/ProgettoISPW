@@ -97,6 +97,21 @@ public class SearchCLI {
         System.out.println(CERCA_CARTE);
         System.out.println("Compila i diversi filtri con il valore specificato, altrimenti 0 se non vuoi usare il filtro:");
 
+        configurePrice();
+
+        configureLevel();
+
+        configureAttribute();
+
+        configureType();
+
+        scanner.nextLine();
+
+        executeQuery();
+
+    }
+
+    private void configurePrice(){
         System.out.println("--> Filtro Prezzo");
         System.out.println(DISABILITA_FILTRO);
         System.out.println("5. Meno di 5 €");
@@ -109,9 +124,9 @@ public class SearchCLI {
         System.out.print(SCELTA);
         Float prezzo = scanner.nextFloat();
         cardBean.setPrezzoCorrente(prezzo);
+    }
 
-
-
+    private void configureLevel(){
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Livello:");
         System.out.println(DISABILITA_FILTRO);
@@ -122,7 +137,9 @@ public class SearchCLI {
         int livello = scanner.nextInt();
         cardBean.setLivello(livello);
 
+    }
 
+    private void configureAttribute(){
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Attributo");
         System.out.println(DISABILITA_FILTRO);
@@ -140,30 +157,30 @@ public class SearchCLI {
                 cardBean.setAttributo(Attribute.LUCE);
                 break;
 
-                case "OSCURITA":
-                    cardBean.setAttributo(Attribute.OSCURITA);
-                    break;
+            case "OSCURITA":
+                cardBean.setAttributo(Attribute.OSCURITA);
+                break;
 
-                    case "TERRA":
-                        cardBean.setAttributo(Attribute.TERRA);
-                        break;
+            case "TERRA":
+                cardBean.setAttributo(Attribute.TERRA);
+                break;
 
-                        case "ACQUA":
-                            cardBean.setAttributo(Attribute.ACQUA);
-                            break;
+            case "ACQUA":
+                cardBean.setAttributo(Attribute.ACQUA);
+                break;
 
-                            case "FUOCO":
-                                cardBean.setAttributo(Attribute.FUOCO);
-                                break;
+            case "FUOCO":
+                cardBean.setAttributo(Attribute.FUOCO);
+                break;
 
-                                default:
-                                    logger.log(Level.SEVERE, "Scelta non valida, valore default impostato");
-                                    //valore non impostato quindi campo è NULL
-                                    break;
+            default:
+                logger.log(Level.SEVERE, "Scelta non valida, valore default impostato");
+                //valore non impostato quindi campo è NULL
+                break;
         }
+    }
 
-
-
+    private void configureType(){
         System.out.println("-".repeat(105));
         System.out.println("--> Filtro Tipo");
         System.out.println(DISABILITA_FILTRO);
@@ -189,20 +206,14 @@ public class SearchCLI {
                 cardBean.setTipo(Type.TERRENO);
                 break;
 
-                case "TRAPPOLA":
-                    cardBean.setTipo(Type.TRAPPOLA);
-                    break;
+            case "TRAPPOLA":
+                cardBean.setTipo(Type.TRAPPOLA);
+                break;
 
-                    default:
-                        logger.log(Level.SEVERE, "Scelta non valida, valore default impostata");
-                        break;
+            default:
+                logger.log(Level.SEVERE, "Scelta non valida, valore default impostata");
+                break;
         }
-
-
-        scanner.nextLine();
-
-        executeQuery();
-
     }
 
     public void executeQuery(){

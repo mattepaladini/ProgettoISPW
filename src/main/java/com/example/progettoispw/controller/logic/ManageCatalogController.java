@@ -7,6 +7,7 @@ import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.CardMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +22,11 @@ public class ManageCatalogController {
 
         CardCatalog cat = dao.getCatalogBySeller(sellertemp);
 
-        List<CollectableCardBean> beanList = new ArrayList<>();
-
         if (cat == null) {
             return new ArrayList<>(); // Ritorna lista vuota se non ha catalogo
         }
-
-        //popola la lista di bean da ritornare al controller grafico
+        /*
+        List<CollectableCardBean> beanList = new ArrayList<>();
 
         for(Card card : cat.getCards()){
             CollectableCardBean bean = new CollectableCardBean();
@@ -43,6 +42,9 @@ public class ManageCatalogController {
         }
 
         return beanList; // Restituisce la List<CardBean>
+         */
+        //popola la lista di bean da ritornare al controller grafico
+        return cat.getCards().stream().map(CardMapper::toBean).toList();
     }
 
     public void addCard(CollectableCardBean cardBean, User seller){
@@ -88,8 +90,16 @@ public class ManageCatalogController {
     }
 
     public void removeCardFromCatalog(CollectableCardBean selectedCardBean, User seller){
-        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
+        if(selectedCardBean.getNomeCarta().isBlank()){
+            throw new OperationFailedException("Nome carta da rimuovere mancante");
+        }
+
+        CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
+        Card selectedCard = CardMapper.toEntity(selectedCardBean);
+        dao.removeCard(selectedCard, seller.getUsername());
+
+        /*
         if(!selectedCardBean.getNomeCarta().isBlank()){
 
             Card selectedCard = new Card(selectedCardBean.getNomeCarta(),
@@ -100,8 +110,10 @@ public class ManageCatalogController {
                     selectedCardBean.getAttributo(),
                     selectedCardBean.getTipo());
 
-            dao.removeCard(selectedCard, seller.getUsername());
+
         }
+
+         */
     }
 
 }

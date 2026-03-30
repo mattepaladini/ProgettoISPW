@@ -8,18 +8,34 @@ import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.dao.user.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactory {
+
+    //introdotti perchè sfruttando internamente dei metodi per capire se ho aggiornato le informazioni sulla RAM,
+    //se non li avessi usati avrei reso inutile la cache in quanto avrei ricaricato da 0 a ogni chiamata di get
+    private CardCatalogDAODB cardCatalogDAODB;
+    private UserDAODB userDAODB;
+    private OrderDAODB orderDAODB;
+
     @Override
     public CardCatalogDAO getCardCatalogDAO() {
-        return new CardCatalogDAODB();
+        if(cardCatalogDAODB == null){
+            cardCatalogDAODB = new CardCatalogDAODB();
+        }
+        return cardCatalogDAODB;
     }
 
     @Override
     public UserDAO getUserDAO() {
-        return new UserDAODB();
+        if(userDAODB == null){
+            userDAODB = new UserDAODB();
+        }
+        return userDAODB;
     }
 
     @Override
     public OrderDAO getOrderDAO() {
-        return new OrderDAODB();
+        if(orderDAODB == null){
+            orderDAODB = new OrderDAODB();
+        }
+        return orderDAODB;
     }
 }

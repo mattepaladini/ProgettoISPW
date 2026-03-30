@@ -1,15 +1,15 @@
 package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
-import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.controller.graphic.ErrorHandler;
+import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.observer.CartObserver;
 import com.example.progettoispw.pattern.observer.PriceObserver;
 import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.CardMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCartController implements PriceObserver {
@@ -37,8 +37,9 @@ public class ManageCartController implements PriceObserver {
     // Metodo chiamato dalla UI quando l'utente apre la pagina "Il Mio Carrello"
     public List<CollectableCardBean> getCardsFromCart() {
         //Recupero le entità dalla RAM
-        List<Card> entitaNelCarrello = SessionManager.getInstance().getShoppingCart();
+        //List<Card> entitaNelCarrello = SessionManager.getInstance().getShoppingCart();
 
+        /*
         List<CollectableCardBean> beansDaRestituire = new ArrayList<>();
 
         for (Card entita : entitaNelCarrello) {
@@ -55,14 +56,20 @@ public class ManageCartController implements PriceObserver {
         }
 
         return beansDaRestituire;
+
+         */
+        return SessionManager.getInstance().getShoppingCart()
+                .stream()
+                .map(CardMapper::toBean)
+                .toList();
     }
 
 
     public boolean removeFromCart(CollectableCardBean cartaBean) {
         try {
 
-            Card cartaDaRimuovere = new Card(cartaBean.getNomeCarta(), cartaBean.getPrezzoCorrente(),cartaBean.getGradazione(), cartaBean.getVenditore(), cartaBean.getLivello(), cartaBean.getAttributo(),cartaBean.getTipo());
-
+            //Card cartaDaRimuovere = new Card(cartaBean.getNomeCarta(), cartaBean.getPrezzoCorrente(),cartaBean.getGradazione(), cartaBean.getVenditore(), cartaBean.getLivello(), cartaBean.getAttributo(),cartaBean.getTipo());
+            Card cartaDaRimuovere = CardMapper.toEntity(cartaBean);
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
             return true;
         } catch (BaseException e) {

@@ -109,7 +109,6 @@ public class LoginCLI {
         System.out.println("-".repeat(105));
         System.out.print("[Autenticazione in Corso] ");
 
-        System.out.println(username + password);
             UserBean userBean = new UserBean(username, password);
 
             AuthController authController = new AuthController();

@@ -9,18 +9,31 @@ import com.example.progettoispw.dao.user.UserDAOFSys;
 
 public class DAOFactoryFSys extends DAOFactory {
 
+    private CardCatalogDAOFSys cardCatalogDAOFSys;
+    private UserDAOFSys userDAOFSys;
+    private OrderDAOFsys orderDAOFSys;
+
     @Override
     public CardCatalogDAO getCardCatalogDAO() {
-        return new CardCatalogDAOFSys();
+        if(cardCatalogDAOFSys == null){
+            cardCatalogDAOFSys = new CardCatalogDAOFSys();
+        }
+        return cardCatalogDAOFSys;
     }
 
     @Override
     public UserDAO getUserDAO() {
-        return new UserDAOFSys();
+        if(userDAOFSys == null){
+            userDAOFSys = new UserDAOFSys();
+        }
+        return userDAOFSys;
     }
 
     @Override
     public OrderDAO getOrderDAO() {
-        return new OrderDAOFsys();
+        if(orderDAOFSys == null){
+            orderDAOFSys = new OrderDAOFsys();
+        }
+        return orderDAOFSys;
     }
 }

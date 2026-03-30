@@ -12,9 +12,9 @@ import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.decorator.*;
 import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.CardMapper;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BuyController {
@@ -57,7 +57,7 @@ public class BuyController {
 
         List<Card> carteTrovate = searchStack.executeSearch();
 
-        //MAPPING
+        /*
         List<CollectableCardBean> risultatiBean = new ArrayList<>();
 
         for (Card carta : carteTrovate) {
@@ -77,7 +77,10 @@ public class BuyController {
             risultatiBean.add(bean);
         }
 
-        return risultatiBean;   //ritorno al controller grafico
+        return risultatiBean;   //ritorno al controller grafico*/
+
+        //MAPPING usando la classe utility CardMapper
+        return carteTrovate.stream().map(CardMapper::toBean).toList();
 
     }
 
@@ -136,6 +139,7 @@ public class BuyController {
         orderBean.setTotale(totale);
         orderBean.setPurchaseDate(orderData);
 
+        /*
         List<CollectableCardBean> cartBeans = cart.stream()
                 .map(card -> {
                     CollectableCardBean bean = new CollectableCardBean();
@@ -149,7 +153,9 @@ public class BuyController {
                     return bean;
                 }).toList();
 
-        orderBean.setCards(cartBeans);
+         */
+
+        orderBean.setCards(cart.stream().map(CardMapper::toBean).toList());
 
         String paymentCard =  orderBean.getPaymentCard();
         if (paymentCard != null && paymentCard.length() >= 4) {

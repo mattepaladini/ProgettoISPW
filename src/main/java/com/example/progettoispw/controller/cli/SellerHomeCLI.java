@@ -73,7 +73,7 @@ public class SellerHomeCLI {
         System.out.println("--> Catalogo <--");
 
         User currentSeller = SessionManager.getInstance().getLoggedUser();
-        UserBean userBean = new UserBean(currentSeller.getUsername(), currentSeller.getPassword());
+        UserBean userBean = new UserBean(currentSeller.getUsername(), "");      //per recuperare le carte del catalogo non mi serve passare anche la password quindi metto la stringa vuota
         List<CollectableCardBean> cards = logicController.getSellerCards(userBean);
 
         displayCatalog(cards);
