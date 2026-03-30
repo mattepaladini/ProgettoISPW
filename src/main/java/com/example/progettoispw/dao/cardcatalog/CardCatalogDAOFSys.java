@@ -51,6 +51,8 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         loadCatalogs();
 
+        Seller seller = new Seller(currentSeller, null);
+        addCardToCatalogHelper(currentSeller, seller, card);
         super.addCard(card, currentSeller);
 
         appendNewCardToFile(card, currentSeller);
