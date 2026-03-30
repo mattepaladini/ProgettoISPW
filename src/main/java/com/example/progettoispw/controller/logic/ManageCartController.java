@@ -37,27 +37,7 @@ public class ManageCartController implements PriceObserver {
     // Metodo chiamato dalla UI quando l'utente apre la pagina "Il Mio Carrello"
     public List<CollectableCardBean> getCardsFromCart() {
         //Recupero le entità dalla RAM
-        //List<Card> entitaNelCarrello = SessionManager.getInstance().getShoppingCart();
 
-        /*
-        List<CollectableCardBean> beansDaRestituire = new ArrayList<>();
-
-        for (Card entita : entitaNelCarrello) {
-            CollectableCardBean bean = new CollectableCardBean();
-            bean.setNomeCarta(entita.getNome());
-            bean.setPrezzoCorrente(entita.getPrezzoAttuale());
-            bean.setVenditore(entita.getVenditore());
-            bean.setLivello(entita.getLivello());
-            bean.setAttributo(entita.getAttributo());
-            bean.setTipo(entita.getTipo());
-            bean.setGradazione(entita.getGradazione());
-
-            beansDaRestituire.add(bean);
-        }
-
-        return beansDaRestituire;
-
-         */
         return SessionManager.getInstance().getShoppingCart()
                 .stream()
                 .map(CardMapper::toBean)
@@ -68,7 +48,6 @@ public class ManageCartController implements PriceObserver {
     public boolean removeFromCart(CollectableCardBean cartaBean) {
         try {
 
-            //Card cartaDaRimuovere = new Card(cartaBean.getNomeCarta(), cartaBean.getPrezzoCorrente(),cartaBean.getGradazione(), cartaBean.getVenditore(), cartaBean.getLivello(), cartaBean.getAttributo(),cartaBean.getTipo());
             Card cartaDaRimuovere = CardMapper.toEntity(cartaBean);
             SessionManager.getInstance().removeCard(cartaDaRimuovere);
             return true;

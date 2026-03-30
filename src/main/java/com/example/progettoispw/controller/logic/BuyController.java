@@ -57,28 +57,6 @@ public class BuyController {
 
         List<Card> carteTrovate = searchStack.executeSearch();
 
-        /*
-        List<CollectableCardBean> risultatiBean = new ArrayList<>();
-
-        for (Card carta : carteTrovate) {
-            // Creiamo un nuovo Bean vuoto per ogni carta trovata
-            CollectableCardBean bean = new CollectableCardBean();
-
-            bean.setNomeCarta(carta.getNome());
-            bean.setPrezzoCorrente(carta.getPrezzoAttuale());
-            bean.setLivello(carta.getLivello());
-            bean.setGradazione(carta.getGradazione());
-            bean.setTipo(carta.getTipo());
-            bean.setAttributo(carta.getAttributo());
-
-            bean.setVenditore(carta.getVenditore());
-
-            // Aggiungiamo il Bean pronto alla lista finale
-            risultatiBean.add(bean);
-        }
-
-        return risultatiBean;   //ritorno al controller grafico*/
-
         //MAPPING usando la classe utility CardMapper
         return carteTrovate.stream().map(CardMapper::toBean).toList();
 
@@ -138,22 +116,6 @@ public class BuyController {
         orderBean.setOrderId(newOrder.getId());
         orderBean.setTotale(totale);
         orderBean.setPurchaseDate(orderData);
-
-        /*
-        List<CollectableCardBean> cartBeans = cart.stream()
-                .map(card -> {
-                    CollectableCardBean bean = new CollectableCardBean();
-                    bean.setNomeCarta(card.getNome());
-                    bean.setVenditore(card.getVenditore());
-                    bean.setPrezzoCorrente(card.getPrezzoAttuale());
-                    bean.setGradazione(card.getGradazione());
-                    bean.setTipo(card.getTipo());
-                    bean.setAttributo(card.getAttributo());
-                    bean.setLivello(card.getLivello());
-                    return bean;
-                }).toList();
-
-         */
 
         orderBean.setCards(cart.stream().map(CardMapper::toBean).toList());
 

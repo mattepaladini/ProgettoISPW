@@ -25,24 +25,7 @@ public class ManageCatalogController {
         if (cat == null) {
             return new ArrayList<>(); // Ritorna lista vuota se non ha catalogo
         }
-        /*
-        List<CollectableCardBean> beanList = new ArrayList<>();
 
-        for(Card card : cat.getCards()){
-            CollectableCardBean bean = new CollectableCardBean();
-
-            bean.setNomeCarta(card.getNome());
-            bean.setPrezzoCorrente(card.getPrezzoAttuale());
-            bean.setGradazione(card.getGradazione());
-            bean.setLivello(card.getLivello());
-            bean.setAttributo(card.getAttributo());
-            bean.setTipo(card.getTipo());
-
-            beanList.add(bean);
-        }
-
-        return beanList; // Restituisce la List<CardBean>
-         */
         //popola la lista di bean da ritornare al controller grafico
         return cat.getCards().stream().map(CardMapper::toBean).toList();
     }
@@ -99,21 +82,6 @@ public class ManageCatalogController {
         Card selectedCard = CardMapper.toEntity(selectedCardBean);
         dao.removeCard(selectedCard, seller.getUsername());
 
-        /*
-        if(!selectedCardBean.getNomeCarta().isBlank()){
-
-            Card selectedCard = new Card(selectedCardBean.getNomeCarta(),
-                    selectedCardBean.getPrezzoCorrente(),
-                    selectedCardBean.getGradazione(),
-                    selectedCardBean.getVenditore(),
-                    selectedCardBean.getLivello(),
-                    selectedCardBean.getAttributo(),
-                    selectedCardBean.getTipo());
-
-
-        }
-
-         */
     }
 
 }
