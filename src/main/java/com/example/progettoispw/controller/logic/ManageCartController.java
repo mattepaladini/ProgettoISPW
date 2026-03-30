@@ -7,7 +7,7 @@ import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.pattern.observer.CartObserver;
 import com.example.progettoispw.pattern.observer.PriceObserver;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import com.example.progettoispw.utility.CardMapper;
 
 import java.util.List;

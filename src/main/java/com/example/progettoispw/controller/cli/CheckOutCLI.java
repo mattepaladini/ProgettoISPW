@@ -2,7 +2,7 @@ package com.example.progettoispw.controller.cli;
 
 import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.controller.logic.BuyController;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.Scanner;
 

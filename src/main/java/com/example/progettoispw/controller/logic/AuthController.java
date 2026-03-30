@@ -5,7 +5,7 @@ import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 
 
 public class AuthController {

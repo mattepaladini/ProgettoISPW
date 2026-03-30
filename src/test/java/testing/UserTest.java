@@ -12,7 +12,7 @@ import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDB;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDemo;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactoryFSys;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

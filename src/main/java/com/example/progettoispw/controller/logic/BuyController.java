@@ -11,7 +11,7 @@ import com.example.progettoispw.model.Order;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.decorator.*;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import com.example.progettoispw.utility.CardMapper;
 
 import java.time.LocalDate;

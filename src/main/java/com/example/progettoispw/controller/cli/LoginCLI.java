@@ -5,7 +5,7 @@ import com.example.progettoispw.controller.logic.AuthController;
 import com.example.progettoispw.controller.logic.RegistrationController;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.model.UserType;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.Scanner;
 import java.util.logging.Level;

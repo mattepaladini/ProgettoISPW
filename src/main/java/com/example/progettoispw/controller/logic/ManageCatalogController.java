@@ -6,7 +6,7 @@ import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import com.example.progettoispw.utility.CardMapper;
 
 import java.util.ArrayList;

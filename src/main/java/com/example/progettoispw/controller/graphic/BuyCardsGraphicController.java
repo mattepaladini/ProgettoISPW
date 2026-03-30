@@ -4,7 +4,7 @@ import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

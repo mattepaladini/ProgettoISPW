@@ -8,7 +8,7 @@ import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.Type;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.List;
 import java.util.Scanner;

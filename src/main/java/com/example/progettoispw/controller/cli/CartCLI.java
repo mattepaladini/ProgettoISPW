@@ -2,7 +2,7 @@ package com.example.progettoispw.controller.cli;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.HashMap;
 import java.util.List;

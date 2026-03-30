@@ -9,7 +9,7 @@ import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.User;
-import com.example.progettoispw.session.SessionManager;
+import com.example.progettoispw.utility.session.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

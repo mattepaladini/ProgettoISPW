@@ -1,4 +1,4 @@
-package com.example.progettoispw.session;
+package com.example.progettoispw.utility.session;
 
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.User;

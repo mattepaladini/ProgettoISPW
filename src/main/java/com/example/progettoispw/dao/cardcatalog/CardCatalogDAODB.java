@@ -4,7 +4,6 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.database.QueryManager;
 import com.example.progettoispw.exception.DatabaseOperationException;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.model.*;
 import com.mysql.cj.jdbc.CallableStatement;
 
@@ -51,7 +50,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             System.out.println();
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
+            new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
         }
 
         //
@@ -74,11 +73,11 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             int deleted = stmt.executeUpdate();
             if(deleted <=0){
-                ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
+                new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
             }
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB));
+            new DatabaseOperationException(ERRORE_CANCELLAZIONE_CARTA_NEL_DB);
         }
 
         super.removeCard(card, sellerName);
@@ -129,7 +128,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             stmt.execute();
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            new DatabaseOperationException(e.getMessage());
         }
 
         super.updatePrice(nomeCarta, username, newPrice);
@@ -180,7 +179,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
             }
 
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            new DatabaseOperationException(e.getMessage());
         }
 
         return risultati;
@@ -211,7 +210,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
                 processResultSet(stmt.getResultSet(), catalogMap);
             }
         } catch (SQLException e) {
-            ErrorHandler.show(new DatabaseOperationException(e.getMessage()));
+            new DatabaseOperationException(e.getMessage());
         }
 
         for (CardCatalog catalog : catalogMap.values()) {
