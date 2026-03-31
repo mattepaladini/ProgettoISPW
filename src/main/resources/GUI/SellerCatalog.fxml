@@ -4,14 +4,15 @@
 <?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.progettoispw.controller.graphic.SellerCatalogGraphicController"
-      spacing="20" style="-fx-padding: 20;">
-
+      spacing="20" style="-fx-padding: 20;"> <StackPane alignment="CENTER">
+    <Label text="Gestione Catalogo" maxWidth="Infinity" alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <HBox alignment="CENTER_LEFT">
         <Button text="← Torna alla Home" onAction="#onBackClick"
                 style="-fx-background-color: transparent; -fx-text-fill: #3498db; -fx-cursor: hand; -fx-font-weight: bold;"/>
-        <Label text="Gestione Catalogo" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
         <Region HBox.hgrow="ALWAYS" /> <Label fx:id="lblShopName" text="Nome Negozio" style="-fx-text-fill: #7f8c8d;"/>
     </HBox>
+</StackPane>
 
     <TableView fx:id="tableCatalog" VBox.vgrow="ALWAYS">
         <placeholder>
@@ -37,8 +38,9 @@
     </TableView>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Modifica Prezzo"  onAction="#onEditPriceClick" styleClass="icon-button"/>
-        <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="icon-button"/>
+        <Button text="Modifica Prezzo"  onAction="#onEditPriceClick" styleClass="primary-button"
+                style="-fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
+        <Button text="+ Aggiungi Carta" onAction="#onAddCardClick" styleClass="primary-button" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 6px; -fx-cursor: hand;"/>
     </HBox>
 
 </VBox>

@@ -5,77 +5,95 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+
+<BorderPane styleClass="main-window" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.progettoispw.controller.graphic.SearchGraphicController"
-            stylesheets="@light-theme.css">
+            stylesheets="@light-theme.css"
+            style="-fx-background-color: #f4f7f6;"> <center>
+    <VBox alignment="TOP_CENTER" spacing="35" >
+        <padding>
+            <Insets top="30" right="40" bottom="40" left="40"/>
+        </padding>
 
+        <HBox alignment="CENTER_LEFT">
+            <Button text="← Torna alla Home" onAction="#onBackClick" styleClass="icon-button"
+                    style="-fx-background-color: transparent; -fx-text-fill: #2980b9; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 0;"/>
+        </HBox>
 
-    <center>
-        <VBox alignment="TOP_CENTER" spacing="30" >
-            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+        <HBox alignment="CENTER" spacing="15" maxWidth="650">
+            <TextField fx:id="nomeCartaCercata" promptText="Cerca per nome (es. Drago Bianco Occhi Blu)..." HBox.hgrow="ALWAYS"
+                       style="-fx-padding: 12px 20px; -fx-font-size: 15px; -fx-background-radius: 25px; -fx-border-radius: 25px; -fx-border-color: #ced4da; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 2);"/>
 
+            <Button text="🔍 Cerca" onAction="#searchAction" styleClass="primary-button"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 12px 25px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(41, 128, 185, 0.3), 10, 0, 0, 3);"/>
+        </HBox>
 
-            <Button text="← Torna alla Home" onAction="#onBackClick"
-                    styleClass="icon-button"/>
+        <VBox maxWidth="550" spacing="25" alignment="TOP_CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 12px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 20, 0, 0, 5); -fx-border-color: #e9ecef; -fx-border-radius: 12px; -fx-border-width: 1px;">
 
-            <HBox alignment="CENTER" spacing="10" maxWidth="600">
-                <TextField  fx:id="nomeCartaCercata" promptText="Cerca per nome..." styleClass="search-input" HBox.hgrow="ALWAYS"/>
-                <Button styleClass="search-button" text="🔍" onAction="#searchAction"/>
-            </HBox>
+            <padding>
+                <Insets top="30" right="40" bottom="35" left="40"/>
+            </padding>
 
-            <VBox styleClass="filter-container" maxWidth="500" spacing="20">
-                <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            <Label text="Filtri Avanzati"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
 
-                <GridPane hgap="20" vgap="25">
-                    <columnConstraints>
-                        <ColumnConstraints minWidth="120" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                    </columnConstraints>
+            <GridPane hgap="25" vgap="20">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
 
-                    <CheckBox text="Prezzo" styleClass="filter-check" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <CheckBox text="Prezzo" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                          style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-cursor: hand;"/>
+                <ComboBox fx:id="prezzoCercato" promptText="Seleziona fascia" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                          style="-fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd; -fx-padding: 3px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="&lt; 5 €" />
+                            <String fx:value="Fino a 10 €" />
+                            <String fx:value="Fino a 15 €" />
+                            <String fx:value="Fino a 20 €" />
+                            <String fx:value="Fino a 50 €" />
+                            <String fx:value="Fino a 100 €" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
 
-                    <ComboBox fx:id="prezzoCercato" promptText="Seleziona fascia" styleClass="modern-combo" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="&lt; 5 €" />
-                                <String fx:value="Fino a 10 €" />
-                                <String fx:value="Fino a 15 €" />
-                                <String fx:value="Fino a 20 €" />
-                                <String fx:value="Fino a 50 €" />
-                                <String fx:value="Fino a 100 €" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
+                <CheckBox text="Livello" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                          style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-cursor: hand;"/>
+                <ComboBox fx:id="livelloCercato" promptText="Seleziona livello" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                          style="-fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd; -fx-padding: 3px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="1" />
+                            <String fx:value="2" />
+                            <String fx:value="3" />
+                            <String fx:value="4" />
+                            <String fx:value="5" />
+                            <String fx:value="6" />
+                            <String fx:value="7" />
+                            <String fx:value="8" />
+                            <String fx:value="9" />
+                            <String fx:value="10" />
+                            <String fx:value="11" />
+                            <String fx:value="12" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
 
-                    <CheckBox text="Livello" styleClass="filter-check" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <CheckBox text="Attributo" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                          style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-cursor: hand;"/>
+                <ComboBox fx:id="attributoCercato" promptText="Es. Luce" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                          style="-fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd; -fx-padding: 3px;"/>
 
-                    <ComboBox fx:id="livelloCercato" promptText="Seleziona livello" styleClass="modern-combo" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="1" />
-                                <String fx:value="2" />
-                                <String fx:value="3" />
-                                <String fx:value="4" />
-                                <String fx:value="5" />
-                                <String fx:value="6" />
-                                <String fx:value="7" />
-                                <String fx:value="8" />
-                                <String fx:value="9" />
-                                <String fx:value="10" />
-                                <String fx:value="11" />
-                                <String fx:value="12" />
-
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-
-                    <CheckBox text="Attributo" styleClass="filter-check" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <ComboBox fx:id="attributoCercato" promptText="Es. Luce" styleClass="filter-check" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                    <CheckBox text="Tipo" styleClass="filter-check" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                    <ComboBox fx:id="tipoCercato" promptText="Es. Mostro" styleClass="filter-check" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                </GridPane>
-            </VBox>
+                <CheckBox text="Tipo" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                          style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-cursor: hand;"/>
+                <ComboBox fx:id="tipoCercato" promptText="Es. Mostro" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                          style="-fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd; -fx-padding: 3px;"/>
+            </GridPane>
         </VBox>
-    </center>
+    </VBox>
+</center>
 </BorderPane>

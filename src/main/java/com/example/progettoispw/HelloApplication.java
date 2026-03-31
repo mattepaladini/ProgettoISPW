@@ -48,7 +48,7 @@ public class HelloApplication extends Application {
             }
         });
 
-        primaryStage.setTitle("Home UI - Modalità Light predefinita");
+        primaryStage.setTitle("CardMarket");
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.toFront();
