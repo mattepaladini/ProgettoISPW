@@ -95,9 +95,11 @@ class CardCatalogTest {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
+        String sellerusername = seller.getUsername();
+
         assertThrows(OperationFailedException.class, () -> {
 
-            catalogController.addCard(cardBean2, seller.getUsername());
+            catalogController.addCard(cardBean2, sellerusername);
 
         }, "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
     }
