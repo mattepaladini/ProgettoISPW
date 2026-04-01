@@ -54,7 +54,7 @@ public class BuyCardsGraphicController {
 
             User utenteLoggato = SessionManager.getInstance().getLoggedUser();
 
-            OrderBean riepilogoOrdine = buyController.compileOrder(datiCheckout, utenteLoggato);
+            OrderBean riepilogoOrdine = buyController.compileOrder(datiCheckout, utenteLoggato.getUsername());
 
             OrderOutcomeGraphicController outcomeController = sceneManager.startSceneAndGetController(
                     event,

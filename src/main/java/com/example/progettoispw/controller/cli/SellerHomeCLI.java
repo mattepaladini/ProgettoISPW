@@ -150,7 +150,7 @@ public class SellerHomeCLI {
         try{
             User currentSeller = SessionManager.getInstance().getLoggedUser();
 
-            logicController.addCard(newCardBean,currentSeller );
+            logicController.addCard(newCardBean,currentSeller.getUsername());
         } catch (Exception e) {
             throw new OperationFailedException(e.getMessage());
         }

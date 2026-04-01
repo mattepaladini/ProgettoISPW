@@ -4,6 +4,8 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.LoadPageException;
+import com.example.progettoispw.exception.OperationFailedException;
+import com.example.progettoispw.utility.session.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -86,7 +88,15 @@ public class SearchResultsGraphicController {
 
     @FXML
     public void onAddToCartClick(ActionEvent event) {
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         CollectableCardBean selectedCard = resultsTable.getSelectionModel().getSelectedItem();
+
+        if(SessionManager.getInstance().getLoggedUser()==null){
+            ToastManager.showErrorToast(stage, "Errore, utente non loggato!");
+            throw new OperationFailedException("Errore, utente non loggato!");
+        }
 
         if(selectedCard == null){
             logger.log(Level.WARNING, "Seleziona prima una carta");
@@ -99,7 +109,7 @@ public class SearchResultsGraphicController {
 
 
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
 
             // 3. LA MAGIA: Chiami il tuo ToastManager!
             ToastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");

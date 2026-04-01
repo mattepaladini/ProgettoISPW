@@ -45,7 +45,7 @@ public class CheckOutCLI {
 
         if(conferma.equals("S")) {
             BuyController buyController = new BuyController();
-            OrderBean orderDone =  buyController.compileOrder(newOrder, SessionManager.getInstance().getLoggedUser());
+            OrderBean orderDone =  buyController.compileOrder(newOrder, SessionManager.getInstance().getLoggedUser().getUsername());
 
             displayOrderOutcome(orderDone);
         }

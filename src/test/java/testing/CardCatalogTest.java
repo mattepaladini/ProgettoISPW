@@ -60,7 +60,7 @@ class CardCatalogTest {
         User seller = new User(TEST_CARD.getVenditore());
         
         try {
-            catalogController.addCard(cardBean, seller);
+            catalogController.addCard(cardBean, seller.getUsername());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
@@ -90,14 +90,14 @@ class CardCatalogTest {
 
         User seller = new User(TEST_CARD.getVenditore());
         try {
-            catalogController.addCard(cardBean1, seller);
+            catalogController.addCard(cardBean1, seller.getUsername());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
         assertThrows(OperationFailedException.class, () -> {
 
-            catalogController.addCard(cardBean2, seller);
+            catalogController.addCard(cardBean2, seller.getUsername());
 
         }, "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
     }
@@ -117,13 +117,13 @@ class CardCatalogTest {
         User seller = new User(TEST_CARD.getVenditore());
 
         try {
-            catalogController.addCard(cardBean, seller);
+            catalogController.addCard(cardBean, seller.getUsername());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
         try{
-            catalogController.removeCardFromCatalog(cardBean, seller);
+            catalogController.removeCardFromCatalog(cardBean, seller.getUsername());
         }catch (Exception e) {
             fail("Il metodo removeCardFromCatalog ha lanciato un'eccezione: "+e.getMessage());
         }

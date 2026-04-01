@@ -8,7 +8,6 @@ import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
-import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.pattern.decorator.*;
 import com.example.progettoispw.utility.session.SessionManager;
@@ -62,7 +61,7 @@ public class BuyController {
 
     }
 
-    public OrderBean compileOrder(OrderBean orderBean, User loggedUser){
+    public OrderBean compileOrder(OrderBean orderBean, String loggedUser){
 
         List<Card> cart = SessionManager.getInstance().getShoppingCart();
         if(cart == null || cart.isEmpty()){
@@ -85,7 +84,7 @@ public class BuyController {
         Order newOrder = new Order(
                 cart,
                 orderBean.getShippingAddress(),
-                loggedUser.getUsername(),
+                loggedUser,
                 totale,
                 orderData
         );

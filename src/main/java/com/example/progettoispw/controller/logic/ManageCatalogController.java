@@ -30,7 +30,7 @@ public class ManageCatalogController {
         return cat.getCards().stream().map(CardMapper::toBean).toList();
     }
 
-    public void addCard(CollectableCardBean cardBean, User seller){
+    public void addCard(CollectableCardBean cardBean, String seller){
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
@@ -51,8 +51,8 @@ public class ManageCatalogController {
             if(gradazionetemp!=null && tipotemp!=null && attributotemp!=null){
 
                 //i valori inseriti sono corretti quindi istanzio il nuovo oggetto
-                Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller.getUsername(),cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
-                dao.addCard(newCard, seller.getUsername());
+                Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller,cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+                dao.addCard(newCard, seller);
             }
         } else {
             throw new OperationFailedException("Dati inseriti sbagliati o mancanti");
@@ -72,7 +72,7 @@ public class ManageCatalogController {
         }
     }
 
-    public void removeCardFromCatalog(CollectableCardBean selectedCardBean, User seller){
+    public void removeCardFromCatalog(CollectableCardBean selectedCardBean, String seller){
 
         if(selectedCardBean.getNomeCarta().isBlank()){
             throw new OperationFailedException("Nome carta da rimuovere mancante");
@@ -80,7 +80,7 @@ public class ManageCatalogController {
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
         Card selectedCard = CardMapper.toEntity(selectedCardBean);
-        dao.removeCard(selectedCard, seller.getUsername());
+        dao.removeCard(selectedCard, seller);
 
     }
 

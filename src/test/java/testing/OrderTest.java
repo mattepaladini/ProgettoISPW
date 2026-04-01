@@ -82,7 +82,7 @@ class OrderTest {
 
         try{
 
-            buyController.compileOrder(orderBean ,loggedUser);
+            buyController.compileOrder(orderBean ,loggedUser.getUsername());
         } catch (Exception e) {
             fail("L'operazione compileOrder non doveva lanciare eccezioni: " + e.getMessage());
         }

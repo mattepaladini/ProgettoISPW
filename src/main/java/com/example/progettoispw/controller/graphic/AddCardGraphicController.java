@@ -67,7 +67,7 @@ public class AddCardGraphicController implements Initializable {
             User logeduser =  SessionManager.getInstance().getLoggedUser();
 
             ManageCatalogController logicController = new ManageCatalogController();
-            logicController.addCard(newBeanCard,logeduser );
+            logicController.addCard(newBeanCard,logeduser.getUsername());
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ToastManager.showToast(stage,"Carta aggiunta con successo");
