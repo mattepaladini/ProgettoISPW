@@ -3,45 +3,66 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" spacing="20.0"
+
+<VBox alignment="CENTER" spacing="0"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.progettoispw.controller.graphic.RegistrationGraphicController">
+      fx:controller="com.example.progettoispw.controller.graphic.RegistrationGraphicController"
+      style="-fx-background-color: #f4f7f6;"> <Region VBox.vgrow="ALWAYS" />
 
-    <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-    </padding>
+    <VBox maxWidth="400" spacing="25" alignment="CENTER"
+          style="-fx-background-color: #ffffff; -fx-background-radius: 12px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 20, 0, 0, 5);">
 
-    <Label text="Crea un nuovo Account">
-        <font>
-            <Font name="System Bold" size="22.0" />
-        </font>
-    </Label>
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
 
-    <GridPane hgap="10.0" vgap="15.0" alignment="CENTER">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" halignment="RIGHT" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="200.0" />
-        </columnConstraints>
+        <VBox alignment="CENTER" spacing="5">
+            <Label text="Crea un Account"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="Unisciti a noi e inizia subito"
+                   style="-fx-font-size: 13px; -fx-text-fill: #7f8c8d;"/>
+        </VBox>
 
-        <Label text="Username:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtUsername" promptText="Es. Rossi" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <VBox spacing="15" maxWidth="Infinity" alignment="CENTER_LEFT">
 
-        <Label text="Password:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="txtPassword" promptText="********" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <VBox spacing="5" maxWidth="Infinity">
+                <Label text="Username"
+                       style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+                <TextField fx:id="txtUsername" promptText="Es. MarioRossi99"
+                           style="-fx-padding: 10px 12px; -fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd;"/>
+            </VBox>
 
-    </GridPane>
+            <VBox spacing="5" maxWidth="Infinity">
+                <Label text="Password"
+                       style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+                <PasswordField fx:id="txtPassword" promptText="••••••••"
+                               style="-fx-padding: 10px 12px; -fx-font-size: 14px; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #ced4da; -fx-background-color: #fdfdfd;"/>
+            </VBox>
+        </VBox>
 
-    <CheckBox fx:id="chkIsVenditore" text="Voglio registrarmi come Venditore" />
+        <HBox alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
+            <CheckBox fx:id="chkIsVenditore" text="Voglio registrarmi come Venditore"
+                      style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-cursor: hand;"/>
+        </HBox>
 
-    <HBox spacing="20.0" alignment="CENTER">
-        <Button text="Annulla" onAction="#onBackClick"
-                style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-underline: true; -fx-cursor: hand;" />
+        <Region prefHeight="5" />
 
-        <Button text="REGISTRATI" onAction="#onRegisterClick" defaultButton="true"
-                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
-                prefWidth="150"/>
-    </HBox>
+        <VBox spacing="15" alignment="CENTER" maxWidth="Infinity">
+
+            <Button text="Registrati" onAction="#onRegisterClick" defaultButton="true" maxWidth="Infinity"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 12px; -fx-background-radius: 6px; -fx-cursor: hand;"/>
+
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Hai già un account?"
+                       style="-fx-font-size: 13px; -fx-text-fill: #7f8c8d;"/>
+                <Button text="Annulla e torna al Login" onAction="#onBackClick"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2980b9; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 0; -fx-font-size: 13px;"/>
+            </HBox>
+        </VBox>
+
+    </VBox>
+
+    <Region VBox.vgrow="ALWAYS" />
 
 </VBox>

@@ -6,7 +6,6 @@ import com.example.progettoispw.model.Type;
 
 public class CollectableCardBean {
 
-    private int id;
     private String nomeCarta;
     private float prezzoCorrente;
     private Gradazione gradazione;
@@ -17,7 +16,7 @@ public class CollectableCardBean {
 
     //costruttore
     public CollectableCardBean() {
-        this.id=0;
+
     }
 
     public CollectableCardBean(String nomeCarta, float prezzoCorrente) {
@@ -25,12 +24,15 @@ public class CollectableCardBean {
         this.prezzoCorrente = prezzoCorrente;
     }
 
+    /*
     public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, Gradazione gradazione){
         this.id=id;
         this.nomeCarta=nomeCarta;
         this.prezzoCorrente=prezzoCorrente;
         this.gradazione=gradazione;
     }
+
+     */
 
     public String getNomeCarta() {return nomeCarta;}
     public void setNomeCarta(String nomeCarta) {
@@ -74,6 +76,4 @@ public class CollectableCardBean {
     public String getVenditore() {return venditore;}
     public void setVenditore(String venditore) {this.venditore=venditore;}
 
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
 }
