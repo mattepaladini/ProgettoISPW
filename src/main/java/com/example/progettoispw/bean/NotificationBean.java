@@ -11,8 +11,9 @@ public class NotificationBean {
     private String date;
     private boolean read;
 
-    // Costruttore vuoto
+
     public NotificationBean() {
+        // Costruttore vuoto
     }
 
     public int getId() {
@@ -33,7 +34,7 @@ public class NotificationBean {
         return sender;
     }
     public void setSender(String seller) {
-        this.sender = sender;
+        this.sender = seller;
     }
 
     public String getMessage() {

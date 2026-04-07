@@ -94,14 +94,11 @@ class CardCatalogTest {
 
         notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
 
-        //User seller = new User(TEST_CARD.getVenditore());
         try {
             catalogController.addCard(cardBean1, TEST_CARD.getVenditore());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
-
-        //String sellerusername = seller.getUsername();
 
         assertThrows(OperationFailedException.class, () -> {
 
@@ -124,7 +121,6 @@ class CardCatalogTest {
 
         notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
 
-       // User seller = new User(TEST_CARD.getVenditore());
 
         try {
             catalogController.addCard(cardBean, TEST_CARD.getVenditore());

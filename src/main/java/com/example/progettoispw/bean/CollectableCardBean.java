@@ -24,16 +24,6 @@ public class CollectableCardBean {
         this.prezzoCorrente = prezzoCorrente;
     }
 
-    /*
-    public CollectableCardBean(int id, String nomeCarta, float prezzoCorrente, Gradazione gradazione){
-        this.id=id;
-        this.nomeCarta=nomeCarta;
-        this.prezzoCorrente=prezzoCorrente;
-        this.gradazione=gradazione;
-    }
-
-     */
-
     public String getNomeCarta() {return nomeCarta;}
     public void setNomeCarta(String nomeCarta) {
         if (nomeCarta != null) {

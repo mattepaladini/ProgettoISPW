@@ -1,7 +1,5 @@
 package com.example.progettoispw.controller.graphic;
 
-//import com.example.progettoispw.bean.NotificationBean;
-
 import com.example.progettoispw.bean.NotificationBean;
 import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.model.User;
@@ -31,25 +29,22 @@ public class NotificationsGraphicController implements Initializable {
 
     private void loadNotifications() {
         try {
-            // 1. Recupero l'utente loggato dalla Sessione (che avevamo spostato in utility!)
+
             User currentUser = SessionManager.getInstance().getLoggedUser();
 
-
-            // 2. Istanzio il Controller Logico
             ManageNotificationsController logicController = new ManageNotificationsController();
 
-            // 3. Chiedo al Controller Logico la lista dei Bean
             List<NotificationBean> notifications = logicController.getUnreadNotifications(currentUser.getUsername());
 
-            // 4. Popolo la ListView grafica estraendo solo le stringhe dal Bean
+
             for (NotificationBean bean : notifications) {
-                // Formattiamo il testo che vedrà l'utente (es. "[12/05/2024] Il venditore Mario ha aggiunto una carta!")
+
                 String displayText = "[" + bean.getDate() + "] " + bean.getMessage();
                 notificationsList.getItems().add(displayText);
             }
 
         } catch (Exception e) {
-            // Se qualcosa va storto col DB, mostriamo il nostro bellissimo Toast rosso!
+
             Stage currentStage = (Stage) notificationsList.getScene().getWindow();
             ToastManager.showErrorToast(currentStage, "Impossibile caricare le notifiche.");
         }
