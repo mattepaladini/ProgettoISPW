@@ -17,6 +17,7 @@
             <TableColumn fx:id="colPrezzo" prefWidth="100.0" text="Prezzo (€)" />
             <TableColumn fx:id="colGradazione" prefWidth="150.0" text="Gradazione" />
             <TableColumn fx:id="colVenditore" prefWidth="150.0" text="Venditore" />
+            <TableColumn fx:id="colSegui" prefWidth="100.0" text="Azione" style="-fx-alignment: CENTER;"/>
         </columns>
     </TableView>
 

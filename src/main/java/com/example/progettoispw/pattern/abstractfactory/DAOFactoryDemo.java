@@ -2,6 +2,10 @@ package com.example.progettoispw.pattern.abstractfactory;
 
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAODemo;
+import com.example.progettoispw.dao.follower.FollowerDAO;
+import com.example.progettoispw.dao.follower.FollowerDAODemo;
+import com.example.progettoispw.dao.notification.NotificationDAO;
+import com.example.progettoispw.dao.notification.NotificationDAODemo;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.order.OrderDAODemo;
 import com.example.progettoispw.dao.user.UserDAO;
@@ -12,6 +16,8 @@ public class DAOFactoryDemo extends DAOFactory{
     private  CardCatalogDAO catalogDAO;
     private  UserDAO userDAO;
     private  OrderDAO orderDAO;
+    private NotificationDAO notificationDAO;
+    private FollowerDAO followerDAO;
 
     @Override
     public CardCatalogDAO getCardCatalogDAO() {
@@ -35,5 +41,21 @@ public class DAOFactoryDemo extends DAOFactory{
             orderDAO = new OrderDAODemo();
         }
         return orderDAO;
+    }
+
+    @Override
+    public NotificationDAO getNotificationDAO() {
+        if(notificationDAO == null){
+            notificationDAO = new NotificationDAODemo();
+        }
+        return notificationDAO;
+    }
+
+    @Override
+    public FollowerDAO getFollowerDAO() {
+        if(followerDAO == null){
+            followerDAO = new FollowerDAODemo();
+        }
+        return followerDAO;
     }
 }

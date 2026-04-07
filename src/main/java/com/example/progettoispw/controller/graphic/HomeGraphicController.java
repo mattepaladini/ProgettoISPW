@@ -44,10 +44,10 @@ public class HomeGraphicController implements Initializable {
             fxmlFile = "/GUI/Login.fxml";
         } else {
 
-            SessionManager.getInstance().logout();
-            System.out.println("Utente uscito");
+            //SessionManager.getInstance().logout();
+            //System.out.println("Utente uscito");
 
-            fxmlFile = "/GUI/Home.fxml";
+            fxmlFile = "/GUI/Notifications.fxml";
         }
 
         sceneManager.startScene(event, fxmlFile);

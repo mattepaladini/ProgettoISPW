@@ -1,10 +1,12 @@
 package com.example.progettoispw.pattern.abstractfactory;
 
+import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
+import com.example.progettoispw.dao.follower.FollowerDAO;
+import com.example.progettoispw.dao.notification.NotificationDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.InvalidInputException;
 
 public abstract class DAOFactory  {
@@ -36,4 +38,8 @@ public abstract class DAOFactory  {
     public abstract UserDAO getUserDAO();
 
     public abstract OrderDAO getOrderDAO();
+
+    public abstract NotificationDAO getNotificationDAO();
+
+    public abstract FollowerDAO getFollowerDAO();
 }

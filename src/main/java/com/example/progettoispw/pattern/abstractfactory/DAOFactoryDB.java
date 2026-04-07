@@ -2,6 +2,10 @@ package com.example.progettoispw.pattern.abstractfactory;
 
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAODB;
+import com.example.progettoispw.dao.follower.FollowerDAO;
+import com.example.progettoispw.dao.follower.FollowerDAODB;
+import com.example.progettoispw.dao.notification.NotificationDAO;
+import com.example.progettoispw.dao.notification.NotificationDAODB;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.order.OrderDAODB;
 import com.example.progettoispw.dao.user.UserDAO;
@@ -14,6 +18,8 @@ public class DAOFactoryDB extends DAOFactory {
     private CardCatalogDAODB cardCatalogDAODB;
     private UserDAODB userDAODB;
     private OrderDAODB orderDAODB;
+    private NotificationDAODB notificationDAODB;
+    private FollowerDAODB followerDAODB;
 
     @Override
     public CardCatalogDAO getCardCatalogDAO() {
@@ -37,5 +43,21 @@ public class DAOFactoryDB extends DAOFactory {
             orderDAODB = new OrderDAODB();
         }
         return orderDAODB;
+    }
+
+    @Override
+    public NotificationDAO getNotificationDAO() {
+        if(notificationDAODB == null){
+            notificationDAODB = new NotificationDAODB();
+        }
+        return notificationDAODB;
+    }
+
+    @Override
+    public FollowerDAO getFollowerDAO() {
+        if(followerDAODB == null){
+            followerDAODB = new FollowerDAODB();
+        }
+        return followerDAODB;
     }
 }

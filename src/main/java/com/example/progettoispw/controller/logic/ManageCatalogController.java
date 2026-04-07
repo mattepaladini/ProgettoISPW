@@ -14,6 +14,8 @@ import java.util.List;
 
 public class ManageCatalogController {
 
+    private final ManageNotificationsController manageNotificationsController=new ManageNotificationsController();
+
     public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
@@ -53,6 +55,8 @@ public class ManageCatalogController {
                 //i valori inseriti sono corretti quindi istanzio il nuovo oggetto
                 Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller,cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
                 dao.addCard(newCard, seller);
+
+                manageNotificationsController.publishNotification(seller, "Il venditore "+seller+" ha aggiunto una nuova carta: "+cardBean.getNomeCarta());
             }
         } else {
             throw new OperationFailedException("Dati inseriti sbagliati o mancanti");
@@ -69,6 +73,9 @@ public class ManageCatalogController {
         if(!selectedCard.getNomeCarta().isBlank() && newPrice>0.0f){
 
             dao.updatePrice(selectedCard.getNomeCarta(), currentUser.getUsername(), newPrice );
+
+            manageNotificationsController.publishNotification(currentUser.getUsername(), "Il venditore "+currentUser+" ha aggiornato il prezzo della carta "+selectedCard.getNomeCarta()+" a "+ newPrice);
+
         }
     }
 

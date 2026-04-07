@@ -38,7 +38,7 @@ public class LoginGraphicController {
 
         //carico schermata Home
 
-        sceneManager.startScene(event,"/GUI/Home.fxml");
+        sceneManager.startScene(event,"/GUI/Notifications.fxml");
 
     }
 

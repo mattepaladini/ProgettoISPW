@@ -2,6 +2,8 @@ package com.example.progettoispw.pattern.abstractfactory;
 
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAOFSys;
+import com.example.progettoispw.dao.follower.FollowerDAO;
+import com.example.progettoispw.dao.notification.NotificationDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.order.OrderDAOFsys;
 import com.example.progettoispw.dao.user.UserDAO;
@@ -35,5 +37,15 @@ public class DAOFactoryFSys extends DAOFactory {
             orderDAOFSys = new OrderDAOFsys();
         }
         return orderDAOFSys;
+    }
+
+    @Override
+    public NotificationDAO getNotificationDAO(){
+        return null;
+    }
+
+    @Override
+    public FollowerDAO getFollowerDAO(){
+        return null;
     }
 }
