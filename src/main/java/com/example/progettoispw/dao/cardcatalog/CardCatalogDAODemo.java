@@ -42,11 +42,24 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     @Override
     public void addCard(Card card, String sellerName) {
 
+        boolean catFound = false;
+
             for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().getSellerName().equals(sellerName)) {
                     catalog.addCollectableCard(card);
                     log.log(Level.INFO, "Carta aggiunta al catalogo di: {0}",catalog.getSeller().getSellerName());
+                    catFound = true;
+                    break;
                 }
+            }
+
+            if(!catFound){
+                Seller newseller = new Seller(sellerName, "");
+                CardCatalog newcatalog = new CardCatalog(newseller);
+                newcatalog.getCards().add(card);
+                this.cardCatalogs.add(newcatalog);
+
+                log.log(Level.INFO, "Creato nuovo catalogo e aggiunta la prima carta per: {0}", sellerName);
             }
 
     }
@@ -96,14 +109,13 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
     }
 
 
-    //helper per verificare se un selle possiede già una copia di una carta specifica
     @Override
     public boolean findCardBySeller(String nomeCarta, String seller){
 
         for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(seller)) {
                 for(Card c : catalog.getCards()) {
-                    if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
+                    if(c.getNome().equalsIgnoreCase(nomeCarta)) {
                         log.log(Level.INFO, "Carta trovata in un catalogo.");
                         return true;        //ho trovato che il seller possiede già questa carta
                     }

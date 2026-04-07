@@ -2,6 +2,7 @@ package testing;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class CardCatalogTest {
 
     private ManageCatalogController catalogController;
+    private ManageNotificationsController notificationsController;
     private static final Card TEST_CARD = new Card(
             "Dragp Bianco Occhi Blu test",
             100f,
@@ -30,12 +32,14 @@ class CardCatalogTest {
             Attribute.LUCE,
             Type.MOSTRO
     );
-    private static final String PERSISTENCE_MODE = "FSYS"; // Usa DB o FSYS
+    private static final String PERSISTENCE_MODE = "DEMO"; //
+    private static final String TEST_BUYER = "testbuyer";
 
     @BeforeEach
     void setUp() throws Exception {
         forceFactoryMode();
         catalogController = new ManageCatalogController();
+        notificationsController = new ManageNotificationsController();
         deleteTestCard();
     }
 
@@ -57,10 +61,10 @@ class CardCatalogTest {
         cardBean.setLivello(TEST_CARD.getLivello());
         cardBean.setVenditore(TEST_CARD.getVenditore());
 
-        User seller = new User(TEST_CARD.getVenditore());
-        
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+
         try {
-            catalogController.addCard(cardBean, seller.getUsername());
+            catalogController.addCard(cardBean, TEST_CARD.getVenditore());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
@@ -88,18 +92,20 @@ class CardCatalogTest {
         cardBean2.setLivello(TEST_CARD.getLivello());
         cardBean2.setVenditore(TEST_CARD.getVenditore());
 
-        User seller = new User(TEST_CARD.getVenditore());
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+
+        //User seller = new User(TEST_CARD.getVenditore());
         try {
-            catalogController.addCard(cardBean1, seller.getUsername());
+            catalogController.addCard(cardBean1, TEST_CARD.getVenditore());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
-        String sellerusername = seller.getUsername();
+        //String sellerusername = seller.getUsername();
 
         assertThrows(OperationFailedException.class, () -> {
 
-            catalogController.addCard(cardBean2, sellerusername);
+            catalogController.addCard(cardBean2, TEST_CARD.getVenditore());
 
         }, "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
     }
@@ -116,16 +122,18 @@ class CardCatalogTest {
         cardBean.setLivello(TEST_CARD.getLivello());
         cardBean.setVenditore(TEST_CARD.getVenditore());
 
-        User seller = new User(TEST_CARD.getVenditore());
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+
+       // User seller = new User(TEST_CARD.getVenditore());
 
         try {
-            catalogController.addCard(cardBean, seller.getUsername());
+            catalogController.addCard(cardBean, TEST_CARD.getVenditore());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
         try{
-            catalogController.removeCardFromCatalog(cardBean, seller.getUsername());
+            catalogController.removeCardFromCatalog(cardBean, TEST_CARD.getVenditore());
         }catch (Exception e) {
             fail("Il metodo removeCardFromCatalog ha lanciato un'eccezione: "+e.getMessage());
         }
