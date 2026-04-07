@@ -94,13 +94,14 @@ class CardCatalogTest {
 
         notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
 
+        String seller = TEST_CARD.getVenditore();
         try {
-            catalogController.addCard(cardBean1, TEST_CARD.getVenditore());
+            catalogController.addCard(cardBean1, seller);
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
-        assertThrows(OperationFailedException.class, () -> catalogController.addCard(cardBean2, TEST_CARD.getVenditore()), "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
+        assertThrows(OperationFailedException.class, () -> catalogController.addCard(cardBean2, seller), "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
     }
 
     @Test
