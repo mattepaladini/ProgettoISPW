@@ -5,26 +5,21 @@ import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
-import com.example.progettoispw.pattern.observer.CartObserver;
-import com.example.progettoispw.pattern.observer.PriceObserver;
-import com.example.progettoispw.utility.session.SessionManager;
 import com.example.progettoispw.utility.CardMapper;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.List;
 
-public class ManageCartController implements PriceObserver {
+public class ManageCartController{
 
     //il carrello verrà gestito in maniera "volatile" ---> mantengo una lista in RAM delle carte aggiunte al carrello
     //quando utente la logout resetto la lista
-
-    private CartObserver guiObserver;
 
     public boolean addToCart(CollectableCardBean selectedCardBean) {
 
         Card selectedCard = new Card(selectedCardBean.getNomeCarta(), selectedCardBean.getPrezzoCorrente(), selectedCardBean.getGradazione(), selectedCardBean.getVenditore(), selectedCardBean.getLivello(), selectedCardBean.getAttributo(), selectedCardBean.getTipo());
         try{
             SessionManager.getInstance().addCard(selectedCard);
-            selectedCard.attach(this);      //Controller osserva entità
             return true;
 
         } catch (BaseException e) {
@@ -66,16 +61,4 @@ public class ManageCartController implements PriceObserver {
         return totale;
     }
 
-    // Metodo chiamato dalla grafica nell'initialize
-    public void setCartObserver(CartObserver observer) {
-        this.guiObserver = observer;
-    }
-
-    @Override
-    public void updatePrice(Card modifiedCard) {
-// Se c'è una schermata del carrello aperta in questo momento, la avvisiamo!
-        if (guiObserver != null) {
-            guiObserver.onCartUpdated();
-        }
-    }
 }

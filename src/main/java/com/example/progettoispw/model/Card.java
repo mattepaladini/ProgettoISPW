@@ -1,13 +1,8 @@
 package com.example.progettoispw.model;
 
-import com.example.progettoispw.pattern.observer.PriceObserver;
-import com.example.progettoispw.pattern.observer.Subject;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Card implements Subject, Serializable {
+public class Card implements  Serializable {
 
     //scelta di progetto ---> ogni carta viene identificata in un catalogo con il suo nome in quanto si assume che
     //                        un venditore non possa avere in vendita altre carte con quel nome
@@ -19,9 +14,6 @@ public class Card implements Subject, Serializable {
     private int livello;
     private Attribute attributo;
     private Type tipo;
-
-    private transient List<PriceObserver> observers;    //transient serve per ignorare questa lista quando memorizzo su file o db
-
 
     public Card(String nome, Float prezzoAttuale, Gradazione gradazione, String venditore, int livello, Attribute attributo, Type tipo) {
         this.nome = nome;
@@ -56,7 +48,6 @@ public class Card implements Subject, Serializable {
 
     public void setPrezzoAttuale(Float prezzoAttuale){
         this.prezzoAttuale = prezzoAttuale;
-        notifyObservers(); // Notifica tutti gli iscritti!
     }
 
     public Gradazione getGradazione(){
@@ -73,33 +64,5 @@ public class Card implements Subject, Serializable {
     public Attribute getAttributo(){return this.attributo;}
 
     public Type getTipo(){return this.tipo;}
-
-    @Override
-    public void attach(PriceObserver observer) {
-        if (this.observers == null) {
-            this.observers = new ArrayList<>();
-        }
-        if (!this.observers.contains(observer)) {
-            this.observers.add(observer);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        if (this.observers == null) return;
-
-        for (PriceObserver obs : this.observers) {
-            obs.updatePrice(this);
-        }
-
-    }
-
-    @Override
-    public void detachAll() {
-
-        if (this.observers != null) {
-            this.observers.clear();
-        }
-    }
 
 }

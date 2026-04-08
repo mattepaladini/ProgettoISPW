@@ -100,12 +100,6 @@ public class BuyController {
         for(Card selledCard : cart){
             String sellerName = selledCard.getVenditore();
 
-            //notifico che la carta è stata venduta
-            selledCard.notifyObservers();
-
-            //stacco gli observer
-            selledCard.detachAll();
-
             catalogDAO.removeCard(selledCard, sellerName);
         }
 

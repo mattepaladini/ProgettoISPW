@@ -2,8 +2,6 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCartController;
-import com.example.progettoispw.pattern.observer.CartObserver;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class CartGraphicController implements CartObserver {
+public class CartGraphicController{
     @FXML private TableView<CollectableCardBean> cartTable;
     @FXML private Label lblTotale;
     @FXML private Button btnRimuovi;
@@ -58,7 +56,6 @@ public class CartGraphicController implements CartObserver {
         btnRimuovi.disableProperty().bind(cartTable.getSelectionModel().selectedItemProperty().isNull());
 
         this.appController = new ManageCartController();
-        appController.setCartObserver(this);        //mi iscrivo al controller logico
 
         this.sceneManager = new SceneManager();
         // 3. Carichiamo i dati iniziali
@@ -133,18 +130,5 @@ public class CartGraphicController implements CartObserver {
         } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
-    }
-
-
-    @Override
-    public void onCartUpdated() {
-
-        // Usiamo Platform.runLater perché la notifica potrebbe arrivare in background
-        // e JavaFX vuole che la grafica sia toccata solo dal thread principale.
-        Platform.runLater(() -> {
-            System.out.println("Aggiornamento in tempo reale ricevuto!");
-            // Richiami il tuo metodo intatto!
-            aggiornaVistaCarrello();
-        });
     }
 }
