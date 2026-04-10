@@ -42,7 +42,6 @@ public class SearchGraphicController {
         if(selezionePrezzo!=null && !selezionePrezzo.isEmpty()) {
 
             prezzo = Float.parseFloat(selezionePrezzo.replaceAll("\\D", ""));
-            System.out.println(prezzo);
 
         }
         searchCardBean.setPrezzoCorrente(prezzo);

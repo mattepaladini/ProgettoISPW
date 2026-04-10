@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class UserDAODemo implements UserDAO {
 
-    protected static List<User> users = new ArrayList<>();
+    protected List<User> users = new ArrayList<>();
     private static final Logger log = Logger.getLogger(UserDAODemo.class.getName());
 
     @Override
@@ -42,7 +42,7 @@ public class UserDAODemo implements UserDAO {
     @Override
     public boolean logWithPSW(String username, String password) {
         for (User user : users) {
-            if(user.getPassword().equals(password)) {
+            if(user.getPassword().equals(password) && user.getUsername().equals(username)) {
                 log.log(Level.INFO, "Utente loggato con successo");
                 return true;
             }

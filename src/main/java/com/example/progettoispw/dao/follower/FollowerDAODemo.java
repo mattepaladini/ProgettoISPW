@@ -1,9 +1,6 @@
 package com.example.progettoispw.dao.follower;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FollowerDAODemo implements FollowerDAO {
 
@@ -24,7 +21,7 @@ public class FollowerDAODemo implements FollowerDAO {
 
     @Override
     public List<String> getFollowers(String sellerUsername) {
-        return followersMap.get(sellerUsername);
+        return followersMap.getOrDefault(sellerUsername, Collections.emptyList());
     }
 
     @Override

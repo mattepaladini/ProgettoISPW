@@ -2,6 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.RegistrationController;
+import com.example.progettoispw.exception.LoadPageException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,7 @@ public class RegistrationGraphicController {
     private static final SceneManager sceneManager = new SceneManager();
 
     @FXML
-    public void onRegisterClick(ActionEvent event) throws IOException {
+    public void onRegisterClick(ActionEvent event)  {
         // 1. Recupero i dati
 
         String username = txtUsername.getText();
@@ -46,16 +47,17 @@ public class RegistrationGraphicController {
         RegistrationController regiController = new RegistrationController();
         regiController.completeRegistration(userbean);
 
-        // 3. CAMBIO SCENA -> VADO ALLA HOME (MainLayout)
-        // Poiché la sessione è piena, HomeGraphicController mostrerà i tasti giusti.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
-        Parent root = loader.load();
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
+            Parent root = loader.load();
 
-        // ... (codice per caricare la Home al centro del MainLayout) ...
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        }catch(IOException e){
+            ErrorHandler.show(new LoadPageException("Impossibile caricare la pagina"));
+        }
 
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 600));
-        stage.show();
     }
 
     @FXML

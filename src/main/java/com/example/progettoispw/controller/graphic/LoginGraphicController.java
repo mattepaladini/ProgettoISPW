@@ -32,13 +32,12 @@ public class LoginGraphicController {
 
             logger.log(Level.INFO, "User {0} loggato" ,user);
 
+            sceneManager.startScene(event,"/GUI/Notifications.fxml");
         } else {
             ErrorHandler.show(new InvalidInputException("Username e/o password mancanti"));
         }
 
-        //carico schermata Home
 
-        sceneManager.startScene(event,"/GUI/Notifications.fxml");
 
     }
 

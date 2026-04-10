@@ -1,18 +1,20 @@
 package com.example.progettoispw.pattern.abstractfactory;
 
-import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.follower.FollowerDAO;
 import com.example.progettoispw.dao.notification.NotificationDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.dao.user.UserDAO;
-import com.example.progettoispw.exception.InvalidInputException;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class DAOFactory  {
 
     //VARIABILE GLOBALE
-    protected static PersistenceType persistenceType;
+    protected static PersistenceType persistenceType ;
+    private static final Logger log = Logger.getLogger(DAOFactory.class.getName());
 
     //VARIABILE PER SINGLETON
     private static DAOFactory instance = null;
@@ -23,7 +25,10 @@ public abstract class DAOFactory  {
                 case FSYS -> instance = new DAOFactoryFSys();
                 case JDBC -> instance = new DAOFactoryDB();
                 case DEMO -> instance = new DAOFactoryDemo();
-                default -> ErrorHandler.show(new InvalidInputException("Valore non valido"));
+                default -> {
+                    instance = new DAOFactoryDemo();
+                    log.log(Level.WARNING, "Valore non valido, modalità default DEMO!");
+                }
             }
         }
         return instance;
