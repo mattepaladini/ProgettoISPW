@@ -61,6 +61,9 @@ public class SearchResultsGraphicController {
     @FXML
     private TableColumn<CollectableCardBean, CollectableCardBean> colSegui;
 
+    private ManageNotificationsController notificationsController= new ManageNotificationsController();;
+
+
     @FXML
     public void initialize() {
 
@@ -83,11 +86,11 @@ public class SearchResultsGraphicController {
                 btnSegui.setStyle("-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-cursor: hand;");
 
                 btnSegui.setOnAction(event -> {
-                    // 1. Recupero la carta di questa riga e il venditore
+
                     CollectableCardBean cardSelezionata = getTableView().getItems().get(getIndex());
                     String venditoreUsername = cardSelezionata.getVenditore();
 
-                    // 2. Controllo utente loggato (se non è loggato fermiamo tutto)
+                    //se l'utente non è loggato non può mettere il follow
                     if (SessionManager.getInstance().getLoggedUser() == null) {
                         Stage stage = (Stage) btnSegui.getScene().getWindow();
                         ToastManager.showErrorToast(stage, "Devi fare il login per seguire un venditore!");
@@ -95,16 +98,18 @@ public class SearchResultsGraphicController {
                     }
 
                     try {
-                        // 3. Istanziamo il Controller Logico e chiamiamo il caso d'uso
-                        ManageNotificationsController notificationsController = new ManageNotificationsController();
-                        notificationsController.followSeller(SessionManager.getInstance().getLoggedUser().getUsername(), cardSelezionata.getVenditore());
 
-                        // 4. Feedback visivo
-                        btnSegui.setText("✔️ Seguito");
-                        btnSegui.setDisable(true); // Evito che l'utente clicchi all'infinito
 
-                        Stage stage = (Stage) btnSegui.getScene().getWindow();
-                        ToastManager.showToast(stage, "Ora segui " + venditoreUsername + "!");
+                       if(notificationsController.followSeller(SessionManager.getInstance().getLoggedUser().getUsername(), cardSelezionata.getVenditore())) {
+
+                           btnSegui.setText("✔️ Seguito");
+                           btnSegui.setDisable(true);
+
+                           Stage stage = (Stage) btnSegui.getScene().getWindow();
+                           ToastManager.showToast(stage, "Ora segui " + venditoreUsername + "!");
+                       }
+
+
 
                     } catch (Exception e) {
                         logger.log(Level.SEVERE, "Errore durante il follow", e);
@@ -119,6 +124,29 @@ public class SearchResultsGraphicController {
                 if (empty || item == null) {
                     setGraphic(null);
                 }else{
+
+                    if(SessionManager.getInstance().getLoggedUser().getUsername().equals(item.getVenditore())){
+                        btnSegui.setDisable(false);
+                        btnSegui.setManaged(false);
+                    } else{
+                        btnSegui.setDisable(true);
+                        boolean isAlreadyFollow = notificationsController.checkFollowStatus(SessionManager.getInstance().getLoggedUser().getUsername(), item.getVenditore());
+
+                        if (isAlreadyFollow) {
+
+                            btnSegui.setText("✔️ Segui già");
+                            btnSegui.setStyle("-fx-text-fill: #95a5a6; -fx-background-color: transparent;");
+                            btnSegui.setDisable(true);
+
+                        } else {
+
+                            btnSegui.setText("❤ Segui");
+                            btnSegui.setStyle("-fx-text-fill: #e74c3c; -fx-background-color: transparent; -fx-cursor: hand;");
+                            btnSegui.setDisable(false);
+                        }
+                    }
+
+
                     setGraphic(btnSegui);
                 }
             }

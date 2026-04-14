@@ -155,7 +155,6 @@ public class SellerHomeCLI {
             throw new OperationFailedException(e.getMessage());
         }
 
-
         logger.log(Level.INFO,"Carta aggiunta con successo");
     }
 

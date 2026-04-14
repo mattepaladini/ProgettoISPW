@@ -23,13 +23,20 @@ public class ManageNotificationsController {
 
     }
 
-    public void followSeller(String buyer, String seller){
+    public boolean followSeller(String buyer, String seller){
         FollowerDAO followerDAO = DAOFactory.getInstance().getFollowerDAO();
+       /* if(followerDAO.isFollowing(buyer, seller)){
+            return false;
+        }
+
+        */
+
         followerDAO.follow(buyer, seller);
 
         NotificationDAO notificationDAO = DAOFactory.getInstance().getNotificationDAO();
         Notification notif = new Notification(seller, buyer, "L'utente "+buyer+" ha iniziato a seguirti", LocalDate.now().toString());
         notificationDAO.saveNotification(notif);
+        return true;
 
     }
 
@@ -49,6 +56,11 @@ public class ManageNotificationsController {
         }
         NotificationDAO notificationDAO = DAOFactory.getInstance().getNotificationDAO();
         notificationDAO.markAsRead(notificationID);
+    }
+
+    public boolean checkFollowStatus(String buyer, String seller) {
+        FollowerDAO followerDAO = DAOFactory.getInstance().getFollowerDAO();
+        return followerDAO.isFollowing(buyer, seller);
     }
 
 
