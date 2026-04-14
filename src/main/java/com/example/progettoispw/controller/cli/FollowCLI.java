@@ -24,56 +24,52 @@ public class FollowCLI {
 
     }
 
-    public void showNotif(){
-
-
-        boolean back = false;
-
-        String currentUser= SessionManager.getInstance().getLoggedUser().getUsername();
+    public void showNotif() {
+        String currentUser = SessionManager.getInstance().getLoggedUser().getUsername();
 
         System.out.println("-".repeat(105));
         System.out.println("-> Centro Notifiche <-");
 
-        while(!back){
-
+        while (true) {
             List<NotificationBean> unreadNotif = manageNotificationsController.getUnreadNotifications(currentUser);
-            if(unreadNotif.isEmpty()){
+
+            // 1. Guard Clause: se non ci sono notifiche, esco subito dal ciclo.
+            if (unreadNotif.isEmpty()) {
                 System.out.println("Nessuna nuova notifica!");
-                back = true;
-            } else{
-
-                for(int i=0; i<unreadNotif.size(); i++){
-                    NotificationBean notif = unreadNotif.get(i);
-                    System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
-                }
-
-                System.out.println("-".repeat(105));
-                System.out.println("Inserisci il numero della notifica per segnarla come letta");
-                System.out.println("Altrimenti inserisci 0 per ignorare");
-                System.out.print("Scelta -> ");
-                int chossenIndex = scanner.nextInt();
-
-                try{
-                    if(chossenIndex == 0){
-                        back = true;
-                    } else if(chossenIndex > 0 && chossenIndex <= unreadNotif.size()){
-                        NotificationBean selectedNotif = unreadNotif.get(chossenIndex-1);   //java parte da 0
-
-                        manageNotificationsController.markAsRead(selectedNotif.getId());
-                        System.out.println("\nNotifica rimossa!");
-                    } else{
-                        System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
-                    }
-                }catch (BaseException e){
-                    ErrorHandler.show(new OperationFailedException(e.getMessage()));
-                }
+                break;
             }
 
+            for (int i = 0; i < unreadNotif.size(); i++) {
+                NotificationBean notif = unreadNotif.get(i);
+                System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
+            }
 
+            System.out.println("-".repeat(105));
+            System.out.println("Inserisci il numero della notifica per segnarla come letta");
+            System.out.println("Altrimenti inserisci 0 per ignorare");
+            System.out.print("Scelta -> ");
+            int chosenIndex = scanner.nextInt();
+
+            // 2. Early Exit: se preme 0, interrompo il loop immediatamente.
+            if (chosenIndex == 0) {
+                break;
+            }
+
+            // 3. Guard Clause sull'input invalido: se il numero è sballato, avviso e ricomincio il loop.
+            if (chosenIndex < 0 || chosenIndex > unreadNotif.size()) {
+                System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
+                continue;
+            }
+
+            // 4. Esecuzione pulita: il blocco try-catch ora gestisce solo il "caso felice", senza if-else annidati!
+            try {
+                NotificationBean selectedNotif = unreadNotif.get(chosenIndex - 1);
+                manageNotificationsController.markAsRead(selectedNotif.getId());
+                System.out.println("\nNotifica rimossa!");
+            } catch (BaseException e) {
+                ErrorHandler.show(new OperationFailedException(e.getMessage()));
+            }
         }
-
-
     }
-
 
 }

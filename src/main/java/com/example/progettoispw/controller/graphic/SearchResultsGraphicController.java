@@ -6,6 +6,7 @@ import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.LoadPageException;
 import com.example.progettoispw.exception.OperationFailedException;
+import com.example.progettoispw.model.User;
 import com.example.progettoispw.utility.session.SessionManager;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -66,95 +67,110 @@ public class SearchResultsGraphicController {
 
     @FXML
     public void initialize() {
+        // Disabilito il bottone per aggiungere al carrello finché non viene selezionata la riga
+        btnAddToCart.disableProperty().bind(resultsTable.getSelectionModel().selectedItemProperty().isNull());
 
-        btnAddToCart.disableProperty().bind(
-                resultsTable.getSelectionModel().selectedItemProperty().isNull());
-//disabilito il bottone per aggiungere al carrello finchè non viene selezionata la riga della tabella
+        setupTableColumns();
+    }
 
-        //la stringa finale dipende da getter che si trova in CollecatableCardBean
+    // 1. ESTRAZIONE: Configurazione generale delle colonne
+    private void setupTableColumns() {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
         colPrezzo.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
         colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradazione"));
         colVenditore.setCellValueFactory(new PropertyValueFactory<>("venditore"));
-        colSegui.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
-        colSegui.setCellFactory(param -> new TableCell<CollectableCardBean, CollectableCardBean>() {
+        colSegui.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        colSegui.setCellFactory(param -> createFollowCell());
+    }
+
+    // 2. ESTRAZIONE: Creazione della cella
+    private TableCell<CollectableCardBean, CollectableCardBean> createFollowCell() {
+        return new TableCell<>() {
             private final Button btnSegui = new Button("❤ Segui");
 
             {
-                // Stile del bottone inline
                 btnSegui.setStyle("-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-cursor: hand;");
-
-                btnSegui.setOnAction(event -> {
-
-                    CollectableCardBean cardSelezionata = getTableView().getItems().get(getIndex());
-                    String venditoreUsername = cardSelezionata.getVenditore();
-
-                    //se l'utente non è loggato non può mettere il follow
-                    if (SessionManager.getInstance().getLoggedUser() == null) {
-                        Stage stage = (Stage) btnSegui.getScene().getWindow();
-                        ToastManager.showErrorToast(stage, "Devi fare il login per seguire un venditore!");
-                        return;
-                    }
-
-                    try {
-
-
-                       if(notificationsController.followSeller(SessionManager.getInstance().getLoggedUser().getUsername(), cardSelezionata.getVenditore())) {
-
-                           btnSegui.setText("✔️ Seguito");
-                           btnSegui.setDisable(true);
-
-                           Stage stage = (Stage) btnSegui.getScene().getWindow();
-                           ToastManager.showToast(stage, "Ora segui " + venditoreUsername + "!");
-                       }
-
-
-
-                    } catch (Exception e) {
-                        logger.log(Level.SEVERE, "Errore durante il follow", e);
-                        Stage stage = (Stage) btnSegui.getScene().getWindow();
-                        ToastManager.showErrorToast(stage, "Errore di connessione.");
-                    }
-                });
+                btnSegui.setOnAction(event -> handleFollowAction(btnSegui, getTableView().getItems().get(getIndex())));
             }
+
             @Override
             protected void updateItem(CollectableCardBean item, boolean empty) {
                 super.updateItem(item, empty);
+
+                // Early Exit per le celle vuote
                 if (empty || item == null) {
                     setGraphic(null);
-                }else{
-
-                    if(SessionManager.getInstance().getLoggedUser().getUsername().equals(item.getVenditore())){
-                        btnSegui.setDisable(false);
-                        btnSegui.setManaged(false);
-                    } else{
-                        btnSegui.setDisable(true);
-                        boolean isAlreadyFollow = notificationsController.checkFollowStatus(SessionManager.getInstance().getLoggedUser().getUsername(), item.getVenditore());
-
-                        if (isAlreadyFollow) {
-
-                            btnSegui.setText("✔️ Segui già");
-                            btnSegui.setStyle("-fx-text-fill: #95a5a6; -fx-background-color: transparent;");
-                            btnSegui.setDisable(true);
-
-                        } else {
-
-                            btnSegui.setText("❤ Segui");
-                            btnSegui.setStyle("-fx-text-fill: #e74c3c; -fx-background-color: transparent; -fx-cursor: hand;");
-                            btnSegui.setDisable(false);
-                        }
-                    }
-
-
-                    setGraphic(btnSegui);
+                    return;
                 }
+
+                updateFollowButtonUI(btnSegui, item);
+                setGraphic(btnSegui);
             }
-
-        });
-
+        };
     }
 
+    // 3. ESTRAZIONE: Logica del click sul bottone
+    private void handleFollowAction(Button btnSegui, CollectableCardBean cardSelezionata) {
+        User loggedUser = SessionManager.getInstance().getLoggedUser();
+        Stage stage = (Stage) btnSegui.getScene().getWindow();
+
+        // Guard Clause: controllo utente loggato
+        if (loggedUser == null) {
+            ToastManager.showErrorToast(stage, "Devi fare il login per seguire un venditore!");
+            return;
+        }
+
+        String sellerUsername = cardSelezionata.getVenditore();
+
+        try {
+            boolean isFollowed = notificationsController.followSeller(loggedUser.getUsername(), sellerUsername);
+            if (isFollowed) {
+                btnSegui.setText("✔️ Seguito");
+                btnSegui.setDisable(true);
+                ToastManager.showToast(stage, "Ora segui " + sellerUsername + "!");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Errore durante il follow", e);
+            ToastManager.showErrorToast(stage, "Errore di connessione.");
+        }
+    }
+
+    // 4. ESTRAZIONE: Logica di aggiornamento visivo del bottone
+    private void updateFollowButtonUI(Button btnSegui, CollectableCardBean item) {
+        User loggedUser = SessionManager.getInstance().getLoggedUser();
+
+        // Fix di sicurezza: se nessun utente è loggato, nascondo il bottone
+        if (loggedUser == null) {
+            btnSegui.setVisible(false);
+            return;
+        }
+
+        String currentUser = loggedUser.getUsername();
+
+        // Guard Clause: l'utente è il venditore stesso
+        if (currentUser.equals(item.getVenditore())) {
+            btnSegui.setVisible(false);
+            btnSegui.setManaged(false); // Nasconde lo spazio vuoto
+            return;
+        }
+
+        // Resetto la visibilità per le righe normali
+        btnSegui.setVisible(true);
+        btnSegui.setManaged(true);
+
+        boolean isAlreadyFollowing = notificationsController.checkFollowStatus(currentUser, item.getVenditore());
+
+        if (isAlreadyFollowing) {
+            btnSegui.setText("✔️ Segui già");
+            btnSegui.setStyle("-fx-text-fill: #95a5a6; -fx-background-color: transparent;");
+            btnSegui.setDisable(true);
+        } else {
+            btnSegui.setText("❤ Segui");
+            btnSegui.setStyle("-fx-text-fill: #e74c3c; -fx-background-color: transparent; -fx-cursor: hand;");
+            btnSegui.setDisable(false);
+        }
+    }
     @FXML
     public void onBackClick(ActionEvent event) {
         try {
