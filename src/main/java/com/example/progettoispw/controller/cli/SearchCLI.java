@@ -4,10 +4,12 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.graphic.ErrorHandler;
 import com.example.progettoispw.controller.logic.BuyController;
 import com.example.progettoispw.controller.logic.ManageCartController;
+import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Type;
+import com.example.progettoispw.utility.session.SessionManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +44,6 @@ public class SearchCLI {
             System.out.println("1. Cerca per Nome della carta");
             System.out.println("2. Aggiungi filtri (Gradazione, Prezzo, Tipo, Attributo, ...)");
             System.out.println("3. ESEGUI RICERCA");
-            System.out.println("4. Aggiungi al carrello");
             System.out.println("-".repeat(105));
 
             System.out.print(SCELTA);
@@ -66,10 +67,6 @@ public class SearchCLI {
                             case 3:
                                 executeQuery();
                                 break;
-
-                                    case 4:
-                                        addToCart();
-                                        break;
 
                                 default:
                                     logger.log(Level.SEVERE, "Inserire una scelta valida!");
@@ -256,6 +253,8 @@ public class SearchCLI {
 
         System.out.println("-".repeat(105) + "\n");
 
+        optionsCLI();
+
     }
 
     //Metodo di supporto per i nomi delle carte troppo lunghi
@@ -263,6 +262,57 @@ public class SearchCLI {
         if (testo == null) return "N/D";
         if (testo.length() <= lunghezzaMax) return testo;
         return testo.substring(0, lunghezzaMax - 3) + "...";
+    }
+
+    public void optionsCLI(){
+
+        boolean back=false;
+
+        while(!back){
+            System.out.println("-".repeat(105));
+            System.out.println("Scegli un'azione: ");
+            System.out.println("1. Aggiungi al carrello");
+            System.out.println("2. Seguire venditore");
+            System.out.println("3. Torna indietro");
+            System.out.print(SCELTA);
+
+            int choice = scanner.nextInt();
+            switch (choice){
+                case 1:
+                    addToCart();
+                    break;
+
+                case 2:
+                    executeFollow();
+                    break;
+
+                case 3:
+                    back=true;
+            }
+        }
+
+
+
+    }
+
+    public void executeFollow(){
+
+        System.out.println("-".repeat(105));
+        System.out.println("--> Segui Venditore <--");
+        System.out.print("Inserisci l'indice della carta del venditore che vuoi seguire: ");
+
+        int choosenIndex = scanner.nextInt();
+
+        try{
+            ManageNotificationsController manageNotificationsController = new ManageNotificationsController();
+            String buyer = SessionManager.getInstance().getLoggedUser().getUsername();
+            String seller = mapResult.get(choosenIndex).getVenditore();
+
+            manageNotificationsController.followSeller(buyer, seller);
+        }catch (BaseException e){
+            ErrorHandler.show(new OperationFailedException(e.getMessage()));
+        }
+
     }
 
     public void addToCart(){

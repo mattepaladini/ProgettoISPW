@@ -38,6 +38,7 @@ public class SellerHomeCLI {
             System.out.println("1. Visualizza Catalogo");
             System.out.println("2. Aggiungi Carta");
             System.out.println("3. Modifica Prezzo della carta");
+            System.out.println("4. Centro Notifiche");
             System.out.println("0. Torna Indietro");
             System.out.println("-".repeat(105));
 
@@ -55,6 +56,11 @@ public class SellerHomeCLI {
                 case 3:
                     updatePrice();
                     break;
+
+                    case 4:
+                        FollowCLI followCli = new FollowCLI();
+                        followCli.start();
+                        break;
 
                 case 0:
                     back = true;

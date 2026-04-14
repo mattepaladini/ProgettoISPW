@@ -25,11 +25,9 @@ public class ManageNotificationsController {
 
     public boolean followSeller(String buyer, String seller){
         FollowerDAO followerDAO = DAOFactory.getInstance().getFollowerDAO();
-       /* if(followerDAO.isFollowing(buyer, seller)){
+       if(followerDAO.isFollowing(buyer, seller)){
             return false;
         }
-
-        */
 
         followerDAO.follow(buyer, seller);
 

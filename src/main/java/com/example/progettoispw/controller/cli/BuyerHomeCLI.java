@@ -20,6 +20,7 @@ public class BuyerHomeCLI {
             System.out.println("--> HomePage Compratore <--");
             System.out.println("1. Visualizza Carrello");
             System.out.println("2. Cerca Carta");
+            System.out.println("3. Centro Notifiche");
             System.out.println("0. Torna Indietro");
             System.out.println("-".repeat(105));
 
@@ -36,6 +37,11 @@ public class BuyerHomeCLI {
                         SearchCLI searchCLI = new SearchCLI();
                         searchCLI.startCLI();
                         break;
+
+                        case 3:
+                            FollowCLI followCLI = new FollowCLI();
+                            followCLI.start();
+                            break;
 
                         case 0:
                             back=true;
