@@ -62,7 +62,7 @@ public class SearchResultsGraphicController {
     @FXML
     private TableColumn<CollectableCardBean, CollectableCardBean> colSegui;
 
-    private ManageNotificationsController notificationsController= new ManageNotificationsController();;
+    private ManageNotificationsController notificationsController= new ManageNotificationsController();
 
 
     @FXML

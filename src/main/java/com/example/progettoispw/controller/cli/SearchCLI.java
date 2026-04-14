@@ -288,6 +288,7 @@ public class SearchCLI {
 
                 case 3:
                     back=true;
+                    break;
 
                 default:
                     System.out.println("Inserisci scelta valida!");

@@ -30,46 +30,47 @@ public class FollowCLI {
         System.out.println("-".repeat(105));
         System.out.println("-> Centro Notifiche <-");
 
-        while (true) {
+        boolean stayInMenu = true;
+
+        // Use a boolean flag instead of while(true)
+        while (stayInMenu) {
             List<NotificationBean> unreadNotif = manageNotificationsController.getUnreadNotifications(currentUser);
 
-            // 1. Guard Clause: se non ci sono notifiche, esco subito dal ciclo.
             if (unreadNotif.isEmpty()) {
                 System.out.println("Nessuna nuova notifica!");
-                break;
-            }
+                stayInMenu = false; // Exits the loop gracefully instead of breaking
 
-            for (int i = 0; i < unreadNotif.size(); i++) {
-                NotificationBean notif = unreadNotif.get(i);
-                System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
-            }
+            } else {
+                for (int i = 0; i < unreadNotif.size(); i++) {
+                    NotificationBean notif = unreadNotif.get(i);
+                    System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
+                }
 
-            System.out.println("-".repeat(105));
-            System.out.println("Inserisci il numero della notifica per segnarla come letta");
-            System.out.println("Altrimenti inserisci 0 per ignorare");
-            System.out.print("Scelta -> ");
-            int chosenIndex = scanner.nextInt();
+                System.out.println("-".repeat(105));
+                System.out.println("Inserisci il numero della notifica per segnarla come letta");
+                System.out.println("Altrimenti inserisci 0 per ignorare");
+                System.out.print("Scelta -> ");
+                int chosenIndex = scanner.nextInt();
 
-            // 2. Early Exit: se preme 0, interrompo il loop immediatamente.
-            if (chosenIndex == 0) {
-                break;
-            }
+                // Handle all input cases with a clean if-else chain
+                if (chosenIndex == 0) {
+                    stayInMenu = false; // Exits the loop gracefully
 
-            // 3. Guard Clause sull'input invalido: se il numero è sballato, avviso e ricomincio il loop.
-            if (chosenIndex < 0 || chosenIndex > unreadNotif.size()) {
-                System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
-                continue;
-            }
+                } else if (chosenIndex > 0 && chosenIndex <= unreadNotif.size()) {
+                    // The valid execution path
+                    try {
+                        NotificationBean selectedNotif = unreadNotif.get(chosenIndex - 1);
+                        manageNotificationsController.markAsRead(selectedNotif.getId());
+                        System.out.println("\nNotifica rimossa!");
+                    } catch (BaseException e) {
+                        ErrorHandler.show(new OperationFailedException(e.getMessage()));
+                    }
 
-            // 4. Esecuzione pulita: il blocco try-catch ora gestisce solo il "caso felice", senza if-else annidati!
-            try {
-                NotificationBean selectedNotif = unreadNotif.get(chosenIndex - 1);
-                manageNotificationsController.markAsRead(selectedNotif.getId());
-                System.out.println("\nNotifica rimossa!");
-            } catch (BaseException e) {
-                ErrorHandler.show(new OperationFailedException(e.getMessage()));
+                } else {
+                    // Replaces the "continue" by naturally reaching the end of the loop body
+                    System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
+                }
             }
         }
     }
-
 }
