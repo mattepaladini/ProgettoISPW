@@ -32,45 +32,55 @@ public class FollowCLI {
 
         boolean stayInMenu = true;
 
-        // Use a boolean flag instead of while(true)
         while (stayInMenu) {
             List<NotificationBean> unreadNotif = manageNotificationsController.getUnreadNotifications(currentUser);
 
             if (unreadNotif.isEmpty()) {
                 System.out.println("Nessuna nuova notifica!");
-                stayInMenu = false; // Exits the loop gracefully instead of breaking
-
+                stayInMenu = false;
             } else {
-                for (int i = 0; i < unreadNotif.size(); i++) {
-                    NotificationBean notif = unreadNotif.get(i);
-                    System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
-                }
-
-                System.out.println("-".repeat(105));
-                System.out.println("Inserisci il numero della notifica per segnarla come letta");
-                System.out.println("Altrimenti inserisci 0 per ignorare");
-                System.out.print("Scelta -> ");
+                printMenuAndNotifications(unreadNotif);
                 int chosenIndex = scanner.nextInt();
 
-                // Handle all input cases with a clean if-else chain
-                if (chosenIndex == 0) {
-                    stayInMenu = false; // Exits the loop gracefully
-
-                } else if (chosenIndex > 0 && chosenIndex <= unreadNotif.size()) {
-                    // The valid execution path
-                    try {
-                        NotificationBean selectedNotif = unreadNotif.get(chosenIndex - 1);
-                        manageNotificationsController.markAsRead(selectedNotif.getId());
-                        System.out.println("\nNotifica rimossa!");
-                    } catch (BaseException e) {
-                        ErrorHandler.show(new OperationFailedException(e.getMessage()));
-                    }
-
-                } else {
-                    // Replaces the "continue" by naturally reaching the end of the loop body
-                    System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
-                }
+                // Deleghiamo la logica complessa a un metodo esterno
+                stayInMenu = processUserChoice(chosenIndex, unreadNotif);
             }
         }
+    }
+
+    // 1. ESTRAZIONE: Gestisce solo la stampa a schermo (Cognitive Complexity: 1)
+    private void printMenuAndNotifications(List<NotificationBean> unreadNotif) {
+        for (int i = 0; i < unreadNotif.size(); i++) {
+            NotificationBean notif = unreadNotif.get(i);
+            System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
+        }
+
+        System.out.println("-".repeat(105));
+        System.out.println("Inserisci il numero della notifica per segnarla come letta");
+        System.out.println("Altrimenti inserisci 0 per ignorare");
+        System.out.print("Scelta -> ");
+    }
+
+    // 2. ESTRAZIONE: Gestisce solo l'input e l'esecuzione (Cognitive Complexity: 4)
+    private boolean processUserChoice(int chosenIndex, List<NotificationBean> unreadNotif) {
+        if (chosenIndex == 0) {
+            return false; // Restituisce false per impostare stayInMenu = false ed uscire
+        }
+
+        if (chosenIndex < 0 || chosenIndex > unreadNotif.size()) {
+            System.out.println("\n !Scelta non valida. Inserisci un numero presente in lista.");
+            return true; // Restituisce true per far continuare il ciclo
+        }
+
+        // Il blocco try-catch ora è "piatto", senza if/else attorno ad esso!
+        try {
+            NotificationBean selectedNotif = unreadNotif.get(chosenIndex - 1);
+            manageNotificationsController.markAsRead(selectedNotif.getId());
+            System.out.println("\nNotifica rimossa!");
+        } catch (BaseException e) {
+            ErrorHandler.show(new OperationFailedException(e.getMessage()));
+        }
+
+        return true; // Restituisce true per far continuare il ciclo
     }
 }
