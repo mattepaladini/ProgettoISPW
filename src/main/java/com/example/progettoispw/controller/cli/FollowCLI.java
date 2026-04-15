@@ -52,7 +52,7 @@ public class FollowCLI {
     private void printMenuAndNotifications(List<NotificationBean> unreadNotif) {
         for (int i = 0; i < unreadNotif.size(); i++) {
             NotificationBean notif = unreadNotif.get(i);
-            System.out.printf("[%d] [%s] %s\n", (i + 1), notif.getDate(), notif.getMessage());
+            System.out.printf("[%d] [%s] %s %n", (i + 1), notif.getDate(), notif.getMessage());
         }
 
         System.out.println("-".repeat(105));
