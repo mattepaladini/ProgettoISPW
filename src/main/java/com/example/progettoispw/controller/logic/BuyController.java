@@ -5,6 +5,7 @@ import com.example.progettoispw.bean.OrderBean;
 import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.order.OrderDAO;
 import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.InvalidInputMessages;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Card;
 import com.example.progettoispw.model.Order;
@@ -25,7 +26,7 @@ public class BuyController {
         String nome = "";
         if(searchBean.getNomeCarta().isBlank())
         {
-            throw new InvalidInputException("Errore, inserire il nome della carta da cercare");
+            throw new InvalidInputException(InvalidInputMessages.SEARCH_CARD_FAIL);
         } else{
             nome = searchBean.getNomeCarta();
         }

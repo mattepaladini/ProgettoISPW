@@ -6,6 +6,7 @@ import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.InvalidInputMessages;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Gradazione;
 import com.example.progettoispw.model.User;
@@ -126,7 +127,7 @@ public class SellerCatalogGraphicController implements Initializable {
                 tableCatalog.refresh();
 
             } catch (BaseException e) {
-                ErrorHandler.show(new InvalidInputException("Inserisci numero valido"));
+                ErrorHandler.show(new InvalidInputException(InvalidInputMessages.UPDATE_FAIL));
             }
         });
     }

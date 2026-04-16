@@ -4,6 +4,7 @@ import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.InvalidInputMessages;
 import com.example.progettoispw.exception.RegistrationException;
 import com.example.progettoispw.model.Buyer;
 import com.example.progettoispw.model.Seller;
@@ -23,7 +24,7 @@ public class RegistrationController {
         UserDAO userdao = DAOFactory.getInstance().getUserDAO();
 
         if(userbean.getUsername().isBlank() || userbean.getPassword().isBlank()) {
-            throw  new InvalidInputException("Username e/o password assente");
+            throw  new InvalidInputException(InvalidInputMessages.REGISTRATION_FAIL);
         }
 
         User newUser = new User(userbean.getUsername(), userbean.getPassword(), userbean.getUsertype());

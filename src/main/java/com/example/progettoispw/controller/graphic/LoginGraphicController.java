@@ -3,6 +3,7 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.AuthController;
 import com.example.progettoispw.exception.InvalidInputException;
+import com.example.progettoispw.exception.InvalidInputMessages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -34,7 +35,7 @@ public class LoginGraphicController {
 
             sceneManager.startScene(event,"/GUI/Notifications.fxml");
         } else {
-            ErrorHandler.show(new InvalidInputException("Username e/o password mancanti"));
+            ErrorHandler.show(new InvalidInputException(InvalidInputMessages.LOGIN_FAIL));
         }
 
 

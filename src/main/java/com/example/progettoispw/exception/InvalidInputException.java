@@ -4,4 +4,8 @@ public class InvalidInputException extends BaseException {
     public InvalidInputException(String message) {
         super(message);
     }
+
+    public InvalidInputException(InvalidInputMessages errorType) {
+        super(errorType.getMessage());
+    }
 }
