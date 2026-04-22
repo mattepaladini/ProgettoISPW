@@ -59,7 +59,7 @@ class OrderTest {
 
 
     @Test
-    @DisplayName("T10 - Save Order")
+    @DisplayName("T07 - Save Order")
      void testSaveOrder() {
         
         sessionManager.getShoppingCart().add(TEST_CARD_ORDER);

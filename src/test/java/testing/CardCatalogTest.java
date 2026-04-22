@@ -49,7 +49,7 @@ class CardCatalogTest {
     }
 
     @Test
-    @DisplayName("T07 - Add Card: Inserimento di una nuova carta nel catalogo")
+    @DisplayName("T01 - Add Card: Inserimento di una nuova carta nel catalogo")
     void testAddCard() {
 
         CollectableCardBean cardBean = new CollectableCardBean();
@@ -71,7 +71,7 @@ class CardCatalogTest {
     }
 
     @Test
-    @DisplayName("T08 - Add Card with the same name in a catalog: aggiunta di una carta 'doppione' nello stesso catalogo")
+    @DisplayName("T02 - Add Card with the same name in a catalog: aggiunta di una carta 'doppione' nello stesso catalogo")
     void testAddCardWithSameName() {
 
         CollectableCardBean cardBean1 = new CollectableCardBean();
@@ -105,7 +105,7 @@ class CardCatalogTest {
     }
 
     @Test
-    @DisplayName("T09 - Remove Card")
+    @DisplayName("T03 - Remove Card")
     void testRemoveCard(){
         CollectableCardBean cardBean = new CollectableCardBean();
         cardBean.setNomeCarta(TEST_CARD.getNome());
