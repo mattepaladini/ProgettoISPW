@@ -5,7 +5,6 @@ import com.example.progettoispw.controller.logic.ManageCartController;
 import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.LoadPageException;
-import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.utility.session.SessionManager;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -64,6 +63,7 @@ public class SearchResultsGraphicController {
 
     private ManageNotificationsController notificationsController= new ManageNotificationsController();
 
+    private SceneManager sceneManager = new SceneManager();
 
     @FXML
     public void initialize() {
@@ -162,8 +162,8 @@ public class SearchResultsGraphicController {
         boolean isAlreadyFollowing = notificationsController.checkFollowStatus(currentUser, item.getVenditore());
 
         if (isAlreadyFollowing) {
-            btnSegui.setText("✔️ Segui già");
-            btnSegui.setStyle("-fx-text-fill: #95a5a6; -fx-background-color: transparent;");
+            btnSegui.setText("✔ Segui già");
+            btnSegui.setStyle("-fx-text-fill: #e74c3c; -fx-background-color: transparent;");
             btnSegui.setDisable(true);
         } else {
             btnSegui.setText("❤ Segui");
@@ -195,31 +195,31 @@ public class SearchResultsGraphicController {
 
         CollectableCardBean selectedCard = resultsTable.getSelectionModel().getSelectedItem();
 
-        if(SessionManager.getInstance().getLoggedUser()==null){
-            ToastManager.showErrorToast(stage, "Errore, utente non loggato!");
-            throw new OperationFailedException("Errore, utente non loggato!");
-        }
+        if(SessionManager.getInstance().getLoggedUser()!=null){
 
-        if(selectedCard == null){
-            logger.log(Level.WARNING, "Seleziona prima una carta");
-        } else {
 
-            ManageCartController cartController = new ManageCartController();
-            if(!cartController.addToCart(selectedCard)){
-                ErrorHandler.show(new InvalidInputException("Impossibile aggiungere la carta"));
+            if(selectedCard == null){
+                logger.log(Level.WARNING, "Seleziona prima una carta");
+            } else {
+
+                ManageCartController cartController = new ManageCartController();
+                if(!cartController.addToCart(selectedCard)){
+                    ErrorHandler.show(new InvalidInputException("Impossibile aggiungere la carta"));
+                }
+
+                ToastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
+
+                resultsTable.getSelectionModel().clearSelection();
+
+                logger.log(Level.INFO, "Carta aggiunta con successo!");
             }
 
-
-
-
-
-            // 3. LA MAGIA: Chiami il tuo ToastManager!
-            ToastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
-
-            resultsTable.getSelectionModel().clearSelection();
-
-            logger.log(Level.INFO, "Carta aggiunta con successo!");
+        } else {
+            ToastManager.showErrorToast(stage, "Errore, utente non loggato!");
+            sceneManager.startScene(event, "/GUI/Login.fxml");
         }
+
+
 
     }
 
