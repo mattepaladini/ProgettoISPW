@@ -2,11 +2,11 @@ package com.example.progettoispw.exception;
 
 public enum DatabaseExceptionMessages {
 
-    REMOVE_CARD_ERROR("Errore cancellazione carta nel DB"),
-    CATA_CREATE_ERROR("Impossibile creare il catalogo"),
-    ADD_CARD_ERROR("Impossibile creare o aggiungere la carta"),
-    UPDATE_CARD_ERROR("Impossibile modificare il prezzo  della carta"),
-    FINDA_CARD_ERROR("Impossibile trovare la carta");
+    REMOVE_CARD_ERROR("Error during remove card on DB"),
+    CATA_CREATE_ERROR("Impossible to create the catalog"),
+    ADD_CARD_ERROR("Impossible to create or add a card"),
+    UPDATE_CARD_ERROR("Impossible update price caard"),
+    FINDA_CARD_ERROR("Impossible to find a card"),;
 
 
     private final String message;
