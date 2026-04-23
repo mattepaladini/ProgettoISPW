@@ -37,10 +37,6 @@ public class RegistrationController {
             throw new RegistrationException(e.getMessage());
         }
 
-        if(userbean.getUsertype() == UserType.SELLER){
-
-        }
-
         SessionManager session = SessionManager.getInstance();
 
         switch (userbean.getUsertype()){
