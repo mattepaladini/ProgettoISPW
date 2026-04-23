@@ -187,7 +187,7 @@ public class SearchResultsGraphicController {
             ErrorHandler.show(new LoadPageException(e.getMessage()));
         }
     }
-
+    
     @FXML
     public void onAddToCartClick(ActionEvent event) {
 

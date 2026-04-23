@@ -1,14 +1,13 @@
 package com.example.progettoispw.controller.logic;
 
 import com.example.progettoispw.bean.UserBean;
+import com.example.progettoispw.dao.cardcatalog.CardCatalogDAO;
 import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.InvalidInputMessages;
 import com.example.progettoispw.exception.RegistrationException;
-import com.example.progettoispw.model.Buyer;
-import com.example.progettoispw.model.Seller;
-import com.example.progettoispw.model.User;
+import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
 import com.example.progettoispw.utility.session.SessionManager;
 
@@ -37,12 +36,21 @@ public class RegistrationController {
         } catch (BaseException e) {
             throw new RegistrationException(e.getMessage());
         }
+
+        if(userbean.getUsertype() == UserType.SELLER){
+
+        }
+
         SessionManager session = SessionManager.getInstance();
 
         switch (userbean.getUsertype()){
             case SELLER:
                 Seller newSeller = new Seller(userbean.getUsername(), userbean.getPassword());
                 session.setLoggedUser(newSeller);
+
+                CardCatalog newCardCatalog = new CardCatalog(newSeller);
+                CardCatalogDAO cardCatalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
+                cardCatalogDAO.addCatalog(newCardCatalog);
                 break;
 
             case BUYER:

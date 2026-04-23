@@ -35,17 +35,14 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
     public void addCatalog(CardCatalog catalog) {
         loadCatalogs();
 
-        //salvo sul db
         String query = QueryManager.getQuery("cardcatalog.addCatalog");
 
         Connection conn = DBConnection.getInstance().getConnection();
 
         try (CallableStatement stmt = (CallableStatement) conn.prepareCall(query)) {
 
-            // Sostituiamo il '?' con il nome del venditore preso dall'oggetto Java
             stmt.setString(1, catalog.getSeller().getSellerName());
 
-            // Eseguiamo l'inserimento fisico nel database
             stmt.execute();
             log.log(Level.INFO,"DEBUG: Creato nuovo catalogo nel DB per: {0}" , catalog.getSeller().getSellerName());
             System.out.println();
