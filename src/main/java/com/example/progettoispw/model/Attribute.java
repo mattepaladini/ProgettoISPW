@@ -5,7 +5,9 @@ public enum Attribute {
     OSCURITA,
     TERRA,
     ACQUA,
-    FUOCO;
+    FUOCO,
+    MAGIA,
+    TRAPPOLA;
 
     public static Attribute fromString(String value){
         for (Attribute a : Attribute.values()) {
