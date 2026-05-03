@@ -138,6 +138,7 @@ public class MainLayoutController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+        ErrorHandler.setOwner(stage);
     }
 
 }

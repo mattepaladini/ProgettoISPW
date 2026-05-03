@@ -1,6 +1,7 @@
 package com.example.progettoispw;
 
 import com.example.progettoispw.controller.cli.HomeCLI;
+import com.example.progettoispw.controller.graphic.MainLayoutController;
 import com.example.progettoispw.dao.PersistenceType;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
@@ -31,6 +32,8 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
         Parent root = loader.load();
 
+        MainLayoutController controller = loader.getController();
+        controller.setStage(primaryStage);
         Scene scene = new Scene(root, 800, 600);
 
         // 1. Carica il CSS Base (struttura)
