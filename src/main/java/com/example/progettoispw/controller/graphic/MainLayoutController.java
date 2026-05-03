@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,7 +18,7 @@ public class MainLayoutController {
     private static final Logger logger = Logger.getLogger(MainLayoutController.class.getName());
     public static final String GUI_HOME_FXML = "/GUI/Home.fxml";
     private static final SceneManager sceneManager = new SceneManager();
-
+    private Stage stage;
     // Riferimento all'area centrale del BorderPane
     @FXML
     private StackPane centerPane;
@@ -135,5 +136,8 @@ public class MainLayoutController {
         }
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
 }

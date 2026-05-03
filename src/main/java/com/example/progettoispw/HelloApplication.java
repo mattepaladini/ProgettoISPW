@@ -23,13 +23,11 @@ public class HelloApplication extends Application {
 
     private static boolean isCLI=false;
 
-    private static Stage primaryStage;
 
     public static final Logger logger = Logger.getLogger(HelloApplication.class.getName());
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        HelloApplication.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
         Parent root = loader.load();
 
@@ -179,10 +177,12 @@ public class HelloApplication extends Application {
     public static boolean isCLI(){
         return isCLI;
     }
-
+/*
     public static Stage getPrimaryStage(){
         return primaryStage;
     }
+
+ */
 
     public static void main(String[] args) {
         chooseConf();

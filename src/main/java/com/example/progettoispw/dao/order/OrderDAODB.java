@@ -155,14 +155,6 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
         }
     }
 
-    private Card buildCardFromResultSet(ResultSet rs) throws SQLException {
-        String nomeCarta = rs.getString("nome");
-        String sellerName = rs.getString("venditore_username");
-
-        return new Card(nomeCarta, sellerName);
-    }
-
-
 }
 
 
