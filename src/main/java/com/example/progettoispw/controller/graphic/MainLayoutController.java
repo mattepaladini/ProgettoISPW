@@ -18,7 +18,6 @@ public class MainLayoutController {
     private static final Logger logger = Logger.getLogger(MainLayoutController.class.getName());
     public static final String GUI_HOME_FXML = "/GUI/Home.fxml";
     private static final SceneManager sceneManager = new SceneManager();
-    private Stage stage;
     // Riferimento all'area centrale del BorderPane
     @FXML
     private StackPane centerPane;
@@ -26,14 +25,11 @@ public class MainLayoutController {
     @FXML
     private VBox sideBar;
 
-
-    // Mi servono per oscurare i bottoni relativi alla pagina in cui mi trovo
     @FXML private javafx.scene.control.Button btnHome;
     @FXML private javafx.scene.control.Button btnSearch;
     @FXML private javafx.scene.control.Button btnSell;
     @FXML private javafx.scene.control.Button btnProfile;
 
-    // Metodo che viene chiamato appena il layout è caricato
     @FXML
     public void initialize() {
 
@@ -137,7 +133,6 @@ public class MainLayoutController {
     }
 
     public void setStage(Stage stage) {
-        this.stage = stage;
         ErrorHandler.setOwner(stage);
     }
 

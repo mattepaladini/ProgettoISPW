@@ -180,12 +180,6 @@ public class HelloApplication extends Application {
     public static boolean isCLI(){
         return isCLI;
     }
-/*
-    public static Stage getPrimaryStage(){
-        return primaryStage;
-    }
-
- */
 
     public static void main(String[] args) {
         chooseConf();
