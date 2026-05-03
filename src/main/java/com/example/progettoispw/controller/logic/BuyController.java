@@ -75,8 +75,6 @@ public class BuyController {
 
         Order newOrder = createAndSaveOrder(orderBean, loggedUser, cart, totale, orderData);
 
-        System.out.println("Salvataggio effettuato");
-
         removeCardsFromCatalogs(cart);
 
         SessionManager.getInstance().clearShoppingCart();

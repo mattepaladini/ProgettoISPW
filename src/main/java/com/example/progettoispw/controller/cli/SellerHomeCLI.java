@@ -30,8 +30,7 @@ public class SellerHomeCLI {
     }
 
     public void startSellerHome(){
-
-        //this.logicController = new ManageCatalogController();
+        
         boolean back = false;
 
         while(!back){

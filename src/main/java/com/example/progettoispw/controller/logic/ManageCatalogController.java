@@ -78,7 +78,7 @@ public class ManageCatalogController {
 
             dao.updatePrice(selectedCard.getName(), currentUser.getUsername(), newPrice );
 
-            manageNotificationsController.publishNotification(currentUser.getUsername(), "Il venditore "+currentUser+" ha aggiornato il prezzo della carta "+selectedCard.getName()+" a "+ newPrice);
+            manageNotificationsController.publishNotification(currentUser.getUsername(), "Il venditore "+currentUser.getUsername()+" ha aggiornato il prezzo della carta "+selectedCard.getName()+" a "+ newPrice);
 
         }
     }

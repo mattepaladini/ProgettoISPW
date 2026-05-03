@@ -5,6 +5,7 @@ import com.example.progettoispw.dao.user.UserDAO;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
+import com.example.progettoispw.utility.PasswordHasher;
 import com.example.progettoispw.utility.session.SessionManager;
 
 
@@ -17,7 +18,7 @@ public class AuthController {
         if(!user.getUsername().isBlank() && !user.getPassword().isBlank()) {
             User usertemp = userDAO.getUserByUsername(user.getUsername());
             if(usertemp!=null){
-                authUser(user);
+                verifyPassword(user.getPassword(), usertemp.getPassword());
                 SessionManager.getInstance().setLoggedUser(usertemp);
             } else {
                 throw new OperationFailedException("Username non trovato");
@@ -27,10 +28,10 @@ public class AuthController {
         }
     }
 
-    public void authUser(UserBean user) {
-        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-        if(!userDAO.logWithPSW(user.getUsername(), user.getPassword())){
-            throw new OperationFailedException("Psw errata");
+    public void verifyPassword(String plainpsw, String hashpsw) {
+
+        if(!PasswordHasher.verify(plainpsw, hashpsw)) {
+            throw new OperationFailedException("Password errata");
         }
     }
 }

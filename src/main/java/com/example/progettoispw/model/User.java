@@ -34,4 +34,6 @@ public class User implements Serializable {
 
     public String getPassword() {return password;}
     public UserType getTipoUtente() {return this.tipoUtente;}
+
 }
+

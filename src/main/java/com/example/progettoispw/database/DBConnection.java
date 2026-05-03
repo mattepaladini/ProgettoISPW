@@ -3,7 +3,7 @@ package com.example.progettoispw.database;
 
 import com.example.progettoispw.exception.DatabaseOperationException;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -16,9 +16,9 @@ public class DBConnection {
     Properties prop= new Properties();
 
     private DBConnection() throws DatabaseOperationException {
-        try(FileInputStream dbInfoFile = new FileInputStream("src/main/resources/config/db.properties")){
+        try(InputStream input = DBConnection.class.getResourceAsStream("/config/db.properties")){
 
-            prop.load(dbInfoFile);
+            prop.load(input);
             String connectionURL = prop.getProperty("CONNECTION_URL");
             String user = prop.getProperty("USER");
             String password = prop.getProperty("PASSWORD");

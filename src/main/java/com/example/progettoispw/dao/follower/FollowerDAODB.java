@@ -59,7 +59,6 @@ public class FollowerDAODB extends FollowerDAODemo implements FollowerDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     followers.add(rs.getString("username_compratore"));
-                    System.out.println(followers);
                 }
             }
         } catch (SQLException e) {

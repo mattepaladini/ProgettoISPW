@@ -147,8 +147,9 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
                         );
 
                 orders.add(ordine);
-                isLoaded=true;
+
             }
+            isLoaded=true;
 
         } catch (SQLException e) {
             throw new DatabaseOperationException(e.getMessage());
