@@ -29,6 +29,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        HelloApplication.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainLayout.fxml"));
         Parent root = loader.load();
 

@@ -18,7 +18,6 @@ public class ToastManager {
         popup.setAutoFix(true);
         popup.setHideOnEscape(true);
 
-        // 2. Creiamo la grafica del nostro Toast
         Label label = new Label(message);
         label.setStyle("-fx-background-color: #4CAF50; " +
                 "-fx-text-fill: white; " +
@@ -30,16 +29,13 @@ public class ToastManager {
 
         popup.getContent().add(label);
 
-        // 3. Calcoliamo la posizione centrale in basso (si attiva appena il popup viene mostrato)
         popup.setOnShown(e -> {
             popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
             popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
         });
 
-        // 4. Mostriamo il popup sulla finestra corrente
         popup.show(stage);
 
-        // 5. Impostiamo il timer di "autodistruzione" a 2.5 secondi
         PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
         delay.setOnFinished(e -> popup.hide());
         delay.play();
@@ -51,12 +47,11 @@ public class ToastManager {
     public static void showErrorToast(Stage stage, String message) {
         Popup popup = new Popup();
         popup.setAutoFix(true);
-        // Nasconde il popup se l'utente preme il tasto ESC sulla tastiera
         popup.setHideOnEscape(true);
 
-        HBox hbox = new HBox(15); // 15px di spazio tra testo e pulsante
+        HBox hbox = new HBox(15);
         hbox.setAlignment(Pos.CENTER);
-        hbox.setStyle("-fx-background-color: #F44336; " + // Rosso Errore
+        hbox.setStyle("-fx-background-color: #F44336; " +
                 "-fx-padding: 10px 20px; " +
                 "-fx-background-radius: 20px; " +
                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);");
@@ -72,7 +67,7 @@ public class ToastManager {
         closeBtn.setStyle("-fx-text-fill: white; " +
                 "-fx-font-size: 16px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-cursor: hand;"); // Cambia il cursore nella "manina" quando ci passi sopra
+                "-fx-cursor: hand;");
 
 
         closeBtn.setOnMouseClicked(e -> popup.hide());

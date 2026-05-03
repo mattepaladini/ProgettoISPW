@@ -1,6 +1,5 @@
 package com.example.progettoispw.dao.cardcatalog;
 
-import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.database.QueryManager;
 import com.example.progettoispw.exception.DatabaseExceptionMessages;
@@ -157,21 +156,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             try(ResultSet rs = stmt.executeQuery()){
                 while(rs.next()){
-
-                    CollectableCardBean cardBean = new CollectableCardBean();
-
-                    cardBean.setNomeCarta(rs.getString("nome"));
-                    cardBean.setPrezzoCorrente(rs.getFloat("prezzo"));
-                    cardBean.setGradazione(Gradazione.valueOf(rs.getString("gradazione")));
-                    cardBean.setVenditore(rs.getString("venditore_username"));
-
-                    cardBean.setLivello(rs.getInt("livello"));
-                    cardBean.setTipo(Type.valueOf(rs.getString("tipo")));
-                    cardBean.setAttributo(Attribute.valueOf(rs.getString("attributo")));
-
-                    Card card = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), cardBean.getVenditore(), cardBean.getLivello(), cardBean.getAttributo(),cardBean.getTipo());
-
-                    risultati.add(card);
+                    risultati.add(buildCardFromResultSet(rs, nomeCarta));
                 }
 
             }
@@ -219,10 +204,10 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
     }
 
-    // Metodo helper 1: Gestisce scorrimento del ResultSet e raggruppamento
+
     private void processResultSet(ResultSet rs, HashMap<String, CardCatalog> catalogMap) throws SQLException {
         while (rs.next()) {
-            String sellerName = rs.getString("sellerName");
+            String sellerName = rs.getString("venditore_username");
 
             CardCatalog catalog = catalogMap.computeIfAbsent(sellerName, k -> {
                 Seller seller = new Seller(k, null);
@@ -233,19 +218,20 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
             if (!rs.wasNull()) {
                 // Estraiamo la creazione della carta in un altro metodo
-                Card carta = buildCardFromResultSet(rs, nomeCarta, sellerName);
+                Card carta = buildCardFromResultSet(rs, nomeCarta);
                 catalog.addCollectableCard(carta);
             }
         }
     }
 
     // Metodo helper, si occupa solo di istanziare l'oggetto Card
-    private Card buildCardFromResultSet(ResultSet rs, String nomeCarta, String sellerName) throws SQLException {
+    private Card buildCardFromResultSet(ResultSet rs, String nomeCarta) throws SQLException {
         Float prezzo = Float.parseFloat(rs.getString("prezzo"));
         int livello = Integer.parseInt(rs.getString("livello"));
         String tipo = rs.getString("tipo");
         String gradazione = rs.getString("gradazione");
         String attributo = rs.getString("attributo");
+        String sellerName = rs.getString("venditore_username");
 
         Gradazione gradazioneEnum = Gradazione.valueOf(gradazione);
         Type tipoEnum = Type.valueOf(tipo);

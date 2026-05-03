@@ -1,6 +1,5 @@
 package com.example.progettoispw.dao.order;
 
-import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.model.*;
@@ -89,7 +88,6 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
                 cstmt2.setString(2, card.getNome());
                 cstmt2.setString(3, card.getVenditore());
 
-                // Accodiamo l'istruzione in memoria per ottimizzare la rete
                 cstmt2.addBatch();
             }
 
@@ -113,20 +111,10 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             try (ResultSet rs = cstmt.executeQuery()) {
                 while(rs.next()) {
 
-                    CollectableCardBean cardBean = new CollectableCardBean();
+                    String nomeCarta = rs.getString("nome");
+                    String sellerName = rs.getString("venditore_username");
 
-                    cardBean.setNomeCarta(rs.getString("nome"));
-                    cardBean.setPrezzoCorrente(rs.getFloat("prezzo"));
-                    cardBean.setGradazione(Gradazione.valueOf(rs.getString("gradazione")));
-                    cardBean.setVenditore(rs.getString("venditore_username"));
-
-                    cardBean.setLivello(rs.getInt("livello"));
-                    cardBean.setTipo(Type.valueOf(rs.getString("tipo")));
-                    cardBean.setAttributo(Attribute.valueOf(rs.getString("attributo")));
-
-                    Card card = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), cardBean.getVenditore(), cardBean.getLivello(), cardBean.getAttributo(),cardBean.getTipo());
-
-                    cardsOrder.add(card);
+                    cardsOrder.add(new Card(nomeCarta, sellerName));
                 }
             }catch (SQLException e) {
                 throw new DatabaseOperationException(e.getMessage());
@@ -145,16 +133,13 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
 
         String query = "{CALL GetOrders()}";
 
-        // 1. Usiamo il try-with-resources per chiudere in automatico la connessione,
-        // lo statement e il resultset. SonarCloud adora questa sintassi!
         try (Connection conn = DBConnection.getInstance().getConnection(); // Sostituisci con il tuo gestore connessioni
              CallableStatement stmt = conn.prepareCall(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            // 2. Iteriamo su ogni riga restituita dalla procedura
             while (rs.next()) {
                 Order ordine = new Order(rs.getInt("orderID"),
-                        loadCardsForOrder(rs.getInt("id_ordine")),
+                        loadCardsForOrder(rs.getInt("orderID")),
                         rs.getString("shippingAddress"),
                         rs.getString("username_compratore"),
                         rs.getFloat("total"),
@@ -169,6 +154,15 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
             throw new DatabaseOperationException(e.getMessage());
         }
     }
+
+    private Card buildCardFromResultSet(ResultSet rs) throws SQLException {
+        String nomeCarta = rs.getString("nome");
+        String sellerName = rs.getString("venditore_username");
+
+        return new Card(nomeCarta, sellerName);
+    }
+
+
 }
 
 

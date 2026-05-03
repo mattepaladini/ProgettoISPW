@@ -47,6 +47,7 @@ public class BuyCardsGraphicController {
         OrderBean datiCheckout = new OrderBean();
         datiCheckout.setNameSurname(txtNome.getText().trim());
         datiCheckout.setShippingAddress(txtIndirizzo.getText().trim() + ", " + txtCap.getText().trim() + " " + txtCitta.getText().trim());
+        datiCheckout.setCityName(txtCitta.getText().trim());
         datiCheckout.setPaymentCard(txtNumeroCarta.getText().trim());
         datiCheckout.setCvv(txtCvv.getText().trim());
 
