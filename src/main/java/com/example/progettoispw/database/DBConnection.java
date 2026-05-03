@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class DBConnection {
 
-    private static volatile DBConnection instance=null;
+    private static  DBConnection instance=null;
     private Connection conn;
 
     Properties prop= new Properties();
@@ -33,9 +33,9 @@ public class DBConnection {
     public static DBConnection getInstance(){
         if(instance == null){
             synchronized (DBConnection.class){
-                    if(instance == null){
+
                         instance = new DBConnection();
-                    }
+
             }
 
         }
