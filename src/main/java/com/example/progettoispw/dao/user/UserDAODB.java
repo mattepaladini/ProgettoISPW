@@ -1,6 +1,5 @@
 package com.example.progettoispw.dao.user;
 
-import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.database.DBConnection;
 import com.example.progettoispw.exception.DatabaseOperationException;
 import com.example.progettoispw.model.User;
@@ -77,14 +76,8 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
         try {
             ResultSet rs = stmt.getResultSet();
             while (rs.next()) {
-                UserBean u = new UserBean();
-                u.setUsername(rs.getString("username"));
-                u.setPassword(rs.getString("psw"));
-                u.setUsertype(UserType.valueOf(rs.getString("tipo_utente").toUpperCase()));
 
-                User user = new User(u.getUsername(), u.getPassword(), u.getUsertype());
-
-                users.add(user);
+                users.add(buildUserFromResultSet(rs));
             }
 
         } catch (RuntimeException | SQLException e) {
@@ -132,5 +125,12 @@ public class UserDAODB extends UserDAODemo implements UserDAO {
         }catch (SQLException e) {
             throw new DatabaseOperationException(e.getMessage());
         }
+    }
+
+    private User buildUserFromResultSet(ResultSet rs) throws SQLException {
+        String username = rs.getString("username");
+        String password = rs.getString("psw");
+        String tipoUtente = rs.getString("tipo_utente");
+        return new User(username, password, UserType.valueOf(tipoUtente.toUpperCase()));
     }
 }
