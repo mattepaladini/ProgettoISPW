@@ -3,6 +3,7 @@ package com.example.progettoispw.controller.cli;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradation;
@@ -20,15 +21,17 @@ public class SellerHomeCLI {
     Logger logger = Logger.getLogger(SellerHomeCLI.class.getName());
     private final Scanner scanner = new Scanner(System.in);
 
-    //
-
-
     private ManageCatalogController logicController;
+    private final ManageNotificationsController notificationsController;
 
+    public SellerHomeCLI(){
+        this.notificationsController = new ManageNotificationsController();
+        this.logicController = new ManageCatalogController(notificationsController);
+    }
 
     public void startSellerHome(){
 
-        this.logicController = new ManageCatalogController();
+        //this.logicController = new ManageCatalogController();
         boolean back = false;
 
         while(!back){

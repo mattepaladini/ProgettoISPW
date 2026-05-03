@@ -38,7 +38,8 @@ class CardCatalogTest {
     @BeforeEach
     void setUp() throws Exception {
         forceFactoryMode();
-        catalogController = new ManageCatalogController();
+        this.notificationsController = new ManageNotificationsController();
+        catalogController = new ManageCatalogController(notificationsController);
         notificationsController = new ManageNotificationsController();
         deleteTestCard();
     }

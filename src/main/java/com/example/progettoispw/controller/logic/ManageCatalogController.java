@@ -14,7 +14,11 @@ import java.util.List;
 
 public class ManageCatalogController {
 
-    private final ManageNotificationsController manageNotificationsController=new ManageNotificationsController();
+    private final ManageNotificationsController manageNotificationsController;
+
+    public ManageCatalogController(ManageNotificationsController manageNotificationsController) {
+        this.manageNotificationsController = manageNotificationsController;
+    }
 
     public List<CollectableCardBean> getSellerCards(UserBean sellerBean) {
 

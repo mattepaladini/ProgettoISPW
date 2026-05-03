@@ -4,6 +4,7 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.InvalidInputMessages;
@@ -35,7 +36,7 @@ public class SellerCatalogGraphicController implements Initializable {
     @FXML private TableColumn<CollectableCardBean, String> colAttribute;
     @FXML private TableColumn<CollectableCardBean, Integer> colLevel;
 
-    private ManageCatalogController logicController;
+    private final ManageCatalogController logicController = new ManageCatalogController(new ManageNotificationsController());
 
     private SceneManager sceneManager;
 
@@ -43,28 +44,20 @@ public class SellerCatalogGraphicController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.sceneManager = new SceneManager();
-        logicController = new ManageCatalogController();
 
-        // 1. Recupero il Seller dalla sessione
         User currentSeller = SessionManager.getInstance().getLoggedUser();
 
         UserBean userBean = new UserBean(currentSeller.getUsername(), currentSeller.getPassword());
 
         lblShopName.setText("Catalogo di: " + currentSeller.getUsername());
 
-        // 2. Configuro le colonne della tabella
-        // Le stringhe devono coincidere ESATTAMENTE con i nomi degli attributi nel CardBean
-        // Es: se in CardBean hai "cardName", qui scrivi "cardName"
-        colName.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));       //cerca il metodo getNomeCarta()
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
-        colGrade.setCellValueFactory(new PropertyValueFactory<>("gradazione")); // o "cardGrade"
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colGrade.setCellValueFactory(new PropertyValueFactory<>("gradation"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colAttribute.setCellValueFactory(new PropertyValueFactory<>("attribute"));
+        colLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
 
-        // NUOVI COLLEGAMENTI
-        colType.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        colAttribute.setCellValueFactory(new PropertyValueFactory<>("attributo"));
-        colLevel.setCellValueFactory(new PropertyValueFactory<>("livello"));
-
-        // 3. Carico i dati
         refreshTable(userBean);
     }
 
@@ -73,7 +66,6 @@ public class SellerCatalogGraphicController implements Initializable {
         ObservableList<CollectableCardBean> cardList; // La lista che la tabella "osserva"
 
         List<CollectableCardBean> cards = logicController.getSellerCards(userBean);
-        // Converto la lista normale in ObservableList per JavaFX
         cardList = FXCollections.observableArrayList(cards);
         tableCatalog.setItems(cardList);
     }
@@ -81,11 +73,8 @@ public class SellerCatalogGraphicController implements Initializable {
 
     @FXML
     public void onAddCardClick(ActionEvent event){
-        // Qui dovrai aprire una nuova finestra (Dialog o cambio scena)
-        // per inserire i dati della nuova carta.
 
         sceneManager.startScene(event, "/GUI/AddCard.fxml");
-
 
     }
 
@@ -97,10 +86,9 @@ public class SellerCatalogGraphicController implements Initializable {
     }
 
 
-
     @FXML
     public void onEditPriceClick(ActionEvent event) {
-        // 1. Prendo la carta selezionata
+
         CollectableCardBean selected = tableCatalog.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
@@ -108,7 +96,6 @@ public class SellerCatalogGraphicController implements Initializable {
             return;
         }
 
-        // 2. Apro un Dialog rapido per il nuovo prezzo
         TextInputDialog dialog = new TextInputDialog(String.valueOf(selected.getPrice()));
         dialog.setTitle("Modifica Prezzo");
         dialog.setHeaderText("Modifica prezzo per: " + selected.getName());
@@ -120,10 +107,8 @@ public class SellerCatalogGraphicController implements Initializable {
             try {
                 Float newPrice = Float.parseFloat(newPriceStr);
 
-                // 3. Chiamo la logica per aggiornare
                 logicController.updateCardPrice(selected, newPrice);
 
-                // 4. Aggiorno la vista (refresh tabella)
                 tableCatalog.refresh();
 
             } catch (BaseException e) {

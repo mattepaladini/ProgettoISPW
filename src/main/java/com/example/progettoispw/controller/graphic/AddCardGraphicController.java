@@ -2,6 +2,7 @@ package com.example.progettoispw.controller.graphic;
 
 import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
+import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.model.Attribute;
 import com.example.progettoispw.model.Gradation;
@@ -33,6 +34,14 @@ public class AddCardGraphicController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AddCardGraphicController.class.getName());
     private SceneManager sceneManager;
+
+    private final ManageCatalogController logicController;
+    private final ManageNotificationsController notificationsController;
+
+    public AddCardGraphicController(){
+        this.notificationsController = new ManageNotificationsController();
+        this.logicController = new ManageCatalogController(notificationsController);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +75,6 @@ public class AddCardGraphicController implements Initializable {
 
             User logeduser =  SessionManager.getInstance().getLoggedUser();
 
-            ManageCatalogController logicController = new ManageCatalogController();
             logicController.addCard(newBeanCard,logeduser.getUsername());
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
