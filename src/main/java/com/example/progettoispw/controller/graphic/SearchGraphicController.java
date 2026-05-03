@@ -34,7 +34,7 @@ public class SearchGraphicController {
         CollectableCardBean searchCardBean = new CollectableCardBean();
 
         //inserire i dati dentro la bean
-        searchCardBean.setNomeCarta(nomeCartaCercata.getText());
+        searchCardBean.setName(nomeCartaCercata.getText());
 
         //cattura del prezzo desiderato
         Float prezzo = 0.0f;        //valore di default per disattivare il limite del prezzo
@@ -44,18 +44,18 @@ public class SearchGraphicController {
             prezzo = Float.parseFloat(selezionePrezzo.replaceAll("\\D", ""));
 
         }
-        searchCardBean.setPrezzoCorrente(prezzo);
+        searchCardBean.setPrice(prezzo);
 
         //-----------------------//
         if(livelloCercato.getValue()!=null) {
-            searchCardBean.setLivello(Integer.parseInt(livelloCercato.getValue().toString()));
+            searchCardBean.setLevel(Integer.parseInt(livelloCercato.getValue().toString()));
         }
 
         if(attributoCercato.getValue()!=null) {
-            searchCardBean.setAttributo(attributoCercato.getValue());
+            searchCardBean.setAttribute(attributoCercato.getValue());
         }
         if(tipoCercato.getValue()!=null) {
-            searchCardBean.setTipo(tipoCercato.getValue());
+            searchCardBean.setType(tipoCercato.getValue());
         }
 
         //CREO IL CONTROLLORE PER LA RICERCA E GLI PASSO LA BEAN APPENA POPOLATA

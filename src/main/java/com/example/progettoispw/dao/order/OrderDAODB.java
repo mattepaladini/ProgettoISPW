@@ -85,8 +85,8 @@ public class OrderDAODB extends OrderDAODemo implements OrderDAO {
                 CallableStatement cstmt2 = conn.prepareCall(querySaveCards)) {
             for(Card card : shoppedCards) {
                 cstmt2.setInt(1, order.getId());
-                cstmt2.setString(2, card.getNome());
-                cstmt2.setString(3, card.getVenditore());
+                cstmt2.setString(2, card.getName());
+                cstmt2.setString(3, card.getSeller());
 
                 cstmt2.addBatch();
             }

@@ -19,6 +19,6 @@ public class MaxPriceFilter extends SearchDecorator{
         if(maxPrice==0){return listaGrezza;}
 
         //apro uno stream sulla lista grezza del livello precedente -> filtro in base a un predicato e toList organizza i risultati del filtro in una lista
-        return listaGrezza.stream().filter(c -> c.getPrezzoAttuale() <= maxPrice).toList();
+        return listaGrezza.stream().filter(c -> c.getPrice() <= maxPrice).toList();
     }
 }

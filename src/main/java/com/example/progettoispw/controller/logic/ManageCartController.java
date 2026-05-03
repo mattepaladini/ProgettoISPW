@@ -17,14 +17,13 @@ public class ManageCartController{
 
     public boolean addToCart(CollectableCardBean selectedCardBean) {
 
-        Card selectedCard = new Card(selectedCardBean.getNomeCarta(), selectedCardBean.getPrezzoCorrente(), selectedCardBean.getGradazione(), selectedCardBean.getVenditore(), selectedCardBean.getLivello(), selectedCardBean.getAttributo(), selectedCardBean.getTipo());
+        Card selectedCard = new Card(selectedCardBean.getName(), selectedCardBean.getPrice(), selectedCardBean.getGradation(), selectedCardBean.getSeller(), selectedCardBean.getLevel(), selectedCardBean.getAttribute(), selectedCardBean.getType());
         try{
             SessionManager.getInstance().addCard(selectedCard);
             return true;
 
         } catch (BaseException e) {
-            ErrorHandler.show(new OperationFailedException(e.getMessage()));
-            return false;
+            throw new OperationFailedException(e.getMessage());
         }
 
     }
@@ -56,7 +55,7 @@ public class ManageCartController{
     public float calculateCartTotal() {
         float totale = 0.0f;
         for (Card c : SessionManager.getInstance().getShoppingCart()) {
-            totale += c.getPrezzoAttuale();
+            totale += c.getPrice();
         }
         return totale;
     }

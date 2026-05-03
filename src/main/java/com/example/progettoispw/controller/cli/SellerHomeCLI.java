@@ -5,7 +5,7 @@ import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.Attribute;
-import com.example.progettoispw.model.Gradazione;
+import com.example.progettoispw.model.Gradation;
 import com.example.progettoispw.model.Type;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.utility.session.SessionManager;
@@ -101,13 +101,13 @@ public class SellerHomeCLI {
         int indice = 1;
         for (CollectableCardBean bean : cards) {
 
-            String nome = troncaTesto(bean.getNomeCarta(), 25);
-            String prezzo = String.format("%.2f €", bean.getPrezzoCorrente());
-            String gradazione = bean.getGradazione() != null ? bean.getGradazione().toString() : "N/D";
-            String tipo = bean.getTipo() != null ? bean.getTipo().toString() : "N/D";
-            String attributo = bean.getAttributo() != null ? bean.getAttributo().toString() : "N/D";
+            String nome = troncaTesto(bean.getName(), 25);
+            String prezzo = String.format("%.2f €", bean.getPrice());
+            String gradazione = bean.getGradation() != null ? bean.getGradation().toString() : "N/D";
+            String tipo = bean.getType() != null ? bean.getType().toString() : "N/D";
+            String attributo = bean.getAttribute() != null ? bean.getAttribute().toString() : "N/D";
 
-            String livello = bean.getLivello() > 0 ? String.valueOf(bean.getLivello()) : "-";
+            String livello = bean.getLevel() > 0 ? String.valueOf(bean.getLevel()) : "-";
 
             System.out.printf("%-3d | %-25s | %-10s | %-12s | %-12s | %-12s | %-4s%n",
                     indice, nome, prezzo, gradazione, tipo, attributo, livello);
@@ -126,32 +126,32 @@ public class SellerHomeCLI {
         System.out.println("--> Aggiungi Carta <--");
         System.out.print("Nome della Carta --> ");
         String nome = scanner.nextLine();
-        newCardBean.setNomeCarta(nome);
+        newCardBean.setName(nome);
 
 
         System.out.print("Prezzo della Carta --> ");
         Float prezzo = Float.parseFloat(scanner.nextLine());
-        newCardBean.setPrezzoCorrente(prezzo);
+        newCardBean.setPrice(prezzo);
 
         System.out.print("Livello della Carta [0-12] --> ");
         int livello = Integer.parseInt(scanner.nextLine());
-        newCardBean.setLivello(livello);
+        newCardBean.setLevel(livello);
 
         System.out.println("Gradazioni: [PERFETTO,  BUONO,  USATO,  SCARSO]");
-        System.out.print("Gradazione della Carta  --> ");
+        System.out.print("Gradation della Carta  --> ");
         String gradazioneGrezza = scanner.nextLine();
 
-        newCardBean.setGradazione(Gradazione.valueOf(gradazioneGrezza.toUpperCase()));
+        newCardBean.setGradation(Gradation.valueOf(gradazioneGrezza.toUpperCase()));
 
         System.out.println("Tipi:  [MOSTRO,  MAGIA,   TERRENO,  TRAPPOLA]");
         System.out.print("Tipo della Carta  --> ");
         String tipoGrezza = scanner.nextLine();
-        newCardBean.setTipo(Type.valueOf(tipoGrezza.toUpperCase()));
+        newCardBean.setType(Type.valueOf(tipoGrezza.toUpperCase()));
 
         System.out.println("Attributi:  [LUCE,  OSCURITÀ,   TERRA,  ACQUA,  FUOCO]");
         System.out.print("Attributo della Carta  --> ");
         String attributoGrezza = scanner.nextLine();
-        newCardBean.setAttributo(Attribute.valueOf(attributoGrezza.toUpperCase()));
+        newCardBean.setAttribute(Attribute.valueOf(attributoGrezza.toUpperCase()));
 
         try{
             User currentSeller = SessionManager.getInstance().getLoggedUser();

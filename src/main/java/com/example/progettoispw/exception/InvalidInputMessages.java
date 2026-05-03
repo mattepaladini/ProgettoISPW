@@ -2,10 +2,10 @@ package com.example.progettoispw.exception;
 
 public enum InvalidInputMessages {
 
-    LOGIN_FAIL("Username and/or password wrong"),
-    REGISTRATION_FAIL("Username and/or password missing"),
-    UPDATE_FAIL("Price added not valid"),
-    SEARCH_CARD_FAIL("Missing card name");
+    LOGIN_FAIL("Username e/o password errati"),
+    REGISTRATION_FAIL("Username e/o password mancanti"),
+    UPDATE_FAIL("Prezzo inserito non valido"),
+    SEARCH_CARD_FAIL("Nome carta mancante");
 
     private final String message;
     InvalidInputMessages(String message) {

@@ -15,6 +15,6 @@ public enum Attribute {
                 return a;
             }
         }
-        throw new IllegalArgumentException("Gradazione non valida: "+value);
+        throw new IllegalArgumentException("Gradation non valida: "+value);
     }
 }

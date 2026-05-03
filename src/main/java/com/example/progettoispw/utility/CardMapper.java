@@ -18,13 +18,13 @@ public final class CardMapper {
      */
     public static CollectableCardBean toBean(Card card) {
         CollectableCardBean bean = new CollectableCardBean();
-        bean.setNomeCarta(card.getNome());
-        bean.setPrezzoCorrente(card.getPrezzoAttuale());
-        bean.setLivello(card.getLivello());
-        bean.setGradazione(card.getGradazione());
-        bean.setTipo(card.getTipo());
-        bean.setAttributo(card.getAttributo());
-        bean.setVenditore(card.getVenditore());
+        bean.setName(card.getName());
+        bean.setPrice(card.getPrice());
+        bean.setLevel(card.getLevel());
+        bean.setGradation(card.getGradation());
+        bean.setType(card.getType());
+        bean.setAttribute(card.getAttribute());
+        bean.setSeller(card.getSeller());
         return bean;
     }
 
@@ -33,13 +33,13 @@ public final class CardMapper {
      */
     public static Card toEntity(CollectableCardBean bean) {
         return new Card(
-                bean.getNomeCarta(),
-                bean.getPrezzoCorrente(),
-                bean.getGradazione(),
-                bean.getVenditore(),
-                bean.getLivello(),
-                bean.getAttributo(),
-                bean.getTipo()
+                bean.getName(),
+                bean.getPrice(),
+                bean.getGradation(),
+                bean.getSeller(),
+                bean.getLevel(),
+                bean.getAttribute(),
+                bean.getType()
         );
     }
 }

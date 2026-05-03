@@ -42,7 +42,7 @@ public class SearchCLI {
             System.out.println(CERCA_CARTE);
             System.out.println("0. Torna Indietro");
             System.out.println("1. Cerca per Nome della carta");
-            System.out.println("2. Aggiungi filtri (Gradazione, Prezzo, Tipo, Attributo, ...)");
+            System.out.println("2. Aggiungi filtri (Gradation, Prezzo, Tipo, Attributo, ...)");
             System.out.println("3. ESEGUI RICERCA");
             System.out.println("-".repeat(105));
 
@@ -84,7 +84,7 @@ public class SearchCLI {
         System.out.print("Inserisci il nome della carta da ricercare --> ");
         String nomeCarta = scanner.nextLine();
 
-        cardBean.setNomeCarta(nomeCarta);
+        cardBean.setName(nomeCarta);
 
     }
 
@@ -120,7 +120,7 @@ public class SearchCLI {
 
         System.out.print(SCELTA);
         Float prezzo = scanner.nextFloat();
-        cardBean.setPrezzoCorrente(prezzo);
+        cardBean.setPrice(prezzo);
     }
 
     private void configureLevel(){
@@ -132,7 +132,7 @@ public class SearchCLI {
         System.out.print(SCELTA);
         scanner.nextLine();     //consumo \n
         int livello = scanner.nextInt();
-        cardBean.setLivello(livello);
+        cardBean.setLevel(livello);
 
     }
 
@@ -151,23 +151,23 @@ public class SearchCLI {
                 break;
 
             case "LUCE":
-                cardBean.setAttributo(Attribute.LUCE);
+                cardBean.setAttribute(Attribute.LUCE);
                 break;
 
             case "OSCURITA":
-                cardBean.setAttributo(Attribute.OSCURITA);
+                cardBean.setAttribute(Attribute.OSCURITA);
                 break;
 
             case "TERRA":
-                cardBean.setAttributo(Attribute.TERRA);
+                cardBean.setAttribute(Attribute.TERRA);
                 break;
 
             case "ACQUA":
-                cardBean.setAttributo(Attribute.ACQUA);
+                cardBean.setAttribute(Attribute.ACQUA);
                 break;
 
             case "FUOCO":
-                cardBean.setAttributo(Attribute.FUOCO);
+                cardBean.setAttribute(Attribute.FUOCO);
                 break;
 
             default:
@@ -192,19 +192,19 @@ public class SearchCLI {
                 break;
 
             case "MOSTRO":
-                cardBean.setTipo(Type.MOSTRO);
+                cardBean.setType(Type.MOSTRO);
                 break;
 
             case "MAGIA":
-                cardBean.setTipo(Type.MAGIA);
+                cardBean.setType(Type.MAGIA);
                 break;
 
             case "TERRENO":
-                cardBean.setTipo(Type.TERRENO);
+                cardBean.setType(Type.TERRENO);
                 break;
 
             case "TRAPPOLA":
-                cardBean.setTipo(Type.TRAPPOLA);
+                cardBean.setType(Type.TRAPPOLA);
                 break;
 
             default:
@@ -240,10 +240,10 @@ public class SearchCLI {
 
             mapResult.put(indice, bean);
 
-            String nome = troncaTesto(bean.getNomeCarta(), 25);
-            String prezzo = String.format("%.2f €", bean.getPrezzoCorrente());
-            String gradazione = bean.getGradazione() != null ? bean.getGradazione().toString() : "N/D";
-            String venditore = troncaTesto(bean.getVenditore(), 15);
+            String nome = troncaTesto(bean.getName(), 25);
+            String prezzo = String.format("%.2f €", bean.getPrice());
+            String gradazione = bean.getGradation() != null ? bean.getGradation().toString() : "N/D";
+            String venditore = troncaTesto(bean.getSeller(), 15);
 
             System.out.printf("%-3d | %-25s | %-8s | %-12s | %-15s%n",
                     indice, nome, prezzo, gradazione,  venditore);
@@ -310,7 +310,7 @@ public class SearchCLI {
         try{
             ManageNotificationsController manageNotificationsController = new ManageNotificationsController();
             String buyer = SessionManager.getInstance().getLoggedUser().getUsername();
-            String seller = mapResult.get(choosenIndex).getVenditore();
+            String seller = mapResult.get(choosenIndex).getSeller();
 
             manageNotificationsController.followSeller(buyer, seller);
         }catch (BaseException e){

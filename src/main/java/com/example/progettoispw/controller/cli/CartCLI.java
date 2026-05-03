@@ -92,10 +92,10 @@ public class CartCLI {
 
             mapCart.put(indice, bean);
 
-            String nome = troncaTesto(bean.getNomeCarta(), 25);
-            String prezzo = String.format("%.2f €", bean.getPrezzoCorrente());
-            String gradazione = bean.getGradazione() != null ? bean.getGradazione().toString() : "N/D";
-            String venditore = troncaTesto(bean.getVenditore(), 15);
+            String nome = troncaTesto(bean.getName(), 25);
+            String prezzo = String.format("%.2f €", bean.getPrice());
+            String gradazione = bean.getGradation() != null ? bean.getGradation().toString() : "N/D";
+            String venditore = troncaTesto(bean.getSeller(), 15);
 
             System.out.printf("%-3d | %-25s | %-8s | %-12s | %-15s%n",
                     indice, nome, prezzo, gradazione,  venditore);

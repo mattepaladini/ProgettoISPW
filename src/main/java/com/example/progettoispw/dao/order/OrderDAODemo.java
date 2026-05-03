@@ -15,12 +15,10 @@ public class OrderDAODemo implements OrderDAO {
 
     @Override
     public List<Order> getOrdersByUser(User user) {
-        for (Order order : orders) {
-            if(order.getCompratore().equals(user.getUsername())){
-                return orders;
-            }
-        }
-        return orders;
+        return orders.stream()
+                .filter(o -> o.getCompratore().equals(user.getUsername()))
+                .toList();
+
     }
 
     @Override

@@ -69,7 +69,7 @@ public class OrderDAOFsys extends OrderDAODemo implements OrderDAO {
                 // Serializziamo le carte
                 List<String> carteFormattate = new ArrayList<>();
                 for (Card c : o.getCarteOrdinate()) {
-                    carteFormattate.add(c.getNome() + CARD_ATTR_SEPARATOR + c.getVenditore());
+                    carteFormattate.add(c.getName() + CARD_ATTR_SEPARATOR + c.getSeller());
                 }
                 sb.append(String.join(CARD_SEPARATOR, carteFormattate));
 

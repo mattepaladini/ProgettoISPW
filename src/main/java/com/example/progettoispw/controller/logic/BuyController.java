@@ -24,33 +24,33 @@ public class BuyController {
         //DECORATOR *****************++
 
         String nome = "";
-        if(searchBean.getNomeCarta().isBlank())
+        if(searchBean.getName().isBlank())
         {
             throw new InvalidInputException(InvalidInputMessages.SEARCH_CARD_FAIL);
         } else{
-            nome = searchBean.getNomeCarta();
+            nome = searchBean.getName();
         }
 
         SearchComponent searchStack = new BaseSearch(nome);
 
-        if(searchBean.getPrezzoCorrente()>0.0f){
-            searchStack = new MaxPriceFilter(searchStack, searchBean.getPrezzoCorrente());
+        if(searchBean.getPrice()>0.0f){
+            searchStack = new MaxPriceFilter(searchStack, searchBean.getPrice());
         }
 
-        if(searchBean.getAttributo()!=null){
-            searchStack = new AttributeFilter(searchStack, searchBean.getAttributo());
+        if(searchBean.getAttribute()!=null){
+            searchStack = new AttributeFilter(searchStack, searchBean.getAttribute());
         }
 
-        if(searchBean.getTipo()!=null){
-            searchStack = new TypeFilter(searchStack, searchBean.getTipo());
+        if(searchBean.getType()!=null){
+            searchStack = new TypeFilter(searchStack, searchBean.getType());
         }
 
-        if(searchBean.getLivello()!=0 && searchBean.getLivello()>0){
-            searchStack = new LevelFilter(searchStack, searchBean.getLivello());
+        if(searchBean.getLevel()!=0 && searchBean.getLevel()>0){
+            searchStack = new LevelFilter(searchStack, searchBean.getLevel());
         }
 
-        if(searchBean.getGradazione()!=null){
-            searchStack = new GradationFilter(searchStack, searchBean.getGradazione());
+        if(searchBean.getGradation()!=null){
+            searchStack = new GradationFilter(searchStack, searchBean.getGradation());
         }
 
         //DECORATOR *****************++
@@ -77,7 +77,7 @@ public class BuyController {
 
         float totale = 0;
         for(Card card : cart){
-            totale += card.getPrezzoAttuale();
+            totale += card.getPrice();
         }
 
         String orderData = LocalDate.now().toString();
@@ -99,7 +99,7 @@ public class BuyController {
 
         CardCatalogDAO catalogDAO = DAOFactory.getInstance().getCardCatalogDAO();
         for(Card selledCard : cart){
-            String sellerName = selledCard.getVenditore();
+            String sellerName = selledCard.getSeller();
 
             catalogDAO.removeCard(selledCard, sellerName);
         }

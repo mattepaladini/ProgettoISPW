@@ -18,6 +18,6 @@ public class AttributeFilter extends SearchDecorator{
     public List<Card> executeSearch() {
         List<Card> list = super.executeSearch();
 
-        return list.stream().filter(c-> c.getAttributo().equals(attribute)).toList();
+        return list.stream().filter(c-> c.getAttribute().equals(attribute)).toList();
     }
 }

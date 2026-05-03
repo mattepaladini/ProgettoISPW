@@ -28,7 +28,7 @@ class OrderTest {
     private static final Card TEST_CARD_ORDER = new Card(
             "Dragp Bianco Occhi Blu test",
             100f,
-            Gradazione.PERFETTO,
+            Gradation.PERFETTO,
             "testseller",
             1,
             Attribute.LUCE,
@@ -67,13 +67,13 @@ class OrderTest {
         OrderBean orderBean = new OrderBean();
         orderBean.setOrderId(TEST_ORDER.getId());
 
-        TEST_CARD_ORDERBEAN.setNomeCarta(TEST_CARD_ORDER.getNome());
-        TEST_CARD_ORDERBEAN.setPrezzoCorrente(TEST_CARD_ORDER.getPrezzoAttuale());
+        TEST_CARD_ORDERBEAN.setName(TEST_CARD_ORDER.getName());
+        TEST_CARD_ORDERBEAN.setPrice(TEST_CARD_ORDER.getPrice());
 
         orderBean.setCards(List.of(TEST_CARD_ORDERBEAN));
         orderBean.setTotale(TEST_ORDER.getTotale());
         orderBean.setShippingAddress(TEST_ORDER.getIndirizzoSpedizione());
-        orderBean.setNameSurname(TEST_CARD_ORDER.getNome());
+        orderBean.setNameSurname(TEST_CARD_ORDER.getName());
         orderBean.setCityName("Roma");
         orderBean.setPaymentCard("1111 1111 1111 1111");
         orderBean.setCvv("123");

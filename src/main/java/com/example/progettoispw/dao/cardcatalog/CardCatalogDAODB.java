@@ -65,7 +65,7 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, card.getNome());
+            stmt.setString(1, card.getName());
             stmt.setString(2, sellerName);
 
             int deleted = stmt.executeUpdate();
@@ -91,13 +91,13 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
 
         try (PreparedStatement stmt =  conn.prepareStatement(query)) {
 
-            stmt.setString(1, card.getNome());
+            stmt.setString(1, card.getName());
             stmt.setString(2, sellerName);
-            stmt.setFloat(3, card.getPrezzoAttuale());
-            stmt.setInt(4, card.getLivello());
-            stmt.setString(5, card.getGradazione().name());
-            stmt.setString(6, card.getAttributo().name());
-            stmt.setString(7, card.getTipo().name());
+            stmt.setFloat(3, card.getPrice());
+            stmt.setInt(4, card.getLevel());
+            stmt.setString(5, card.getGradation().name());
+            stmt.setString(6, card.getAttribute().name());
+            stmt.setString(7, card.getType().name());
 
             stmt.executeUpdate();
 
@@ -233,11 +233,11 @@ public class CardCatalogDAODB extends CardCatalogDAODemo implements CardCatalogD
         String attributo = rs.getString("attributo");
         String sellerName = rs.getString("venditore_username");
 
-        Gradazione gradazioneEnum = Gradazione.valueOf(gradazione);
+        Gradation gradationEnum = Gradation.valueOf(gradazione);
         Type tipoEnum = Type.valueOf(tipo);
         Attribute attributoEnum = Attribute.valueOf(attributo);
 
-        return new Card(nomeCarta, prezzo, gradazioneEnum, sellerName, livello, attributoEnum, tipoEnum);
+        return new Card(nomeCarta, prezzo, gradationEnum, sellerName, livello, attributoEnum, tipoEnum);
     }
 
 

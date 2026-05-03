@@ -8,7 +8,7 @@ import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.exception.InvalidInputMessages;
 import com.example.progettoispw.exception.OperationFailedException;
-import com.example.progettoispw.model.Gradazione;
+import com.example.progettoispw.model.Gradation;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.utility.session.SessionManager;
 import javafx.collections.FXCollections;
@@ -30,7 +30,7 @@ public class SellerCatalogGraphicController implements Initializable {
     @FXML private TableView<CollectableCardBean> tableCatalog;
     @FXML private TableColumn<CollectableCardBean, String> colName;
     @FXML private TableColumn<CollectableCardBean, Float> colPrice;
-    @FXML private TableColumn<CollectableCardBean, Gradazione> colGrade;
+    @FXML private TableColumn<CollectableCardBean, Gradation> colGrade;
     @FXML private TableColumn<CollectableCardBean, String> colType;
     @FXML private TableColumn<CollectableCardBean, String> colAttribute;
     @FXML private TableColumn<CollectableCardBean, Integer> colLevel;
@@ -109,9 +109,9 @@ public class SellerCatalogGraphicController implements Initializable {
         }
 
         // 2. Apro un Dialog rapido per il nuovo prezzo
-        TextInputDialog dialog = new TextInputDialog(String.valueOf(selected.getPrezzoCorrente()));
+        TextInputDialog dialog = new TextInputDialog(String.valueOf(selected.getPrice()));
         dialog.setTitle("Modifica Prezzo");
-        dialog.setHeaderText("Modifica prezzo per: " + selected.getNomeCarta());
+        dialog.setHeaderText("Modifica prezzo per: " + selected.getName());
         dialog.setContentText("Nuovo Prezzo (€):");
 
         Optional<String> result = dialog.showAndWait();

@@ -1,69 +1,69 @@
 package com.example.progettoispw.bean;
 
 import com.example.progettoispw.model.Attribute;
-import com.example.progettoispw.model.Gradazione;
+import com.example.progettoispw.model.Gradation;
 import com.example.progettoispw.model.Type;
 
 public class CollectableCardBean {
 
-    private String nomeCarta;
-    private float prezzoCorrente;
-    private Gradazione gradazione;
-    private int livello;
-    private Attribute attributo;
-    private Type tipo;
-    private String venditore;
+    private String name;
+    private float price;
+    private Gradation gradation;
+    private int level;
+    private Attribute attribute;
+    private Type type;
+    private String seller;
 
     //costruttore
     public CollectableCardBean() {
 
     }
 
-    public CollectableCardBean(String nomeCarta, float prezzoCorrente) {
-        this.nomeCarta = nomeCarta;
-        this.prezzoCorrente = prezzoCorrente;
+    public CollectableCardBean(String name, float price) {
+        this.name = name;
+        this.price = price;
     }
 
-    public String getNomeCarta() {return nomeCarta;}
-    public void setNomeCarta(String nomeCarta) {
-        if (nomeCarta != null) {
-            this.nomeCarta = nomeCarta;
+    public String getName() {return name;}
+    public void setName(String name) {
+        if (name != null) {
+            this.name = name;
         }
     }
 
 
-    public float getPrezzoCorrente() {return prezzoCorrente;}
-    public void setPrezzoCorrente(float prezzo) {
+    public float getPrice() {return price;}
+    public void setPrice(float prezzo) {
         if(prezzo>0){
-            this.prezzoCorrente=prezzo;
+            this.price =prezzo;
         }
     }
 
-    public Gradazione getGradazione() {return gradazione;}
-    public void setGradazione(Gradazione gradazione) {
-        if(gradazione!=null){
-            this.gradazione=gradazione;
+    public Gradation getGradation() {return gradation;}
+    public void setGradation(Gradation gradation) {
+        if(gradation !=null){
+            this.gradation = gradation;
         }
         }
 
-    public int getLivello() {return livello;}
-    public void setLivello(int livello) {
-        if(livello>0){
-            this.livello=livello;
-        }
-    }
-
-    public Attribute getAttributo() {return attributo;}
-    public void setAttributo(Attribute attributo) {
-        if(attributo!=null){
-            this.attributo=attributo;
+    public int getLevel() {return level;}
+    public void setLevel(int level) {
+        if(level >0){
+            this.level = level;
         }
     }
 
-    public Type getTipo() {return tipo;}
-    public void setTipo(Type tipo) {this.tipo=tipo;}
+    public Attribute getAttribute() {return attribute;}
+    public void setAttribute(Attribute attribute) {
+        if(attribute !=null){
+            this.attribute = attribute;
+        }
+    }
 
-    public String getVenditore() {return venditore;}
-    public void setVenditore(String venditore) {this.venditore=venditore;}
+    public Type getType() {return type;}
+    public void setType(Type type) {this.type = type;}
+
+    public String getSeller() {return seller;}
+    public void setSeller(String seller) {this.seller = seller;}
 
 }

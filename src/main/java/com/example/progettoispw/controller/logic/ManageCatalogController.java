@@ -37,26 +37,26 @@ public class ManageCatalogController {
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
         //primo filtro sulle informazioni essenziali
-        if(!cardBean.getNomeCarta().isBlank() &&
-            cardBean.getPrezzoCorrente()>0.0f){
+        if(!cardBean.getName().isBlank() &&
+            cardBean.getPrice()>0.0f){
 
-            if(dao.findCardBySeller(cardBean.getNomeCarta(), cardBean.getVenditore())){
+            if(dao.findCardBySeller(cardBean.getName(), cardBean.getSeller())){
                 throw new OperationFailedException("Attenzione carta presente in questo catalogo!");
             }
 
-            Gradazione gradazionetemp = Gradazione.fromString(cardBean.getGradazione().toString());
-            Type tipotemp = Type.fromString(cardBean.getTipo().toString());
-            Attribute attributotemp = Attribute.fromString(cardBean.getAttributo().toString());
+            Gradation gradazionetemp = Gradation.fromString(cardBean.getGradation().toString());
+            Type tipotemp = Type.fromString(cardBean.getType().toString());
+            Attribute attributotemp = Attribute.fromString(cardBean.getAttribute().toString());
 
             //ora controllo se i valori inseriti corrispondono con i valori delle ENUM
 
             if(gradazionetemp!=null && tipotemp!=null && attributotemp!=null){
 
                 //i valori inseriti sono corretti quindi istanzio il nuovo oggetto
-                Card newCard = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), seller,cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+                Card newCard = new Card(cardBean.getName(), cardBean.getPrice(), cardBean.getGradation(), seller,cardBean.getLevel(), cardBean.getAttribute(), cardBean.getType());
                 dao.addCard(newCard, seller);
 
-                manageNotificationsController.publishNotification(seller, "Il venditore "+seller+" ha aggiunto una nuova carta: "+cardBean.getNomeCarta());
+                manageNotificationsController.publishNotification(seller, "Il venditore "+seller+" ha aggiunto una nuova carta: "+cardBean.getName());
             }
         } else {
             throw new OperationFailedException("Dati inseriti sbagliati o mancanti");
@@ -70,18 +70,18 @@ public class ManageCatalogController {
 
         CardCatalogDAO dao = DAOFactory.getInstance().getCardCatalogDAO();
 
-        if(!selectedCard.getNomeCarta().isBlank() && newPrice>0.0f){
+        if(!selectedCard.getName().isBlank() && newPrice>0.0f){
 
-            dao.updatePrice(selectedCard.getNomeCarta(), currentUser.getUsername(), newPrice );
+            dao.updatePrice(selectedCard.getName(), currentUser.getUsername(), newPrice );
 
-            manageNotificationsController.publishNotification(currentUser.getUsername(), "Il venditore "+currentUser+" ha aggiornato il prezzo della carta "+selectedCard.getNomeCarta()+" a "+ newPrice);
+            manageNotificationsController.publishNotification(currentUser.getUsername(), "Il venditore "+currentUser+" ha aggiornato il prezzo della carta "+selectedCard.getName()+" a "+ newPrice);
 
         }
     }
 
     public void removeCardFromCatalog(CollectableCardBean selectedCardBean, String seller){
 
-        if(selectedCardBean.getNomeCarta().isBlank()){
+        if(selectedCardBean.getName().isBlank()){
             throw new OperationFailedException("Nome carta da rimuovere mancante");
         }
 

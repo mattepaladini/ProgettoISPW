@@ -18,6 +18,6 @@ public class TypeFilter extends SearchDecorator{
     public List<Card> executeSearch() {
 
         List<Card> list = super.executeSearch();
-        return list.stream().filter(c-> c.getTipo().equals(type)).toList();
+        return list.stream().filter(c-> c.getType().equals(type)).toList();
     }
 }

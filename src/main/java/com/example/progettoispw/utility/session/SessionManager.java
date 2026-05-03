@@ -51,8 +51,8 @@ public class SessionManager {
     }
 
     public void removeCard(Card card) {
-        this.cart.removeIf(c -> c.getNome().equals(card.getNome()) &&
-                c.getVenditore().equals(card.getVenditore()));
+        this.cart.removeIf(c -> c.getName().equals(card.getName()) &&
+                c.getSeller().equals(card.getSeller()));
     }
 
     public List<Card> getShoppingCart(){

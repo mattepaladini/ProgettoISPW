@@ -23,7 +23,7 @@ public class AuthController {
                 throw new OperationFailedException("Username non trovato");
             }
         }else{
-            throw new OperationFailedException("Username o passwors non inseriti");
+            throw new OperationFailedException("Username o password non inseriti");
         }
     }
 

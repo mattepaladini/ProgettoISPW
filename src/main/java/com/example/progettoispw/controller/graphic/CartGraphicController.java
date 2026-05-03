@@ -106,7 +106,7 @@ public class CartGraphicController{
 
         float totale = 0;
         for(CollectableCardBean cardBean : cart) {
-            totale+= cardBean.getPrezzoCorrente();
+            totale+= cardBean.getPrice();
         }
 
         BuyCardsGraphicController checkoutController =  sceneManager.startSceneAndGetController(event, "/GUI/BuyCard.fxml");

@@ -4,7 +4,7 @@ import com.example.progettoispw.bean.CollectableCardBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.exception.BaseException;
 import com.example.progettoispw.model.Attribute;
-import com.example.progettoispw.model.Gradazione;
+import com.example.progettoispw.model.Gradation;
 import com.example.progettoispw.model.Type;
 import com.example.progettoispw.model.User;
 import com.example.progettoispw.utility.session.SessionManager;
@@ -26,7 +26,7 @@ public class AddCardGraphicController implements Initializable {
 
     @FXML private TextField nameField;
     @FXML private TextField priceField;
-    @FXML private ComboBox<Gradazione> gradeComboBox; // Tipizzato con l'Enum
+    @FXML private ComboBox<Gradation> gradeComboBox; // Tipizzato con l'Enum
     @FXML private ComboBox<Attribute> attributeComboBox;
     @FXML private ComboBox<Type> typeComboBox;
     @FXML private TextField levelField;
@@ -36,7 +36,7 @@ public class AddCardGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        gradeComboBox.setItems(FXCollections.observableArrayList(Gradazione.values()));
+        gradeComboBox.setItems(FXCollections.observableArrayList(Gradation.values()));
         attributeComboBox.setItems(FXCollections.observableArrayList(Attribute.values()));
         typeComboBox.setItems(FXCollections.observableArrayList(Type.values()));
 
@@ -55,14 +55,14 @@ public class AddCardGraphicController implements Initializable {
 
             CollectableCardBean newBeanCard = new CollectableCardBean();
 
-            newBeanCard.setNomeCarta(nameField.getText());
+            newBeanCard.setName(nameField.getText());
 
-            newBeanCard.setPrezzoCorrente(Float.parseFloat(priceField.getText()));
-            newBeanCard.setLivello(Integer.parseInt(levelField.getText()));
+            newBeanCard.setPrice(Float.parseFloat(priceField.getText()));
+            newBeanCard.setLevel(Integer.parseInt(levelField.getText()));
 
-            newBeanCard.setGradazione(gradeComboBox.getValue());
-            newBeanCard.setTipo(typeComboBox.getValue());
-            newBeanCard.setAttributo(attributeComboBox.getValue());
+            newBeanCard.setGradation(gradeComboBox.getValue());
+            newBeanCard.setType(typeComboBox.getValue());
+            newBeanCard.setAttribute(attributeComboBox.getValue());
 
             User logeduser =  SessionManager.getInstance().getLoggedUser();
 

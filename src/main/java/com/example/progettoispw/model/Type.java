@@ -12,6 +12,6 @@ public enum Type {
                 return t;
             }
         }
-        throw new IllegalArgumentException("Gradazione non valida: "+value);
+        throw new IllegalArgumentException("Tipo non valido: "+value);
     }
 }

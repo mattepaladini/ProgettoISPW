@@ -41,11 +41,11 @@ public class DAOFactoryFSys extends DAOFactory {
 
     @Override
     public NotificationDAO getNotificationDAO(){
-        return null;
+       throw new UnsupportedOperationException("NotificationDAO non ancora supportato!");
     }
 
     @Override
     public FollowerDAO getFollowerDAO(){
-        return null;
+        throw new UnsupportedOperationException("FollowerDAO non ancora supportato!");
     }
 }

@@ -31,12 +31,12 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
             for(CardCatalog catalog : getAllCatalogs()) {
                 if(catalog.getSeller().getSellerName().equals(sellerName)){
-                    catalog.getCards().removeIf(c -> c.getNome().equals(card.getNome()));
+                    catalog.getCards().removeIf(c -> c.getName().equals(card.getName()));
                     break;
                 }
 
             }
-            log.log(Level.INFO, "Carta {0}",card.getNome() + " rimossa con successo");
+            log.log(Level.INFO, "Carta {0}",card.getName() + " rimossa con successo");
     }
 
     @Override
@@ -69,8 +69,8 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
         for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(username)) {
                 for(Card c : catalog.getCards()){
-                    if(c.getNome().equals(nomeCarta)){
-                        c.setPrezzoAttuale(newPrice);
+                    if(c.getName().equals(nomeCarta)){
+                        c.setPrice(newPrice);
                     }
                 }
             }
@@ -98,7 +98,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
 
         for (CardCatalog catalog : getAllCatalogs()) {
             for(Card c : catalog.getCards()) {
-                if(c.getNome().toLowerCase().contains(nomeCarta.toLowerCase())) {
+                if(c.getName().toLowerCase().contains(nomeCarta.toLowerCase())) {
                     results.add(c);
                     log.log(Level.INFO, "Carta trovata.");
                     break;  //ogni venditore possiede SOLO 1 copia di questa carta
@@ -115,7 +115,7 @@ public class CardCatalogDAODemo implements CardCatalogDAO {
         for(CardCatalog catalog : getAllCatalogs()) {
             if(catalog.getSeller().getSellerName().equals(seller)) {
                 for(Card c : catalog.getCards()) {
-                    if(c.getNome().equalsIgnoreCase(nomeCarta)) {
+                    if(c.getName().equalsIgnoreCase(nomeCarta)) {
                         log.log(Level.INFO, "Carta trovata in un catalogo.");
                         return true;        //ho trovato che il seller possiede già questa carta
                     }

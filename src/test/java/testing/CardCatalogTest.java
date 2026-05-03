@@ -26,7 +26,7 @@ class CardCatalogTest {
     private static final Card TEST_CARD = new Card(
             "Dragp Bianco Occhi Blu test",
             100f,
-            Gradazione.PERFETTO,
+            Gradation.PERFETTO,
             "testseller",
             1,
             Attribute.LUCE,
@@ -53,18 +53,18 @@ class CardCatalogTest {
     void testAddCard() {
 
         CollectableCardBean cardBean = new CollectableCardBean();
-        cardBean.setNomeCarta(TEST_CARD.getNome());
-        cardBean.setPrezzoCorrente(TEST_CARD.getPrezzoAttuale());
-        cardBean.setGradazione(TEST_CARD.getGradazione());
-        cardBean.setTipo(TEST_CARD.getTipo());
-        cardBean.setAttributo(TEST_CARD.getAttributo());
-        cardBean.setLivello(TEST_CARD.getLivello());
-        cardBean.setVenditore(TEST_CARD.getVenditore());
+        cardBean.setName(TEST_CARD.getName());
+        cardBean.setPrice(TEST_CARD.getPrice());
+        cardBean.setGradation(TEST_CARD.getGradation());
+        cardBean.setType(TEST_CARD.getType());
+        cardBean.setAttribute(TEST_CARD.getAttribute());
+        cardBean.setLevel(TEST_CARD.getLevel());
+        cardBean.setSeller(TEST_CARD.getSeller());
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
 
         try {
-            catalogController.addCard(cardBean, TEST_CARD.getVenditore());
+            catalogController.addCard(cardBean, TEST_CARD.getSeller());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
@@ -75,26 +75,26 @@ class CardCatalogTest {
     void testAddCardWithSameName() {
 
         CollectableCardBean cardBean1 = new CollectableCardBean();
-        cardBean1.setNomeCarta(TEST_CARD.getNome());
-        cardBean1.setPrezzoCorrente(TEST_CARD.getPrezzoAttuale());
-        cardBean1.setGradazione(TEST_CARD.getGradazione());
-        cardBean1.setTipo(TEST_CARD.getTipo());
-        cardBean1.setAttributo(TEST_CARD.getAttributo());
-        cardBean1.setLivello(TEST_CARD.getLivello());
-        cardBean1.setVenditore(TEST_CARD.getVenditore());
+        cardBean1.setName(TEST_CARD.getName());
+        cardBean1.setPrice(TEST_CARD.getPrice());
+        cardBean1.setGradation(TEST_CARD.getGradation());
+        cardBean1.setType(TEST_CARD.getType());
+        cardBean1.setAttribute(TEST_CARD.getAttribute());
+        cardBean1.setLevel(TEST_CARD.getLevel());
+        cardBean1.setSeller(TEST_CARD.getSeller());
 
         CollectableCardBean cardBean2 = new CollectableCardBean();
-        cardBean2.setNomeCarta(TEST_CARD.getNome());
-        cardBean2.setPrezzoCorrente(TEST_CARD.getPrezzoAttuale());
-        cardBean2.setGradazione(TEST_CARD.getGradazione());
-        cardBean2.setTipo(TEST_CARD.getTipo());
-        cardBean2.setAttributo(TEST_CARD.getAttributo());
-        cardBean2.setLivello(TEST_CARD.getLivello());
-        cardBean2.setVenditore(TEST_CARD.getVenditore());
+        cardBean2.setName(TEST_CARD.getName());
+        cardBean2.setPrice(TEST_CARD.getPrice());
+        cardBean2.setGradation(TEST_CARD.getGradation());
+        cardBean2.setType(TEST_CARD.getType());
+        cardBean2.setAttribute(TEST_CARD.getAttribute());
+        cardBean2.setLevel(TEST_CARD.getLevel());
+        cardBean2.setSeller(TEST_CARD.getSeller());
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
 
-        String seller = TEST_CARD.getVenditore();
+        String seller = TEST_CARD.getSeller();
         try {
             catalogController.addCard(cardBean1, seller);
         }catch (Exception e) {
@@ -108,25 +108,25 @@ class CardCatalogTest {
     @DisplayName("T03 - Remove Card")
     void testRemoveCard(){
         CollectableCardBean cardBean = new CollectableCardBean();
-        cardBean.setNomeCarta(TEST_CARD.getNome());
-        cardBean.setPrezzoCorrente(TEST_CARD.getPrezzoAttuale());
-        cardBean.setGradazione(TEST_CARD.getGradazione());
-        cardBean.setTipo(TEST_CARD.getTipo());
-        cardBean.setAttributo(TEST_CARD.getAttributo());
-        cardBean.setLivello(TEST_CARD.getLivello());
-        cardBean.setVenditore(TEST_CARD.getVenditore());
+        cardBean.setName(TEST_CARD.getName());
+        cardBean.setPrice(TEST_CARD.getPrice());
+        cardBean.setGradation(TEST_CARD.getGradation());
+        cardBean.setType(TEST_CARD.getType());
+        cardBean.setAttribute(TEST_CARD.getAttribute());
+        cardBean.setLevel(TEST_CARD.getLevel());
+        cardBean.setSeller(TEST_CARD.getSeller());
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getVenditore());
+        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
 
 
         try {
-            catalogController.addCard(cardBean, TEST_CARD.getVenditore());
+            catalogController.addCard(cardBean, TEST_CARD.getSeller());
         }catch (Exception e) {
             fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
         }
 
         try{
-            catalogController.removeCardFromCatalog(cardBean, TEST_CARD.getVenditore());
+            catalogController.removeCardFromCatalog(cardBean, TEST_CARD.getSeller());
         }catch (Exception e) {
             fail("Il metodo removeCardFromCatalog ha lanciato un'eccezione: "+e.getMessage());
         }
@@ -141,7 +141,7 @@ class CardCatalogTest {
     private void deleteTestCard() {
         try {
             // Chiamata diretta al DAO per fare pulizia fisica (crea il metodo nel DAO se non esiste)
-            DAOFactory.getInstance().getCardCatalogDAO().removeCard(TEST_CARD, TEST_CARD.getVenditore());
+            DAOFactory.getInstance().getCardCatalogDAO().removeCard(TEST_CARD, TEST_CARD.getSeller());
         } catch (Exception e) {
             System.err.println("WARNING: Impossibile eliminare la carta di test: " + e.getMessage());
         }

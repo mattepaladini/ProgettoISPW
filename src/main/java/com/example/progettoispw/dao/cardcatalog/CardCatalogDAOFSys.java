@@ -100,15 +100,15 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                     if(parts.length >= 7 && nome.equalsIgnoreCase(nomeCarta)){       //controllo subito se il nome coincide
                         CollectableCardBean cardBean = new CollectableCardBean();
 
-                        cardBean.setNomeCarta(nome);
-                        cardBean.setPrezzoCorrente(Float.parseFloat(parts[1]));
-                        cardBean.setGradazione(Gradazione.valueOf(parts[2]));
-                        cardBean.setVenditore(parts[3]);
-                        cardBean.setLivello(Integer.parseInt(parts[4]));
-                        cardBean.setAttributo(Attribute.valueOf(parts[5]));
-                        cardBean.setTipo(Type.valueOf(parts[6]));
+                        cardBean.setName(nome);
+                        cardBean.setPrice(Float.parseFloat(parts[1]));
+                        cardBean.setGradation(Gradation.valueOf(parts[2]));
+                        cardBean.setSeller(parts[3]);
+                        cardBean.setLevel(Integer.parseInt(parts[4]));
+                        cardBean.setAttribute(Attribute.valueOf(parts[5]));
+                        cardBean.setType(Type.valueOf(parts[6]));
 
-                        Card card = new Card(cardBean.getNomeCarta(), cardBean.getPrezzoCorrente(), cardBean.getGradazione(), cardBean.getVenditore(), cardBean.getLivello(), cardBean.getAttributo(), cardBean.getTipo());
+                        Card card = new Card(cardBean.getName(), cardBean.getPrice(), cardBean.getGradation(), cardBean.getSeller(), cardBean.getLevel(), cardBean.getAttribute(), cardBean.getType());
 
                         resultCards.add(card);
                     }
@@ -178,7 +178,7 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
 
         Seller owner = new Seller(ownerUsername, null);
         Card card = new Card(
-                nome, prezzo, Gradazione.valueOf(gradStr), ownerUsername,
+                nome, prezzo, Gradation.valueOf(gradStr), ownerUsername,
                 livello, Attribute.valueOf(attrStr), Type.valueOf(typeStr)
         );
 
@@ -211,13 +211,13 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
     // Metodo helper per convertire l'oggetto Card in stringa CSV
     private String convertCardToString(Card card, String owner) {
         StringBuilder sb = new StringBuilder();
-        sb.append(card.getNome()).append(SEPARATOR);
-        sb.append(card.getPrezzoAttuale()).append(SEPARATOR);
-        sb.append(card.getGradazione()).append(SEPARATOR);
+        sb.append(card.getName()).append(SEPARATOR);
+        sb.append(card.getPrice()).append(SEPARATOR);
+        sb.append(card.getGradation()).append(SEPARATOR);
         sb.append(owner).append(SEPARATOR);
-        sb.append(card.getLivello()).append(SEPARATOR);
-        sb.append(card.getAttributo()).append(SEPARATOR);
-        sb.append(card.getTipo()).append(SEPARATOR);
+        sb.append(card.getLevel()).append(SEPARATOR);
+        sb.append(card.getAttribute()).append(SEPARATOR);
+        sb.append(card.getType()).append(SEPARATOR);
 
         return sb.toString();
     }
@@ -247,14 +247,14 @@ public class CardCatalogDAOFSys extends CardCatalogDAODemo implements CardCatalo
                 String ownerUsername = catalog.getSeller().getUsername();
 
                 for (Card c : catalog.getCards()) {
-                    // Ricostruiamo la riga col formato esatto: Nome;Prezzo;Gradazione;OWNER;Livello;Attributo;Tipo
-                    String line = c.getNome() + SEPARATOR
-                            + c.getPrezzoAttuale() + SEPARATOR // Questo sarà il prezzo NUOVO aggiornato al passo 2!
-                            + c.getGradazione().name() + SEPARATOR
+                    // Ricostruiamo la riga col formato esatto: Nome;Prezzo;Gradation;OWNER;Livello;Attributo;Tipo
+                    String line = c.getName() + SEPARATOR
+                            + c.getPrice() + SEPARATOR // Questo sarà il prezzo NUOVO aggiornato al passo 2!
+                            + c.getGradation().name() + SEPARATOR
                             + ownerUsername + SEPARATOR
-                            + c.getLivello() + SEPARATOR
-                            + c.getAttributo().name() + SEPARATOR
-                            + c.getTipo().name();
+                            + c.getLevel() + SEPARATOR
+                            + c.getAttribute().name() + SEPARATOR
+                            + c.getType().name();
 
                     bw.write(line);
                     bw.newLine();

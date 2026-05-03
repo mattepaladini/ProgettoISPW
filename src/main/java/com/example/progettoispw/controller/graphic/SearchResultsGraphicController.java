@@ -121,7 +121,7 @@ public class SearchResultsGraphicController {
             return;
         }
 
-        String sellerUsername = cardSelezionata.getVenditore();
+        String sellerUsername = cardSelezionata.getSeller();
 
         try {
             boolean isFollowed = notificationsController.followSeller(loggedUser.getUsername(), sellerUsername);
@@ -149,7 +149,7 @@ public class SearchResultsGraphicController {
         String currentUser = loggedUser.getUsername();
 
         // Guard Clause: l'utente è il venditore stesso
-        if (currentUser.equals(item.getVenditore())) {
+        if (currentUser.equals(item.getSeller())) {
             btnSegui.setVisible(false);
             btnSegui.setManaged(false); // Nasconde lo spazio vuoto
             return;
@@ -159,7 +159,7 @@ public class SearchResultsGraphicController {
         btnSegui.setVisible(true);
         btnSegui.setManaged(true);
 
-        boolean isAlreadyFollowing = notificationsController.checkFollowStatus(currentUser, item.getVenditore());
+        boolean isAlreadyFollowing = notificationsController.checkFollowStatus(currentUser, item.getSeller());
 
         if (isAlreadyFollowing) {
             btnSegui.setText("✔ Segui già");
@@ -207,7 +207,7 @@ public class SearchResultsGraphicController {
                     ErrorHandler.show(new InvalidInputException("Impossibile aggiungere la carta"));
                 }
 
-                ToastManager.showToast(stage, "✅ '" + selectedCard.getNomeCarta() + "' aggiunta al carrello!");
+                ToastManager.showToast(stage, "✅ '" + selectedCard.getName() + "' aggiunta al carrello!");
 
                 resultsTable.getSelectionModel().clearSelection();
 

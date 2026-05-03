@@ -164,7 +164,7 @@ public class UserDAOFSys extends UserDAODemo implements UserDAO {
                 sb.append(user.getPassword()).append(SEPARATOR);
 
                 // Gestione Ruolo
-                if (users instanceof Seller) sb.append(SELLER);
+                if (user instanceof Seller) sb.append(SELLER);
                 else sb.append("BUYER");
 
                 bw.write(sb.toString());

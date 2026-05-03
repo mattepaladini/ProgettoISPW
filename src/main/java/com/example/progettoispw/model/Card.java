@@ -7,62 +7,62 @@ public class Card implements  Serializable {
     //scelta di progetto ---> ogni carta viene identificata in un catalogo con il suo nome in quanto si assume che
     //                        un venditore non possa avere in vendita altre carte con quel nome
 
-    private String nome;
-    private Float prezzoAttuale;
-    private Gradazione gradazione;
-    private String venditore;
-    private int livello;
-    private Attribute attributo;
-    private Type tipo;
+    private String name;
+    private Float price;
+    private Gradation gradation;
+    private String seller;
+    private int level;
+    private Attribute attribute;
+    private Type type;
 
-    public Card(String nome, Float prezzoAttuale, Gradazione gradazione, String venditore, int livello, Attribute attributo, Type tipo) {
-        this.nome = nome;
-        this.prezzoAttuale = prezzoAttuale;
-        this.gradazione = gradazione;
-        this.venditore = venditore;
-        this.livello = livello;
-        this.attributo = attributo;
-        this.tipo = tipo;
+    public Card(String name, Float price, Gradation gradation, String seller, int level, Attribute attribute, Type type) {
+        this.name = name;
+        this.price = price;
+        this.gradation = gradation;
+        this.seller = seller;
+        this.level = level;
+        this.attribute = attribute;
+        this.type = type;
     }
 
 
-    public Card(String nome, Float prezzo){
-        this.nome = nome;
-        this.prezzoAttuale = prezzo;
+    public Card(String name, Float prezzo){
+        this.name = name;
+        this.price = prezzo;
     }
 
     //costruttore usato per memorizzare nel file "orders.txt" le informazioni delle carte ordinate
-    public Card(String nome, String venditore){
-        this.nome = nome;
-        this.venditore = venditore;
+    public Card(String name, String seller){
+        this.name = name;
+        this.seller = seller;
     }
 
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public Float getPrezzoAttuale(){
-        return this.prezzoAttuale;
+    public Float getPrice(){
+        return this.price;
     }
 
-    public void setPrezzoAttuale(Float prezzoAttuale){
-        this.prezzoAttuale = prezzoAttuale;
+    public void setPrice(Float price){
+        this.price = price;
     }
 
-    public Gradazione getGradazione(){
-        return this.gradazione;
+    public Gradation getGradation(){
+        return this.gradation;
     }
 
-    public String getVenditore(){
-        return this.venditore;
+    public String getSeller(){
+        return this.seller;
     }
 
 
-    public int getLivello(){return this.livello;}
+    public int getLevel(){return this.level;}
 
-    public Attribute getAttributo(){return this.attributo;}
+    public Attribute getAttribute(){return this.attribute;}
 
-    public Type getTipo(){return this.tipo;}
+    public Type getType(){return this.type;}
 
 }
