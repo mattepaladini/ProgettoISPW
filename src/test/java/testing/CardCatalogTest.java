@@ -85,9 +85,10 @@ class CardCatalogTest extends BaseTest {
                 "The first adding should not throw an exception"
         );
 
+        CollectableCardBean duplicateBean = buildTestCardBean();
         assertThrows(
                 OperationFailedException.class,
-                ()-> catalogController.addCard(buildTestCardBean(), TEST_SELLER),
+                ()-> catalogController.addCard(duplicateBean, TEST_SELLER),
                 "The second adding must throw OperationFailedException"
         );
     }

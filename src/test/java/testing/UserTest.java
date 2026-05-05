@@ -138,7 +138,7 @@ class UserTest extends BaseTest {
 
         UserBean loginUser = new UserBean(TESTUSERNAME, TESTPASSWORD);
         loginUser.setUsertype(UserType.BUYER);
-        registrationController.completeRegistration(loginUser);
+        assertDoesNotThrow(() -> registrationController.completeRegistration(loginUser));
 
         SessionManager.getInstance().logout();
 
