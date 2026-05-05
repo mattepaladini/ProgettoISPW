@@ -180,9 +180,11 @@ class UserTest extends BaseTest {
     @Test
     @DisplayName("T07 - Login with non-existent username: must throw OperationFailedException")
     void testLoginNonExistentUsername() {
+
+        UserBean nonExistentUser =new UserBean("aaaa", TESTPASSWORD);
         assertThrows(
                 OperationFailedException.class,
-                ()-> loginController.checkUserExist(new UserBean("aaaa", TESTPASSWORD)),
+                ()-> loginController.checkUserExist(nonExistentUser),
                 "Non existent username must throw OperationFailedException"
         );
         assertNull(SessionManager.getInstance().getLoggedUser());
