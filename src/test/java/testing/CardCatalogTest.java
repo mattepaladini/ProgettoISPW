@@ -32,7 +32,6 @@ class CardCatalogTest extends BaseTest {
             Attribute.LUCE,
             Type.MOSTRO
     );
-    private static final String PERSISTENCE_MODE = "DEMO"; //
     private static final String TEST_BUYER = "testbuyer";
     private static final String TEST_SELLER = "testseller";
 

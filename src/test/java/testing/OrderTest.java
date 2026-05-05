@@ -36,7 +36,7 @@ class OrderTest extends BaseTest{
             Attribute.LUCE,
             Type.MOSTRO
     );
-    private static final CollectableCardBean TEST_CARD_ORDERBEAN = new CollectableCardBean();
+
     private static final Order TEST_ORDER = new Order(
             0001,
             List.of(TEST_CARD_ORDER),

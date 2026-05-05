@@ -34,7 +34,7 @@ class UserTest extends BaseTest {
 
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
 
 
         loginController = new AuthController();
@@ -63,7 +63,6 @@ class UserTest extends BaseTest {
     @DisplayName("T01 - Buyer Registration: valid user must be saved successfully")
     void testRegistrationBuyer() {
 
-        // 1. Registriamo un utente fittizio per avere i dati nel DB
         UserBean signupBean = new UserBean(TESTUSERNAME, TESTPASSWORD);
         signupBean.setUsertype(UserType.BUYER);
 
@@ -76,23 +75,6 @@ class UserTest extends BaseTest {
         assertNotNull(saved, "L'utente registrato deve essere recuperabile dal DAO");
         assertEquals(TESTUSERNAME, saved.getUsername());
 
-        /*
-        // Assicuriamoci che la sessione sia pulita prima di tentare il login
-        assertNull(SessionManager.getInstance().getLoggedUser(), "La sessione deve essere vuota prima del login");
-
-        UserBean loggedUser = new UserBean(signupBean.getUsername(), signupBean.getPassword());
-        try {
-            loginController.checkUserExist(loggedUser);
-        } catch (Exception e) {
-            fail("Il login non doveva fallire: " + e.getMessage());
-        }
-
-        // 4. Verifiche
-        assertNotNull(loggedUser, "Il metodo login deve restituire l'oggetto User");
-        assertEquals(TESTUSERNAME, loggedUser.getUsername(), "L'email restituita deve combaciare con quella inserita");
-        assertEquals(TESTUSERNAME, SessionManager.getInstance().getLoggedUser().getUsername());
-
-         */
     }
 
     @Test
@@ -101,17 +83,6 @@ class UserTest extends BaseTest {
 
         UserBean signupBean = new UserBean(TESTUSERNAME, TESTPASSWORD);
         signupBean.setUsertype(UserType.SELLER);
-
-        UserBean loginUser = new UserBean(TESTUSERNAME,"PasswordSbagliata99");
-
-        /*
-        // 3. Verifichiamo che venga lanciata la tua eccezione custom (sostituisci UserNotFoundException)
-        assertThrows(OperationFailedException.class, () -> {
-            loginController.checkUserExist(loginUser);
-        }, "Doveva essere lanciata un'eccezione per password errata");
-
-        assertNull(SessionManager.getInstance().getLoggedUser(), "Nessun utente deve risultare loggato in sessione");
-         */
 
         assertDoesNotThrow(
                 ()-> registrationController.completeRegistration(signupBean),
@@ -170,11 +141,6 @@ class UserTest extends BaseTest {
         registrationController.completeRegistration(loginUser);
 
         SessionManager.getInstance().logout();
-        /*
-        assertThrows(OperationFailedException.class, () -> {
-            loginController.checkUserExist(loginUser);
-        }, "Doveva essere lanciata un'eccezione");
-         */
 
         assertNull(SessionManager.getInstance().getLoggedUser(),
                 "The session must be empty before login");
