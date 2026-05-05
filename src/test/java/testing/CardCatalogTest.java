@@ -1,30 +1,30 @@
 package testing;
 
 import com.example.progettoispw.bean.CollectableCardBean;
+import com.example.progettoispw.bean.UserBean;
 import com.example.progettoispw.controller.logic.ManageCatalogController;
 import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.exception.OperationFailedException;
 import com.example.progettoispw.model.*;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
-import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDB;
-import com.example.progettoispw.pattern.abstractfactory.DAOFactoryDemo;
-import com.example.progettoispw.pattern.abstractfactory.DAOFactoryFSys;
+import com.example.progettoispw.utility.session.SessionManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CardCatalogTest {
+class CardCatalogTest extends BaseTest {
 
     private ManageCatalogController catalogController;
     private ManageNotificationsController notificationsController;
+    private static final String TEST_CARD_NAME = "Drago Bianco Occhi Blu test";
+
     private static final Card TEST_CARD = new Card(
-            "Dragp Bianco Occhi Blu test",
+            "Drago Bianco Occhi Blu test",
             100f,
             Gradation.PERFETTO,
             "testseller",
@@ -34,107 +34,154 @@ class CardCatalogTest {
     );
     private static final String PERSISTENCE_MODE = "DEMO"; //
     private static final String TEST_BUYER = "testbuyer";
+    private static final String TEST_SELLER = "testseller";
 
     @BeforeEach
-    void setUp() throws Exception {
-        forceFactoryMode();
-        this.notificationsController = new ManageNotificationsController();
-        catalogController = new ManageCatalogController(notificationsController);
+    void setUp() {
+
         notificationsController = new ManageNotificationsController();
+        catalogController = new ManageCatalogController(notificationsController);
+        notificationsController.followSeller(TEST_BUYER, TEST_SELLER);
+        SessionManager.getInstance().setLoggedUser(new Seller(TEST_SELLER, "psw"));
         deleteTestCard();
     }
 
     @AfterEach
     void tearDown(){
         deleteTestCard();
+        SessionManager.getInstance().logout();
     }
 
+
+    // ==========================================
+    // ADD CARD
+    // ==========================================
     @Test
-    @DisplayName("T01 - Add Card: Inserimento di una nuova carta nel catalogo")
+    @DisplayName("T01 - Add Card: Inserting a new card into the catalog")
     void testAddCard() {
 
-        CollectableCardBean cardBean = new CollectableCardBean();
-        cardBean.setName(TEST_CARD.getName());
-        cardBean.setPrice(TEST_CARD.getPrice());
-        cardBean.setGradation(TEST_CARD.getGradation());
-        cardBean.setType(TEST_CARD.getType());
-        cardBean.setAttribute(TEST_CARD.getAttribute());
-        cardBean.setLevel(TEST_CARD.getLevel());
-        cardBean.setSeller(TEST_CARD.getSeller());
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
+        assertDoesNotThrow(
+                ()-> catalogController.addCard(buildTestCardBean(), TEST_SELLER),
+                "Inserting a new card should not throw an exception"
+        );
 
-        try {
-            catalogController.addCard(cardBean, TEST_CARD.getSeller());
-        }catch (Exception e) {
-            fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
-        }
+        List<CollectableCardBean> cards = catalogController.getSellerCards(
+                new UserBean(TEST_SELLER, null)
+        );
+        assertTrue(
+                cards.stream().anyMatch(c->c.getName().equals(TEST_CARD.getName())),
+                "The new added card must be in the catalog"
+        );
     }
 
     @Test
-    @DisplayName("T02 - Add Card with the same name in a catalog: aggiunta di una carta 'doppione' nello stesso catalogo")
+    @DisplayName("T02 - Add Card with the same name in a catalog: adding a 'duplicate' card in the same catalog")
     void testAddCardWithSameName() {
 
-        CollectableCardBean cardBean1 = new CollectableCardBean();
-        cardBean1.setName(TEST_CARD.getName());
-        cardBean1.setPrice(TEST_CARD.getPrice());
-        cardBean1.setGradation(TEST_CARD.getGradation());
-        cardBean1.setType(TEST_CARD.getType());
-        cardBean1.setAttribute(TEST_CARD.getAttribute());
-        cardBean1.setLevel(TEST_CARD.getLevel());
-        cardBean1.setSeller(TEST_CARD.getSeller());
+        CollectableCardBean cardBean = buildTestCardBean();
 
-        CollectableCardBean cardBean2 = new CollectableCardBean();
-        cardBean2.setName(TEST_CARD.getName());
-        cardBean2.setPrice(TEST_CARD.getPrice());
-        cardBean2.setGradation(TEST_CARD.getGradation());
-        cardBean2.setType(TEST_CARD.getType());
-        cardBean2.setAttribute(TEST_CARD.getAttribute());
-        cardBean2.setLevel(TEST_CARD.getLevel());
-        cardBean2.setSeller(TEST_CARD.getSeller());
+        assertDoesNotThrow(
+                ()-> catalogController.addCard(cardBean, TEST_SELLER),
+                "The first adding should not throw an exception"
+        );
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
-
-        String seller = TEST_CARD.getSeller();
-        try {
-            catalogController.addCard(cardBean1, seller);
-        }catch (Exception e) {
-            fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
-        }
-
-        assertThrows(OperationFailedException.class, () -> catalogController.addCard(cardBean2, seller), "Doveva essere lanciata un'eccezione perché la carta è un doppione esatto!");
+        assertThrows(
+                OperationFailedException.class,
+                ()-> catalogController.addCard(buildTestCardBean(), TEST_SELLER),
+                "The second adding must throw OperationFailedException"
+        );
     }
 
     @Test
-    @DisplayName("T03 - Remove Card")
-    void testRemoveCard(){
+    @DisplayName("T03 - Add card with empty name: must throw OperationFailedException")
+    void testAddCardWithEmptyName() {
+       CollectableCardBean cardBean = buildTestCardBean();
+       cardBean.setName("");
+
+       assertThrows(
+               OperationFailedException.class,
+               ()-> catalogController.addCard(cardBean, TEST_SELLER),
+               "Empty name must throw OperationFailedException"
+       );
+
+    }
+
+    @Test
+    @DisplayName("T04 - Add Card with price zero: must throw OperationFailedException")
+    void testAddCardZeroPrice() {
         CollectableCardBean cardBean = new CollectableCardBean();
-        cardBean.setName(TEST_CARD.getName());
-        cardBean.setPrice(TEST_CARD.getPrice());
+        cardBean.setName(TEST_CARD_NAME);
+        cardBean.setPrice(0f);
         cardBean.setGradation(TEST_CARD.getGradation());
         cardBean.setType(TEST_CARD.getType());
         cardBean.setAttribute(TEST_CARD.getAttribute());
         cardBean.setLevel(TEST_CARD.getLevel());
-        cardBean.setSeller(TEST_CARD.getSeller());
+        cardBean.setSeller(TEST_SELLER);
 
-        notificationsController.followSeller(TEST_BUYER, TEST_CARD.getSeller());
-
-
-        try {
-            catalogController.addCard(cardBean, TEST_CARD.getSeller());
-        }catch (Exception e) {
-            fail("L'aggiunta della carta non doveva lanciare eccezioni: " + e.getMessage());
-        }
-
-        try{
-            catalogController.removeCardFromCatalog(cardBean, TEST_CARD.getSeller());
-        }catch (Exception e) {
-            fail("Il metodo removeCardFromCatalog ha lanciato un'eccezione: "+e.getMessage());
-        }
-
+        assertThrows(
+                OperationFailedException.class,
+                () -> catalogController.addCard(cardBean, TEST_SELLER),
+                "Price zero must be throw OperationFailedException"
+        );
     }
 
+    // ==========================================
+    // REMOVE CARD
+    // ==========================================
 
+    @Test
+    @DisplayName("T05 - Remove Card: removing a card from the catalog")
+    void testRemoveCard() {
+        CollectableCardBean cardBean = buildTestCardBean();
+
+        assertDoesNotThrow(
+                () -> catalogController.addCard(cardBean, TEST_SELLER),
+                "The preliminary addition was not supposed to throw exceptions"
+        );
+
+        assertDoesNotThrow(
+                () -> catalogController.removeCardFromCatalog(cardBean, TEST_SELLER),
+                "The removal should not have thrown exceptions"
+        );
+
+        List<CollectableCardBean> cards = catalogController.getSellerCards(
+                new UserBean(TEST_SELLER, null)
+        );
+        assertFalse(
+                cards.stream().anyMatch(c -> c.getName().equals(TEST_CARD_NAME)),
+                "The removed card must no longer be present in the catalog"
+        );
+    }
+
+    // ==========================================
+    // UPDATE PRICE CARD
+    // ==========================================
+
+    @Test
+    @DisplayName("T07 - Update Price: the price card must correctly update")
+    void testUpdatePrice() {
+        CollectableCardBean cardBean = buildTestCardBean();
+        catalogController.addCard(cardBean, TEST_SELLER);
+
+        float newPrice = 250f;
+        assertDoesNotThrow(
+                () -> catalogController.updateCardPrice(cardBean, newPrice),
+                "The price update should not throw an exception"
+        );
+
+        List<CollectableCardBean> cards = catalogController.getSellerCards(
+                new UserBean(TEST_SELLER, null)
+        );
+        CollectableCardBean updated = cards.stream()
+                .filter(c -> c.getName().equals(TEST_CARD_NAME))
+                .findFirst()
+                .orElse(null);
+
+        assertNotNull(updated, "The card must still be present after the update");
+        assertEquals(newPrice, updated.getPrice(), 0.01f,
+                "The price must match the new value set");
+    }
 
     //*****************************//
     // HELPER //
@@ -148,14 +195,16 @@ class CardCatalogTest {
         }
     }
 
-    private void forceFactoryMode() throws Exception {
-        Field instanceField = DAOFactory.class.getDeclaredField("instance");
-        instanceField.setAccessible(true);
-        instanceField.set(null, switch (PERSISTENCE_MODE.toUpperCase()) {
-            case "DB" -> new DAOFactoryDB();
-            case "FSYS" -> new DAOFactoryFSys();
-            case "DEMO" -> new DAOFactoryDemo();
-            default -> new DAOFactoryDemo();
-        });
+    private CollectableCardBean buildTestCardBean(){
+        CollectableCardBean bean = new CollectableCardBean();
+        bean.setName(TEST_CARD.getName());
+        bean.setPrice(TEST_CARD.getPrice());
+        bean.setGradation(TEST_CARD.getGradation());
+        bean.setType(TEST_CARD.getType());
+        bean.setAttribute(TEST_CARD.getAttribute());
+        bean.setLevel(TEST_CARD.getLevel());
+        bean.setSeller(TEST_SELLER);
+        return bean;
     }
+
 }

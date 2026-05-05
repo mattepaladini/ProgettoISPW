@@ -35,7 +35,7 @@ public class CollectableCardBean {
 
     public float getPrice() {return price;}
     public void setPrice(float prezzo) {
-        if(prezzo<=0){
+        if(prezzo<0){
             throw new IllegalArgumentException("prezzo non valido");
         }
         this.price =prezzo;
