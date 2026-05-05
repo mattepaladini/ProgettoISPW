@@ -164,9 +164,11 @@ class UserTest extends BaseTest {
         registrationController.completeRegistration(loginUser);
         SessionManager.getInstance().logout();
 
+        UserBean wrongPswUser = new UserBean(TESTUSERNAME, "wrong");
+
         assertThrows(
                 OperationFailedException.class,
-                ()-> loginController.checkUserExist(new UserBean(TESTUSERNAME, "wrong")),
+                ()-> loginController.checkUserExist(wrongPswUser),
                 "Login with wrong psw must throw OperationFailedException"
         );
 
