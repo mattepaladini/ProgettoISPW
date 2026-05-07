@@ -3,11 +3,12 @@ package com.example.progettoispw.pattern.observer;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("java:S6548")
 public class NotificationSubject {
 
     private final List<NotificationObserver> observers = new ArrayList<>();
 
-    @SuppressWarnings("java:S6548")
+
     private NotificationSubject() {}
 
     private static class InstanceHolder {
