@@ -5,7 +5,7 @@ import java.util.List;
 
 public class NotificationSubject {
 
-    private static volatile NotificationSubject instance;
+    private static NotificationSubject instance;
     private final List<NotificationObserver> observers = new ArrayList<>();
 
     private NotificationSubject() {}
