@@ -12,7 +12,10 @@ public class NotificationSubject {
 
     public static NotificationSubject getInstance() {
         if (instance == null) {
-            instance = new NotificationSubject();
+            synchronized (NotificationSubject.class) {
+                instance = new NotificationSubject();
+            }
+
         }
         return instance;
     }
