@@ -5,9 +5,9 @@ import java.util.List;
 
 public class NotificationSubject {
 
-    //private static NotificationSubject instance;
     private final List<NotificationObserver> observers = new ArrayList<>();
 
+    @SuppressWarnings("java:S6548")
     private NotificationSubject() {}
 
     private static class InstanceHolder {
