@@ -5,21 +5,17 @@ import java.util.List;
 
 public class NotificationSubject {
 
-    private static NotificationSubject instance;
+    //private static NotificationSubject instance;
     private final List<NotificationObserver> observers = new ArrayList<>();
 
     private NotificationSubject() {}
 
-    public static NotificationSubject getInstance() {
-        if (instance == null) {
-            synchronized (NotificationSubject.class) {
-                if (instance == null) {
-                    instance = new NotificationSubject();
-                }
-            }
+    private static class InstanceHolder {
+        private static final NotificationSubject INSTANCE = new NotificationSubject();
+    }
 
-        }
-        return instance;
+    public static NotificationSubject getInstance() {
+        return InstanceHolder.INSTANCE;
     }
 
     //called by graphic controller
