@@ -3,6 +3,7 @@ package com.example.progettoispw.controller.graphic;
 import com.example.progettoispw.bean.NotificationBean;
 import com.example.progettoispw.controller.logic.ManageNotificationsController;
 import com.example.progettoispw.model.User;
+import com.example.progettoispw.pattern.observer.NotificationSubject;
 import com.example.progettoispw.utility.session.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 public class NotificationsGraphicController implements Initializable {
 
     private static final SceneManager sceneManager = new SceneManager();
+    private final ManageNotificationsController logicController = new ManageNotificationsController();
 
     @FXML
     private ListView<NotificationBean> notificationsList;
@@ -83,7 +85,7 @@ public class NotificationsGraphicController implements Initializable {
     private void loadNotifications() {
         try {
             User currentUser = SessionManager.getInstance().getLoggedUser();
-            ManageNotificationsController logicController = new ManageNotificationsController();
+
 
             // Recuperi la lista di fagioli (beans) dal DB
             List<NotificationBean> notifications = logicController.getUnreadNotifications(currentUser.getUsername());
@@ -104,13 +106,13 @@ public class NotificationsGraphicController implements Initializable {
 
     @FXML
     public void onLogoutClick(ActionEvent event) {
+        NotificationSubject.getInstance().detachAll();
         SessionManager.getInstance().logout();
         sceneManager.startScene(event,"/GUI/Home.fxml");
     }
 
     @FXML
     public void onMarkClick(ActionEvent event) {
-        ManageNotificationsController logicController = new ManageNotificationsController();
         logicController.markAsRead(notificationsList.getSelectionModel().getSelectedIndex());
 
         ToastManager.showToast((Stage) notificationsList.getScene().getWindow(), "Notifica letta");

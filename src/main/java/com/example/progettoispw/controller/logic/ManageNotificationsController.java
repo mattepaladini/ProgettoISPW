@@ -6,13 +6,14 @@ import com.example.progettoispw.dao.notification.NotificationDAO;
 import com.example.progettoispw.exception.InvalidInputException;
 import com.example.progettoispw.model.Notification;
 import com.example.progettoispw.pattern.abstractfactory.DAOFactory;
+import com.example.progettoispw.pattern.observer.NotificationSubject;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ManageNotificationsController {
 
-    // Metodo per recuperare le notifiche dell'utente
+
     public List<NotificationBean> getUnreadNotifications(String username) {
 
         if(username == null || username.isBlank()){
@@ -83,6 +84,8 @@ public class ManageNotificationsController {
         for(String buyer: followers){
             Notification notif = new Notification(buyer, seller, message, data);
             notificationDAO.saveNotification(notif);
+
+            NotificationSubject.getInstance().notifyObservers(message);
         }
     }
 }

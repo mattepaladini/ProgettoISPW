@@ -75,10 +75,10 @@ public class SearchResultsGraphicController {
 
     // 1. ESTRAZIONE: Configurazione generale delle colonne
     private void setupTableColumns() {
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nomeCarta"));
-        colPrezzo.setCellValueFactory(new PropertyValueFactory<>("prezzoCorrente"));
-        colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradazione"));
-        colVenditore.setCellValueFactory(new PropertyValueFactory<>("venditore"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPrezzo.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colGradazione.setCellValueFactory(new PropertyValueFactory<>("gradation"));
+        colVenditore.setCellValueFactory(new PropertyValueFactory<>("seller"));
 
         colSegui.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         colSegui.setCellFactory(param -> createFollowCell());
